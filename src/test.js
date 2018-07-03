@@ -6,14 +6,11 @@ const Test = () => (
   <Query
     query={gql`
       {
-        user(id: "99755417541828608") {
+        me {
           id
           username
-          avatarURL
-          configs {
-            games {
-              id
-            }
+          serverList {
+            name
           }
         }
       }
@@ -25,8 +22,8 @@ const Test = () => (
 
       return (
         <div>
-          <img src={data.user.avatarURL} />
-          {data.user.username}
+          Hello {data.me.username} <br />{" "}
+          {JSON.stringify(data.me.serverList, null, 2)}
         </div>
       );
     }}
