@@ -6,11 +6,11 @@ const client = new ApolloClient({
   request: operation => {
     operation.setContext({
       headers: {
-        authorization: global.token // todo: change to state that persists
+        authorization: global.token, // todo: change to state that persists
         //authorization: "dev"
-      }
+      },
     });
-  }
+  },
 });
 
 export default client;

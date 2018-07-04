@@ -114,7 +114,7 @@ const waveContainer = css`
     opacity: 0.3;
     path {
       animation-name: ${wave4};
-      animation-direction: alternate;
+      animation-direction: alternate-reverse;
       animation-duration: 11000ms;
       animation-timing-function: ease-in-out;
       animation-fill-mode: both;
@@ -136,7 +136,7 @@ const waveContainer = css`
     opacity: 0.3;
     path {
       animation-name: ${wave6};
-      animation-direction: alternate;
+      animation-direction: alternate-reverse;
       animation-duration: 8000ms;
       animation-timing-function: ease-in-out;
       animation-fill-mode: both;
@@ -149,22 +149,10 @@ export class Wave extends Component {
   render() {
     return (
       <div className={waveContainer}>
-        <svg
-          className="wave-1"
-          version="1.1"
-          x="0px"
-          y="0px"
-          viewBox="0 0 1348 64"
-        >
+        <svg className="wave-1" version="1.1" x="0px" y="0px" viewBox="0 0 1348 64">
           <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop
-              offset="0%"
-              style={{ stopColor: "white", stopOpacity: 1 }}
-            />
-            <stop
-              offset="100%"
-              style={{ stopColor: "white", stopOpacity: 1 }}
-            />
+            <stop offset="0%" style={{ stopColor: "white", stopOpacity: 1 }} />
+            <stop offset="100%" style={{ stopColor: "white", stopOpacity: 1 }} />
           </linearGradient>
 
           <path
@@ -174,22 +162,10 @@ export class Wave extends Component {
           <defs />
         </svg>
 
-        <svg
-          className="wave-2"
-          version="1.1"
-          x="0px"
-          y="0px"
-          viewBox="0 0 1350 120"
-        >
+        <svg className="wave-2" version="1.1" x="0px" y="0px" viewBox="0 0 1350 120">
           <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop
-              offset="0%"
-              style={{ stopColor: "white", stopOpacity: 1 }}
-            />
-            <stop
-              offset="100%"
-              style={{ stopColor: "white", stopOpacity: 1 }}
-            />
+            <stop offset="0%" style={{ stopColor: "white", stopOpacity: 1 }} />
+            <stop offset="100%" style={{ stopColor: "white", stopOpacity: 1 }} />
           </linearGradient>
 
           <path
@@ -199,22 +175,10 @@ export class Wave extends Component {
           <defs />
         </svg>
 
-        <svg
-          className="wave-3"
-          version="1.1"
-          x="0px"
-          y="0px"
-          viewBox="0 0 1350 76"
-        >
+        <svg className="wave-3" version="1.1" x="0px" y="0px" viewBox="0 0 1350 76">
           <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop
-              offset="0%"
-              style={{ stopColor: "white", stopOpacity: 1 }}
-            />
-            <stop
-              offset="100%"
-              style={{ stopColor: "white", stopOpacity: 1 }}
-            />
+            <stop offset="0%" style={{ stopColor: "white", stopOpacity: 1 }} />
+            <stop offset="100%" style={{ stopColor: "white", stopOpacity: 1 }} />
           </linearGradient>
 
           <path
@@ -224,22 +188,10 @@ export class Wave extends Component {
           <defs />
         </svg>
 
-        <svg
-          className="wave-4"
-          version="1.1"
-          x="0px"
-          y="0px"
-          viewBox="0 0 1350 67"
-        >
+        <svg className="wave-4" version="1.1" x="0px" y="0px" viewBox="0 0 1350 67">
           <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop
-              offset="0%"
-              style={{ stopColor: "white", stopOpacity: 1 }}
-            />
-            <stop
-              offset="100%"
-              style={{ stopColor: "white", stopOpacity: 1 }}
-            />
+            <stop offset="0%" style={{ stopColor: "white", stopOpacity: 1 }} />
+            <stop offset="100%" style={{ stopColor: "white", stopOpacity: 1 }} />
           </linearGradient>
 
           <path
@@ -249,22 +201,10 @@ export class Wave extends Component {
           <defs />
         </svg>
 
-        <svg
-          className="wave-5"
-          version="1.1"
-          x="0px"
-          y="0px"
-          viewBox="0 0 1350 38"
-        >
+        <svg className="wave-5" version="1.1" x="0px" y="0px" viewBox="0 0 1350 38">
           <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop
-              offset="0%"
-              style={{ stopColor: "white", stopOpacity: 1 }}
-            />
-            <stop
-              offset="100%"
-              style={{ stopColor: "white", stopOpacity: 1 }}
-            />
+            <stop offset="0%" style={{ stopColor: "white", stopOpacity: 1 }} />
+            <stop offset="100%" style={{ stopColor: "white", stopOpacity: 1 }} />
           </linearGradient>
 
           <path
@@ -274,22 +214,10 @@ export class Wave extends Component {
           <defs />
         </svg>
 
-        <svg
-          className="wave-6"
-          version="1.1"
-          x="0px"
-          y="0px"
-          viewBox="0 0 1350 103"
-        >
+        <svg className="wave-6" version="1.1" x="0px" y="0px" viewBox="0 0 1350 103">
           <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop
-              offset="0%"
-              style={{ stopColor: "white", stopOpacity: 1 }}
-            />
-            <stop
-              offset="100%"
-              style={{ stopColor: "white", stopOpacity: 1 }}
-            />
+            <stop offset="0%" style={{ stopColor: "white", stopOpacity: 1 }} />
+            <stop offset="100%" style={{ stopColor: "white", stopOpacity: 1 }} />
           </linearGradient>
 
           <path

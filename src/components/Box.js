@@ -22,7 +22,7 @@ export default class Box extends Component {
   render() {
     let className = classNames(BoxBase, {
       [this.props.className]: !!this.props.className,
-      [BoxCenter]: this.props.center
+      [BoxCenter]: this.props.center,
     });
 
     return <div className={className}>{this.props.children}</div>;
