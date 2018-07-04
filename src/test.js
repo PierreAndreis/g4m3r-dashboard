@@ -10,6 +10,7 @@ const Test = () => (
           id
           username
           serverList {
+            id
             name
             icon
           }
@@ -26,12 +27,20 @@ const Test = () => (
       return (
         <div>
           Hello {data.me.username} <br />{" "}
-          {guilds.map(guild => (
-            <div>
-              <img src={guild.icon} />
-              <h3>{guild.name}</h3>
+          <div>
+            <h3>Servers</h3>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+              {guilds.map(guild => (
+                <div
+                  key={guild.id}
+                  style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}
+                >
+                  <img src={guild.icon} alt={guild.name} width="50" height="50" />
+                  <b>{guild.name}</b>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
       );
     }}

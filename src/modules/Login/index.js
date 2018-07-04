@@ -3,6 +3,7 @@ import { css } from "emotion";
 import { Wave } from "./wave";
 import Box from "../../components/Box";
 import { API_URL, AUTH_URL } from "../../global/constants";
+import Test from "./../../test";
 
 const style = {
   background: css`
@@ -15,7 +16,7 @@ const style = {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-  `
+  `,
 };
 
 const backgroundLogo = css`
@@ -53,7 +54,7 @@ const BoxLogin = css`
 
 class Login extends React.Component {
   state = {
-    auth: "dev"
+    auth: null,
   };
 
   componentDidMount() {
@@ -68,7 +69,7 @@ class Login extends React.Component {
     if (event.origin !== API_URL) return;
     if (event.data.apiToken) {
       this.setState({
-        auth: event.data.apiToken
+        auth: event.data.apiToken,
       });
       global.token = event.data.apiToken;
     }
@@ -93,6 +94,8 @@ class Login extends React.Component {
         <Box center className={BoxLogin}>
           {this.state.auth}
           <button onClick={this.loginWindow}>Login</button>
+
+          {this.state.auth && <Test />}
         </Box>
         <Wave />
       </div>
