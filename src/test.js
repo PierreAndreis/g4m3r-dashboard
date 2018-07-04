@@ -11,6 +11,7 @@ const Test = () => (
           username
           serverList {
             name
+            icon
           }
         }
       }
@@ -20,10 +21,17 @@ const Test = () => (
       if (loading) return <p>Loading...</p>;
       if (error) return <p>Error :(</p>;
 
+      let guilds = data.me.serverList;
+
       return (
         <div>
           Hello {data.me.username} <br />{" "}
-          {JSON.stringify(data.me.serverList, null, 2)}
+          {guilds.map(guild => (
+            <div>
+              <img src={guild.icon} />
+              <h3>{guild.name}</h3>
+            </div>
+          ))}
         </div>
       );
     }}
