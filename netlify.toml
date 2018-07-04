@@ -11,8 +11,6 @@ ID = "g4m3r-dashboard"
 
 # Production context: All deploys from the Production branch set in your site's deploy settings will inherit these settings.
 [context.production]
-  publish = "output/"
-  command = "make publish"
   environment = { REACT_APP_API_URL = "http://178.128.184.210", NODE_ENV = "10.0.0" }
 
 
