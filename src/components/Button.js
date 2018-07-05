@@ -38,12 +38,15 @@ export default class Button extends Component {
   render() {
     const { className, active, big, ...propsToInject } = this.props;
 
-    let mixedClassName = classNames(ButtonBase, {
-      [BoxBig]: big,
-      [BoxHover]: !!this.props.onClick,
-      [BoxActive]: !!active,
-      [this.props.className]: !!this.props.className,
-    });
+    let mixedClassName = classNames(
+      {
+        [BoxBig]: big,
+        [BoxHover]: !!this.props.onClick,
+        [BoxActive]: !!active,
+        [this.props.className]: !!this.props.className,
+      },
+      ButtonBase
+    );
 
     return (
       <button className={mixedClassName} {...propsToInject}>
