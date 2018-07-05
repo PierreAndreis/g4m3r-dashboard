@@ -1,6 +1,7 @@
 import React from "react";
 
 import "./global/normalize.css";
+import "./global/style.css";
 import Login from "./modules/Login";
 import { css } from "emotion";
 

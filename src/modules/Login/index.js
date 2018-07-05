@@ -1,106 +1,95 @@
 import React from "react";
+import { observer, inject } from "mobx-react";
 import { css } from "emotion";
 import { Wave } from "./wave";
 import Box from "../../components/Box";
-import { API_URL, AUTH_URL } from "../../global/constants";
-import Test from "./../../test";
 
-const style = {
-  background: css`
-    background-image: linear-gradient(90deg, #74ebd5 0%, #7aaeff 100%);
+import Login from "./Login";
+import ServerList from "./ServerList";
+import LogoWithEffects from "./LogoWithEffects";
 
-    height: 100%;
-    display: flex;
-    position: relative;
-    z-index: 0;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  `,
-};
+const background = css`
+  background-image: linear-gradient(90deg, #74ebd5 0%, #7aaeff 100%);
 
-const backgroundLogo = css`
-  background-image: url("/images/gamer_logo_bg.png");
-  background-repeat: no-repeat;
-  background-position: center right;
-  background-size: contain;
-
-  position: absolute;
-  right: 0;
-  align-self: center;
-  width: 60%;
-  height: 60%;
-  z-index: -1;
+  height: 100%;
+  display: flex;
+  position: relative;
+  z-index: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
-const Logo = css`
-  background-image: url("/images/logo.png");
-  background-size: 70%;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-color: white;
-  width: 100px;
-  height: 100px;
-  border-radius: 100%;
-  align-self: center;
-  margin-bottom: 20px;
-`;
+// const backgroundLogo = css`
+//   background-image: url("/images/logo.svg");
+//   opacity: 0.3;
+//   ${"" /* mask-image: url("/images/logo.svg") no-repeat 60% 60%; */};
+//   background-repeat: no-repeat;
+//   background-position: center right;
+//   background-size: contain;
+
+//   position: absolute;
+//   right: 0;
+//   align-self: center;
+//   width: 60%;
+//   height: 60%;
+//   z-index: -1;
+// `;
 
 const BoxLogin = css`
-  width: 500px;
-  height: 200px;
+  width: 300px;
   padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
-class Login extends React.Component {
-  state = {
-    auth: null,
-  };
+const waveTop = css`
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  width: 100%;
+  height: 0px;
+  background: white;
+`;
 
-  componentDidMount() {
-    window.addEventListener("message", this.receiveMessage, true);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener("message", this.receiveMessage);
-  }
-
-  receiveMessage = event => {
-    if (event.origin !== API_URL) return;
-    if (event.data.apiToken) {
-      this.setState({
-        auth: event.data.apiToken,
-      });
-      global.token = event.data.apiToken;
-    }
-  };
-
-  loginWindow = e => {
-    e.preventDefault();
-    window.open(
-      AUTH_URL,
-      "discordauth",
-      "menubar=no,width=500,height=720,location=no,resizable=no,scrollbars=yes,status=no"
-    );
-  };
-
+const waveBottom = css`
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 0px;
+  transform: rotate(180deg);
+  background: white;
+`;
+@inject("authentication")
+@observer
+class HomeScreen extends React.Component {
   render() {
+    console.log(this.props.authentication);
     return (
-      <div className={style.background}>
-        <div className={backgroundLogo} />
-
-        <div className={Logo} />
-
+      <div className={background}>
+        <div className={waveTop}>
+          <Wave />
+        </div>
+        <LogoWithEffects />
+        <h2 style={{ color: "white", margin: "10px 0" }}>
+          Welcome to G4M3R{" "}
+          <span role="img" aria-label="emoji hello">
+            👋
+          </span>
+        </h2>
         <Box center className={BoxLogin}>
-          {this.state.auth}
-          <button onClick={this.loginWindow}>Login</button>
-
-          {this.state.auth && <Test />}
+          {!this.props.authentication.isLoggedIn ? <Login /> : <ServerList />}
+          {/* <Login /> */}
         </Box>
-        <Wave />
+        <div className={waveBottom}>
+          <Wave />
+        </div>
       </div>
     );
   }
 }
 
-export default Login;
+export default HomeScreen;

@@ -1,12 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
+
 import { ApolloProvider } from "react-apollo";
 import GraphQL from "./graphql";
 
+import { Provider } from "mobx-react";
+import stores from "./store";
+
+import App from "./App";
+
 ReactDOM.render(
   <ApolloProvider client={GraphQL}>
-    <App />
+    <Provider {...stores}>
+      <App />
+    </Provider>
   </ApolloProvider>,
   document.getElementById("root")
 );

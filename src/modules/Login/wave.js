@@ -60,12 +60,6 @@ to {
 `;
 
 const waveContainer = css`
-  position: absolute;
-  top: calc(100% - 80px);
-  left: 0;
-  width: 100%;
-  height: 80px;
-  transform: rotate(180deg);
   -webkit-transition: all 2s ease;
   -o-transition: all 2s ease;
   transition: all 2s ease;

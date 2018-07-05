@@ -7,7 +7,8 @@ const BoxBase = css`
   ${"" /* border-radius: 15px; */};
   width: 350px;
   ${"" /* box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 30px; */};
-  box-shadow: 0 4px 9px -3px rgba(102, 136, 153, 0.15);
+  ${"" /* box-shadow: 0 4px 9px -3px rgba(102, 136, 153, 0.15); */};
+  box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.1);
   border-radius: 3px;
   box-sizing: border-box;
 `;

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="858px" height="649px" viewBox="0 0 858 649" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <linearGradient x1="50%" y1="101.193237%" x2="50%" y2="0%" id="linearGradient-1">
+            <stop stop-color="#7AAEFF" offset="0%"></stop>
+            <stop stop-color="#74E1EB" offset="100%"></stop>
+        </linearGradient>
+        <path d="M215.648578,619.12213 L157.781697,647.71609 C152.830348,650.162717 146.833103,648.132238 144.386476,643.180889 C143.593345,641.575794 143.245678,639.787202 143.379777,638.001872 L146.554903,595.729802 C107.766875,574.339855 76.5480608,540.911679 57.9349925,500.481806 L36,500.481806 C16.117749,500.481806 2.4348735e-15,484.364057 0,464.481806 L0,396.252374 C-2.4348735e-15,376.370123 16.117749,360.252374 36,360.252374 L45.9449817,360.252374 C69.5325877,271.442806 150.481223,206 246.714845,206 L610.285155,206 C706.518777,206 787.467412,271.442806 811.055018,360.252374 L822,360.252374 C841.882251,360.252374 858,376.370123 858,396.252374 L858,464.481806 C858,484.364057 841.882251,500.481806 822,500.481806 L799.065008,500.481806 C766.198919,571.870991 694.029564,621.42969 610.285155,621.42969 L246.714845,621.42969 C236.156925,621.42969 225.782983,620.641982 215.648584,619.122131 Z" id="path-2"></path>
+        <filter x="-0.8%" y="-1.6%" width="101.6%" height="103.2%" filterUnits="objectBoundingBox" id="filter-3">
+            <feGaussianBlur stdDeviation="6.5" in="SourceAlpha" result="shadowBlurInner1"></feGaussianBlur>
+            <feOffset dx="0" dy="1" in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 1   0 0 0 0 1   0 0 0 0 1  0 0 0 0.372282609 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-41">
+            <g id="Combined-Shape">
+                <use fill="url(#linearGradient-1)" fill-rule="evenodd" xlink:href="#path-2"></use>
+                <use fill="black" fill-opacity="1" filter="url(#filter-3)" xlink:href="#path-2"></use>
+            </g>
+            <path d="M514.883721,584 L514.883721,565.99064 C514.883721,550.970292 502.707323,538.793893 487.686974,538.793893 L376.173491,538.793893 C361.153143,538.793893 348.976744,550.970292 348.976744,565.99064 L348.976744,584 L287.5,584 C196.649159,584 123,510.350841 123,419.5 C123,328.649159 196.649159,255 287.5,255 L573.5,255 C664.350841,255 738,328.649159 738,419.5 C738,510.350841 664.350841,584 573.5,584 L514.883721,584 Z" id="Combined-Shape" fill="#FFFFFF"></path>
+            <path d="M468,180 C468,160.117749 451.882251,144 432,144 C412.117749,144 396,160.117749 396,180" id="Oval-6" fill="url(#linearGradient-1)"></path>
+            <path d="M442.2,86.9942995 L442.2,127.9625 C442.2,133.506058 437.706058,138 432.1625,138 L428.0375,138 C422.493942,138 418,133.506058 418,127.9625 L418,87.6298054 C399.022501,82.6880388 385,65.2588582 385,44.516129 C385,19.9305498 404.699471,0 429,0 C453.300529,0 473,19.9305498 473,44.516129 C473,64.448857 460.051271,81.321771 442.2,86.9942995 Z" id="Combined-Shape" fill="url(#linearGradient-1)"></path>
+            <path d="M304,396 L338,396 C344.627417,396 350,401.372583 350,408 L350,424 C350,430.627417 344.627417,436 338,436 L304,436 L304,470 C304,476.627417 298.627417,482 292,482 L276,482 C269.372583,482 264,476.627417 264,470 L264,436 L229,436 C222.372583,436 217,430.627417 217,424 L217,408 C217,401.372583 222.372583,396 229,396 L264,396 L264,361 C264,354.372583 269.372583,349 276,349 L292,349 C298.627417,349 304,354.372583 304,361 L304,396 Z" id="Combined-Shape" fill="url(#linearGradient-1)"></path>
+            <circle id="Oval-14" fill="url(#linearGradient-1)" cx="585.5" cy="373.5" r="24.5"></circle>
+            <circle id="Oval-14" fill="url(#linearGradient-1)" cx="536.5" cy="415.5" r="24.5"></circle>
+            <circle id="Oval-14" fill="url(#linearGradient-1)" cx="634.5" cy="415.5" r="24.5"></circle>
+            <circle id="Oval-14" fill="url(#linearGradient-1)" cx="585.5" cy="457.5" r="24.5"></circle>
+        </g>
+    </g>
+</svg>
