@@ -2,6 +2,13 @@ import React from "react";
 import { observer, inject } from "mobx-react";
 import Button from "../../components/Button";
 import { API_URL, AUTH_URL } from "../../global/constants";
+import { css } from "emotion";
+
+const button = css`
+  background-color: white;
+  color: rgba(0, 0, 0, 0.4);
+  border-color: transparent;
+`
 
 @inject("authentication")
 class Login extends React.Component {
@@ -32,11 +39,9 @@ class Login extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <p>To access our dashboard, please login</p>
-        <Button onClick={this.loginWindow} big>
+        <Button className={button} onClick={this.loginWindow} big>
           Login with Discord
         </Button>
-        <br />
       </React.Fragment>
     );
   }

@@ -80,10 +80,7 @@ class HomeScreen extends React.Component {
             👋
           </span>
         </h2>
-        <Box center className={BoxLogin}>
-          {!this.props.authentication.isLoggedIn ? <Login /> : <ServerList />}
-          {/* <Login /> */}
-        </Box>
+        <div className={BoxLogin}>{!this.props.authentication.isLoggedIn ? <Login /> : <ServerList />}</div>
         <div className={waveBottom}>
           <Wave />
         </div>

@@ -19,6 +19,8 @@ const BoxBig = css`
 `;
 
 const BoxHover = css`
+
+  cursor: pointer;
   &:hover {
     border: 1px solid transparent;
     background-color: #74ebd5;

@@ -16,6 +16,7 @@
     "react-apollo": "^2.1.8",
     "react-dom": "^16.4.1",
     "react-emotion": "^9.2.4",
+    "react-id-swiper": "^1.6.6",
     "react-scripts": "1.1.4"
   },
   "scripts": {

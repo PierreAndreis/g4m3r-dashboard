@@ -31,7 +31,7 @@
   font-family: "DIN Next";
   font-weight: 700;
   font-style: italic;
-  src: url("https://whimsical.co/fonts/DIN700-italic.woff2") format("woff2");
+  src: url("/fonts/DIN700-italic.woff2") format("woff2");
 }
 
 html,

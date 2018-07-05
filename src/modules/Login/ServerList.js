@@ -6,6 +6,7 @@ import AddCircleIcon from "mdi-react/PlusCircleOutlineIcon";
 import LogoutIcon from "mdi-react/LogoutIcon";
 import classNames from "classnames";
 import { inject } from "mobx-react";
+import Swiper from "react-id-swiper";
 
 const meQuery = gql`
   {
@@ -63,6 +64,23 @@ const logoutButton = css`
   }
 `;
 
+const serverSpace = css`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5px;
+  width: 100%;
+  padding: 10px;
+  overflow: visible;
+  & > * {
+    width: 100%;
+    height: 110px;
+  }
+  & .swiper-scrollbar {
+    bottom: 0px;
+  }
+`;
+
 const serverContainer = css`
   flex-shrink: 0;
   flex-grow: 0;
@@ -76,15 +94,14 @@ const serverContainer = css`
   justify-content: center;
   align-items: center;
   transition: all 300ms;
-  margin: 0 5px;
   cursor: pointer;
 
   &:hover {
-    box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 30px 0 rgba(0, 0, 0, 0.1);
   }
 
   border: 1px solid rgba(100, 100, 100, 0.1);
-  background: rgba(100, 100, 100, 0);
+  background: rgba(255, 255, 255, 0);
 
   & > img {
     width: 50px;
@@ -94,7 +111,7 @@ const serverContainer = css`
   & > b {
     font-size: 13px;
     margin-top: auto;
-    color: rgba(100, 100, 100, 0.8);
+    color: rgba(255, 255, 255, 0.8);
   }
 `;
 
@@ -102,14 +119,14 @@ const emptyContainer = css`
   background: transparent;
   border: 2px dashed rgba(100, 100, 100, 0.1);
   & svg {
-    fill: rgba(100, 100, 100, 0.6);
+    fill: rgba(255, 255, 255, 0.6);
   }
 `;
 
 const emptyDescription = css`
   font-size: 13px;
   margin-top: auto;
-  color: rgba(100, 100, 100, 0.8);
+  color: rgba(255, 255, 255, 0.8);
 `;
 
 const Server = ({ image, name, onClick }) => (
@@ -122,6 +139,16 @@ const Server = ({ image, name, onClick }) => (
 @inject("authentication")
 class ServerList extends React.Component {
   render() {
+    const params = {
+      scrollbar: {
+        el: ".swiper-scrollbar",
+        hide: true,
+      },
+      slidesPerView: 3,
+      rebuildOnUpdate: true,
+      spaceBetween: 5,
+    };
+
     return (
       <Query query={meQuery}>
         {({ loading, error, data }) => {
@@ -145,33 +172,28 @@ class ServerList extends React.Component {
 
               <div>
                 <h1>My Servers</h1>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    marginTop: "5px",
-                    overflowY: "scroll",
-                    width: "100%",
-                  }}
-                >
-                  {guilds.map(guild => (
-                    <Server
-                      key={guild.id}
-                      name={guild.name}
-                      image={guild.icon}
-                      onClick={() => alert(`You clicked on ${guild.name}`)}
-                    />
-                  ))}
-
-                  <a href="http://invite.g4m3r.xyz/" target="_blank">
-                    <div className={classNames(serverContainer, emptyContainer)}>
-                      <div>
-                        <AddCircleIcon size="36px" />
+                <div className={serverSpace}>
+                  <Swiper {...params}>
+                    <a href="http://invite.g4m3r.xyz/" target="_blank">
+                      <div className={classNames(serverContainer, emptyContainer)}>
+                        <div>
+                          <AddCircleIcon size="36px" />
+                        </div>
+                        <div className={emptyDescription}>Add Server</div>
                       </div>
-                      <div className={emptyDescription}>Add Server</div>
-                    </div>
-                  </a>
+                    </a>
+
+                    {guilds.map(guild => (
+                      <div key={guild.id}>
+                        <Server
+                          key={guild.id}
+                          name={guild.name}
+                          image={guild.icon}
+                          onClick={() => alert(`You clicked on ${guild.name}`)}
+                        />
+                      </div>
+                    ))}
+                  </Swiper>
                 </div>
               </div>
             </div>
