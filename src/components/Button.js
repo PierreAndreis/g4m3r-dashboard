@@ -19,7 +19,6 @@ const BoxBig = css`
 `;
 
 const BoxHover = css`
-
   cursor: pointer;
   &:hover {
     border: 1px solid transparent;
@@ -40,10 +39,10 @@ export default class Button extends Component {
     const { className, active, big, ...propsToInject } = this.props;
 
     let mixedClassName = classNames(ButtonBase, {
-      [this.props.className]: !!this.props.className,
       [BoxBig]: big,
       [BoxHover]: !!this.props.onClick,
       [BoxActive]: !!active,
+      [this.props.className]: !!this.props.className,
     });
 
     return (

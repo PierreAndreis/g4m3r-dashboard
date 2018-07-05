@@ -4,11 +4,11 @@ import Button from "../../components/Button";
 import { API_URL, AUTH_URL } from "../../global/constants";
 import { css } from "emotion";
 
-const button = css`
+const bColor = css`
   background-color: white;
   color: rgba(0, 0, 0, 0.4);
   border-color: transparent;
-`
+`;
 
 @inject("authentication")
 class Login extends React.Component {
@@ -39,7 +39,7 @@ class Login extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <Button className={button} onClick={this.loginWindow} big>
+        <Button className={bColor} onClick={this.loginWindow} big>
           Login with Discord
         </Button>
       </React.Fragment>
