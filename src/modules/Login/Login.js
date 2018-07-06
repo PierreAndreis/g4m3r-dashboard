@@ -5,7 +5,7 @@ import { API_URL, AUTH_URL } from "../../global/constants";
 import { css } from "emotion";
 
 const bColor = css`
-  background-color: white;
+  background-color: white !important;
   color: rgba(0, 0, 0, 0.4);
   border-color: transparent;
 `;

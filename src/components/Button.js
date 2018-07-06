@@ -3,7 +3,7 @@ import { css } from "emotion";
 import classNames from "classnames";
 
 const ButtonBase = css`
-  background: transparent;
+  background-color: transparent;
   padding: 2px 15px;
   border-radius: 17px;
   border: 1px solid grey;
