@@ -1,11 +1,14 @@
 import React from "react";
-import { css } from "emotion";
+import { Link } from "react-router-dom";
+
+import { inject } from "mobx-react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
+
+import { css } from "emotion";
+import classNames from "classnames";
 import AddCircleIcon from "mdi-react/PlusCircleOutlineIcon";
 import LogoutIcon from "mdi-react/LogoutIcon";
-import classNames from "classnames";
-import { inject } from "mobx-react";
 import Swiper from "react-id-swiper";
 
 const meQuery = gql`
@@ -129,11 +132,13 @@ const emptyDescription = css`
   color: rgba(255, 255, 255, 0.8);
 `;
 
-const Server = ({ image, name, onClick }) => (
-  <div className={serverContainer} onClick={onClick}>
-    <img src={image} alt={name} />
-    <b>{name}</b>
-  </div>
+const Server = ({ image, name, href }) => (
+  <Link to={href}>
+    <div className={serverContainer}>
+      <img src={image} alt={name} />
+      <b>{name}</b>
+    </div>
+  </Link>
 );
 
 @inject("authentication")
@@ -188,11 +193,7 @@ class ServerList extends React.Component {
                     </a>
                     {guilds.map(guild => (
                       <div key={guild.id}>
-                        <Server
-                          name={guild.name}
-                          image={guild.icon}
-                          onClick={() => alert(`You clicked on ${guild.name}`)}
-                        />
+                        <Server name={guild.name} image={guild.icon} href={`/g/${guild.id}`} />
                       </div>
                     ))}
                   </Swiper>

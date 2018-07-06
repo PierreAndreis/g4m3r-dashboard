@@ -10,7 +10,9 @@ class AuthentationStore {
 
   @action
   setToken(token) {
-    localStorage.setItem("auth-token", token);
+    if (token) {
+      localStorage.setItem("auth-token", token);
+    } else localStorage.removeItem("auth-token");
     this.token = token;
   }
 }
@@ -22,6 +24,5 @@ if (tokenStored) {
   console.log("rehydrating token=", tokenStored);
   store.setToken(tokenStored);
 }
-
 
 export default store;
