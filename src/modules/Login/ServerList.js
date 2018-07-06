@@ -142,8 +142,12 @@ class ServerList extends React.Component {
     const params = {
       scrollbar: {
         el: ".swiper-scrollbar",
-        hide: true,
+        hide: false,
       },
+      // navigation: {
+      //   nextEl: '.swiper-button-next',
+      //   prevEl: '.swiper-button-prev'
+      // },
       slidesPerView: 3,
       rebuildOnUpdate: true,
       spaceBetween: 5,
@@ -182,11 +186,9 @@ class ServerList extends React.Component {
                         <div className={emptyDescription}>Add Server</div>
                       </div>
                     </a>
-
                     {guilds.map(guild => (
                       <div key={guild.id}>
                         <Server
-                          key={guild.id}
                           name={guild.name}
                           image={guild.icon}
                           onClick={() => alert(`You clicked on ${guild.name}`)}
