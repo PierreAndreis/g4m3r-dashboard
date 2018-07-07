@@ -1,12 +1,13 @@
 import React from "react";
+import { css } from "emotion";
+import { inject, observer } from "mobx-react";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
 import "./global/normalize.css";
 import "./global/style.css";
-import Login from "./modules/Login";
-import { css } from "emotion";
-import { inject, observer } from "mobx-react";
-import DashboardRouter from "./modules/Dashboard";
+
+import Login from "./pages/Login";
+import DashboardRouter from "./pages/Dashboard";
 
 const Container = css`
   width: 100%;

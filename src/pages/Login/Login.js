@@ -1,5 +1,5 @@
 import React from "react";
-import { observer, inject } from "mobx-react";
+import { inject } from "mobx-react";
 import Button from "../../components/Button";
 import { API_URL, AUTH_URL } from "../../global/constants";
 import { css } from "emotion";

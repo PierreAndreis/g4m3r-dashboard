@@ -1,6 +1,8 @@
 import React from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
+import Layout from "./Layout";
+import Router from "./router";
 
 const guildQuery = gql`
   query guild($guildId: String) {
@@ -29,11 +31,16 @@ const guildQuery = gql`
 export default class DashboardRouter extends React.Component {
   render() {
     return (
-      <Query query={guildQuery} guildId={this.props.match.params.guildId}>
+      <Query query={guildQuery} variables={{ guildId: this.props.match.params.guildId }}>
         {({ loading, error, data }) => {
           if (loading) return <p>Loading...</p>;
           if (error) return <p>Error :(</p>;
-          <div>{data.guild.name}</div>;
+          return (
+            <Layout>
+              <div>{data.guild.name}</div>
+              <Router />
+            </Layout>
+          );
         }}
       </Query>
     );

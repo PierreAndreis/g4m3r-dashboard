@@ -162,7 +162,10 @@ class ServerList extends React.Component {
       <Query query={meQuery}>
         {({ loading, error, data }) => {
           if (loading) return <p>Loading...</p>;
-          if (error) return <p>Error :(</p>;
+          if (error) {
+            this.props.authentication.setToken(null);
+            return null;
+          }
 
           let me = data.me;
           let guilds = me.serverList;
@@ -183,7 +186,7 @@ class ServerList extends React.Component {
                 <h1>My Servers</h1>
                 <div className={serverSpace}>
                   <Swiper {...params}>
-                    <a href="http://invite.g4m3r.xyz/" target="_blank">
+                    <a href="http://invite.g4m3r.xyz/" target="_blank" rel="noopener noreferrer">
                       <div className={classNames(serverContainer, emptyContainer)}>
                         <div>
                           <AddCircleIcon size="36px" />

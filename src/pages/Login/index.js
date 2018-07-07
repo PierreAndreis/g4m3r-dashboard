@@ -2,7 +2,6 @@ import React from "react";
 import { observer, inject } from "mobx-react";
 import { css } from "emotion";
 import { Wave } from "./wave";
-import Box from "../../components/Box";
 
 import Login from "./Login";
 import ServerList from "./ServerList";
@@ -80,7 +79,9 @@ class HomeScreen extends React.Component {
             👋
           </span>
         </h2>
-        <div className={BoxLogin}>{!this.props.authentication.isLoggedIn ? <Login /> : <ServerList />}</div>
+        <div className={BoxLogin}>
+          {!this.props.authentication.isLoggedIn ? <Login /> : <ServerList />}
+        </div>
         <div className={waveBottom}>
           <Wave />
         </div>
