@@ -32,7 +32,8 @@ class Select extends React.Component {
 
     return (
       <Downshift
-        defaultInputValue={value}
+        defaultSelectedItem={value}
+        // defaultInputValue={value}
         onChange={item => typeof onChange === "function" && onChange(item.value)}
         itemToString={item => (item ? item.value : "")}
       >
@@ -52,6 +53,7 @@ class Select extends React.Component {
             {/* <label {...getLabelProps()}>Type a timezone</label> */}
             <Input
               {...getInputProps()}
+              placeholder={value}
               icon={{
                 right: props => (
                   <div onClick={() => toggleMenu()}>
