@@ -28,9 +28,12 @@ const dropdownMenu = css`
 
 class Select extends React.Component {
   render() {
+    const { value, onChange } = this.props;
+
     return (
       <Downshift
-        onChange={selection => console.log(selection)}
+        defaultInputValue={value}
+        onChange={item => typeof onChange === "function" && onChange(item.value)}
         itemToString={item => (item ? item.value : "")}
       >
         {({
@@ -43,6 +46,7 @@ class Select extends React.Component {
           inputValue,
           highlightedIndex,
           selectedItem,
+          setState,
         }) => (
           <div className={wrapper}>
             {/* <label {...getLabelProps()}>Type a timezone</label> */}

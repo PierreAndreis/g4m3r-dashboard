@@ -6,8 +6,10 @@ import Box from "../../../../components/Box";
 import Input from "../../../../components/Input";
 import Select from "../../../../components/Select";
 import gql from "graphql-tag";
-import { Query } from "react-apollo";
+import { Query, Mutation } from "react-apollo";
 import Checkbox from "../../../../components/Checkbox";
+import Stager from "../../../../components/Editor";
+import guildBasic from "../../../../graphql/queries/guild/guildBasic";
 
 const boxesHeader = css`
   display: flex;
@@ -24,16 +26,31 @@ const timezoneQuery = gql`
 
 const cleanUpTimezone = timezones =>
   timezones.map(timezone => {
-    let value = timezone.replace("_", " ");
+    // let value = timezone.replace("_", " ");
 
     return {
       key: timezone,
-      value: value,
+      value: timezone,
     };
   });
 
+const mutationQuery = gql`
+  mutation editGuild($guildId: String!, $input: guildInput!) {
+    set(id: $guildId, input: $input) {
+      name
+      id
+      configs {
+        settings {
+          prefix
+        }
+      }
+    }
+  }
+`;
+
 class GeneralEditor extends Component {
   render() {
+    let guildId = this.props.match.params.guildId;
     return (
       <React.Fragment>
         <section>
@@ -48,41 +65,77 @@ class GeneralEditor extends Component {
           </SubHeader>
         </section>
         <section>
+          {/* <Query query={guildBasic} variables={{ guildId: guildId }}>
+            {({ data, loading, error }) => {
+              if (loading) return "Loading";
+              if (error) return "Error";
+              return (
+                <React.Fragment>
+                  <Mutation mutation={mutationQuery}>
+                    {editGuild => {
+                      console.log(data);
+                      return (
+                        <div>
+                          <button
+                            onClick={() =>
+                              editGuild({
+                                variables: {
+                                  guildId: this.props.match.params.guildId,
+                                  input: {
+                                    prefix: "alexa",
+                                  },
+                                },
+                              })
+                            }
+                          >
+                            {data.guild.configs.settings.prefix}
+                          </button>
+                        </div>
+                      );
+                    }}
+                  </Mutation> */}
+
           <Heading2>Overview</Heading2>
           <div className={boxesHeader}>
-            <Box padding>
-              <Box.Title>Prefix</Box.Title>
-              <Box.Body>
-                <Input placeholder="alexa" />
-              </Box.Body>
-            </Box>
-            <Box padding>
-              <Box.Title>Timezone</Box.Title>
-              <Box.Body>
-                <Query query={timezoneQuery}>
-                  {({ loading, error, data }) => {
-                    if (loading) return "Loading";
-                    if (error) return "Error";
-                    let values = cleanUpTimezone(data.listTimezones);
+            <Stager query={guildBasic} mutation={mutationQuery}>
+              <Box padding>
+                <Box.Title>Prefix</Box.Title>
+                <Box.Body>
+                  <Stager.Input mutate="prefix" query="guild.configs.settings.prefix" />
+                </Box.Body>
+              </Box>
+              <Box padding>
+                <Box.Title>Timezone</Box.Title>
+                <Box.Body>
+                  <Query query={timezoneQuery}>
+                    {({ loading, error, data }) => {
+                      if (loading) return "Loading";
+                      if (error) return "Error";
+                      let values = cleanUpTimezone(data.listTimezones);
 
-                    return <Select values={values} />;
-                  }}
-                </Query>
-              </Box.Body>
-            </Box>
-            <Box padding>
-              <Box.Title>Something?</Box.Title>
-              <Box.Body>
-                <Checkbox>Test</Checkbox>
-              </Box.Body>
-            </Box>
+                      return (
+                        <Stager.Select
+                          values={values}
+                          mutate="timezone"
+                          query="guild.configs.settings.timezone"
+                        />
+                      );
+                    }}
+                  </Query>
+                </Box.Body>
+              </Box>
+              <Box padding>
+                <Box.Title>Something?</Box.Title>
+                <Box.Body>
+                  <Checkbox>Test</Checkbox>
+                </Box.Body>
+              </Box>
+            </Stager>
           </div>
         </section>
       </React.Fragment>
     );
   }
 }
-
-<Select />;
 
 export default GeneralEditor;

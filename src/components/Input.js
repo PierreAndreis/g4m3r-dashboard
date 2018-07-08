@@ -29,13 +29,17 @@ const input = css`
     background: white;
     border-color: #7aaeff;
     ${"" /* border-color: #83e0d7; */};
-    box-shadow: 0 0 0 0.1rem rgba(122, 174, 255, 0.15);
+    box-shadow: 0 0 0 0.2rem rgba(122, 174, 255, 0.15);
   }
 `;
 
 class Input extends Component {
+  onChange = e => {
+    typeof this.props.onChange === "function" && this.props.onChange(e);
+  };
+
   render() {
-    const { className, icon, ...other } = this.props;
+    const { className, icon, onChange, value, ...other } = this.props;
 
     let icons = [];
 
@@ -50,7 +54,12 @@ class Input extends Component {
 
     return (
       <div className={inputWrapper}>
-        <input className={input} {...other} />
+        <input
+          className={input}
+          value={value || ""}
+          onChange={this.onChange}
+          {...other}
+        />
         {icons}
       </div>
     );

@@ -4,6 +4,7 @@ import AppleKeyboardCommandIcon from "mdi-react/AppleKeyboardCommandIcon";
 import { StarIcon, FlashIcon } from "mdi-react";
 import { Route, Switch } from "react-router-dom";
 import General from "./modules/General";
+import Commands from "./modules/Commands";
 
 const Test = () => <div>test</div>;
 const Test2 = () => <div>test2</div>;
@@ -20,7 +21,7 @@ export const router = [
     name: "Commands",
     path: "commands",
     icon: AppleKeyboardCommandIcon,
-    component: Test2,
+    component: Commands,
   },
   {
     name: "Special Features",

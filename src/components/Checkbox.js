@@ -53,21 +53,41 @@ const inputWrapper = css`
 `;
 
 class Checkbox extends Component {
-  // just for tests... components here should be stateless
   state = {
     checked: false,
   };
 
+  static getDerivedStateFromProps(props, state) {
+    if (props.value) {
+      return {
+        checekd: props.value,
+      };
+    }
+    return null;
+  }
+
+  componentDidUpdate(prevState) {
+    if (prevState.checked !== this.state.checked) {
+      typeof this.props.onChange === "function" &&
+        this.props.onChange(this.state.checked);
+    }
+  }
+
+  onChange = toggle => {
+    let value = !this.state.checked;
+
+    this.setState(state => ({
+      checked: !state.checked,
+    }));
+  };
+
   render() {
-    const { className, children, ...other } = this.props;
+    const { className, onChange, value, children, ...other } = this.props;
 
     return (
-      <div
-        className={inputWrapper}
-        onClick={() => this.setState({ checked: !this.state.checked })}
-      >
-        <input type="checkbox" checked={this.state.checked} />
-        <label for="switch">{children}</label>
+      <div className={inputWrapper} onClick={this.onChange}>
+        <input type="checkbox" checked={this.state.checked} {...other} />
+        <label htmlFor="switch">{children}</label>
       </div>
     );
   }
