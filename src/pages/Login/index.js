@@ -19,24 +19,10 @@ const background = css`
   justify-content: center;
 `;
 
-// const backgroundLogo = css`
-//   background-image: url("/images/logo.svg");
-//   opacity: 0.3;
-//   ${"" /* mask-image: url("/images/logo.svg") no-repeat 60% 60%; */};
-//   background-repeat: no-repeat;
-//   background-position: center right;
-//   background-size: contain;
-
-//   position: absolute;
-//   right: 0;
-//   align-self: center;
-//   width: 60%;
-//   height: 60%;
-//   z-index: -1;
-// `;
-
 const BoxLogin = css`
-  width: 300px;
+  max-width: 500px;
+  min-height: 200px;
+  width: 100%;
   padding: 10px;
   display: flex;
   flex-direction: column;
@@ -66,7 +52,6 @@ const waveBottom = css`
 @observer
 class HomeScreen extends React.Component {
   render() {
-    console.log(this.props.authentication);
     return (
       <div className={background}>
         <div className={waveTop}>

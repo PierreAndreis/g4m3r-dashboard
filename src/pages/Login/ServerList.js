@@ -3,29 +3,13 @@ import { Link } from "react-router-dom";
 
 import { inject } from "mobx-react";
 import { Query } from "react-apollo";
-import gql from "graphql-tag";
 
 import { css } from "emotion";
 import classNames from "classnames";
 import AddCircleIcon from "mdi-react/PlusCircleOutlineIcon";
 import LogoutIcon from "mdi-react/LogoutIcon";
 import Swiper from "react-id-swiper";
-
-const meQuery = gql`
-  {
-    me {
-      id
-      username
-      tag
-      displayAvatarURL
-      serverList {
-        id
-        name
-        icon
-      }
-    }
-  }
-`;
+import meQuery from "../../graphql/queries/user/me";
 
 const container = css`
   width: 100%;
@@ -103,7 +87,7 @@ const serverContainer = css`
     box-shadow: 0 5px 30px 0 rgba(0, 0, 0, 0.1);
   }
 
-  border: 1px solid rgba(100, 100, 100, 0.1);
+  border: 2px solid rgba(100, 100, 100, 0.1);
   background: rgba(255, 255, 255, 0);
 
   & > img {
@@ -112,8 +96,13 @@ const serverContainer = css`
     border-radius: 50%;
   }
   & > b {
-    font-size: 13px;
+    font-size: 12px;
     margin-top: auto;
+    width: 100%;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     color: rgba(255, 255, 255, 0.8);
   }
 `;
@@ -149,11 +138,7 @@ class ServerList extends React.Component {
         el: ".swiper-scrollbar",
         hide: false,
       },
-      // navigation: {
-      //   nextEl: '.swiper-button-next',
-      //   prevEl: '.swiper-button-prev'
-      // },
-      slidesPerView: 3,
+      slidesPerView: 5,
       rebuildOnUpdate: true,
       spaceBetween: 5,
     };
@@ -186,7 +171,11 @@ class ServerList extends React.Component {
                 <h1>My Servers</h1>
                 <div className={serverSpace}>
                   <Swiper {...params}>
-                    <a href="http://invite.g4m3r.xyz/" target="_blank" rel="noopener noreferrer">
+                    <a
+                      href="http://invite.g4m3r.xyz/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       <div className={classNames(serverContainer, emptyContainer)}>
                         <div>
                           <AddCircleIcon size="36px" />
@@ -194,9 +183,14 @@ class ServerList extends React.Component {
                         <div className={emptyDescription}>Add Server</div>
                       </div>
                     </a>
+
                     {guilds.map(guild => (
                       <div key={guild.id}>
-                        <Server name={guild.name} image={guild.icon} href={`/g/${guild.id}`} />
+                        <Server
+                          name={guild.name}
+                          image={guild.icon}
+                          href={`/g/${guild.id}`}
+                        />
                       </div>
                     ))}
                   </Swiper>

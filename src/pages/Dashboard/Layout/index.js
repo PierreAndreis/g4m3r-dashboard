@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Sidebar } from "./Sidebar";
+import Sidebar from "./Sidebar";
 import { css } from "emotion";
 
 const layout = css`

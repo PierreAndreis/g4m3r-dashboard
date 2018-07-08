@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import { ApolloProvider } from "react-apollo";
-import GraphQL from "./graphql";
+import GraphQL from "./graphql/client";
 
 import { Provider } from "mobx-react";
 import stores from "./store";
