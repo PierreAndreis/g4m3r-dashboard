@@ -19,13 +19,49 @@ const BoxCenter = css`
   justify-self: center;
 `;
 
+const BoxPadding = css`
+  padding: 15px;
+`;
+
+const BoxTitle = css`
+  display: flex;
+  font-size: 18px;
+  color: #4a4a4a;
+  margin: 10px 5px;
+`;
+
+const BoxBody = css`
+  padding: 15px;
+  width: 100%;
+  box-sizing: border-box;
+`;
+
 export default class Box extends Component {
+  static Title = ({ children, className, ...otherProps }) => (
+    <h2 className={classNames(BoxTitle, className)} {...otherProps}>
+      {children}
+    </h2>
+  );
+
+  static Body = ({ children, className, ...otherProps }) => (
+    <div className={classNames(BoxBody, className)} {...otherProps}>
+      {children}
+    </div>
+  );
+
   render() {
-    let className = classNames(BoxBase, {
-      [this.props.className]: !!this.props.className,
-      [BoxCenter]: this.props.center,
+    const { className, center, padding, children, ...otherProps } = this.props;
+
+    let classNameToUse = classNames(BoxBase, {
+      [this.props.className]: !!className,
+      [BoxCenter]: center,
+      [BoxPadding]: padding,
     });
 
-    return <div className={className}>{this.props.children}</div>;
+    return (
+      <div className={classNameToUse} {...otherProps}>
+        {children}
+      </div>
+    );
   }
 }

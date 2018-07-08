@@ -9,14 +9,21 @@ const layout = css`
   height: 100%;
 `;
 
+const content = css`
+  background-color: #f8f8fd;
+  padding: 5% 30px 0;
+  overflowx: auto;
+  & > section {
+    margin: 20px 0;
+  }
+`;
+
 export default class Layout extends Component {
   render() {
     return (
       <div className={layout}>
         <Sidebar />
-        <div style={{ backgroundColor: "#F8F8FD", padding: "15px", overflowX: "auto" }}>
-          {this.props.children}
-        </div>
+        <div className={content}>{this.props.children}</div>
       </div>
     );
   }

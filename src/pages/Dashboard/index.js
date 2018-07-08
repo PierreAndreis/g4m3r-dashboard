@@ -14,7 +14,6 @@ export default class DashboardRouter extends React.Component {
           if (error) return <p>Error :(</p>;
           return (
             <Layout>
-              <div>{data.guild.name}</div>
               <Router />
             </Layout>
           );

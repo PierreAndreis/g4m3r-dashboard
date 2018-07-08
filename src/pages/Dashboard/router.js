@@ -3,6 +3,7 @@ import SettingsIcon from "mdi-react/SettingsIcon";
 import AppleKeyboardCommandIcon from "mdi-react/AppleKeyboardCommandIcon";
 import { StarIcon, FlashIcon } from "mdi-react";
 import { Route, Switch } from "react-router-dom";
+import General from "./modules/General";
 
 const Test = () => <div>test</div>;
 const Test2 = () => <div>test2</div>;
@@ -13,7 +14,7 @@ export const router = [
     path: "",
     exact: true,
     icon: SettingsIcon,
-    component: Test,
+    component: General,
   },
   {
     name: "Commands",
@@ -38,7 +39,12 @@ export const router = [
 export default () => (
   <Switch>
     {router.map(route => (
-      <Route path={`/g/:guildId/${route.path}`} component={route.component} exact={route.exact} />
+      <Route
+        key={route.path}
+        path={`/g/:guildId/${route.path}`}
+        component={route.component}
+        exact={route.exact}
+      />
     ))}
   </Switch>
 );
