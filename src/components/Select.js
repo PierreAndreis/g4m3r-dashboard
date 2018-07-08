@@ -14,8 +14,8 @@ const dropdownMenu = css`
   position: absolute;
   width: 100%;
   max-height: 200px;
-  overflow-x: auto;
-  overflow-y: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   padding: 0;
   margin-top: 5px;
   border-radius: 5px;
