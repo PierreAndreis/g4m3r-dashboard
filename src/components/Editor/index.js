@@ -5,7 +5,7 @@ import Input from "../Input";
 import Checkbox from "../Checkbox";
 import Select from "../Select";
 
-const StagerContext = React.createContext({});
+import Stager, { StagerContext } from "./Stager";
 
 const dlv = (obj, key, def, p) => {
   p = 0;
@@ -25,69 +25,6 @@ const getEditedValue = (props, state) => {
 const getPlaceholder = (props, state) => {
   return dlv(state.payload, props.query);
 };
-
-class Stager extends React.Component {
-  state = {
-    loading: true,
-    errors: null,
-
-    payload: {},
-
-    commiting: false,
-    modified: false,
-    changes: {},
-    onChange: property => newValue => {
-      this.setState(state => ({
-        modified: true,
-        changes: { ...state.changes, [property]: newValue },
-      }));
-    },
-  };
-
-  static getDerivedStateFromProps(props, state) {
-    console.log("isModified=", state.modified);
-    console.log("isComitting=", state.commiting);
-
-    if (!state.modified || (state.modified && state.commiting)) {
-      console.log("updating..");
-      return {
-        loading: props.query.loading,
-        errors: props.query.errors,
-        payload: props.query.data,
-        changes: {},
-        modified: false,
-        commiting: false,
-      };
-    }
-    return null;
-  }
-
-  commit = () => {
-    let guildId = this.props.match.params.guildId;
-
-    this.setState({
-      commiting: true,
-    });
-
-    this.props.onCommit(this.state.changes);
-  };
-
-  render() {
-    const { loading, error, payload } = this.state;
-    const commit = this.props.commit;
-
-    if (loading) return <p>Loading</p>;
-    if (error) return <p>Error!</p>;
-
-    return (
-      <StagerContext.Provider value={this.state}>
-        {this.props.children}
-        {this.state.modified ? <button onClick={this.commit}>Commit</button> : null}
-      </StagerContext.Provider>
-    );
-  }
-}
-
 class WrapperEditorForGraphQL extends React.Component {
   static Input = ({ mutate, query, ...otherProps }) => (
     <StagerContext.Consumer>
@@ -118,7 +55,8 @@ class WrapperEditorForGraphQL extends React.Component {
     <StagerContext.Consumer>
       {state => (
         <Select
-          value={translateValue({ mutate, query }, state)}
+          value={getEditedValue({ mutate, query }, state)}
+          placeholder={getPlaceholder({ mutate, query }, state)}
           onChange={state.onChange(mutate)}
           {...otherProps}
         />
@@ -126,7 +64,7 @@ class WrapperEditorForGraphQL extends React.Component {
     </StagerContext.Consumer>
   );
 
-  onCommit = commit => changes => {
+  onCommit = commit => async changes => {
     const guildId = this.props.match.params.guildId;
     let query = {
       variables: {
@@ -135,7 +73,7 @@ class WrapperEditorForGraphQL extends React.Component {
       },
     };
 
-    commit(query);
+    return commit(query);
   };
 
   render() {
@@ -147,7 +85,13 @@ class WrapperEditorForGraphQL extends React.Component {
         {query => (
           <Mutation mutation={mutation}>
             {commit => (
-              <Stager {...props} query={query} onCommit={this.onCommit(commit)} />
+              <Stager
+                {...props}
+                isLoading={query.loading}
+                errors={query.errors}
+                payload={query.data}
+                onCommit={this.onCommit(commit)}
+              />
             )}
           </Mutation>
         )}

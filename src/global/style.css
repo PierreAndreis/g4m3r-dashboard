@@ -48,3 +48,9 @@ a {
   color: black;
   text-decoration: none;
 }
+
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}

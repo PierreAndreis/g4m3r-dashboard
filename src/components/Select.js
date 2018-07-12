@@ -2,7 +2,7 @@ import React from "react";
 import { css } from "emotion";
 import Downshift from "downshift";
 import Input from "./Input";
-import { ChevronDownIcon } from "../../node_modules/mdi-react";
+import { ChevronDownIcon } from "mdi-react";
 import Box from "./Box";
 
 const wrapper = css`
@@ -28,12 +28,10 @@ const dropdownMenu = css`
 
 class Select extends React.Component {
   render() {
-    const { value, onChange } = this.props;
+    const { placeholder, onChange } = this.props;
 
     return (
       <Downshift
-        defaultSelectedItem={value}
-        // defaultInputValue={value}
         onChange={item => typeof onChange === "function" && onChange(item.value)}
         itemToString={item => (item ? item.value : "")}
       >
@@ -53,7 +51,7 @@ class Select extends React.Component {
             {/* <label {...getLabelProps()}>Type a timezone</label> */}
             <Input
               {...getInputProps()}
-              placeholder={value}
+              placeholder={placeholder}
               icon={{
                 right: props => (
                   <div onClick={() => toggleMenu()}>

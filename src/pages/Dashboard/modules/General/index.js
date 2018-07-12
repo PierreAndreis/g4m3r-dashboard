@@ -13,7 +13,10 @@ import guildBasic from "../../../../graphql/queries/guild/guildBasic";
 
 const boxesHeader = css`
   display: flex;
+  flex-wrap: wrap;
+
   & > div {
+    margin-bottom: 20px;
     margin-right: 20px;
   }
 `;
@@ -35,7 +38,7 @@ const cleanUpTimezone = timezones =>
   });
 
 const mutationQuery = gql`
-  mutation editGuild($guildId: String!, $input: guildInput!) {
+  mutation editGuild($guildId: String!, $input: String) {
     set(id: $guildId, input: $input) {
       name
       id
@@ -65,36 +68,6 @@ class GeneralEditor extends Component {
           </SubHeader>
         </section>
         <section>
-          {/* <Query query={guildBasic} variables={{ guildId: guildId }}>
-            {({ data, loading, error }) => {
-              if (loading) return "Loading";
-              if (error) return "Error";
-              return (
-                <React.Fragment>
-                  <Mutation mutation={mutationQuery}>
-                    {editGuild => {
-                      console.log(data);
-                      return (
-                        <div>
-                          <button
-                            onClick={() =>
-                              editGuild({
-                                variables: {
-                                  guildId: this.props.match.params.guildId,
-                                  input: {
-                                    prefix: "alexa",
-                                  },
-                                },
-                              })
-                            }
-                          >
-                            {data.guild.configs.settings.prefix}
-                          </button>
-                        </div>
-                      );
-                    }}
-                  </Mutation> */}
-
           <Heading2>Overview</Heading2>
           <div className={boxesHeader}>
             <Stager query={guildBasic} mutation={mutationQuery}>
