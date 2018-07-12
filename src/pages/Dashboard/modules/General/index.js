@@ -3,13 +3,14 @@ import { css } from "emotion";
 
 import { Heading, SubHeader, Heading2 } from "../../../../components/Typography";
 import Box from "../../../../components/Box";
-import Input from "../../../../components/Input";
-import Select from "../../../../components/Select";
+// import Input from "../../../../components/Input";
+// import Select from "../../../../components/Select";
 import gql from "graphql-tag";
-import { Query, Mutation } from "react-apollo";
+import { Query } from "react-apollo";
 import Checkbox from "../../../../components/Checkbox";
-import Stager from "../../../../components/Editor";
-import guildBasic from "../../../../graphql/queries/guild/guildBasic";
+import Editor from "../../../../components/Editor";
+import qGuildBasic from "../../../../graphql/queries/guild/guildBasic";
+import qTimezone from "../../../../graphql/queries/utils/timezone";
 
 const boxesHeader = css`
   display: flex;
@@ -21,24 +22,15 @@ const boxesHeader = css`
   }
 `;
 
-const timezoneQuery = gql`
-  {
-    listTimezones
-  }
-`;
-
 const cleanUpTimezone = timezones =>
-  timezones.map(timezone => {
-    // let value = timezone.replace("_", " ");
+  timezones.map(timezone => ({
+    key: timezone,
+    value: timezone,
+  }));
 
-    return {
-      key: timezone,
-      value: timezone,
-    };
-  });
-
+// todo: remove from here, put on graphql folder
 const mutationQuery = gql`
-  mutation editGuild($guildId: String!, $input: String) {
+  mutation editGuild($guildId: String!, $input: guildInput!) {
     set(id: $guildId, input: $input) {
       name
       id
@@ -53,7 +45,7 @@ const mutationQuery = gql`
 
 class GeneralEditor extends Component {
   render() {
-    let guildId = this.props.match.params.guildId;
+    // let guildId = this.props.match.params.guildId;
     return (
       <React.Fragment>
         <section>
@@ -70,24 +62,24 @@ class GeneralEditor extends Component {
         <section>
           <Heading2>Overview</Heading2>
           <div className={boxesHeader}>
-            <Stager query={guildBasic} mutation={mutationQuery}>
+            <Editor query={qGuildBasic} mutation={mutationQuery}>
               <Box padding>
                 <Box.Title>Prefix</Box.Title>
                 <Box.Body>
-                  <Stager.Input mutate="prefix" query="guild.configs.settings.prefix" />
+                  <Editor.Input mutate="prefix" query="guild.configs.settings.prefix" />
                 </Box.Body>
               </Box>
               <Box padding>
                 <Box.Title>Timezone</Box.Title>
                 <Box.Body>
-                  <Query query={timezoneQuery}>
+                  <Query query={qTimezone}>
                     {({ loading, error, data }) => {
                       if (loading) return "Loading";
                       if (error) return "Error";
                       let values = cleanUpTimezone(data.listTimezones);
 
                       return (
-                        <Stager.Select
+                        <Editor.Select
                           values={values}
                           mutate="timezone"
                           query="guild.configs.settings.timezone"
@@ -103,7 +95,7 @@ class GeneralEditor extends Component {
                   <Checkbox>Test</Checkbox>
                 </Box.Body>
               </Box>
-            </Stager>
+            </Editor>
           </div>
         </section>
       </React.Fragment>

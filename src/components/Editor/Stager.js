@@ -76,7 +76,6 @@ class Stager extends React.Component {
 
   render() {
     const { modified, commiting, loading, error } = this.state;
-    const commit = this.props.commit;
 
     if (loading) return <p>Loading</p>;
     if (error) return <p>Error!</p>;

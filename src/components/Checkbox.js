@@ -73,9 +73,7 @@ class Checkbox extends Component {
     }
   }
 
-  onChange = toggle => {
-    let value = !this.state.checked;
-
+  onChange = () => {
     this.setState(state => ({
       checked: !state.checked,
     }));
