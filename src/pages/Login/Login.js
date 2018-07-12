@@ -28,7 +28,6 @@ class Login extends React.Component {
   };
 
   loginWindow = e => {
-    e.preventDefault();
     window.open(
       AUTH_URL,
       "discordauth",

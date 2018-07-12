@@ -149,7 +149,8 @@ class ServerList extends React.Component {
           if (loading) return <p>Loading...</p>;
           if (error) {
             this.props.authentication.setToken(null);
-            return null;
+            window.reload();
+            return <p>Error!</p>;
           }
 
           let me = data.me;
