@@ -35,282 +35,269 @@ const mutationQuery = gql`
 
 const commands = [
   {
-    name: "Delete",
-    category: "admin"
-  },
-  {
-    name: "Emoji",
-    category: "admin"
-  },
-  {
-    name: "Permisssion",
-    category: "admin"
-  },
-  {
-    name: "Pick",
-    category: "admin"
-  },
-  {
-    name: "Save Role",
-    category: "admin"
-  },
-  {
-    name: "Set Server Logo",
-    category: "admin"
-  },
-  {
-    name: "Guild Settings",
-    category: "admin"
-  },
-  {
     name: "Help",
-    category: "basic"
+    category: "basic",
   },
   {
     name: "Ping",
-    category: "basic"
+    category: "basic",
   },
   {
     name: "Invite",
-    category: "basic"
+    category: "basic",
   },
   {
     name: "Server",
-    category: "basic"
+    category: "basic",
   },
   {
     name: "User Settings",
-    category: "basic"
+    category: "basic",
   },
   {
     name: "Verify",
-    category: "basic"
+    category: "basic",
+  },
+  {
+    name: "Delete",
+    category: "admin",
+  },
+  {
+    name: "Emoji",
+    category: "admin",
+  },
+  {
+    name: "Permisssion",
+    category: "admin",
+  },
+  {
+    name: "Pick",
+    category: "admin",
+  },
+  {
+    name: "Save Role",
+    category: "admin",
+  },
+  {
+    name: "Set Server Logo",
+    category: "admin",
+  },
+  {
+    name: "Guild Settings",
+    category: "admin",
   },
   {
     name: "Accounts",
-    category: "community"
+    category: "community",
   },
   {
     name: "Background",
-    category: "community"
+    category: "community",
   },
   {
     name: "Events",
-    category: "community"
+    category: "community",
   },
   {
     name: "Games",
-    category: "community"
+    category: "community",
   },
   {
     name: "Giveaway",
-    category: "community"
+    category: "community",
   },
   {
     name: "Profile",
-    category: "community"
+    category: "community",
   },
   {
     name: "Kitten",
-    category: "fun"
+    category: "fun",
   },
   {
     name: "Meme",
-    category: "fun"
+    category: "fun",
   },
   {
     name: "Puppy",
-    category: "fun"
+    category: "fun",
   },
   {
     name: "Urban",
-    category: "fun"
+    category: "fun",
   },
   {
     name: "Arena Of Valor",
-    category: "gaming"
+    category: "gaming",
   },
   {
     name: "Battlefield 1",
-    category: "gaming"
+    category: "gaming",
   },
   {
     name: "CSGO",
-    category: "gaming"
+    category: "gaming",
   },
   {
     name: "Overwatch",
-    category: "gaming"
+    category: "gaming",
   },
   {
     name: "PUBG",
-    category: "gaming"
+    category: "gaming",
   },
   {
     name: "Register",
-    category: "gaming"
+    category: "gaming",
   },
   {
     name: "Siege",
-    category: "gaming"
+    category: "gaming",
   },
   {
     name: "Vainglory",
-    category: "gaming"
+    category: "gaming",
   },
   {
     name: "Ban",
-    category: "moderation"
+    category: "moderation",
   },
   {
     name: "Kick",
-    category: "moderation"
+    category: "moderation",
   },
   {
     name: "Mail",
-    category: "moderation"
+    category: "moderation",
   },
   {
     name: "Mute",
-    category: "moderation"
+    category: "moderation",
   },
   {
     name: "Nick",
-    category: "moderation"
+    category: "moderation",
   },
   {
     name: "Nuke",
-    category: "moderation"
+    category: "moderation",
   },
   {
     name: "Reason",
-    category: "moderation"
+    category: "moderation",
   },
   {
     name: "Role Manager",
-    category: "moderation"
+    category: "moderation",
   },
   {
     name: "Time Mute",
-    category: "moderation"
+    category: "moderation",
   },
   {
     name: "Warn",
-    category: "moderation"
+    category: "moderation",
   },
   {
     name: "Embed",
-    category: "utility"
+    category: "utility",
   },
   {
     name: "Feedback",
-    category: "utility"
+    category: "utility",
   },
   {
     name: "Imgur",
-    category: "utility"
+    category: "utility",
   },
   {
     name: "Role",
-    category: "utility"
+    category: "utility",
   },
   {
     name: "Shortcut",
-    category: "utility"
+    category: "utility",
   },
   {
     name: "Stories",
-    category: "utility"
+    category: "utility",
   },
   {
     name: "Tag",
-    category: "utility"
-  }
-]
+    category: "utility",
+  },
+];
 
 class CommandsEditor extends Component {
+  state = {
+    category: "basic",
+  };
+
+  changeCategory = category => e => {
+    this.setState({
+      category,
+    });
+  };
+
   render() {
+    const categories = [...new Set(commands.map(c => c.category))];
+
     return (
       <React.Fragment>
         <section>
           <Heading>Commands</Heading>
           <SubHeader>
-            This page will allow you to enable/disable or create exceptions for each and every command on the bot. As it is one of the most powerful features on the bot and can be very complicated we have a separate page just for setting up the best permissions system possible for you and your beloved discord servers.
+            This page will allow you to enable/disable or create exceptions for each and
+            every command on the bot. As it is one of the most powerful features on the
+            bot and can be very complicated we have a separate page just for setting up
+            the best permissions system possible for you and your beloved discord servers.
           </SubHeader>
         </section>
-        {/*Add a category filter of commands here*/}
         <section>
-          <div className={boxesHeader} style={{flexWrap: "wrap"}}>
+          {categories.map(category => (
+            <Button
+              key={category}
+              onClick={this.changeCategory(category)}
+              simple
+              active={this.state.category === category}
+            >
+              {category}
+            </Button>
+          ))}
+        </section>
+        <section>
+          <div className={boxesHeader} style={{ flexWrap: "wrap" }}>
             <Editor query={qGuildBasic} mutation={mutationQuery}>
-            {commands.map(cmd => (
-              <Box padding key={cmd.name}>
-              <Box.Title>{cmd.name}</Box.Title>
-              <Box.Body>
-                <div style={{display: "flex", marginBottom: "10px", justifyContent: "space-between"}}>
-                <Checkbox>On/Off</Checkbox>
-                <Checkbox>Trigger</Checkbox>
-                </div>
-                Exceptions
-                <br/>
-                <br/>
-                <div style={{display: "flex", marginBottom: "10px", justifyContent: "space-between"}}>
-                  <Button rounded small>
-                    Roles
-                  </Button>
-                  <Button rounded small>
-                    Channels
-                  </Button>
-                </div>
-              </Box.Body>
-            </Box>
-            ))}
-
+              {commands.filter(cmd => cmd.category === this.state.category).map(cmd => (
+                <Box padding key={cmd.name}>
+                  <Box.Title>{cmd.name}</Box.Title>
+                  <Box.Body>
+                    <div
+                      style={{
+                        display: "flex",
+                        marginBottom: "10px",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <Checkbox>Enabled</Checkbox>
+                      <Checkbox>Trigger</Checkbox>
+                    </div>
+                    Exceptions
+                    <br />
+                    <br />
+                    <div>
+                      <Button rounded small>
+                        Roles
+                      </Button>
+                      <Button rounded small>
+                        Channels
+                      </Button>
+                    </div>
+                  </Box.Body>
+                </Box>
+              ))}
             </Editor>
           </div>
-        </section>
-
-        <section>
-          <br />
-          <br />
-          <Button simple onClick={bA => bA.success()}>
-            Button Simple
-          </Button>
-          <br />
-          <br />
-          <Button onClick={bA => bA.success()}>Button Normal</Button>
-          <br />
-          <br />
-          <Button active onClick={bA => bA.success()}>
-            Button Active
-          </Button>
-          <br />
-          <br />
-          <Button onClick={bA => bA.success()}>Button hover </Button>
-          <br />
-          <br />
-          <Button big>Button big</Button>
-          <br />
-          <br />
-          <Button small>Button small</Button>
-          <br />
-          <br />
-          <Button rounded small>
-            Button Small & Rounded
-          </Button>
-          <br />
-          <br />
-          <Button disabled>Button Disabled</Button>
-          <br />
-          <br />
-          <Button loading>Button Loading</Button>
-          <br />
-          <br />
-          <Button error>Button Error</Button>
-          <br />
-          <br />
-          <Button success>Button Success</Button>
-          <br />
-          <br />
         </section>
       </React.Fragment>
     );

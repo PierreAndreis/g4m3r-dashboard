@@ -10,6 +10,8 @@ const ButtonBase = css`
   border: 0;
   color: white;
   border-radius: 3px;
+
+  margin-right: 5px;
   /* box-shadow: 0 0 6px rgba(50, 50, 93, 0.11);*/
 
   padding: 10px 16px;
@@ -25,14 +27,25 @@ const ButtonBase = css`
     background: rgb(169, 169, 169);
     cursor: no-drop;
   }
+  &.active {
+    border-color: transparent;
+    border-width: 0;
+    color: white;
+    background-image: linear-gradient(90deg, #92d8e0 0%, #8cc7eb 100%);
+    box-shadow: 0 0px 30px #8cc7eb;
+  }
 `;
 
 const ButtonSimple = css`
   background: transparent;
   border: 1px solid rgba(0, 0, 0, 0.4);
   color: #9b9b9b;
-  &:hover {
+  &:hover:not(.active) {
     background: rgba(0, 0, 0, 0.1);
+  }
+
+  &.active:hover {
+    transform: translateY(-5px);
   }
 
   &.disabled {
@@ -62,14 +75,6 @@ const ButtonHover = css`
 
 const ButtonRound = css`
   border-radius: 17px;
-`;
-
-const ButtonActive = css`
-  border-color: transparent;
-  border-width: 0;
-  color: white;
-  background-image: linear-gradient(90deg, #92d8e0 0%, #8cc7eb 100%);
-  box-shadow: 0 0px 30px #8cc7eb;
 `;
 
 const ButtonOverlay = css`
@@ -154,9 +159,9 @@ export default class Button extends Component {
         [ButtonBig]: big,
         [ButtonSmall]: small,
         [ButtonHover]: !!onClick && !simple && !disabled,
-        [ButtonActive]: !!active,
         [ButtonRound]: rounded,
         [ButtonSimple]: simple,
+        active: !!active,
         disabled: disabled,
         [this.props.className]: !!this.props.className,
       },

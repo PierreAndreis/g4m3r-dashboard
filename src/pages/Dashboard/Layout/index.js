@@ -12,7 +12,7 @@ const layout = css`
 const content = css`
   background-color: #f8f8fd;
   padding: 5% 30px 0;
-  overflowx: auto;
+  overflow-x: auto;
   & > section {
     margin: 20px 0;
   }
