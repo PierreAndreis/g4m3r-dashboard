@@ -13,7 +13,7 @@ const inputWrapper = css`
 
   label {
     cursor: pointer;
-    text-indent: -50px;
+    text-indent: -60px;
     font-size: 16px;
     color: #9b9b9b;
     line-height: 25px;

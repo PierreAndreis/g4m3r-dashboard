@@ -51,12 +51,13 @@ class GeneralEditor extends Component {
         <section>
           <Heading>General</Heading>
           <SubHeader>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-            nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
-            eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt
-            in culpa qui officia deserunt mollit anim id est laborum.
+            Welcome to the G4M3R dashboard. Here you can edit any and all settings of your bot easily.
+            <br/>
+            <br/>
+            This is the general settings page for your discord server. You can find other settings and features to edit on the other pages on the sidebar.
+            <br/>
+            <br/>
+            Thank you for using G4M3R!
           </SubHeader>
         </section>
         <section>
@@ -90,9 +91,9 @@ class GeneralEditor extends Component {
                 </Box.Body>
               </Box>
               <Box padding>
-                <Box.Title>Something?</Box.Title>
+                <Box.Title>Enforce Server Timezone</Box.Title>
                 <Box.Body>
-                  <Checkbox>Test</Checkbox>
+                  <Checkbox>Enforced</Checkbox>
                 </Box.Body>
               </Box>
             </Editor>
