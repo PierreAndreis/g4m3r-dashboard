@@ -53,30 +53,28 @@ const inputWrapper = css`
 `;
 
 class Checkbox extends Component {
-  state = {
-    checked: false,
-  };
+  // state = {
+  //   checked: false,
+  // };
 
-  static getDerivedStateFromProps(props, state) {
-    if (props.value) {
-      return {
-        checekd: props.value,
-      };
-    }
-    return null;
-  }
+  // // static getDerivedStateFromProps(props, state) {
+  // //   if (props.value) {
+  // //     return {
+  // //       checked: props.value,
+  // //     };
+  // //   }
+  // //   return null;
+  // // }
 
-  componentDidUpdate(prevState) {
-    if (prevState.checked !== this.state.checked) {
-      typeof this.props.onChange === "function" &&
-        this.props.onChange(this.state.checked);
-    }
-  }
+  // // componentDidUpdate(prevState) {
+  // //   if (prevState.checked !== this.state.checked) {
+  // //     typeof this.props.onChange === "function" &&
+  // //       this.props.onChange(this.state.checked);
+  // //   }
+  // // }
 
   onChange = () => {
-    this.setState(state => ({
-      checked: !state.checked,
-    }));
+    typeof this.props.onChange === "function" && this.props.onChange(!this.props.value);
   };
 
   render() {
@@ -84,7 +82,7 @@ class Checkbox extends Component {
 
     return (
       <div className={inputWrapper} onClick={this.onChange}>
-        <input type="checkbox" checked={this.state.checked} {...other} />
+        <input type="checkbox" checked={value || false} {...other} />
         <label htmlFor="switch">{children}</label>
       </div>
     );

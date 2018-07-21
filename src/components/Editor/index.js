@@ -43,7 +43,7 @@ class WrapperEditorForGraphQL extends React.Component {
     <StagerContext.Consumer>
       {state => (
         <Checkbox
-          value={translateValue({ mutate, query }, state)}
+          value={getEditedValue({ mutate, query }, state)}
           onChange={state.onChange(mutate)}
           {...otherProps}
         />
@@ -77,7 +77,7 @@ class WrapperEditorForGraphQL extends React.Component {
   };
 
   render() {
-    const { mutation, query, ...props } = this.props;
+    const { mutation, query, children, ...props } = this.props;
     const guildId = props.match.params.guildId;
 
     return (
@@ -91,7 +91,9 @@ class WrapperEditorForGraphQL extends React.Component {
                 errors={query.errors}
                 payload={query.data}
                 onCommit={this.onCommit(commit)}
-              />
+              >
+                {children}
+              </Stager>
             )}
           </Mutation>
         )}
