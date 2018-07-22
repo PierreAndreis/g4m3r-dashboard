@@ -7,7 +7,7 @@ export const container = css`
   flex-direction: column;
   background-image: linear-gradient(0deg, #7aaeff 0%, #74e1eb 100%);
   overflow: hidden;
-  width: 300px;
+  width: 250px;
 
   &:after {
     content: "";

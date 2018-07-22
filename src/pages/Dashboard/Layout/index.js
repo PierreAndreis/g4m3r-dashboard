@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import Sidebar from "./Sidebar";
 import MobileHeader from "./MobileHeader/MobileHeader";
 import { css } from "emotion";
-import mq from "../../../global/breakpoints";
+import Media from "react-media";
+import mq, { breakpoints } from "../../../global/breakpoints";
 import classNames from "classnames";
 
 const layout = css`
@@ -47,37 +48,50 @@ export const noScroll = css`
   filter: blur(5px);
 `;
 
-export default class Layout extends Component {
+class Layout extends Component {
   state = {
     isMenuOpen: false,
   };
 
   toggleMenu = () => {
+    if (!this.props.isMobile) return;
+
     this.setState(state => ({
       isMenuOpen: !state.isMenuOpen,
     }));
   };
 
   render() {
+    const isMobile = this.props.isMobile;
     const { isMenuOpen } = this.state;
     return (
       <div className={layout}>
-        <MobileHeader isMenuOpen={isMenuOpen} toggleMenu={this.toggleMenu} />
+        {isMobile && (
+          <MobileHeader isMenuOpen={isMenuOpen} toggleMenu={this.toggleMenu} />
+        )}
         <Sidebar isMenuOpen={isMenuOpen} toggleMenu={this.toggleMenu} />
         <div
           className={classNames(content, {
             [noScroll]: isMenuOpen,
           })}
-          onClick={() => isMenuOpen && this.toggleMenu}
+          onClick={() => isMobile && isMenuOpen && this.toggleMenu}
         >
           {this.props.children}
         </div>
-        <div
-          className={classNames(sidebarOverlay, {
-            [sidebarOverlayOpen]: isMenuOpen,
-          })}
-        />
+        {isMobile && (
+          <div
+            className={classNames(sidebarOverlay, {
+              [sidebarOverlayOpen]: isMenuOpen,
+            })}
+          />
+        )}
       </div>
     );
   }
 }
+
+export default props => (
+  <Media query={`(max-width: ${breakpoints.small}px)`}>
+    {isMobile => <Layout isMobile={isMobile} {...props} />}
+  </Media>
+);
