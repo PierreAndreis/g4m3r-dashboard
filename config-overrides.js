@@ -8,7 +8,12 @@ const isProd = process.env.NODE_ENV === "production";
 module.exports = function override(config, env) {
   const rewires = compose(
     rewireMobX, // ... place more rewires
-    createEmotionRewire({ inline: !isProd, autoLabel: isProd, hoist: isProd, extractStatic: isProd })
+    createEmotionRewire({
+      inline: !isProd,
+      autoLabel: isProd,
+      hoist: isProd,
+      extractStatic: false,
+    })
   );
 
   return rewires(config, env);
