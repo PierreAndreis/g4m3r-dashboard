@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import { NavLink, withRouter } from "react-router-dom";
 import { router } from "../router";
+import classNames from "classnames";
 
 import * as style from "./Sidebar.style";
 
-const GenerateLink = ({ match, route }) => (
+const GenerateLink = ({ match, route, handleToggleHamburger }) => (
   <NavLink
     to={`/g/${match.params.guildId}/${route.path}`}
     activeClassName="active"
+    onClick={handleToggleHamburger}
     exact={route.exact}
   >
     <route.icon /> {route.name}
@@ -16,16 +18,19 @@ const GenerateLink = ({ match, route }) => (
 
 class Sidebar extends Component {
   render() {
-    console.log(this.props);
+    const { isHamburgerOpen, handleToggleHamburger } = this.props
     return (
-      <div className={style.container}>
+      <div className={classNames(style.container, { [style.showSideBar]: isHamburgerOpen })}>
         <div className={style.logoContainer}>
           <div className={style.logo} />
           <h3>G4M3R</h3>
         </div>
         <div className={style.menu}>
           {router.map(route => (
-            <GenerateLink key={route.name} route={route} match={this.props.match} />
+            <GenerateLink key={route.name}
+              handleToggleHamburger={handleToggleHamburger}
+              route={route}
+              match={this.props.match} />
           ))}
         </div>
         <div className={style.guildSelector} />
