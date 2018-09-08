@@ -3,6 +3,7 @@ import Sidebar from "./Sidebar";
 import MobileHeader from './MobileHeader/MobileHeader'
 import { css } from "emotion";
 import mq from '../../../global/breakpoints'
+import { breakpoints } from '../../../global/breakpoints'
 import classNames from 'classnames'
 
 
@@ -49,10 +50,11 @@ export default class Layout extends Component {
   }
 
   handleToggleHamburger = () => {
-    console.log('vaja')
-    this.setState({
-      isHamburgerOpen: !this.state.isHamburgerOpen
-    })
+    if (window.innerWidth <= breakpoints.small) {
+      this.setState({
+        isHamburgerOpen: !this.state.isHamburgerOpen
+      })
+    }
   }
 
   render() {

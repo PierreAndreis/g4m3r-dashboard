@@ -14,11 +14,20 @@ const Container = css`
   height: 100%;
 `;
 
+const modalBg = css`
+  width:100vw;
+  height:100vh;
+  background:rgba(0,0,0,0.3);
+  position:absolute;
+  z-index:100;
+`
+
 export default class App extends React.Component {
   render() {
     return (
       <BrowserRouter>
         <div className={Container}>
+          {/* <div className={modalBg}></div> */}
           <Switch>
             <AuthRoute path="/g/:guildId" component={DashboardRouter} />
             <Route path="/" component={Login} />
@@ -42,13 +51,13 @@ class AuthRoute extends React.Component {
           auth.isLoggedIn ? (
             <Component {...props} />
           ) : (
-            <Redirect
-              to={{
-                pathname: "/",
-                state: { from: props.location },
-              }}
-            />
-          )
+              <Redirect
+                to={{
+                  pathname: "/",
+                  state: { from: props.location },
+                }}
+              />
+            )
         }
       />
     );
