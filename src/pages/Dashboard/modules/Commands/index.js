@@ -10,7 +10,6 @@ import Modal from "../../../../global/Modal";
 // import { Query } from "react-apollo";
 // import Checkbox from "../../../../components/Checkbox";
 
-
 // const boxesHeader = css`
 //   display: flex;
 //   & > div {
@@ -20,31 +19,32 @@ import Modal from "../../../../global/Modal";
 
 class CommandsEditor extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      isOpenModal: false
-    }
+      isOpenModal: false,
+    };
   }
 
   toggleModal = () => {
     this.setState({
-      isOpenModal: !this.state.isOpenModal
-    })
-  }
+      isOpenModal: !this.state.isOpenModal,
+    });
+  };
 
   render() {
     return (
       <React.Fragment>
         <Modal
-          toggleModal={this.toggleModal}
-          isOpenModal={this.state.isOpenModal}
+          onClose={this.toggleModal}
+          open={this.state.isOpenModal}
           render={() => {
             return (
               <div>
                 <div>something</div>
               </div>
-            )
-          }} />
+            );
+          }}
+        />
         <section>
           <Heading>Commands</Heading>
           <SubHeader>
@@ -95,7 +95,9 @@ class CommandsEditor extends Component {
           <Button error>Button Error</Button>
           <br />
           <br />
-          <Button success onClick={this.toggleModal}>Button Success</Button>
+          <Button success onClick={this.toggleModal}>
+            Button Success
+          </Button>
           <br />
           <br />
         </section>
