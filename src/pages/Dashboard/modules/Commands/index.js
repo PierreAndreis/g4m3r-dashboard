@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 // import { css } from "emotion";
-import Button from "./../../../../components/Button";
+import Button from "../../../../components/Button";
 import { Heading, SubHeader } from "../../../../components/Typography";
+import Modal from "../../../../global/Modal";
 // import Box from "../../../../components/Box";
 // import Input from "../../../../components/Input";
 // import Select from "../../../../components/Select";
@@ -17,9 +18,33 @@ import { Heading, SubHeader } from "../../../../components/Typography";
 // `;
 
 class CommandsEditor extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isOpenModal: false,
+    };
+  }
+
+  toggleModal = () => {
+    this.setState({
+      isOpenModal: !this.state.isOpenModal,
+    });
+  };
+
   render() {
     return (
       <React.Fragment>
+        <Modal
+          onClose={this.toggleModal}
+          open={this.state.isOpenModal}
+          render={() => {
+            return (
+              <div>
+                <div>something</div>
+              </div>
+            );
+          }}
+        />
         <section>
           <Heading>Commands</Heading>
           <SubHeader>
@@ -70,7 +95,9 @@ class CommandsEditor extends Component {
           <Button error>Button Error</Button>
           <br />
           <br />
-          <Button success>Button Success</Button>
+          <Button success onClick={this.toggleModal}>
+            Button Success
+          </Button>
           <br />
           <br />
         </section>

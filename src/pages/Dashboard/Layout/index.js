@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Sidebar from "./Sidebar";
 import MobileHeader from "./MobileHeader/MobileHeader";
 import { css } from "emotion";
+
 import Media from "react-media";
 import mq, { breakpoints } from "../../../global/breakpoints";
 import classNames from "classnames";
