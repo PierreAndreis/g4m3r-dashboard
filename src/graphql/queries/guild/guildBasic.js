@@ -5,7 +5,7 @@ export default gql`
     guild(id: $guildId) {
       id
       name
-      configs {
+      settings {
         settings {
           prefix
           timezone
