@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import { css } from "emotion";
-import Button from "./../../../../components/Button";
+// import { css } from "emotion";
+import Button from "../../../../components/Button";
 import { Heading, SubHeader } from "../../../../components/Typography";
-
-import Box from "../../../../components/Box";
+import Modal from "../../../../global/Modal";
+// import Box from "../../../../components/Box";
 // import Input from "../../../../components/Input";
 // import Select from "../../../../components/Select";
 import gql from "graphql-tag";
@@ -229,13 +229,16 @@ const commands = [
 ];
 
 class CommandsEditor extends Component {
-  state = {
-    category: "basic",
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      isOpenModal: false,
+    };
+  }
 
-  changeCategory = category => e => {
+  toggleModal = () => {
     this.setState({
-      category,
+      isOpenModal: !this.state.isOpenModal,
     });
   };
 
@@ -244,6 +247,17 @@ class CommandsEditor extends Component {
 
     return (
       <React.Fragment>
+        <Modal
+          onClose={this.toggleModal}
+          open={this.state.isOpenModal}
+          render={() => {
+            return (
+              <div>
+                <div>something</div>
+              </div>
+            );
+          }}
+        />
         <section>
           <Heading>Commands</Heading>
           <SubHeader>
@@ -254,50 +268,49 @@ class CommandsEditor extends Component {
           </SubHeader>
         </section>
         <section>
-          {categories.map(category => (
-            <Button
-              key={category}
-              onClick={this.changeCategory(category)}
-              simple
-              active={this.state.category === category}
-            >
-              {category}
-            </Button>
-          ))}
-        </section>
-        <section>
-          <div className={boxesHeader} style={{ flexWrap: "wrap" }}>
-            <Editor query={qGuildBasic} mutation={mutationQuery}>
-              {commands.filter(cmd => cmd.category === this.state.category).map(cmd => (
-                <Box padding key={cmd.name}>
-                  <Box.Title>{cmd.name}</Box.Title>
-                  <Box.Body>
-                    <div
-                      style={{
-                        display: "flex",
-                        marginBottom: "10px",
-                        justifyContent: "space-between",
-                      }}
-                    >
-                      <Checkbox>Enabled</Checkbox>
-                      <Checkbox>Trigger</Checkbox>
-                    </div>
-                    Exceptions
-                    <br />
-                    <br />
-                    <div>
-                      <Button rounded small>
-                        Roles
-                      </Button>
-                      <Button rounded small>
-                        Channels
-                      </Button>
-                    </div>
-                  </Box.Body>
-                </Box>
-              ))}
-            </Editor>
-          </div>
+          <br />
+          <br />
+          <Button simple onClick={bA => bA.success()}>
+            Button Simple
+          </Button>
+          <br />
+          <br />
+          <Button onClick={bA => bA.success()}>Button Normal</Button>
+          <br />
+          <br />
+          <Button active onClick={bA => bA.success()}>
+            Button Active
+          </Button>
+          <br />
+          <br />
+          <Button onClick={bA => bA.success()}>Button hover </Button>
+          <br />
+          <br />
+          <Button big>Button big</Button>
+          <br />
+          <br />
+          <Button small>Button small</Button>
+          <br />
+          <br />
+          <Button rounded small>
+            Button Small & Rounded
+          </Button>
+          <br />
+          <br />
+          <Button disabled>Button Disabled</Button>
+          <br />
+          <br />
+          <Button loading>Button Loading</Button>
+          <br />
+          <br />
+          <Button error>Button Error</Button>
+          <br />
+          <br />
+          <Button success onClick={this.toggleModal}>
+            Button Success
+          </Button>
+          <br />
+          <br />
         </section>
       </React.Fragment>
     );

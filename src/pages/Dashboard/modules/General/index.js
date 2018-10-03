@@ -34,7 +34,7 @@ const mutationQuery = gql`
     set(id: $guildId, input: $input) {
       name
       id
-      configs {
+      settings {
         settings {
           prefix
         }
@@ -67,7 +67,7 @@ class GeneralEditor extends Component {
               <Box padding>
                 <Box.Title>Prefix</Box.Title>
                 <Box.Body>
-                  <Editor.Input mutate="prefix" query="guild.configs.settings.prefix" />
+                  <Editor.Input mutate="prefix" query="guild.settings.settings.prefix" />
                 </Box.Body>
               </Box>
               <Box padding>
@@ -83,7 +83,7 @@ class GeneralEditor extends Component {
                         <Editor.Select
                           values={values}
                           mutate="timezone"
-                          query="guild.configs.settings.timezone"
+                          query="guild.settings.settings.timezone"
                         />
                       );
                     }}

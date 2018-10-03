@@ -13,7 +13,6 @@ const Container = css`
   width: 100%;
   height: 100%;
 `;
-
 export default class App extends React.Component {
   render() {
     return (
