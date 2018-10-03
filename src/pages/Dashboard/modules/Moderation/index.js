@@ -10,7 +10,6 @@ import { Query } from "react-apollo";
 import Checkbox from "../../../../components/Checkbox";
 import Editor from "../../../../components/Editor";
 import qGuildBasic from "../../../../graphql/queries/guild/guildBasic";
-import qTimezone from "../../../../graphql/queries/utils/timezone";
 
 const boxesHeader = css`
   display: flex;
@@ -20,12 +19,6 @@ const boxesHeader = css`
     margin-right: 20px;
   }
 `;
-
-const cleanUpTimezone = timezones =>
-  timezones.map(timezone => ({
-    key: timezone,
-    value: timezone,
-  }));
 
 // todo: remove from here, put on graphql folder
 const mutationQuery = gql`
@@ -60,7 +53,7 @@ class GeneralEditor extends Component {
           </SubHeader>
         </section>
         <section>
-          <Heading2>Mod Logs</Heading2>
+          <Heading2>Moderation Logs</Heading2>
           <div className={boxesHeader}>
             <Editor query={qGuildBasic} mutation={mutationQuery}>
               <Box padding>
@@ -70,7 +63,55 @@ class GeneralEditor extends Component {
                 </Box.Body>
               </Box>
             </Editor>
-          </div>
+
+            <Editor query={qGuildBasic} mutation={mutationQuery}>
+              <Box padding>
+                <Box.Title>Public Log Status</Box.Title>
+                <Box.Body>
+                  <Checkbox></Checkbox>
+                </Box.Body>
+              </Box>
+            </Editor>
+
+            <Editor query={qGuildBasic} mutation={mutationQuery}>
+              <Box padding>
+                <Box.Title>Server Log Status</Box.Title>
+                <Box.Body>
+                  <Checkbox></Checkbox>
+                </Box.Body>
+              </Box>
+						</Editor>
+					</div>
+					// TODO: Change checkboxes below to a single channel selector
+					<div className={boxesHeader}>
+            <Editor query={qGuildBasic} mutation={mutationQuery}>
+              <Box padding>
+                <Box.Title>Mod Log Channel</Box.Title>
+                <Box.Body>
+                  <Checkbox></Checkbox>
+                </Box.Body>
+              </Box>
+            </Editor>
+
+            <Editor query={qGuildBasic} mutation={mutationQuery}>
+              <Box padding>
+                <Box.Title>Public Log Channel</Box.Title>
+                <Box.Body>
+                  <Checkbox></Checkbox>
+                </Box.Body>
+              </Box>
+            </Editor>
+
+            <Editor query={qGuildBasic} mutation={mutationQuery}>
+              <Box padding>
+                <Box.Title>Server Log Main Channel</Box.Title>
+                <Box.Body>
+                  <Checkbox></Checkbox>
+                </Box.Body>
+              </Box>
+						</Editor>
+					</div>
+
 				</section>
 				<section>
 				<Heading2>Moderation Values</Heading2>
