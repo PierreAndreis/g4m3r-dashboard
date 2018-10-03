@@ -6,6 +6,7 @@ import { Route, Switch } from "react-router-dom";
 import General from "./modules/General";
 import Commands from "./modules/Commands";
 import Button from "../../components/Button";
+import Moderation from "./modules/Moderation";
 
 const Test = () => (
   <div>
@@ -79,7 +80,7 @@ export const router = [
     name: "Moderation",
     path: "moderation",
     icon: FlashIcon,
-    component: Test,
+    component: Moderation,
   },
 ];
 
