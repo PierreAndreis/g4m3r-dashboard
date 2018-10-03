@@ -177,8 +177,8 @@ class GeneralEditor extends Component {
 										if (error) return "Error";
 										{/* TODO: Query these channels names */}
 										let values = [{ key: 'first', value: 'first role' }, { key: 'second', value: 'second role' }];
-										const mutateString = '';
-										const roleQuery = '';
+										const mutateString = "TODO";
+										const roleQuery = "TODO";
 
 										{/* TODO: fill this in properly */}
 										return (
@@ -200,8 +200,8 @@ class GeneralEditor extends Component {
 										if (error) return "Error";
 										{/* TODO: Query these channels names */}
 										let values = [{ key: 'first', value: 'first role' }, { key: 'second', value: 'second role' }];
-										const mutateString = '';
-										const roleQuery = '';
+										const mutateString = "TODO";
+										const roleQuery = "TODO";
 
 										{/* TODO: fill this in properly */}
 										return (
@@ -222,82 +222,19 @@ class GeneralEditor extends Component {
 
 
 				<section>
-					<Heading2>Mute Roles</Heading2>
-          <div className={boxesHeader}>
-            <Editor query={qGuildBasic} mutation={mutationQuery}>
-							<Box padding>
-								<Box.Title>Text Muted Role</Box.Title>
-								<Query query={qTimezone}>
-									{({ loading, error, data }) => {
-										if (loading) return "Loading";
-										if (error) return "Error";
-										{/* TODO: Query these channels names */}
-										let values = [{ key: 'first', value: 'first role' }, { key: 'second', value: 'second role' }];
-										const mutateString = '';
-										const roleQuery = '';
-
-										{/* TODO: fill this in properly */}
-										return (
-											<Editor.Select
-												values={values}
-												mutate={mutateString}
-												query={roleQuery}
-												/>
-											);
-										}}
-								</Query>
-							</Box>
-
-							<Box padding>
-								<Box.Title>Voice Muted Role</Box.Title>
-								<Query query={qTimezone}>
-									{({ loading, error, data }) => {
-										if (loading) return "Loading";
-										if (error) return "Error";
-										{/* TODO: Query these channels names */}
-										let values = [{ key: 'first', value: 'first role' }, { key: 'second', value: 'second role' }];
-										const mutateString = '';
-										const roleQuery = '';
-
-										{/* TODO: fill this in properly */}
-										return (
-											<Editor.Select
-												values={values}
-												mutate={mutateString}
-												query={roleQuery}
-												/>
-											);
-										}}
-								</Query>
-							</Box>
-						</Editor>
-          </div>
-				</section>
-
-
-				<section>
-					<Heading2>Mod Mails</Heading2>
-					// TODO: Fix this current value label
-
-          <div className={boxesHeader}>
-						<Editor query={qGuildBasic} mutation={mutationQuery}>
+				<Heading2>Mute Roles</Heading2>
+				<div className={boxesHeader}>
+					<Editor query={qGuildBasic} mutation={mutationQuery}>
 						<Box padding>
-							<Box.Title>Mod Mail Status</Box.Title>
-							<Box.Body>
-								<Checkbox>Disabled</Checkbox>
-							</Box.Body>
-						</Box>
-
-						<Box padding>
-							<Box.Title>Permission To Reply</Box.Title>
+							<Box.Title>Text Muted Role</Box.Title>
 							<Query query={qTimezone}>
 								{({ loading, error, data }) => {
 									if (loading) return "Loading";
 									if (error) return "Error";
 									{/* TODO: Query these channels names */}
-									let values = [{ key: 'first', value: 'Admins Only' }, { key: 'second', value: 'Admins + Mods' }];
-									const mutateString = '';
-									const roleQuery = '';
+									let values = [{ key: 'first', value: 'first role' }, { key: 'second', value: 'second role' }];
+									const mutateString = "TODO";
+									const roleQuery = "TODO";
 
 									{/* TODO: fill this in properly */}
 									return (
@@ -312,30 +249,95 @@ class GeneralEditor extends Component {
 						</Box>
 
 						<Box padding>
-							<Box.Title>Max Mails Per Guild</Box.Title>
-							<Box.Body>
-							// TODO: validate this is a valid integer
-							<Editor.Input mutate="TODO" query="guild.settings.settings.mail.maxMailsTotal" />
-							</Box.Body>
+							<Box.Title>Voice Muted Role</Box.Title>
+							<Query query={qTimezone}>
+								{({ loading, error, data }) => {
+									if (loading) return "Loading";
+									if (error) return "Error";
+									{/* TODO: Query these channels names */}
+									let values = [{ key: 'first', value: 'first role' }, { key: 'second', value: 'second role' }];
+									const mutateString = "TODO";
+									const roleQuery = "TODO";
+
+									{/* TODO: fill this in properly */}
+									return (
+										<Editor.Select
+											values={values}
+											mutate={mutateString}
+											query={roleQuery}
+											/>
+										);
+									}}
+							</Query>
 						</Box>
-
-						<Box padding>
-							<Box.Title>Max Mails Per User</Box.Title>
-							<Box.Body>
-							// TODO: validate this is a valid integer
-							<Editor.Input mutate="TODO" query="guild.settings.settings.mail.maxMailPerUser" />
-							</Box.Body>
-						</Box>
-
-						</Editor>
-          </div>
-				</section>
+					</Editor>
+				</div>
+			</section>
 
 
+			<section>
+			<Heading2>Mod Mails</Heading2>
+			// TODO: Fix this current value label
 
-				<section>
-					<Heading2>Auto Moderation</Heading2>
-					// TODO: Fix this current value label
+			<div className={boxesHeader}>
+				<Editor query={qGuildBasic} mutation={mutationQuery}>
+				<Box padding>
+					<Box.Title>Mod Mail Status</Box.Title>
+					<Box.Body>
+						<Checkbox>Disabled</Checkbox>
+					</Box.Body>
+				</Box>
+
+				<Box padding>
+					<Box.Title>Permission To Reply</Box.Title>
+					<Query query={qTimezone}>
+						{({ loading, error, data }) => {
+							if (loading) return "Loading";
+							if (error) return "Error";
+							{/* TODO: Query these channels names */}
+							let values = [{ key: 'first', value: 'Admins Only' }, { key: 'second', value: 'Admins + Mods' }];
+							const mutateString = "TODO";
+							const roleQuery = "TODO";
+
+							{/* TODO: fill this in properly */}
+							return (
+								<Editor.Select
+									values={values}
+									mutate={mutateString}
+									query={roleQuery}
+									/>
+								);
+							}}
+					</Query>
+				</Box>
+
+				<Box padding>
+					<Box.Title>Max Mails Per Guild</Box.Title>
+					<Box.Body>
+					// TODO: validate this is a valid integer
+					<Editor.Input mutate="TODO" query="guild.settings.settings.mail.maxMailsTotal" />
+					</Box.Body>
+				</Box>
+
+				<Box padding>
+					<Box.Title>Max Mails Per User</Box.Title>
+					<Box.Body>
+					// TODO: validate this is a valid integer
+					<Editor.Input mutate="TODO" query="guild.settings.settings.mail.maxMailPerUser" />
+					</Box.Body>
+				</Box>
+
+				</Editor>
+			</div>
+		</section>
+
+
+
+		<section>
+			<Heading2>Auto Moderation</Heading2>
+			// TODO: Fix this current value label
+			<div className={boxesHeader}>
+				<Editor query={qGuildBasic} mutation={mutationQuery}>
 					<Box padding>
 						<Box.Title>Auto Assign Role</Box.Title>
 						<Query query={qTimezone}>
@@ -344,8 +346,8 @@ class GeneralEditor extends Component {
 								if (error) return "Error";
 								{/* TODO: Query these channels names */}
 								let values = [{ key: 'first', value: 'role 1' }, { key: 'second', value: 'role 2' }];
-								const mutateString = '';
-								const roleQuery = '';
+								const mutateString = "TODO";
+								const roleQuery = "TODO";
 
 								{/* TODO: fill this in properly */}
 								return (
@@ -359,8 +361,79 @@ class GeneralEditor extends Component {
 						</Query>
 					</Box>
 
-          <div className={boxesHeader}>
-						<Editor query={qGuildBasic} mutation={mutationQuery}>
+					<Box padding>
+						<Box.Title>Capital Spam Status</Box.Title>
+						<Box.Body>
+							<Checkbox>Disabled</Checkbox>
+						</Box.Body>
+					</Box>
+
+					<Box padding>
+						<Box.Title>Capital Spam Percentage</Box.Title>
+						<Box.Body>
+						// TODO: validate this is a valid integer
+						<Editor.Input mutate="TODO" query="guild.settings.settings.moderation.capitalPercentage.amount" />
+						</Box.Body>
+					</Box>
+
+					<Box padding>
+						<Box.Title>Max Mails Per User</Box.Title>
+						<Box.Body>
+						// TODO: validate this is a valid integer
+						<Editor.Input mutate="TODO" query="guild.settings.settings.mail.maxMailPerUser" />
+						</Box.Body>
+					</Box>
+
+					<Box padding>
+						<Box.Title>Naughty Words Filter Status</Box.Title>
+						<Box.Body>
+							<Checkbox>Disabled</Checkbox>
+						</Box.Body>
+					</Box>
+
+					<Box padding>
+						<Box.Title>Naughty Words</Box.Title>
+						<Box.Body>
+						// TODO: Allow a bunch of words to show
+						<Editor.Input mutate="TODO" query="guild.settings.settings.moderation.naughtyWords.words" />
+						</Box.Body>
+					</Box>
+
+					// TODO: Unique Role Sets are missing need to think how to do it.
+			</Editor>
+		</div>
+	</section>
+
+
+
+			<section>
+				<Heading2>Auto Moderation</Heading2>
+				// TODO: Fix this current value label
+				<div className={boxesHeader}>
+					<Editor query={qGuildBasic} mutation={mutationQuery}>
+						<Box padding>
+							<Box.Title>Auto Assign Role</Box.Title>
+							<Query query={qTimezone}>
+								{({ loading, error, data }) => {
+									if (loading) return "Loading";
+									if (error) return "Error";
+									{/* TODO: Query these channels names */}
+									let values = [{ key: 'first', value: 'role 1' }, { key: 'second', value: 'role 2' }];
+									const mutateString = "TODO";
+									const roleQuery = "TODO";
+
+									{/* TODO: fill this in properly */}
+									return (
+										<Editor.Select
+											values={values}
+											mutate={mutateString}
+											query={roleQuery}
+											/>
+										);
+									}}
+							</Query>
+						</Box>
+
 						<Box padding>
 							<Box.Title>Capital Spam Status</Box.Title>
 							<Box.Body>
@@ -400,10 +473,118 @@ class GeneralEditor extends Component {
 						</Box>
 
 						// TODO: Unique Role Sets are missing need to think how to do it.
+					</Editor>
+				</div>
+			</section>
 
-						</Editor>
-          </div>
-        </section>
+			<section>
+				<Heading2>Welcome/Goodbye</Heading2>
+				// TODO: Fix this current value label
+				<div className={boxesHeader}>
+					<Editor query={qGuildBasic} mutation={mutationQuery}>
+						<Box padding>
+							<Box.Title>Welcome In Channel Status</Box.Title>
+							<Box.Body>
+								<Checkbox>Disabled</Checkbox>
+								<br/>
+								<Box.Title>Welcome In DM Status</Box.Title>
+								<Checkbox>Disabled</Checkbox>
+							</Box.Body>
+						</Box>
+
+						<Box padding>
+							<Box.Title>Goodbye In Channel Status</Box.Title>
+							<Box.Body>
+								<Checkbox>Disabled</Checkbox>
+								<br/>
+								<Box.Title>Goodbye In DM Status</Box.Title>
+								<Checkbox>Disabled</Checkbox>
+							</Box.Body>
+						</Box>
+
+						// TODO: Welcome and goodbye messages need to be done
+					</Editor>
+				</div>
+			</section>
+
+
+
+
+			<section>
+				<Heading2>Verification</Heading2>
+				// TODO: Fix this current value label
+				<div className={boxesHeader}>
+					<Editor query={qGuildBasic} mutation={mutationQuery}>
+						<Box padding>
+							<Box.Title>Verification Status</Box.Title>
+							<Box.Body>
+								<Checkbox>Disabled</Checkbox>
+							</Box.Body>
+						</Box>
+
+						<Box padding>
+							<Box.Title>Verification Category</Box.Title>
+							<Query query={qTimezone}>
+								{({ loading, error, data }) => {
+									if (loading) return "Loading";
+									if (error) return "Error";
+									{/* TODO: Query these channels names */}
+									let values = [{ key: 'first', value: 'role 1' }, { key: 'second', value: 'role 2' }];
+									const mutateString = "TODO";
+									const roleQuery = "TODO";
+
+									{/* TODO: fill this in properly */}
+									return (
+										<Editor.Select
+											values={values}
+											mutate={mutateString}
+											query={roleQuery}
+											/>
+										);
+									}}
+							</Query>
+						</Box>
+
+						<Box padding>
+							<Box.Title>Verification First Message</Box.Title>
+							<Box.Body>
+							// TODO: validate this is a embed
+							<Editor.Input mutate="TODO" query="guild.settings.settings.verify.first" />
+							</Box.Body>
+						</Box>
+
+						<Box padding>
+							<Box.Title>Verification Role</Box.Title>
+							<Query query={qTimezone}>
+								{({ loading, error, data }) => {
+									if (loading) return "Loading";
+									if (error) return "Error";
+									{/* TODO: Query these channels names */}
+									let values = [{ key: 'first', value: 'role 1' }, { key: 'second', value: 'role 2' }];
+									const mutateString = "TODO";
+									const roleQuery = "TODO";
+
+									{/* TODO: fill this in properly */}
+									return (
+										<Editor.Select
+											values={values}
+											mutate={mutateString}
+											query={roleQuery}
+											/>
+										);
+									}}
+							</Query>
+						</Box>
+
+						<Box padding>
+							<Box.Title>Reset Verification</Box.Title>
+							<Box.Body>
+								<Checkbox>Disabled</Checkbox>
+							</Box.Body>
+						</Box>
+					</Editor>
+				</div>
+			</section>
       </React.Fragment>
     );
   }
