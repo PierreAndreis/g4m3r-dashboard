@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-// import { css } from "emotion";
+import { css } from "emotion";
 import Button from "../../../../components/Button";
 import { Heading, SubHeader } from "../../../../components/Typography";
 import Modal from "../../../../global/Modal";
-// import Box from "../../../../components/Box";
+import Box from "../../../../components/Box";
 // import Input from "../../../../components/Input";
 // import Select from "../../../../components/Select";
 import gql from "graphql-tag";
@@ -329,8 +329,15 @@ class CommandsEditor extends Component {
     super(props);
     this.state = {
       isOpenModal: false,
+      category: "basic",
     };
   }
+
+  changeCategory = category => e => {
+    this.setState({
+      category,
+    });
+  };
 
   toggleModal = () => {
     this.setState({
