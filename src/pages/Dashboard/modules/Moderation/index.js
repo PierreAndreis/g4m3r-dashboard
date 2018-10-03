@@ -329,6 +329,80 @@ class GeneralEditor extends Component {
 
 						</Editor>
           </div>
+				</section>
+
+
+
+				<section>
+					<Heading2>Auto Moderation</Heading2>
+					// TODO: Fix this current value label
+					<Box padding>
+						<Box.Title>Auto Assign Role</Box.Title>
+						<Query query={qTimezone}>
+							{({ loading, error, data }) => {
+								if (loading) return "Loading";
+								if (error) return "Error";
+								{/* TODO: Query these channels names */}
+								let values = [{ key: 'first', value: 'role 1' }, { key: 'second', value: 'role 2' }];
+								const mutateString = '';
+								const roleQuery = '';
+
+								{/* TODO: fill this in properly */}
+								return (
+									<Editor.Select
+										values={values}
+										mutate={mutateString}
+										query={roleQuery}
+										/>
+									);
+								}}
+						</Query>
+					</Box>
+
+          <div className={boxesHeader}>
+						<Editor query={qGuildBasic} mutation={mutationQuery}>
+						<Box padding>
+							<Box.Title>Capital Spam Status</Box.Title>
+							<Box.Body>
+								<Checkbox>Disabled</Checkbox>
+							</Box.Body>
+						</Box>
+
+						<Box padding>
+							<Box.Title>Capital Spam Percentage</Box.Title>
+							<Box.Body>
+							// TODO: validate this is a valid integer
+							<Editor.Input mutate="TODO" query="guild.settings.settings.moderation.capitalPercentage.amount" />
+							</Box.Body>
+						</Box>
+
+						<Box padding>
+							<Box.Title>Max Mails Per User</Box.Title>
+							<Box.Body>
+							// TODO: validate this is a valid integer
+							<Editor.Input mutate="TODO" query="guild.settings.settings.mail.maxMailPerUser" />
+							</Box.Body>
+						</Box>
+
+						<Box padding>
+							<Box.Title>Naughty Words Filter Status</Box.Title>
+							<Box.Body>
+								<Checkbox>Disabled</Checkbox>
+							</Box.Body>
+						</Box>
+
+						<Box padding>
+							<Box.Title>Naughty Words</Box.Title>
+							<Box.Body>
+							// TODO: Allow a bunch of words to show
+							<Editor.Input mutate="TODO" query="guild.settings.settings.moderation.naughtyWords.words" />
+							</Box.Body>
+						</Box>
+
+						// TODO: Unique Role Sets are missing need to think how to do it.
+
+						</Editor>
+          </div>
         </section>
       </React.Fragment>
     );
