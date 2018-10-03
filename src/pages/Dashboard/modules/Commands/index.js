@@ -22,11 +22,10 @@ const boxesHeader = css`
 
 // todo: remove from here, put on graphql folder
 const mutationQuery = gql`
-  mutation editGuild($guildId: String!, $input: guildInput!) {
-    set(id: $guildId, input: $input) {
-      name
+  mutation editGuildCommands($guildId: String!, $input: commandsInput!) {
+    setCommands(id: $guildId, input: $input) {
       id
-      configs {
+      settings {
         settings {
           commands
         }
