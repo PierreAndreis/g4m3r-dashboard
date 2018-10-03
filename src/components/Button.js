@@ -13,7 +13,6 @@ const ButtonBase = css`
 
   margin-right: 5px;
   /* box-shadow: 0 0 6px rgba(50, 50, 93, 0.11);*/
-
   padding: 10px 16px;
   font-size: 14px;
   transition: all 300ms;
@@ -45,7 +44,11 @@ const ButtonSimple = css`
   }
 
   &.active:hover {
-    transform: translateY(-5px);
+    transform: translateY(-1px);
+  }
+
+  &:focus:not(.active) {
+    background: rgba(0, 0, 0, 0.05);
   }
 
   &.disabled {
@@ -64,10 +67,12 @@ const ButtonSmall = css`
 `;
 
 const ButtonHover = css`
-  &:hover {
+  &:hover,
+  &:focus {
     background-color: #87b9ff;
     color: white;
   }
+
   &:active:focus {
     box-shadow: 0 0 0 0.2rem #74ebd5;
   }
@@ -123,8 +128,14 @@ export default class Button extends Component {
   };
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.state.status === "success" && prevState.status !== "success") {
-      this.timeout = setTimeout(() => this.setState({ status: "normal" }), 1000);
+    if (
+      (this.state.status === "success" && prevState.status !== "success") ||
+      (this.state.status === "error" && prevState.status !== "error")
+    ) {
+      this.timeout = setTimeout(
+        () => this.setState({ status: "normal" }),
+        this.state.status === "error" ? 4000 : 2000
+      );
     }
   }
 
