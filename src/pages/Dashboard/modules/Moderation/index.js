@@ -10,6 +10,7 @@ import { Query } from "react-apollo";
 import Checkbox from "../../../../components/Checkbox";
 import Editor from "../../../../components/Editor";
 import qGuildBasic from "../../../../graphql/queries/guild/guildBasic";
+import qTimezone from "../../../../graphql/queries/utils/timezone";
 
 const boxesHeader = css`
   display: flex;
@@ -19,6 +20,54 @@ const boxesHeader = css`
     margin-right: 20px;
   }
 `;
+
+const cleanUpTimezone = timezones =>
+  timezones.map(timezone => ({
+    key: timezone,
+    value: timezone,
+	}));
+
+const channelSelector = (type, mutateString, channelQuery) => {
+	return (
+		<div>
+			<br/>
+			<Box.Title>{type} Log Channel</Box.Title>
+			<Query query={qTimezone}>
+				{({ loading, error, data }) => {
+					if (loading) return "Loading";
+					if (error) return "Error";
+					{/* TODO: Query these channels names */}
+					let values = [{ key: 'first', value: 'first channel' }, { key: 'second', value: 'second channel' }];
+
+					{/* TODO: fill this in properly */}
+					return (
+						<Editor.Select
+							values={values}
+							mutate={mutateString}
+							query={channelQuery}
+							/>
+						);
+					}}
+			</Query>
+		</div>
+		)
+}
+
+const createStatusAndChannelsBoxes = (type, currentStatus, channelQuery, mutateString) => {
+	return (
+		<div>
+			<Editor query={qGuildBasic} mutation={mutationQuery}>
+				<Box padding>
+					<Box.Title>{type} Log Status</Box.Title>
+					<Box.Body>
+						<Checkbox>{currentStatus ? 'Enabled' : 'Disabled'}</Checkbox>
+						{currentStatus ? channelSelector(type, mutateString, channelQuery) : null}
+					</Box.Body>
+				</Box>
+			</Editor>
+		</div>
+	);
+}
 
 // todo: remove from here, put on graphql folder
 const mutationQuery = gql`
@@ -34,6 +83,38 @@ const mutationQuery = gql`
     }
   }
 `;
+
+const mainLogs = [
+	{ name: 'Mod', status: true, query: 'moderation.channel' },
+	{ name: 'Public', status: false, query: 'moderation.publicModlogChannel' },
+	{ name: 'Server', status: true, query: 'serverLogs.mainChannel' },
+];
+
+const serverLogs = [
+	{ name: 'Role Create', status: true, query: 'serverLogs.roleCreate' },
+	{ name: 'Role Delete', status: true, query: 'serverLogs.roleDelete' },
+	{ name: 'Role Update', status: true, query: 'serverLogs.roleUpdate' },
+	{ name: 'Member Add', status: true, query: 'serverLogs.memberAdd' },
+	{ name: 'Member Remove', status: true, query: 'serverLogs.memberRemove' },
+	{ name: 'Command Ran', status: true, query: 'serverLogs.cmdRan' },
+	{ name: 'Tag Ran', status: true, query: 'serverLogs.tagRan' },
+	{ name: 'Story Ran', status: true, query: 'serverLogs.storyRan' },
+	{ name: 'Message Delete', status: true, query: 'serverLogs.msgDeleted' },
+	{ name: 'Message Edit', status: true, query: 'serverLogs.msgUpdate' },
+	{ name: 'Emoji Create', status: true, query: 'serverLogs.emojiCreate' },
+	{ name: 'Emoji Delete', status: true, query: 'serverLogs.emojiDelete' },
+	{ name: 'Emoji Update', status: true, query: 'serverLogs.emojiUpdate' },
+	{ name: 'Channel Create', status: true, query: 'serverLogs.channelCreate' },
+	{ name: 'Channel Delete', status: true, query: 'serverLogs.channelDelete' },
+	{ name: 'Channel Update', status: true, query: 'serverLogs.channelUpdate' },
+	{ name: 'Server Deaf', status: true, query: 'serverLogs.serverDeaf' },
+	{ name: 'Server Mute', status: true, query: 'serverLogs.serverMute' },
+	{ name: 'Nickname Change', status: true, query: 'serverLogs.nicknameChanged' },
+	{ name: 'Member Perms', status: true, query: 'serverLogs.memberRolePermissionsChanged' },
+	{ name: 'Member Roles', status: true, query: 'serverLogs.memberRoleUpdated' },
+	{ name: 'Member Ban', status: true, query: 'serverLogs.guildBanAdd' },
+	{ name: 'Member Unban', status: true, query: 'serverLogs.guildBanRemove' }
+];
 
 class GeneralEditor extends Component {
   render() {
@@ -53,65 +134,19 @@ class GeneralEditor extends Component {
           </SubHeader>
         </section>
         <section>
-          <Heading2>Moderation Logs</Heading2>
-          <div className={boxesHeader}>
-            <Editor query={qGuildBasic} mutation={mutationQuery}>
-              <Box padding>
-                <Box.Title>Mod Log Status</Box.Title>
-                <Box.Body>
-                  <Checkbox></Checkbox>
-                </Box.Body>
-              </Box>
-            </Editor>
-
-            <Editor query={qGuildBasic} mutation={mutationQuery}>
-              <Box padding>
-                <Box.Title>Public Log Status</Box.Title>
-                <Box.Body>
-                  <Checkbox></Checkbox>
-                </Box.Body>
-              </Box>
-            </Editor>
-
-            <Editor query={qGuildBasic} mutation={mutationQuery}>
-              <Box padding>
-                <Box.Title>Server Log Status</Box.Title>
-                <Box.Body>
-                  <Checkbox></Checkbox>
-                </Box.Body>
-              </Box>
-						</Editor>
-					</div>
-					// TODO: Change checkboxes below to a single channel selector
+					<Heading2>Moderation Logs</Heading2>
+					// TODO: Fix the queries to actually edit the settings when toggled.
 					<div className={boxesHeader}>
-            <Editor query={qGuildBasic} mutation={mutationQuery}>
-              <Box padding>
-                <Box.Title>Mod Log Channel</Box.Title>
-                <Box.Body>
-                  <Checkbox></Checkbox>
-                </Box.Body>
-              </Box>
-            </Editor>
-
-            <Editor query={qGuildBasic} mutation={mutationQuery}>
-              <Box padding>
-                <Box.Title>Public Log Channel</Box.Title>
-                <Box.Body>
-                  <Checkbox></Checkbox>
-                </Box.Body>
-              </Box>
-            </Editor>
-
-            <Editor query={qGuildBasic} mutation={mutationQuery}>
-              <Box padding>
-                <Box.Title>Server Log Main Channel</Box.Title>
-                <Box.Body>
-                  <Checkbox></Checkbox>
-                </Box.Body>
-              </Box>
-						</Editor>
+					{mainLogs.map((opt, index) => {
+						return createStatusAndChannelsBoxes(opt.name, opt.status, opt.query)
+					})}
 					</div>
-
+					<Heading2>Individual Server Logs</Heading2>
+					<div className={boxesHeader}>
+						{serverLogs.map((opt, index) => {
+							return createStatusAndChannelsBoxes(opt.name, opt.status, opt.query)
+						})}
+					</div>
 				</section>
 				<section>
 				<Heading2>Moderation Values</Heading2>
