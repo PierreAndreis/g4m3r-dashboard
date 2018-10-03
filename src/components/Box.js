@@ -11,6 +11,7 @@ const BoxBase = css`
   box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.1);
   border-radius: 3px;
   box-sizing: border-box;
+  margin: 5px;
 `;
 
 const BoxCenter = css`

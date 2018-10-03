@@ -60,7 +60,7 @@ class Snackbar extends React.Component {
         in={open}
         timeout={{
           enter: 300,
-          exit: 900,
+          exit: 400,
         }}
         classNames="slide"
         // unmountOnExit

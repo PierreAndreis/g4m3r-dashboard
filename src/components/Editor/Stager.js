@@ -67,11 +67,12 @@ class Stager extends React.Component {
   };
 
   revert = buttonState => {
+    // buttonState.loading();
     this.setState({
       modified: false,
       changes: {},
     });
-    buttonState.success();
+    // buttonState.success();
   };
 
   render() {
