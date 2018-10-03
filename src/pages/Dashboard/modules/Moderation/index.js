@@ -57,7 +57,7 @@ const createStatusAndChannelsBoxes = (type, currentStatus, channelQuery, mutateS
 	return (
 		<div>
 			<Editor query={qGuildBasic} mutation={mutationQuery}>
-				<Box padding>
+				<Box padding style={{width: "100%"}}>
 					<Box.Title>{type} Log Status</Box.Title>
 					<Box.Body>
 						<Checkbox>{currentStatus ? 'Enabled' : 'Disabled'}</Checkbox>
@@ -153,18 +153,181 @@ class GeneralEditor extends Component {
           <div className={boxesHeader}>
             <Editor query={qGuildBasic} mutation={mutationQuery}>
 							<Box padding>
-								<Box.Title>Prefix</Box.Title>
+								<Box.Title>Max Warnings</Box.Title>
 								<Box.Body>
-						<Editor.Input mutate="prefix" query="guild.configs.settings.prefix" />
-						</Box.Body>
-					</Box>
-					<Box padding>
-                <Box.Title>Mod Log Status</Box.Title>
-                <Box.Body>
-                  <Checkbox></Checkbox>
-                </Box.Body>
-              </Box>
-            </Editor>
+								// TODO: validate this is a valid integer
+								<Editor.Input mutate="TODO" query="guild.settings.settings.moderation.maxNoWarnings" />
+								</Box.Body>
+							</Box>
+
+							<Box padding>
+								<Box.Title>Max Inactive Time</Box.Title>
+								<Box.Body>
+								// TODO: validate this is a valid integer
+								<Editor.Input mutate="TODO" query="guild.settings.settings.moderation.maxInactivityTime" />
+								</Box.Body>
+							</Box>
+
+							<div>
+							<Box padding>
+								<Box.Title>Inactive Role</Box.Title>
+								<Query query={qTimezone}>
+									{({ loading, error, data }) => {
+										if (loading) return "Loading";
+										if (error) return "Error";
+										{/* TODO: Query these channels names */}
+										let values = [{ key: 'first', value: 'first role' }, { key: 'second', value: 'second role' }];
+										const mutateString = '';
+										const roleQuery = '';
+
+										{/* TODO: fill this in properly */}
+										return (
+											<Editor.Select
+												values={values}
+												mutate={mutateString}
+												query={roleQuery}
+												/>
+											);
+										}}
+								</Query>
+							</Box>
+
+							<Box padding>
+								<Box.Title>Max Warnings Role</Box.Title>
+								<Query query={qTimezone}>
+									{({ loading, error, data }) => {
+										if (loading) return "Loading";
+										if (error) return "Error";
+										{/* TODO: Query these channels names */}
+										let values = [{ key: 'first', value: 'first role' }, { key: 'second', value: 'second role' }];
+										const mutateString = '';
+										const roleQuery = '';
+
+										{/* TODO: fill this in properly */}
+										return (
+											<Editor.Select
+												values={values}
+												mutate={mutateString}
+												query={roleQuery}
+												/>
+											);
+										}}
+								</Query>
+							</Box>
+						</div>
+						</Editor>
+          </div>
+				</section>
+
+
+
+				<section>
+					<Heading2>Mute Roles</Heading2>
+          <div className={boxesHeader}>
+            <Editor query={qGuildBasic} mutation={mutationQuery}>
+							<Box padding>
+								<Box.Title>Text Muted Role</Box.Title>
+								<Query query={qTimezone}>
+									{({ loading, error, data }) => {
+										if (loading) return "Loading";
+										if (error) return "Error";
+										{/* TODO: Query these channels names */}
+										let values = [{ key: 'first', value: 'first role' }, { key: 'second', value: 'second role' }];
+										const mutateString = '';
+										const roleQuery = '';
+
+										{/* TODO: fill this in properly */}
+										return (
+											<Editor.Select
+												values={values}
+												mutate={mutateString}
+												query={roleQuery}
+												/>
+											);
+										}}
+								</Query>
+							</Box>
+
+							<Box padding>
+								<Box.Title>Voice Muted Role</Box.Title>
+								<Query query={qTimezone}>
+									{({ loading, error, data }) => {
+										if (loading) return "Loading";
+										if (error) return "Error";
+										{/* TODO: Query these channels names */}
+										let values = [{ key: 'first', value: 'first role' }, { key: 'second', value: 'second role' }];
+										const mutateString = '';
+										const roleQuery = '';
+
+										{/* TODO: fill this in properly */}
+										return (
+											<Editor.Select
+												values={values}
+												mutate={mutateString}
+												query={roleQuery}
+												/>
+											);
+										}}
+								</Query>
+							</Box>
+						</Editor>
+          </div>
+				</section>
+
+
+				<section>
+					<Heading2>Mod Mails</Heading2>
+					// TODO: Fix this current value label
+
+          <div className={boxesHeader}>
+						<Editor query={qGuildBasic} mutation={mutationQuery}>
+						<Box padding>
+							<Box.Title>Mod Mail Status</Box.Title>
+							<Box.Body>
+								<Checkbox>Disabled</Checkbox>
+							</Box.Body>
+						</Box>
+
+						<Box padding>
+							<Box.Title>Permission To Reply</Box.Title>
+							<Query query={qTimezone}>
+								{({ loading, error, data }) => {
+									if (loading) return "Loading";
+									if (error) return "Error";
+									{/* TODO: Query these channels names */}
+									let values = [{ key: 'first', value: 'Admins Only' }, { key: 'second', value: 'Admins + Mods' }];
+									const mutateString = '';
+									const roleQuery = '';
+
+									{/* TODO: fill this in properly */}
+									return (
+										<Editor.Select
+											values={values}
+											mutate={mutateString}
+											query={roleQuery}
+											/>
+										);
+									}}
+							</Query>
+						</Box>
+
+						<Box padding>
+							<Box.Title>Max Mails Per Guild</Box.Title>
+							<Box.Body>
+							// TODO: validate this is a valid integer
+							<Editor.Input mutate="TODO" query="guild.settings.settings.mail.maxMailsTotal" />
+							</Box.Body>
+						</Box>
+
+						<Box padding>
+							<Box.Title>Max Mails Per User</Box.Title>
+							<Box.Body>
+							// TODO: validate this is a valid integer
+							<Editor.Input mutate="TODO" query="guild.settings.settings.mail.maxMailPerUser" />
+							</Box.Body>
+						</Box>
+
+						</Editor>
           </div>
         </section>
       </React.Fragment>
