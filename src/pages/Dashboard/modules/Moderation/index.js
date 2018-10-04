@@ -197,6 +197,22 @@ const makeIndividualServerLogs = () => {
   );
 };
 
+const makeInputSettings = () => {
+  return (
+    <div>
+      <Editor query={props.editorQuery} mutation={props.editorMutate}>
+        <Box padding>
+          <Box.Title>{props.title}</Box.Title>
+          <Box.Body>
+            // TODO: Need validation of inputs
+            <Editor.Input mutate={props.inputMutate} query={props.inputQuery} />
+          </Box.Body>
+        </Box>
+      </Editor>
+    </div>
+  );
+};
+
 class GeneralEditor extends Component {
   render() {
     // let guildId = this.props.match.params.guildId;
@@ -235,34 +251,17 @@ class GeneralEditor extends Component {
         {/*
 				<section>
 				<Heading2>Moderation Values</Heading2>
-          <div className={boxesHeader}>
-            <Editor query={qGuildBasic} mutation={mutationQuery}>
-							<Box padding>
-								<Box.Title>Max Warnings</Box.Title>
-								<Box.Body>
-								// TODO: validate this is a valid integer
-								<Editor.Input mutate="TODO" query="guild.settings.settings.moderation.maxNoWarnings" />
-								</Box.Body>
-							</Box>
+					<div className={boxesHeader}>
+						{makeInputSettings({ editorQuery: "TODO", editorMutate: "TODO", title: "Max Warnings", inputQuery: "guild.settings.settings.moderation.maxNoWarnings", inputMutate: "TODO" })}
+						{makeInputSettings({ editorQuery: "TODO", editorMutate: "TODO", title: "Max Inactive Time", inputQuery: "guild.settings.settings.moderation.maxInactivityTime", inputMutate: "TODO" })}
 
-							<Box padding>
-								<Box.Title>Max Inactive Time</Box.Title>
-								<Box.Body>
-								// TODO: validate this is a valid integer
-								<Editor.Input mutate="TODO" query="guild.settings.settings.moderation.maxInactivityTime" />
-								</Box.Body>
-							</Box>
+						<Box padding>
+							{channelOrRoleSelector({ isChannel: false, type: 'Inactive', mutateString: "TODO", query: "TODO" })}
+						</Box>
 
-							<div>
-							<Box padding>
-								{channelOrRoleSelector({ isChannel: false, type: 'Inactive', mutateString: "TODO", query: "TODO" })}
-							</Box>
-
-							<Box padding>
-								{channelOrRoleSelector({ isChannel: false, type: 'Max Warnings', mutateString: "TODO", query: "TODO" })}
-							</Box>
-						</div>
-						</Editor>
+						<Box padding>
+							{channelOrRoleSelector({ isChannel: false, type: 'Max Warnings', mutateString: "TODO", query: "TODO" })}
+						</Box>
           </div>
 				</section>
 
@@ -271,7 +270,7 @@ class GeneralEditor extends Component {
 				<section>
 				<Heading2>Mute Roles</Heading2>
 				<div className={boxesHeader}>
-					<Editor query={qGuildBasic} mutation={mutationQuery}>
+					<Editor query={qRoles} mutation="TODO">
 						<Box padding>
 							{channelOrRoleSelector({ isChannel: false, type: 'Text Muted', mutateString: "TODO", query: "TODO" })}
 						</Box>
