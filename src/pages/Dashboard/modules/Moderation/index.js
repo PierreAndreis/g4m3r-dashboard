@@ -49,7 +49,7 @@ const channelOrRoleSelector = props => {
               <Editor.Select
                 values={values}
                 mutate={props.mutateString}
-                query={props.Query}
+                query={props.query}
               />
             );
           }}
@@ -59,21 +59,22 @@ const channelOrRoleSelector = props => {
   );
 };
 
-const createStatusAndChannelsBoxes = (
-  type,
-  currentStatus,
-  channelQuery,
-  mutateString
-) => {
+const createStatusAndChannelsBoxes = props => {
   return (
     <div>
       <Editor query={qGuildBasic} mutation={mutationQuery}>
         <Box padding style={{ width: "100%" }}>
-          <Box.Title>{type} Log Status</Box.Title>
+          <Box.Title>{props.type} Log Status</Box.Title>
           <Box.Body>
-            <Checkbox>{currentStatus ? "Enabled" : "Disabled"}</Checkbox>
-            {console.log(currentStatus, type, channelQuery, mutateString)}
-            {/*currentStatus ? channelOrRoleSelector({ isChannel: true, type, mutateString, query: channelQuery }) : null*/}
+            <Checkbox>{props.currentStatus ? "Enabled" : "Disabled"}</Checkbox>
+            {props.currentStatus
+              ? channelOrRoleSelector({
+                  isChannel: true,
+                  type: props.type,
+                  mutateString: props.mutateString,
+                  query: props.query,
+                })
+              : null}
           </Box.Body>
         </Box>
       </Editor>
@@ -202,13 +203,23 @@ class GeneralEditor extends Component {
           // TODO: Fix the queries to actually edit the settings when toggled.
           <div className={boxesHeader}>
             {mainLogs.map((opt, index) => {
-              return createStatusAndChannelsBoxes(opt.name, opt.status, opt.query);
+              return createStatusAndChannelsBoxes({
+                type: opt.name,
+                currentStatus: opt.status,
+                query: opt.query,
+                mutateString: opt.mutate,
+              });
             })}
           </div>
           <Heading2>Individual Server Logs</Heading2>
           <div className={boxesHeader}>
             {serverLogs.map((opt, index) => {
-              return createStatusAndChannelsBoxes(opt.name, opt.status, opt.query);
+              return createStatusAndChannelsBoxes({
+                type: opt.name,
+                currentStatus: opt.status,
+                query: opt.query,
+                mutate: opt.mutate,
+              });
             })}
           </div>
         </section>
