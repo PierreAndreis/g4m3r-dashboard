@@ -197,7 +197,7 @@ const makeIndividualServerLogs = () => {
   );
 };
 
-const makeInputSettings = () => {
+const makeInputSettings = props => {
   return (
     <div>
       <Editor query={props.editorQuery} mutation={props.editorMutate}>
@@ -206,6 +206,21 @@ const makeInputSettings = () => {
           <Box.Body>
             // TODO: Need validation of inputs
             <Editor.Input mutate={props.inputMutate} query={props.inputQuery} />
+          </Box.Body>
+        </Box>
+      </Editor>
+    </div>
+  );
+};
+
+const makeStatusToggle = props => {
+  return (
+    <div>
+      <Editor query={props.editorQuery} mutation={props.editorMutate}>
+        <Box padding>
+          <Box.Title>{props.title}</Box.Title>
+          <Box.Body>
+            <Checkbox>{props.currentStatus}</Checkbox>
           </Box.Body>
         </Box>
       </Editor>
@@ -288,13 +303,7 @@ class GeneralEditor extends Component {
 			// TODO: Fix this current value label
 
 			<div className={boxesHeader}>
-				<Editor query={qGuildBasic} mutation={mutationQuery}>
-				<Box padding>
-					<Box.Title>Mod Mail Status</Box.Title>
-					<Box.Body>
-						<Checkbox>Disabled</Checkbox>
-					</Box.Body>
-				</Box>
+				{makeStatusToggle({ editorQuery: "TODO", editorMutation: "TODO", title: "Mod Mail Status", currentStatus: "TODO" })}
 
 				<Box padding>
 					<Box.Title>Permission To Reply</Box.Title>
@@ -318,24 +327,9 @@ class GeneralEditor extends Component {
 							}}
 					</Query>
 				</Box>
-
-				<Box padding>
-					<Box.Title>Max Mails Per Guild</Box.Title>
-					<Box.Body>
-					// TODO: validate this is a valid integer
-					<Editor.Input mutate="TODO" query="guild.settings.settings.mail.maxMailsTotal" />
-					</Box.Body>
-				</Box>
-
-				<Box padding>
-					<Box.Title>Max Mails Per User</Box.Title>
-					<Box.Body>
-					// TODO: validate this is a valid integer
-					<Editor.Input mutate="TODO" query="guild.settings.settings.mail.maxMailPerUser" />
-					</Box.Body>
-				</Box>
-
 				</Editor>
+				{currentModMailStatus ? makeInputSettings({ editorQuery: "TODO", editorMutate: "TODO", title: "Max Mails Per Guild", inputQuery: "guild.settings.settings.mail.maxMailsTotal", inputMutate: "TODO" }) : null}
+				{currentModMailStatus ? makeInputSettings({ editorQuery: "TODO", editorMutate: "TODO", title: "Max Mails Per User", inputQuery: "guild.settings.settings.mail.maxMailPerUser", inputMutate: "TODO" }) : null}
 			</div>
 		</section>
 
