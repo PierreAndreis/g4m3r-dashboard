@@ -343,47 +343,15 @@ class GeneralEditor extends Component {
 					<Box padding>
 						{channelOrRoleSelector({ isChannel: false, type: 'Auto Assign', mutateString: "TODO", query: "TODO" })}
 					</Box>
+				</Editor>
 
-					<Box padding>
-						<Box.Title>Capital Spam Status</Box.Title>
-						<Box.Body>
-							<Checkbox>Disabled</Checkbox>
-						</Box.Body>
-					</Box>
+				{makeStatusToggle({ editorQuery: "TODO", editorMutation: "TODO", title: "Capital Spam Status", currentStatus: "TODO" })}
+				{currentCapitalSpamStatus ? makeInputSettings({ editorQuery: "TODO", editorMutate: "TODO", title: "Capital Spam Percentage", inputQuery: "guild.settings.settings.moderation.capitalPercentage.amount", inputMutate: "TODO" }) : null}
 
-					<Box padding>
-						<Box.Title>Capital Spam Percentage</Box.Title>
-						<Box.Body>
-						// TODO: validate this is a valid integer
-						<Editor.Input mutate="TODO" query="guild.settings.settings.moderation.capitalPercentage.amount" />
-						</Box.Body>
-					</Box>
-
-					<Box padding>
-						<Box.Title>Max Mails Per User</Box.Title>
-						<Box.Body>
-						// TODO: validate this is a valid integer
-						<Editor.Input mutate="TODO" query="guild.settings.settings.mail.maxMailPerUser" />
-						</Box.Body>
-					</Box>
-
-					<Box padding>
-						<Box.Title>Naughty Words Filter Status</Box.Title>
-						<Box.Body>
-							<Checkbox>Disabled</Checkbox>
-						</Box.Body>
-					</Box>
-
-					<Box padding>
-						<Box.Title>Naughty Words</Box.Title>
-						<Box.Body>
-						// TODO: Allow a bunch of words to show
-						<Editor.Input mutate="TODO" query="guild.settings.settings.moderation.naughtyWords.words" />
-						</Box.Body>
-					</Box>
+				{makeStatusToggle({ editorQuery: "TODO", editorMutation: "TODO", title: "Naughty Words Filter Status", currentStatus: "TODO" })}
+				{currentNaughtyWordFilterStatus ? makeInputSettings({ editorQuery: "TODO", editorMutate: "TODO", title: "Naughty Words", inputQuery: "guild.settings.settings.moderation.naughtyWords.words", inputMutate: "TODO" }) : null}
 
 					// TODO: Unique Role Sets are missing need to think how to do it.
-			</Editor>
 		</div>
 	</section>
 
