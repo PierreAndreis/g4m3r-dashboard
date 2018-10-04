@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { css } from "emotion";
-import { Query, withApollo  } from "react-apollo";
+import { Query, withApollo } from "react-apollo";
 import Button from "../../../../components/Button";
 import { Heading, SubHeader } from "../../../../components/Typography";
 import Modal from "../../../../global/Modal";
@@ -331,21 +331,27 @@ class CommandsEditor extends Component {
     this.state = {
       isOpenModal: false,
       category: "Basic",
-      commands: []
+      commands: [],
     };
   }
 
   componentDidMount() {
-    this.props.client.query({
-      query: qClientCommands,
-      variables: { clientId: "287128811961843712" }
-    }).then(result => {
-      this.setState({
-        commands: result.data.client.commands.map(c => ({ ...c, mutateName: c.id, queryName: c.id}))
+    this.props.client
+      .query({
+        query: qClientCommands,
+        variables: { clientId: "287128811961843712" },
       })
-    })
+      .then(result => {
+        this.setState({
+          commands: result.data.client.commands.map(c => ({
+            ...c,
+            mutateName: c.id,
+            queryName: c.id,
+          })),
+        });
+      });
   }
-   changeCategory = category => e => {
+  changeCategory = category => e => {
     this.setState({
       category,
     });
@@ -358,7 +364,9 @@ class CommandsEditor extends Component {
   };
 
   render() {
-    const categories = [...new Set(this.state.commands.filter(c => !c.isMaintainer).map(c => c.category))];
+    const categories = [
+      ...new Set(this.state.commands.filter(c => !c.isMaintainer).map(c => c.category)),
+    ];
 
     return (
       <React.Fragment>
@@ -383,58 +391,58 @@ class CommandsEditor extends Component {
           </SubHeader>
         </section>
         <section>
-          {
-            categories.map(category => {
-              return (
-                <Button
-                  key={category}
-                  onClick={this.changeCategory(category)}
-                  simple
-                  active={this.state.category === category}
-                >
-                  {category}
-                </Button>
-              )
-            })
-          }
+          {categories.map(category => {
+            return (
+              <Button
+                key={category}
+                onClick={this.changeCategory(category)}
+                simple
+                active={this.state.category === category}
+              >
+                {category}
+              </Button>
+            );
+          })}
         </section>
         <section>
           <div className={boxesHeader} style={{ flexWrap: "wrap" }}>
             <Editor query={qCommands} mutation={mutationQuery}>
-              {this.state.commands.filter(cmd => cmd.category === this.state.category).map(cmd => {
-                return (
-                  <Box padding key={cmd.id.toUpperCase()}>
-                    <Box.Title>{cmd.id.toUpperCase()}</Box.Title>
-                    <Box.Body>
-                      <div
-                        style={{
-                          display: "flex",
-                          marginBottom: "10px",
-                          justifyContent: "space-between",
-                        }}
-                      >
-                        <Editor.Checkbox mutate={`${cmd.mutateName}.enabled`}>
-                          Enabled
-                        </Editor.Checkbox>
-                        <Editor.Checkbox mutate={`${cmd.mutateName}.msgDelete`}>
-                          Trigger
-                        </Editor.Checkbox>
-                      </div>
-                      Exceptions
-                      <br />
-                      <br />
-                      <div>
-                        <Button rounded small>
-                          Roles
-                        </Button>
-                        <Button rounded small>
-                          Channels
-                        </Button>
-                      </div>
-                    </Box.Body>
-                  </Box>
-                );
-              })}
+              {this.state.commands
+                .filter(cmd => cmd.category === this.state.category)
+                .map(cmd => {
+                  return (
+                    <Box padding key={cmd.id.toUpperCase()}>
+                      <Box.Title>{cmd.id.toUpperCase()}</Box.Title>
+                      <Box.Body>
+                        <div
+                          style={{
+                            display: "flex",
+                            marginBottom: "10px",
+                            justifyContent: "space-between",
+                          }}
+                        >
+                          <Editor.Checkbox mutate={`${cmd.mutateName}.enabled`}>
+                            Enabled
+                          </Editor.Checkbox>
+                          <Editor.Checkbox mutate={`${cmd.mutateName}.msgDelete`}>
+                            Trigger
+                          </Editor.Checkbox>
+                        </div>
+                        Exceptions
+                        <br />
+                        <br />
+                        <div>
+                          <Button rounded small>
+                            Roles
+                          </Button>
+                          <Button rounded small>
+                            Channels
+                          </Button>
+                        </div>
+                      </Box.Body>
+                    </Box>
+                  );
+                })}
             </Editor>
           </div>
         </section>

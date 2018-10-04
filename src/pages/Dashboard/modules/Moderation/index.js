@@ -24,50 +24,62 @@ const boxesHeader = css`
 `;
 
 const makeLineBreak = needBreak => {
-	return needBreak ? <br/> : null;
-}
+  return needBreak ? <br /> : null;
+};
 
-const channelOrRoleSelector = (props) => {
-	return (
-		<div>
-			<Editor query={props.isChannel ? qChannels : qRoles} mutation={mutationQuery}>
-				{makeLineBreak(props.isChannel)}
-				<Box.Title>{props.type} {props.isChannel ? 'Log Channel' : 'Role'}</Box.Title>
-				<Query query={props.isChannel ? qChannels : qRoles}>
-					{({ loading, error, data }) => {
-						if (loading) return "Loading";
-						if (error) return "Error";
-						const values = data.map(item => item.name);
+const channelOrRoleSelector = props => {
+  return (
+    <div>
+      <Editor query={props.isChannel ? qChannels : qRoles} mutation={mutationQuery}>
+        {makeLineBreak(props.isChannel)}
+        <Box.Title>
+          {props.type} {props.isChannel ? "Log Channel" : "Role"}
+        </Box.Title>
+        <Query query={props.isChannel ? qChannels : qRoles}>
+          {({ loading, error, data }) => {
+            if (loading) return "Loading";
+            if (error) {
+              console.log("it errored;");
+              console.log(error);
+              return "Error";
+            }
+            const values = data.map(item => item.name);
+            console.log(data);
+            return (
+              <Editor.Select
+                values={values}
+                mutate={props.mutateString}
+                query={props.Query}
+              />
+            );
+          }}
+        </Query>
+      </Editor>
+    </div>
+  );
+};
 
-						return (
-							<Editor.Select
-								values={values}
-								mutate={props.mutateString}
-								query={props.Query}
-							/>
-						);
-					}}
-				</Query>
-			</Editor>
-		</div>
-	)
-}
-
-const createStatusAndChannelsBoxes = (type, currentStatus, channelQuery, mutateString) => {
-	return (
-		<div>
-			<Editor query={qGuildBasic} mutation={mutationQuery}>
-				<Box padding style={{width: "100%"}}>
-					<Box.Title>{type} Log Status</Box.Title>
-					<Box.Body>
-						<Checkbox>{currentStatus ? 'Enabled' : 'Disabled'}</Checkbox>
-						{currentStatus ? channelOrRoleSelector({ isChannel: true, type, mutateString, query: channelQuery }) : null}
-					</Box.Body>
-				</Box>
-			</Editor>
-		</div>
-	);
-}
+const createStatusAndChannelsBoxes = (
+  type,
+  currentStatus,
+  channelQuery,
+  mutateString
+) => {
+  return (
+    <div>
+      <Editor query={qGuildBasic} mutation={mutationQuery}>
+        <Box padding style={{ width: "100%" }}>
+          <Box.Title>{type} Log Status</Box.Title>
+          <Box.Body>
+            <Checkbox>{currentStatus ? "Enabled" : "Disabled"}</Checkbox>
+            {console.log(currentStatus, type, channelQuery, mutateString)}
+            {/*currentStatus ? channelOrRoleSelector({ isChannel: true, type, mutateString, query: channelQuery }) : null*/}
+          </Box.Body>
+        </Box>
+      </Editor>
+    </div>
+  );
+};
 
 // todo: remove from here, put on graphql folder
 const mutationQuery = gql`
@@ -85,35 +97,85 @@ const mutationQuery = gql`
 `;
 
 const mainLogs = [
-	{ name: 'Mod', status: true, query: 'moderation.channel' },
-	{ name: 'Public', status: false, query: 'moderation.publicModlogChannel' },
-	{ name: 'Server', status: true, query: 'serverLogs.mainChannel' },
+  { name: "Mod", status: true, query: "moderation.channel", mutate: "TODO" },
+  {
+    name: "Public",
+    status: false,
+    query: "moderation.publicModlogChannel",
+    mutate: "TODO",
+  },
+  { name: "Server", status: true, query: "serverLogs.mainChannel", mutate: "TODO" },
 ];
 
 const serverLogs = [
-	{ name: 'Role Create', status: true, query: 'serverLogs.roleCreate' },
-	{ name: 'Role Delete', status: true, query: 'serverLogs.roleDelete' },
-	{ name: 'Role Update', status: true, query: 'serverLogs.roleUpdate' },
-	{ name: 'Member Add', status: true, query: 'serverLogs.memberAdd' },
-	{ name: 'Member Remove', status: true, query: 'serverLogs.memberRemove' },
-	{ name: 'Command Ran', status: true, query: 'serverLogs.cmdRan' },
-	{ name: 'Tag Ran', status: true, query: 'serverLogs.tagRan' },
-	{ name: 'Story Ran', status: true, query: 'serverLogs.storyRan' },
-	{ name: 'Message Delete', status: true, query: 'serverLogs.msgDeleted' },
-	{ name: 'Message Edit', status: true, query: 'serverLogs.msgUpdate' },
-	{ name: 'Emoji Create', status: true, query: 'serverLogs.emojiCreate' },
-	{ name: 'Emoji Delete', status: true, query: 'serverLogs.emojiDelete' },
-	{ name: 'Emoji Update', status: true, query: 'serverLogs.emojiUpdate' },
-	{ name: 'Channel Create', status: true, query: 'serverLogs.channelCreate' },
-	{ name: 'Channel Delete', status: true, query: 'serverLogs.channelDelete' },
-	{ name: 'Channel Update', status: true, query: 'serverLogs.channelUpdate' },
-	{ name: 'Server Deaf', status: true, query: 'serverLogs.serverDeaf' },
-	{ name: 'Server Mute', status: true, query: 'serverLogs.serverMute' },
-	{ name: 'Nickname Change', status: true, query: 'serverLogs.nicknameChanged' },
-	{ name: 'Member Perms', status: true, query: 'serverLogs.memberRolePermissionsChanged' },
-	{ name: 'Member Roles', status: true, query: 'serverLogs.memberRoleUpdated' },
-	{ name: 'Member Ban', status: true, query: 'serverLogs.guildBanAdd' },
-	{ name: 'Member Unban', status: true, query: 'serverLogs.guildBanRemove' }
+  { name: "Role Create", status: true, query: "serverLogs.roleCreate", mutate: "TODO" },
+  { name: "Role Delete", status: true, query: "serverLogs.roleDelete", mutate: "TODO" },
+  { name: "Role Update", status: true, query: "serverLogs.roleUpdate", mutate: "TODO" },
+  { name: "Member Add", status: true, query: "serverLogs.memberAdd", mutate: "TODO" },
+  {
+    name: "Member Remove",
+    status: true,
+    query: "serverLogs.memberRemove",
+    mutate: "TODO",
+  },
+  { name: "Command Ran", status: true, query: "serverLogs.cmdRan", mutate: "TODO" },
+  { name: "Tag Ran", status: true, query: "serverLogs.tagRan", mutate: "TODO" },
+  { name: "Story Ran", status: true, query: "serverLogs.storyRan", mutate: "TODO" },
+  {
+    name: "Message Delete",
+    status: true,
+    query: "serverLogs.msgDeleted",
+    mutate: "TODO",
+  },
+  { name: "Message Edit", status: true, query: "serverLogs.msgUpdate", mutate: "TODO" },
+  { name: "Emoji Create", status: true, query: "serverLogs.emojiCreate", mutate: "TODO" },
+  { name: "Emoji Delete", status: true, query: "serverLogs.emojiDelete", mutate: "TODO" },
+  { name: "Emoji Update", status: true, query: "serverLogs.emojiUpdate", mutate: "TODO" },
+  {
+    name: "Channel Create",
+    status: true,
+    query: "serverLogs.channelCreate",
+    mutate: "TODO",
+  },
+  {
+    name: "Channel Delete",
+    status: true,
+    query: "serverLogs.channelDelete",
+    mutate: "TODO",
+  },
+  {
+    name: "Channel Update",
+    status: true,
+    query: "serverLogs.channelUpdate",
+    mutate: "TODO",
+  },
+  { name: "Server Deaf", status: true, query: "serverLogs.serverDeaf", mutate: "TODO" },
+  { name: "Server Mute", status: true, query: "serverLogs.serverMute", mutate: "TODO" },
+  {
+    name: "Nickname Change",
+    status: true,
+    query: "serverLogs.nicknameChanged",
+    mutate: "TODO",
+  },
+  {
+    name: "Member Perms",
+    status: true,
+    query: "serverLogs.memberRolePermissionsChanged",
+    mutate: "TODO",
+  },
+  {
+    name: "Member Roles",
+    status: true,
+    query: "serverLogs.memberRoleUpdated",
+    mutate: "TODO",
+  },
+  { name: "Member Ban", status: true, query: "serverLogs.guildBanAdd", mutate: "TODO" },
+  {
+    name: "Member Unban",
+    status: true,
+    query: "serverLogs.guildBanRemove",
+    mutate: "TODO",
+  },
 ];
 
 class GeneralEditor extends Component {
@@ -124,30 +186,33 @@ class GeneralEditor extends Component {
         <section>
           <Heading>Moderation</Heading>
           <SubHeader>
-						Are you ready to set up all the moderation tools you need for your server?
-						<br/>
-						<br/>
-						Our bots moderation tools help run Official gaming servers for servers like Arena of Valor Official Discord Server.
-						<br/>
-						<br/>
-						Learning to master the moderation tools on G4M3R, can make your server just as amazing!
+            Are you ready to set up all the moderation tools you need for your server?
+            <br />
+            <br />
+            Our bots moderation tools help run Official gaming servers for servers like
+            Arena of Valor Official Discord Server.
+            <br />
+            <br />
+            Learning to master the moderation tools on G4M3R, can make your server just as
+            amazing!
           </SubHeader>
         </section>
         <section>
-					<Heading2>Moderation Logs</Heading2>
-					// TODO: Fix the queries to actually edit the settings when toggled.
-					<div className={boxesHeader}>
-					{mainLogs.map((opt, index) => {
-						return createStatusAndChannelsBoxes(opt.name, opt.status, opt.query)
-					})}
-					</div>
-					<Heading2>Individual Server Logs</Heading2>
-					<div className={boxesHeader}>
-						{serverLogs.map((opt, index) => {
-							return createStatusAndChannelsBoxes(opt.name, opt.status, opt.query)
-						})}
-					</div>
-				</section>
+          <Heading2>Moderation Logs</Heading2>
+          // TODO: Fix the queries to actually edit the settings when toggled.
+          <div className={boxesHeader}>
+            {mainLogs.map((opt, index) => {
+              return createStatusAndChannelsBoxes(opt.name, opt.status, opt.query);
+            })}
+          </div>
+          <Heading2>Individual Server Logs</Heading2>
+          <div className={boxesHeader}>
+            {serverLogs.map((opt, index) => {
+              return createStatusAndChannelsBoxes(opt.name, opt.status, opt.query);
+            })}
+          </div>
+        </section>
+        {/*
 				<section>
 				<Heading2>Moderation Values</Heading2>
           <div className={boxesHeader}>
@@ -218,12 +283,12 @@ class GeneralEditor extends Component {
 						{({ loading, error, data }) => {
 							if (loading) return "Loading";
 							if (error) return "Error";
-							{/* TODO: Query these channels names */}
+							{/* TODO: Query these channels names }
 							let values = [{ key: 'first', value: 'Admins Only' }, { key: 'second', value: 'Admins + Mods' }];
 							const mutateString = "TODO";
 							const roleQuery = "TODO";
 
-							{/* TODO: fill this in properly */}
+							{/* TODO: fill this in properly }
 							return (
 								<Editor.Select
 									values={values}
@@ -365,7 +430,7 @@ class GeneralEditor extends Component {
 									const mutateString = "TODO";
 									const roleQuery = "TODO";
 
-									{/* TODO: fill this in properly */}
+									{/* TODO: fill this in properly }
 									return (
 										<Editor.Select
 											values={values}
@@ -398,6 +463,7 @@ class GeneralEditor extends Component {
 					</Editor>
 				</div>
 			</section>
+								*/}
       </React.Fragment>
     );
   }
