@@ -3,16 +3,15 @@ import { css } from "emotion";
 
 import { Heading, SubHeader, Heading2 } from "../../../../components/Typography";
 import Box from "../../../../components/Box";
-// import Input from "../../../../components/Input";
-// import Select from "../../../../components/Select";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import Checkbox from "../../../../components/Checkbox";
 import Editor from "../../../../components/Editor";
-import qGuildBasic from "../../../../graphql/queries/guild/guildBasic";
 import qRoles from "../../../../graphql/queries/guild/roles";
 import qChannels from "../../../../graphql/queries/guild/channels";
 // import qPermissions from "../../../../graphql/queries/client/permissions";
+
+const serverLogsStatus = false;
 
 const boxesHeader = css`
   display: flex;
@@ -62,7 +61,7 @@ const channelOrRoleSelector = props => {
 const createStatusAndChannelsBoxes = props => {
   return (
     <div>
-      <Editor query={qGuildBasic} mutation={mutationQuery}>
+      <Editor query={qChannels} mutation={mutationQuery}>
         <Box padding style={{ width: "100%" }}>
           <Box.Title>{props.type} Log Status</Box.Title>
           <Box.Body>
@@ -179,6 +178,25 @@ const serverLogs = [
   },
 ];
 
+const makeIndividualServerLogs = () => {
+  return (
+    <div>
+      <Heading2>Individual Server Logs</Heading2>
+      <div className={boxesHeader}>
+        {serverLogs.map((opt, index) => {
+          return createStatusAndChannelsBoxes({
+            key: index,
+            type: opt.name,
+            currentStatus: opt.status,
+            query: opt.query,
+            mutate: opt.mutate,
+          });
+        })}
+      </div>
+    </div>
+  );
+};
+
 class GeneralEditor extends Component {
   render() {
     // let guildId = this.props.match.params.guildId;
@@ -204,23 +222,14 @@ class GeneralEditor extends Component {
           <div className={boxesHeader}>
             {mainLogs.map((opt, index) => {
               return createStatusAndChannelsBoxes({
+                key: index,
                 type: opt.name,
                 currentStatus: opt.status,
                 query: opt.query,
                 mutateString: opt.mutate,
               });
             })}
-          </div>
-          <Heading2>Individual Server Logs</Heading2>
-          <div className={boxesHeader}>
-            {serverLogs.map((opt, index) => {
-              return createStatusAndChannelsBoxes({
-                type: opt.name,
-                currentStatus: opt.status,
-                query: opt.query,
-                mutate: opt.mutate,
-              });
-            })}
+            {serverLogsStatus ? makeIndividualServerLogs() : null}
           </div>
         </section>
         {/*
