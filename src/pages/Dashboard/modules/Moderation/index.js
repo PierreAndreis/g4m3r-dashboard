@@ -30,23 +30,25 @@ const makeLineBreak = needBreak => {
 const channelOrRoleSelector = (props) => {
 	return (
 		<div>
-			{makeLineBreak(props.isChannel)}
-			<Box.Title>{props.type} {props.isChannel ? 'Log Channel' : 'Role'}</Box.Title>
-			<Query query={props.isChannel ? qChannels : qRoles}>
-				{({ loading, error, data }) => {
-					if (loading) return "Loading";
-					if (error) return "Error";
-					const values = data.map(item => item.name);
+			<Editor query={props.isChannel ? qChannels : qRoles} mutation={mutationQuery}>
+				{makeLineBreak(props.isChannel)}
+				<Box.Title>{props.type} {props.isChannel ? 'Log Channel' : 'Role'}</Box.Title>
+				<Query query={props.isChannel ? qChannels : qRoles}>
+					{({ loading, error, data }) => {
+						if (loading) return "Loading";
+						if (error) return "Error";
+						const values = data.map(item => item.name);
 
-					return (
-						<Editor.Select
-							values={values}
-							mutate={props.mutateString}
-							query={props.Query}
-						/>
-					);
-				}}
-			</Query>
+						return (
+							<Editor.Select
+								values={values}
+								mutate={props.mutateString}
+								query={props.Query}
+							/>
+						);
+					}}
+				</Query>
+			</Editor>
 		</div>
 	)
 }
