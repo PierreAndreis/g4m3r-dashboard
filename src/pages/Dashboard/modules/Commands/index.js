@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { css } from "emotion";
+import { Query, withApollo  } from "react-apollo";
 import Button from "../../../../components/Button";
 import { Heading, SubHeader } from "../../../../components/Typography";
 import Modal from "../../../../global/Modal";
@@ -10,6 +11,7 @@ import gql from "graphql-tag";
 import Checkbox from "../../../../components/Checkbox";
 import Editor from "../../../../components/Editor";
 import qCommands from "../../../../graphql/queries/guild/commands";
+import qClientCommands from "../../../../graphql/queries/client/commands";
 
 const boxesHeader = css`
   display: flex;
@@ -20,11 +22,10 @@ const boxesHeader = css`
 
 // todo: remove from here, put on graphql folder
 const mutationQuery = gql`
-  mutation editGuild($guildId: String!, $input: guildInput!) {
-    set(id: $guildId, input: $input) {
-      name
+  mutation editGuildCommands($guildId: String!, $input: commandsInput!) {
+    setCommands(id: $guildId, input: $input) {
       id
-      configs {
+      settings {
         settings {
           commands
         }
@@ -329,11 +330,22 @@ class CommandsEditor extends Component {
     super(props);
     this.state = {
       isOpenModal: false,
-      category: "basic",
+      category: "Basic",
+      commands: []
     };
   }
 
-  changeCategory = category => e => {
+  componentDidMount() {
+    this.props.client.query({
+      query: qClientCommands,
+      variables: { clientId: "287128811961843712" }
+    }).then(result => {
+      this.setState({
+        commands: result.data.client.commands.map(c => ({ ...c, mutateName: c.id, queryName: c.id}))
+      })
+    })
+  }
+   changeCategory = category => e => {
     this.setState({
       category,
     });
@@ -346,7 +358,7 @@ class CommandsEditor extends Component {
   };
 
   render() {
-    const categories = [...new Set(commands.map(c => c.category))];
+    const categories = [...new Set(this.state.commands.filter(c => !c.isMaintainer).map(c => c.category))];
 
     return (
       <React.Fragment>
@@ -371,24 +383,28 @@ class CommandsEditor extends Component {
           </SubHeader>
         </section>
         <section>
-          {categories.map(category => (
-            <Button
-              key={category}
-              onClick={this.changeCategory(category)}
-              simple
-              active={this.state.category === category}
-            >
-              {category}
-            </Button>
-          ))}
+          {
+            categories.map(category => {
+              return (
+                <Button
+                  key={category}
+                  onClick={this.changeCategory(category)}
+                  simple
+                  active={this.state.category === category}
+                >
+                  {category}
+                </Button>
+              )
+            })
+          }
         </section>
         <section>
           <div className={boxesHeader} style={{ flexWrap: "wrap" }}>
             <Editor query={qCommands} mutation={mutationQuery}>
-              {commands.filter(cmd => cmd.category === this.state.category).map(cmd => {
+              {this.state.commands.filter(cmd => cmd.category === this.state.category).map(cmd => {
                 return (
-                  <Box padding key={cmd.name}>
-                    <Box.Title>{cmd.name}</Box.Title>
+                  <Box padding key={cmd.id.toUpperCase()}>
+                    <Box.Title>{cmd.id.toUpperCase()}</Box.Title>
                     <Box.Body>
                       <div
                         style={{
@@ -427,4 +443,4 @@ class CommandsEditor extends Component {
   }
 }
 
-export default CommandsEditor;
+export default withApollo(CommandsEditor);

@@ -7,6 +7,8 @@ export default gql`
       commands {
         id
         category
+        permissionLevel
+        isMaintainer
       }
     }
   }
