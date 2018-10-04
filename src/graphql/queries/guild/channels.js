@@ -3,7 +3,7 @@ import gql from "graphql-tag";
 export default gql`
   query guild($guildId: ID) {
     guild(id: $guildId) {
-			channels: {
+			channels {
 				id
 				type
 				createdTimestamp
