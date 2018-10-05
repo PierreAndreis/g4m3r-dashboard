@@ -9,6 +9,18 @@ export default gql`
         settings {
           prefix
           timezone
+          commands {
+            category
+            name
+            msgDelete
+            permission {
+              disabled
+              disabledChannels
+              disabledRoles
+              enabledChannels
+              enabledRoles
+            }
+          }
         }
       }
     }

@@ -22,15 +22,18 @@ const snackbar = css`
   align-items: center;
 
   transform: translateX(-50%) translateY(100%);
+  
 
   &.slide-exit,
   &.slide-enter-active,
   &.slide-enter-done,
   &.fade-exit-active {
+    visiblity: visible;
     transform: translateX(-50%) translateY(0%);
   }
   &.slide-enter,
   &.slide-exit-done {
+    visiblity: none;
     transform: translateX(-50%) translateY(100%);
   }
 `;
