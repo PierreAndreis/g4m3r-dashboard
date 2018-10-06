@@ -18,13 +18,16 @@ const translateValue = (props, state) => {
   return getEditedValue(props, state) || getPlaceholder(props, state);
 };
 
-const getEditedValue = (props, state) => {
-  if (state.changes[props.mutate]) return state.changes[props.mutate];
-};
-
 const getPlaceholder = (props, state) => {
   return dlv(state.payload, props.query);
 };
+
+const getEditedValue = (props, state) => {
+  if (state.changes[props.mutate]) return state.changes[props.mutate];
+  else return dlv(state.payload, props.query);
+};
+
+
 class WrapperEditorForGraphQL extends React.Component {
   static Input = ({ mutate, query, ...otherProps }) => (
     <StagerContext.Consumer>
