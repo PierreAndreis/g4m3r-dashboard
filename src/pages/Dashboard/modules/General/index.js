@@ -37,26 +37,39 @@ const mutationQuery = gql`
       settings {
         settings {
           prefix
+          general {
+            militaryTimeFormat
+          }
         }
       }
     }
   }
 `;
 
+const makeStatusToggle = props => {
+  return <Box padding>
+      <Box.Title>{props.boxTitle}</Box.Title>
+      <Box.Body>
+        <Editor.Checkbox query={props.editorQuery} mutation={props.editorMutate}>
+          {props.title}
+        </Editor.Checkbox>
+      </Box.Body>
+    </Box>;
+};
+
 class GeneralEditor extends Component {
   render() {
     // let guildId = this.props.match.params.guildId;
-    return (
-      <React.Fragment>
+    return <React.Fragment>
         <section>
           <Heading>General</Heading>
           <SubHeader>
             Welcome to the G4M3R dashboard. Here you can edit any and all settings of your bot easily.
-            <br/>
-            <br/>
+            <br />
+            <br />
             This is the general settings page for your discord server. You can find other settings and features to edit on the other pages on the sidebar.
-            <br/>
-            <br/>
+            <br />
+            <br />
             Thank you for using G4M3R!
           </SubHeader>
         </section>
@@ -79,13 +92,7 @@ class GeneralEditor extends Component {
                       if (error) return "Error";
                       let values = cleanUpTimezone(data.listTimezones);
 
-                      return (
-                        <Editor.Select
-                          values={values}
-                          mutate="timezone"
-                          query="guild.settings.settings.timezone"
-                        />
-                      );
+                      return <Editor.Select values={values} mutate="timezone" query="guild.settings.settings.timezone" />;
                     }}
                   </Query>
                 </Box.Body>
@@ -96,11 +103,36 @@ class GeneralEditor extends Component {
                   <Checkbox>Enforced</Checkbox>
                 </Box.Body>
               </Box>
+              <Box padding>
+                <Box.Title>Timezone</Box.Title>
+                <Box.Body>
+                  <Query query={qTimezone}>
+                    {({ loading, error, data }) => {
+                      if (loading) return "Loading";
+                      if (error) return "Error";
+                      let values = cleanUpTimezone(data.listTimezones);
+
+                      return <Editor.Select values={values} mutate="timezone" query="guild.settings.settings.timezone" />;
+                    }}
+                  </Query>
+                </Box.Body>
+              </Box>
+              <Box padding>
+                <Box.Title>Menu Closing Time</Box.Title>
+                <Box.Body>
+                  <Editor.Input mutate="TODO" query="TODO" />
+                </Box.Body>
+              </Box>
+              {makeStatusToggle({
+                editorQuery: "guild.settings.settings.general.militaryTimeFormat",
+                editorMutate: "militaryTimeFormat",
+                title: "24 Hour Time Format",
+                boxTitle: "Some Things You Can Set",
+              })}
             </Editor>
           </div>
         </section>
-      </React.Fragment>
-    );
+      </React.Fragment>;
   }
 }
 

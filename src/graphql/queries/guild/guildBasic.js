@@ -9,6 +9,9 @@ export default gql`
         settings {
           prefix
           timezone
+          general {
+            militaryTimeFormat
+          }
         }
       }
     }
