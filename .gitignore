@@ -25,3 +25,6 @@ yarn-error.log*
 # development folders
 .idea
 .vscode
+
+# NPM Package Lock file
+package-lock.json

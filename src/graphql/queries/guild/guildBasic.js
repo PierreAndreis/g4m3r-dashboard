@@ -11,6 +11,17 @@ export default gql`
           timezone
           general {
             militaryTimeFormat
+          commands {
+            category
+            name
+            msgDelete
+            permission {
+              disabled
+              disabledChannels
+              disabledRoles
+              enabledChannels
+              enabledRoles
+            }
           }
         }
       }
