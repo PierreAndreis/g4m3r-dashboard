@@ -413,10 +413,10 @@ class CommandsEditor extends Component {
                           justifyContent: "space-between",
                         }}
                       >
-                        <Editor.Checkbox mutate={`${value && value.name}.permission.disabled`}>
+                        <Editor.Checkbox propkey={'name'} value={value.name} mutate={`${value && value.name}.permission.disabled`} query={`permission.disabled`}>
                           Disabled
                         </Editor.Checkbox>
-                        <Editor.Checkbox mutate={`${value && value.name}.msgDelete`}>
+                        <Editor.Checkbox propkey={'name'} value={value.name} mutate={`${value && value.name}.msgDelete`} query={`msgDelete`}>
                           Trigger
                         </Editor.Checkbox>
                       </div>

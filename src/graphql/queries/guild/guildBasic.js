@@ -11,6 +11,7 @@ export default gql`
           timezone
           general {
             militaryTimeFormat
+          }
           commands {
             category
             name
