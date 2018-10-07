@@ -6,7 +6,6 @@ export default gql`
 			channels {
 				id
 				type
-				createdTimestamp
 				name
 				nsfw
 				position

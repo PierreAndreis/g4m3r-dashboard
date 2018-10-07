@@ -6,7 +6,6 @@ export default gql`
 			roles {
 				id
 				name
-				createdTimestamp
 				color
 				hoist
 				permissions
