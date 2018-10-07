@@ -5,6 +5,15 @@ export default gql`
     guild(id: $guildId) {
       id
       name
+      channels {
+        id
+        name
+      }
+      roles {
+        id
+        name
+        color
+      }
       settings {
         settings {
           prefix

@@ -22,9 +22,25 @@ const getPlaceholder = (props, state) => {
   return dlv(state.payload, props.query);
 };
 
+const getFromArray = (array, propKey, value, propFetch) => {
+  const foundObject = array.find(item => item[propKey] === value);
+  return foundObject[propFetch] || null;
+};
+
 const getEditedValue = (props, state) => {
+  
+  if (props.findFromArray) {
+    const array = dlv(state.payload, props.query);
+    const value = dlv(state.payload, props.mutate);
+    return getFromArray(array, props.propKey, value, props.propFetch);
+  }
+
+  let obj;
+  if (Array.isArray(state.payload)) {
+    obj = state.payload.find(data => data[props.propKey] === props.propValue);
+  }
   if (state.changes[props.mutate]) return state.changes[props.mutate];
-  else return dlv(state.payload, props.query);
+  else return dlv(obj || state.payload, props.query);
 };
 
 
@@ -42,11 +58,11 @@ class WrapperEditorForGraphQL extends React.Component {
     </StagerContext.Consumer>
   );
 
-  static Checkbox = ({ mutate, query, ...otherProps }) => (
+  static Checkbox = ({ mutate, query, propKey, propValue, ...otherProps }) => (
     <StagerContext.Consumer>
       {state => (
         <Checkbox
-          value={getEditedValue({ mutate, query }, state)}
+          value={getEditedValue({ mutate, query, propKey, propValue }, state)}
           onChange={state.onChange(mutate)}
           {...otherProps}
         />
@@ -59,7 +75,7 @@ class WrapperEditorForGraphQL extends React.Component {
       {state => (
         <Select
           value={getEditedValue({ mutate, query }, state)}
-          placeholder={getPlaceholder({ mutate, query }, state)}
+          placeholder={translateValue({ mutate, query, ...otherProps }, state)}
           onChange={state.onChange(mutate)}
           {...otherProps}
         />
