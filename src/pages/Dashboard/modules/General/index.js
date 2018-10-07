@@ -271,7 +271,7 @@ class GeneralEditor extends Component {
               </Box>
 
               <Box padding>
-                <Box.Title>Delete Notifications Time</Box.Title>
+                <Box.Title>General Settings</Box.Title>
                 <Box.Body>
                   {generalPageToggles.map((opt, index) => {
                     return makeGeneralPageToggle({
