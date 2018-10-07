@@ -9,6 +9,7 @@ import Checkbox from "../../../../components/Checkbox";
 import Editor from "../../../../components/Editor";
 import qRoles from "../../../../graphql/queries/guild/roles";
 import qChannels from "../../../../graphql/queries/guild/channels";
+import qGuildBasic from "../../../../graphql/queries/guild/guildBasic";
 // import qPermissions from "../../../../graphql/queries/client/permissions";
 
 const serverLogsStatus = false;
@@ -29,12 +30,12 @@ const makeLineBreak = needBreak => {
 const channelOrRoleSelector = props => {
   return (
     <div>
-      <Editor query={props.isChannel ? qChannels : qRoles} mutation={mutationQuery}>
+      <Editor query={qGuildBasic} mutation={mutationQuery}>
         {makeLineBreak(props.isChannel)}
         <Box.Title>
           {props.type} {props.isChannel ? "Log Channel" : "Role"}
         </Box.Title>
-        <Query query={props.isChannel ? qChannels : qRoles}>
+        <Query query={qGuildBasic} variables={{ guildId: props.guildId }}>
           {({ loading, error, data }) => {
             if (loading) return "Loading";
             if (error) {
@@ -42,13 +43,16 @@ const channelOrRoleSelector = props => {
               console.log(error);
               return "Error";
             }
-            const values = data.map(item => item.name);
+            const values = data.guild[props.isChannel ? 'channels' : 'roles'].map(item => ({ key: item.id, value: item.name }));
             console.log(data);
             return (
               <Editor.Select
                 values={values}
+                propKey={'id'}
+                propFetch={'name'}
+                findFromArray={true}
                 mutate={props.mutateString}
-                query={props.query}
+                query={`guild.${props.isChannel ? 'channels' : 'roles'}`}
               />
             );
           }}
@@ -60,7 +64,7 @@ const channelOrRoleSelector = props => {
 
 const createStatusAndChannelsBoxes = props => {
   return (
-    <div>
+    <div key={props.mutateString}>
       <Editor query={qChannels} mutation={mutationQuery}>
         <Box padding style={{ width: "100%" }}>
           <Box.Title>{props.type} Log Status</Box.Title>
@@ -72,6 +76,7 @@ const createStatusAndChannelsBoxes = props => {
                   type: props.type,
                   mutateString: props.mutateString,
                   query: props.query,
+                  guildId: props.guildId
                 })
               : null}
           </Box.Body>
@@ -87,7 +92,7 @@ const mutationQuery = gql`
     set(id: $guildId, input: $input) {
       name
       id
-      configs {
+      settings {
         settings {
           moderation
         }
@@ -97,14 +102,14 @@ const mutationQuery = gql`
 `;
 
 const mainLogs = [
-  { name: "Mod", status: true, query: "moderation.channel", mutate: "TODO" },
+  { name: "Mod", status: true, query: "guild.channels", mutate: "guild.settings.settings.moderation.channel" },
   {
     name: "Public",
     status: false,
-    query: "moderation.publicModlogChannel",
-    mutate: "TODO",
+    query: "guild.channels",
+    mutate: "guild.settings.settings.moderation.publicModlogChannel",
   },
-  { name: "Server", status: true, query: "serverLogs.mainChannel", mutate: "TODO" },
+  { name: "Server", status: true, query: "guild.channels", mutate: "guild.settings.settings.serverLogs.mainChannel" },
 ];
 
 const serverLogs = [
@@ -228,9 +233,9 @@ const makeStatusToggle = props => {
   );
 };
 
-class GeneralEditor extends Component {
+class ModerationEditor extends Component {
   render() {
-    // let guildId = this.props.match.params.guildId;
+    let guildId = this.props.match.params.guildId;
     return (
       <React.Fragment>
         <section>
@@ -258,6 +263,7 @@ class GeneralEditor extends Component {
                 currentStatus: opt.status,
                 query: opt.query,
                 mutateString: opt.mutate,
+                guildId
               });
             })}
             {serverLogsStatus ? makeIndividualServerLogs() : null}
@@ -450,4 +456,4 @@ class GeneralEditor extends Component {
   }
 }
 
-export default GeneralEditor;
+export default ModerationEditor;

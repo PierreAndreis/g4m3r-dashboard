@@ -24,7 +24,7 @@ const getPlaceholder = (props, state) => {
 
 const getFromArray = (array, propKey, value, propFetch) => {
   const foundObject = array.find(item => item[propKey] === value);
-  return foundObject[propFetch] || null;
+  return foundObject ? foundObject[propFetch] : 'none';
 };
 
 const getEditedValue = (props, state) => {
