@@ -9,8 +9,30 @@ export default gql`
         settings {
           prefix
           timezone
+          menuTime
           general {
             militaryTimeFormat
+            deleteBurnMessage
+            deleteNotification
+            deleteNotificationTime
+            trackAnalytics
+          }
+          feedback {
+            idea {
+              channel
+              color
+              status
+              thumbsDown
+              thumbsUp
+            }
+            bug {
+              channel
+              color
+              status
+              thumbsDown
+              thumbsUp
+            }
+          }
           commands {
             category
             name

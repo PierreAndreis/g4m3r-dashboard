@@ -8,9 +8,11 @@ import Box from "../../../../components/Box";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import Checkbox from "../../../../components/Checkbox";
+import SettingsToggler from "../../../../components/SettingsToggler";
 import Editor from "../../../../components/Editor";
 import qGuildBasic from "../../../../graphql/queries/guild/guildBasic";
 import qTimezone from "../../../../graphql/queries/utils/timezone";
+import qChannels from "../../../../graphql/queries/guild/channels";
 
 const boxesHeader = css`
   display: flex;
@@ -36,38 +38,94 @@ const mutationQuery = gql`
       id
       settings {
         settings {
-          prefix
+          feedback {
+            idea {
+              channel
+              color
+              status
+              thumbsDown
+              thumbsUp
+            }
+            bug {
+              channel
+              color
+              status
+              thumbsDown
+              thumbsUp
+            }
+          }
           general {
             militaryTimeFormat
+            trackAnalytics
+            deleteBurnMessage
+            deleteNotification
+            deleteNotificationTime
           }
+          prefix
+          menuTime
         }
       }
     }
   }
 `;
 
-const makeStatusToggle = props => {
-  return <Box padding>
-      <Box.Title>{props.boxTitle}</Box.Title>
-      <Box.Body>
-        <Editor.Checkbox query={props.editorQuery} mutation={props.editorMutate}>
-          {props.title}
-        </Editor.Checkbox>
-      </Box.Body>
-    </Box>;
+const makeGeneralPageToggle = props => {
+  return (
+    <div>
+      <Editor.Checkbox query={props.query} mutate={props.mutate} children={props.title} />
+      <br />
+      <br />
+    </div>
+  );
 };
+
+const generalPageToggles = [
+  {
+    query: "guild.settings.settings.general.militaryTimeFormat",
+    mutate: "militaryTimeFormat",
+    title: "24 Hour Time Format",
+  },
+  {
+    query: "guild.settings.settings.general.trackAnalytics",
+    mutate: "trackAnalytics",
+    title: "Enable Server Analytics",
+  },
+  {
+    query: "guild.settings.settings.general.deleteBurnMessage",
+    mutate: "deleteBurnMessage",
+    title: "Delete Nuke Notifications",
+  },
+  {
+    query: "guild.settings.settings.general.deleteNotification",
+    mutate: "deleteNotification",
+    title: "Delete All Notifications",
+  },
+  {
+    query: "guild.settings.settings.feedback.idea.status",
+    mutate: "status",
+    title: "Feedback Idea",
+  },
+  {
+    query: "guild.settings.settings.feedback.bug.status",
+    mutate: "status",
+    title: "Feedback Bug",
+  },
+];
 
 class GeneralEditor extends Component {
   render() {
     // let guildId = this.props.match.params.guildId;
-    return <React.Fragment>
+    return (
+      <React.Fragment>
         <section>
           <Heading>General</Heading>
           <SubHeader>
-            Welcome to the G4M3R dashboard. Here you can edit any and all settings of your bot easily.
+            Welcome to the G4M3R dashboard. Here you can edit any and all settings of your
+            bot easily.
             <br />
             <br />
-            This is the general settings page for your discord server. You can find other settings and features to edit on the other pages on the sidebar.
+            This is the general settings page for your discord server. You can find other
+            settings and features to edit on the other pages on the sidebar.
             <br />
             <br />
             Thank you for using G4M3R!
@@ -92,27 +150,13 @@ class GeneralEditor extends Component {
                       if (error) return "Error";
                       let values = cleanUpTimezone(data.listTimezones);
 
-                      return <Editor.Select values={values} mutate="timezone" query="guild.settings.settings.timezone" />;
-                    }}
-                  </Query>
-                </Box.Body>
-              </Box>
-              <Box padding>
-                <Box.Title>Enforce Server Timezone</Box.Title>
-                <Box.Body>
-                  <Checkbox>Enforced</Checkbox>
-                </Box.Body>
-              </Box>
-              <Box padding>
-                <Box.Title>Timezone</Box.Title>
-                <Box.Body>
-                  <Query query={qTimezone}>
-                    {({ loading, error, data }) => {
-                      if (loading) return "Loading";
-                      if (error) return "Error";
-                      let values = cleanUpTimezone(data.listTimezones);
-
-                      return <Editor.Select values={values} mutate="timezone" query="guild.settings.settings.timezone" />;
+                      return (
+                        <Editor.Select
+                          values={values}
+                          mutate="timezone"
+                          query="guild.settings.settings.timezone"
+                        />
+                      );
                     }}
                   </Query>
                 </Box.Body>
@@ -120,19 +164,130 @@ class GeneralEditor extends Component {
               <Box padding>
                 <Box.Title>Menu Closing Time</Box.Title>
                 <Box.Body>
-                  <Editor.Input mutate="TODO" query="TODO" />
+                  <Editor.Input
+                    mutate="menuTime"
+                    query="guild.settings.settings.menuTime"
+                  />
                 </Box.Body>
               </Box>
-              {makeStatusToggle({
-                editorQuery: "guild.settings.settings.general.militaryTimeFormat",
-                editorMutate: "militaryTimeFormat",
-                title: "24 Hour Time Format",
-                boxTitle: "Some Things You Can Set",
-              })}
+
+              <Box padding>
+                <Box.Title>Delete Notifications Delay</Box.Title>
+                <Box.Body>
+                  <Editor.Input
+                    mutate="deleteNotificationTime"
+                    query="guild.settings.settings.general.deleteNotificationTime"
+                  />
+                </Box.Body>
+              </Box>
+
+              <Box padding>
+                <Box.Title>Feedback Idea Color</Box.Title>
+                <Box.Body>
+                  <Editor.Input
+                    mutate="color"
+                    query="guild.settings.settings.feedback.idea.color"
+                  />
+                </Box.Body>
+
+                <Box.Title>Feedback Bug Color</Box.Title>
+                <Box.Body>
+                  <Editor.Input
+                    mutate="color"
+                    query="guild.settings.settings.feedback.bug.color"
+                  />
+                </Box.Body>
+              </Box>
+              <Box padding>
+                <Box.Title>Feedback Channels</Box.Title>
+                <Box.Body>
+                  Ideas Channel
+                  <Query query={qChannels}>
+                    {({ loading, error, data }) => {
+                      if (loading) return "Loading";
+                      if (error) return "Error";
+                      const values = data.channels.map(channel => channel.name);
+
+                      return (
+                        <Editor.Select
+                          values={values}
+                          mutate="channel"
+                          query="guild.settings.settings.feedback.idea.channel"
+                        />
+                      );
+                    }}
+                  </Query>
+                  <br />
+                  Bugs Channel
+                  <Query query={qChannels}>
+                    {({ loading, error, data }) => {
+                      if (loading) return "Loading";
+                      if (error) return "Error";
+                      const values = data.channels.map(channel => channel.name);
+
+                      return (
+                        <Editor.Select
+                          values={values}
+                          mutate="channel"
+                          query="guild.settings.settings.feedback.bug.channel"
+                        />
+                      );
+                    }}
+                  </Query>
+                </Box.Body>
+              </Box>
+              <Box padding>
+                <Box.Title>Feedback Idea Thumbs Up</Box.Title>
+                <Box.Body>
+                  <Editor.Input
+                    mutate="thumbsUp"
+                    query="guild.settings.settings.feedback.idea.thumbsUp"
+                  />
+                </Box.Body>
+
+                <Box.Title>Feedback Idea Thumbs Down</Box.Title>
+                <Box.Body>
+                  <Editor.Input
+                    mutate="thumbsDown"
+                    query="guild.settings.settings.feedback.idea.thumbsDown"
+                  />
+                </Box.Body>
+
+                <Box.Title>Feedback Bug Thumbs Up</Box.Title>
+                <Box.Body>
+                  <Editor.Input
+                    mutate="thumbsUp"
+                    query="guild.settings.settings.feedback.bug.thumbsUp"
+                  />
+                </Box.Body>
+
+                <Box.Title>Feedback Bug Thumbs Down</Box.Title>
+                <Box.Body>
+                  <Editor.Input
+                    mutate="thumbsDown"
+                    query="guild.settings.settings.feedback.bug.thumbsDown"
+                  />
+                </Box.Body>
+              </Box>
+
+              <Box padding>
+                <Box.Title>Delete Notifications Time</Box.Title>
+                <Box.Body>
+                  {generalPageToggles.map((opt, index) => {
+                    return makeGeneralPageToggle({
+                      query: opt.query,
+                      mutate: opt.mutate,
+                      title: opt.title,
+                      key: index,
+                    });
+                  })}
+                </Box.Body>
+              </Box>
             </Editor>
           </div>
         </section>
-      </React.Fragment>;
+      </React.Fragment>
+    );
   }
 }
 
