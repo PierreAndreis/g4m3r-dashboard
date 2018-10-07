@@ -71,7 +71,7 @@ const mutationQuery = gql`
 
 const makeGeneralPageToggle = props => {
   return (
-    <div key={props.query} >
+    <div key={props.query}>
       <Editor.Checkbox query={props.query} mutate={props.mutate} children={props.title} />
       <br />
       <br />
@@ -206,11 +206,14 @@ class GeneralEditor extends Component {
                     {({ loading, error, data }) => {
                       if (loading) return "Loading";
                       if (error) return "Error";
-                      const values = data.guild.channels.map(channel => ({ key: channel.id, value: channel.name }));
-                    return (
+                      const values = data.guild.channels.map(channel => ({
+                        key: channel.id,
+                        value: channel.name,
+                      }));
+                      return (
                         <Editor.Select
-                          propKey={'id'}
-                          propFetch={'name'}
+                          propKey={"id"}
+                          propFetch={"name"}
                           findFromArray={true}
                           values={values}
                           mutate="guild.settings.settings.feedback.idea.channel"
@@ -225,11 +228,14 @@ class GeneralEditor extends Component {
                     {({ loading, error, data }) => {
                       if (loading) return "Loading";
                       if (error) return "Error";
-                      const values = data.guild.channels.map(channel => ({ key: channel.id, value: channel.name }));
-                    return (
+                      const values = data.guild.channels.map(channel => ({
+                        key: channel.id,
+                        value: channel.name,
+                      }));
+                      return (
                         <Editor.Select
-                          propKey={'id'}
-                          propFetch={'name'}
+                          propKey={"id"}
+                          propFetch={"name"}
                           findFromArray={true}
                           values={values}
                           mutate="guild.settings.settings.feedback.bug.channel"
