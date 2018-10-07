@@ -39,8 +39,12 @@ const getEditedValue = (props, state) => {
   if (Array.isArray(state.payload)) {
     obj = state.payload.find(data => data[props.propKey] === props.propValue);
   }
-  if (state.changes[props.mutate]) return state.changes[props.mutate];
-  else return dlv(obj || state.payload, props.query);
+  let returnValue;
+  if (state.changes.hasOwnProperty(props.mutate)) {
+    returnValue = state.changes[props.mutate];
+  } else returnValue = dlv(obj || state.payload, props.query);
+  
+  return returnValue;
 };
 
 
