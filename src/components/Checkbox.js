@@ -80,10 +80,12 @@ class Checkbox extends Component {
   render() {
     const { className, onChange, value, children, ...other } = this.props;
 
-    return <div className={inputWrapper} onClick={this.onChange}>
-        <label htmlFor="switch">{children}</label>
+    return (
+      <div className={inputWrapper} onClick={this.onChange}>
         <input type="checkbox" checked={value || false} {...other} />
-      </div>;
+        <label htmlFor="switch">{children}</label>
+      </div>
+    );
   }
 }
 
