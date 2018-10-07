@@ -54,6 +54,14 @@ export default gql`
               enabledRoles
             }
           }
+          moderation {
+            status
+            channel
+            publicModlogChannel
+          }
+          serverLogs {
+            mainChannel
+          }
         }
       }
     }
