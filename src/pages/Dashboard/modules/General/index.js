@@ -71,7 +71,7 @@ const mutationQuery = gql`
 
 const makeGeneralPageToggle = props => {
   return (
-    <div>
+    <div key={props.query} >
       <Editor.Checkbox query={props.query} mutate={props.mutate} children={props.title} />
       <br />
       <br />
@@ -114,7 +114,7 @@ const generalPageToggles = [
 
 class GeneralEditor extends Component {
   render() {
-    // let guildId = this.props.match.params.guildId;
+    let guildId = this.props.match.params.guildId;
     return (
       <React.Fragment>
         <section>
@@ -202,34 +202,38 @@ class GeneralEditor extends Component {
                 <Box.Title>Feedback Channels</Box.Title>
                 <Box.Body>
                   Ideas Channel
-                  <Query query={qChannels}>
+                  <Query query={qGuildBasic} variables={{ guildId: guildId }}>
                     {({ loading, error, data }) => {
                       if (loading) return "Loading";
                       if (error) return "Error";
-                      const values = data.channels.map(channel => channel.name);
-
-                      return (
+                      const values = data.guild.channels.map(channel => ({ key: channel.id, value: channel.name }));
+                    return (
                         <Editor.Select
+                          propKey={'id'}
+                          propFetch={'name'}
+                          findFromArray={true}
                           values={values}
-                          mutate="channel"
-                          query="guild.settings.settings.feedback.idea.channel"
+                          mutate="guild.settings.settings.feedback.idea.channel"
+                          query="guild.channels"
                         />
                       );
                     }}
                   </Query>
                   <br />
                   Bugs Channel
-                  <Query query={qChannels}>
+                  <Query query={qGuildBasic} variables={{ guildId: guildId }}>
                     {({ loading, error, data }) => {
                       if (loading) return "Loading";
                       if (error) return "Error";
-                      const values = data.channels.map(channel => channel.name);
-
-                      return (
+                      const values = data.guild.channels.map(channel => ({ key: channel.id, value: channel.name }));
+                    return (
                         <Editor.Select
+                          propKey={'id'}
+                          propFetch={'name'}
+                          findFromArray={true}
                           values={values}
-                          mutate="channel"
-                          query="guild.settings.settings.feedback.bug.channel"
+                          mutate="guild.settings.settings.feedback.bug.channel"
+                          query="guild.channels"
                         />
                       );
                     }}
