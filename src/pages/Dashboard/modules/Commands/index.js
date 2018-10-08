@@ -12,7 +12,7 @@ import Checkbox from "../../../../components/Checkbox";
 import Editor from "../../../../components/Editor";
 import qGuildBasic from "../../../../graphql/queries/guild/guildBasic";
 import qCommands from "../../../../graphql/queries/guild/commands";
-import qClientCommands from "../../../../graphql/queries/client/commands";
+import qClientBasic from "../../../../graphql/queries/client/clientBasic";
 
 const boxesHeader = css`
   display: flex;
@@ -340,7 +340,7 @@ class CommandsEditor extends Component {
   componentDidMount() {
     this.props.client
       .query({
-        query: qClientCommands,
+        query: qClientBasic,
         variables: { clientId: "287128811961843712" },
       })
       .then(result => {
