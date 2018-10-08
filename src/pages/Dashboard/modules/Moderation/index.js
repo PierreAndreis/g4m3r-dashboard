@@ -7,7 +7,7 @@ import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import Checkbox from "../../../../components/Checkbox";
 import Editor from "../../../../components/Editor";
-import qRoles from "../../../../graphql/queries/guild/roles";
+import qClientBasic from "../../../../graphql/queries/client/clientBasic";
 import qChannels from "../../../../graphql/queries/guild/channels";
 import qGuildBasic from "../../../../graphql/queries/guild/guildBasic";
 // import qPermissions from "../../../../graphql/queries/client/permissions";
@@ -392,17 +392,6 @@ const makeInputSettings = props => {
   );
 };
 
-const makeStatusToggle = props => {
-  return (
-    <div>
-      <Box.Title>{props.title}</Box.Title>
-      <Box.Body>
-        <Checkbox>{props.currentStatus}</Checkbox>
-      </Box.Body>
-    </div>
-  );
-};
-
 class ModerationEditor extends Component {
   render() {
     let guildId = this.props.match.params.guildId;
@@ -512,28 +501,22 @@ class ModerationEditor extends Component {
                   children="Status"
                 />
 
-                {/*
                 <Box.Title>Permission To Reply</Box.Title>
-                <Query query={qRoles}>
+                <Query query={qClientBasic}>
                   {({ loading, error, data }) => {
                     if (loading) return "Loading";
                     if (error) return "Error";
-                    let values = [
-                      { key: "first", value: "Admins Only" },
-                      { key: "second", value: "Admins + Mods" },
-                    ];
-                    const mutateString = "TODO";
-                    const roleQuery = "TODO";
-
+                    const values = data.client.settings.settings.permissionLevels;
+                    console.log("perms levels", data);
                     return (
                       <Editor.Select
                         values={values}
-                        mutate={mutateString}
-                        query={roleQuery}
+                        mutate="permissionToReply"
+                        query="guild.settings.settings.mail.permissionToReply"
                       />
                     );
                   }}
-                </Query>*/}
+                </Query>
               </Box>
               <Box padding>
                 {currentModMailStatus

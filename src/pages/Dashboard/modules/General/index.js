@@ -13,6 +13,7 @@ import Editor from "../../../../components/Editor";
 import qGuildBasic from "../../../../graphql/queries/guild/guildBasic";
 import qTimezone from "../../../../graphql/queries/utils/timezone";
 import qChannels from "../../../../graphql/queries/guild/channels";
+import guildBasic from "../../../../graphql/queries/guild/guildBasic";
 
 const boxesHeader = css`
   display: flex;
@@ -38,6 +39,17 @@ const mutationQuery = gql`
       id
       settings {
         settings {
+          events {
+            advertiseAllEvents
+            advertiseChannel
+            defaultReminder
+            defaultType
+            duration
+            game
+            maxAttendees
+            platform
+            useDefault
+          }
           feedback {
             idea {
               channel
@@ -63,6 +75,17 @@ const mutationQuery = gql`
           }
           prefix
           menuTime
+          xp {
+            notification {
+              server {
+                channel
+                dm
+              }
+              global {
+                channel
+              }
+            }
+          }
         }
       }
     }
@@ -91,11 +114,6 @@ const generalPageToggles = [
     title: "Enable Server Analytics",
   },
   {
-    query: "guild.settings.settings.general.deleteBurnMessage",
-    mutate: "deleteBurnMessage",
-    title: "Delete Nuke Notifications",
-  },
-  {
     query: "guild.settings.settings.general.deleteNotification",
     mutate: "deleteNotification",
     title: "Delete All Notifications",
@@ -109,6 +127,42 @@ const generalPageToggles = [
     query: "guild.settings.settings.feedback.bug.status",
     mutate: "status",
     title: "Feedback Bug",
+  },
+  {
+    query: "guild.settings.settings.xp.notifications.server.channel",
+    mutate: "channel",
+    title: "In Channel Server Level Up Notifications",
+  },
+  {
+    query: "guild.settings.settings.xp.notifications.server.dm",
+    mutate: "dm",
+    title: "In DM Server Level Up Notifications",
+  },
+  {
+    query: "guild.settings.settings.xp.notifications.global.channel",
+    mutate: "channel",
+    title: "In Channel Global Level Up Notifications",
+  },
+  {
+    query: "guild.settings.settings.events.useDefault",
+    mutate: "useDefault",
+    title: "Use Default Event Settings",
+  },
+  ,
+  {
+    query: "guild.settings.settings.tags.tagDeletion",
+    mutate: "tagDeletion",
+    title: "Tag Trigger Deletion",
+  },
+  {
+    query: "guild.settings.settings.stories.storyDeletion",
+    mutate: "storyDeletion",
+    title: "Story Trigger Deletion",
+  },
+  {
+    query: "guild.settings.settings.events.advertiseAllEvents",
+    mutate: "advertiseAllEvents",
+    title: "Auto Advertise Events",
   },
 ];
 
@@ -297,6 +351,82 @@ class GeneralEditor extends Component {
                       key: index,
                     });
                   })}
+                </Box.Body>
+              </Box>
+            </Editor>
+          </div>
+        </section>
+
+        <section>
+          <Heading2>Event Settings</Heading2>
+          <div className={boxesHeader}>
+            <Editor query={qGuildBasic} mutation={mutationQuery}>
+              <Box padding>
+                <Box.Title>Duration</Box.Title>
+                <Box.Body>
+                  <Editor.Input
+                    mutate="duration"
+                    query="guild.settings.settings.events.duration"
+                  />
+                </Box.Body>
+              </Box>
+
+              <Box padding>
+                <Box.Title>Max Attendees Allowed</Box.Title>
+                <Box.Body>
+                  <Editor.Input
+                    mutate="maxAttendees"
+                    query="guild.settings.settings.events.maxAttendees"
+                  />
+                </Box.Body>
+              </Box>
+
+              <Box padding>
+                <Box.Title>Game</Box.Title>
+                <Box.Body>
+                  <Editor.Input
+                    mutate="game"
+                    query="guild.settings.settings.events.game"
+                  />
+                </Box.Body>
+              </Box>
+
+              <Box padding>
+                <Box.Title>Reminder Time</Box.Title>
+                <Box.Body>
+                  <Editor.Input
+                    mutate="defaultReminder"
+                    query="guild.settings.settings.events.defaultReminder"
+                  />
+                </Box.Body>
+              </Box>
+
+              <Box padding>
+                <Box.Title>Advertise Channels</Box.Title>
+                <Box.Body>
+                  <Query query={qGuildBasic} variables={{ guildId: guildId }}>
+                    {({ loading, error, data }) => {
+                      if (loading) return "Loading";
+                      if (error) return "Error";
+                      const values = data.guild.channels
+                        .filter(channel => channel.type === "text")
+                        .sort((a, b) => a.name.localeCompare(b.name))
+                        .map(channel => ({
+                          key: channel.id,
+                          value: channel.name,
+                        }));
+                      return (
+                        <Editor.Select
+                          propKey={"id"}
+                          propFetch={"name"}
+                          findFromArray={true}
+                          values={values}
+                          mutate="guild.settings.settings.events.advertiseChannel"
+                          query="guild.channels"
+                        />
+                      );
+                    }}
+                  </Query>
                 </Box.Body>
               </Box>
             </Editor>

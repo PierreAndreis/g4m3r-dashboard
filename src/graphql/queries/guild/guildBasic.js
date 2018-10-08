@@ -18,6 +18,17 @@ export default gql`
       settings {
         settings {
           prefix
+          events {
+            advertiseAllEvents
+            advertiseChannel
+            defaultReminder
+            defaultType
+            duration
+            game
+            maxAttendees
+            platform
+            useDefault
+          }
           timezone
           menuTime
           general {
@@ -187,6 +198,17 @@ export default gql`
               status
               channel
               logPublically
+            }
+          }
+          xp {
+            notification {
+              server {
+                channel
+                dm
+              }
+              global {
+                channel
+              }
             }
           }
         }
