@@ -11,6 +11,7 @@ import qClientBasic from "../../../../graphql/queries/client/clientBasic";
 import qChannels from "../../../../graphql/queries/guild/channels";
 import qGuildBasic from "../../../../graphql/queries/guild/guildBasic";
 // import qPermissions from "../../../../graphql/queries/client/permissions";
+import { CLIENT_ID } from "./../../../../../src/global/constants";
 
 const serverLogsStatus = true;
 const currentModMailStatus = true;
@@ -502,11 +503,11 @@ class ModerationEditor extends Component {
                 />
 
                 <Box.Title>Permission To Reply</Box.Title>
-                <Query query={qClientBasic}>
+                <Query query={qClientBasic} variables={{ clientId: "287128811961843712" }}>
                   {({ loading, error, data }) => {
                     if (loading) return "Loading";
                     if (error) return "Error";
-                    const values = data.client.settings.settings.permissionLevels;
+                    const values = data.client.settings.permissionLevels;
                     console.log("perms levels", data);
                     return (
                       <Editor.Select
