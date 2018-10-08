@@ -13,6 +13,7 @@ import Editor from "../../../../components/Editor";
 import qGuildBasic from "../../../../graphql/queries/guild/guildBasic";
 import qCommands from "../../../../graphql/queries/guild/commands";
 import qClientBasic from "../../../../graphql/queries/client/clientBasic";
+import { CLIENT_ID } from './../../../../../src/global/constants';
 
 const boxesHeader = css`
   display: flex;
