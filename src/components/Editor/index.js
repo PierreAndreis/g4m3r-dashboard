@@ -24,11 +24,10 @@ const getPlaceholder = (props, state) => {
 
 const getFromArray = (array, propKey, value, propFetch) => {
   const foundObject = array.find(item => item[propKey] === value);
-  return foundObject ? foundObject[propFetch] : 'none';
+  return foundObject ? foundObject[propFetch] : "None";
 };
 
 const getEditedValue = (props, state) => {
-  
   if (props.findFromArray) {
     const array = dlv(state.payload, props.query);
     const value = dlv(state.payload, props.mutate);
@@ -43,10 +42,9 @@ const getEditedValue = (props, state) => {
   if (state.changes.hasOwnProperty(props.mutate)) {
     returnValue = state.changes[props.mutate];
   } else returnValue = dlv(obj || state.payload, props.query);
-  
+
   return returnValue;
 };
-
 
 class WrapperEditorForGraphQL extends React.Component {
   static Input = ({ mutate, query, ...otherProps }) => (
@@ -87,26 +85,25 @@ class WrapperEditorForGraphQL extends React.Component {
     </StagerContext.Consumer>
   );
 
-  static Mapper = ({path = "", mutate, children, ...otherProps}) => (
+  static Mapper = ({ path = "", mutate, children, ...otherProps }) => (
     <StagerContext.Consumer>
       {state => {
-
         const arr = dlv(state.payload, path, []);
 
         console.log("arr=", arr, state, path);
         if (!Array.isArray(arr)) throw new Error(`Path ${path} must be an array!`);
 
-      // This has some perfomance issues because it's a new object for every render
-        const newContext = {...state, payload: arr}
-        
+        // This has some perfomance issues because it's a new object for every render
+        const newContext = { ...state, payload: arr };
+
         return arr.map((value, index) => (
-              <StagerContext.Provider value={newContext} key={index}>
-                {typeof children === "function" ? children(value) : children}
-              </StagerContext.Provider>
-            ))
-      }}  
-      </StagerContext.Consumer>
-  )
+          <StagerContext.Provider value={newContext} key={index}>
+            {typeof children === "function" ? children(value) : children}
+          </StagerContext.Provider>
+        ));
+      }}
+    </StagerContext.Consumer>
+  );
 
   onCommit = commit => async changes => {
     const guildId = this.props.match.params.guildId;
@@ -126,22 +123,23 @@ class WrapperEditorForGraphQL extends React.Component {
 
     return (
       <Query query={query} variables={{ guildId: guildId }}>
-        {query => (
-          console.log("queryResult=", query) || 
-          <Mutation mutation={mutation}>
-            {commit => (
-              <Stager
-                {...props}
-                isLoading={query.loading}
-                errors={query.errors}
-                payload={query.data}
-                onCommit={this.onCommit(commit)}
-              >
-                {children}
-              </Stager>
-            )}
-          </Mutation>
-        )}
+        {query =>
+          console.log("queryResult=", query) || (
+            <Mutation mutation={mutation}>
+              {commit => (
+                <Stager
+                  {...props}
+                  isLoading={query.loading}
+                  errors={query.errors}
+                  payload={query.data}
+                  onCommit={this.onCommit(commit)}
+                >
+                  {children}
+                </Stager>
+              )}
+            </Mutation>
+          )
+        }
       </Query>
     );
   }

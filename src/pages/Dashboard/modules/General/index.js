@@ -206,10 +206,13 @@ class GeneralEditor extends Component {
                     {({ loading, error, data }) => {
                       if (loading) return "Loading";
                       if (error) return "Error";
-                      const values = data.guild.channels.map(channel => ({
-                        key: channel.id,
-                        value: channel.name,
-                      }));
+                      const values = data.guild.channels
+                        .filter(channel => channel.type === "text")
+                        .sort((a, b) => a.name.localeCompare(b.name))
+                        .map(channel => ({
+                          key: channel.id,
+                          value: channel.name,
+                        }));
                       return (
                         <Editor.Select
                           propKey={"id"}
@@ -228,10 +231,13 @@ class GeneralEditor extends Component {
                     {({ loading, error, data }) => {
                       if (loading) return "Loading";
                       if (error) return "Error";
-                      const values = data.guild.channels.map(channel => ({
-                        key: channel.id,
-                        value: channel.name,
-                      }));
+                      const values = data.guild.channels
+                        .filter(channel => channel.type === "text")
+                        .sort((a, b) => a.name.localeCompare(b.name))
+                        .map(channel => ({
+                          key: channel.id,
+                          value: channel.name,
+                        }));
                       return (
                         <Editor.Select
                           propKey={"id"}

@@ -12,7 +12,10 @@ import qChannels from "../../../../graphql/queries/guild/channels";
 import qGuildBasic from "../../../../graphql/queries/guild/guildBasic";
 // import qPermissions from "../../../../graphql/queries/client/permissions";
 
-const serverLogsStatus = false;
+const serverLogsStatus = true;
+const currentModMailStatus = true;
+const currentCapitalSpamStatus = true;
+const currentNaughtyWordFilterStatus = true;
 
 const boxesHeader = css`
   display: flex;
@@ -33,7 +36,7 @@ const channelOrRoleSelector = props => {
       <Editor query={qGuildBasic} mutation={mutationQuery}>
         {makeLineBreak(props.isChannel)}
         <Box.Title>
-          {props.type} {props.isChannel ? "Log Channel" : "Role"}
+          {props.type} {props.isChannel ? "Channel" : "Role"}
         </Box.Title>
         <Query query={qGuildBasic} variables={{ guildId: props.guildId }}>
           {({ loading, error, data }) => {
@@ -43,16 +46,24 @@ const channelOrRoleSelector = props => {
               console.log(error);
               return "Error";
             }
-            const values = data.guild[props.isChannel ? 'channels' : 'roles'].map(item => ({ key: item.id, value: item.name }));
-            console.log(data);
+            let values = data.guild[props.isChannel ? "channels" : "roles"];
+
+            const channelType = props.needCategory ? "category" : "text";
+            if (props.isChannel) {
+              values = values.filter(channel => channel.type === channelType);
+            } else values = values.filter(role => role.id !== props.guildId);
+            values = values.sort((a, b) => a.name.localeCompare(b.name)).map(item => ({
+              key: item.id,
+              value: `${props.isChannel ? "#" : "@"}${item.name}`,
+            }));
             return (
               <Editor.Select
                 values={values}
-                propKey={'id'}
-                propFetch={'name'}
+                propKey={"id"}
+                propFetch={"name"}
                 findFromArray={true}
                 mutate={props.mutateString}
-                query={`guild.${props.isChannel ? 'channels' : 'roles'}`}
+                query={`guild.${props.isChannel ? "channels" : "roles"}`}
               />
             );
           }}
@@ -67,18 +78,16 @@ const createStatusAndChannelsBoxes = props => {
     <div key={props.mutateString}>
       <Editor query={qChannels} mutation={mutationQuery}>
         <Box padding style={{ width: "100%" }}>
-          <Box.Title>{props.type} Log Status</Box.Title>
+          <Box.Title>{props.type} Log</Box.Title>
           <Box.Body>
-            <Checkbox>{props.currentStatus ? "Enabled" : "Disabled"}</Checkbox>
-            {props.currentStatus
-              ? channelOrRoleSelector({
-                  isChannel: true,
-                  type: props.type,
-                  mutateString: props.mutateString,
-                  query: props.query,
-                  guildId: props.guildId
-                })
-              : null}
+            <Checkbox>Status</Checkbox>
+            {channelOrRoleSelector({
+              isChannel: true,
+              type: props.type,
+              mutateString: props.mutateString,
+              query: props.query,
+              guildId: props.guildId,
+            })}
           </Box.Body>
         </Box>
       </Editor>
@@ -94,7 +103,140 @@ const mutationQuery = gql`
       id
       settings {
         settings {
-          moderation
+          autoAssignRoles {
+            mainRole
+          }
+          moderation {
+            status
+            channel
+            publicModlogChannel
+            maxNoWarnings
+            maxInactivityTime
+            defaultInactivityRole
+            mutedRoles {
+              text
+              voice
+            }
+          }
+          serverLogs {
+            status
+            mainChannel
+            roleDelete {
+              status
+              channel
+              logPublically
+            }
+            roleUpdate {
+              status
+              channel
+              logPublically
+            }
+            memberAdd {
+              status
+              channel
+              logPublically
+            }
+            roleCreate {
+              status
+              channel
+              logPublically
+            }
+            memberRemove {
+              status
+              channel
+              logPublically
+            }
+            cmdRan {
+              status
+              channel
+              logPublically
+            }
+            tagRan {
+              status
+              channel
+              logPublically
+            }
+            storyRan {
+              status
+              channel
+              logPublically
+            }
+            msgDeleted {
+              status
+              channel
+              logPublically
+            }
+            msgUpdate {
+              status
+              channel
+              logPublically
+            }
+            emojiCreate {
+              status
+              channel
+              logPublically
+            }
+            emojiDelete {
+              status
+              channel
+              logPublically
+            }
+            emojiUpdate {
+              status
+              channel
+              logPublically
+            }
+            channelCreate {
+              status
+              channel
+              logPublically
+            }
+            channelDelete {
+              status
+              channel
+              logPublically
+            }
+            channelUpdate {
+              status
+              channel
+              logPublically
+            }
+            serverDeaf {
+              status
+              channel
+              logPublically
+            }
+            serverMute {
+              status
+              channel
+              logPublically
+            }
+            nicknameChanged {
+              status
+              channel
+              logPublically
+            }
+            memberRolePermissionsChanged {
+              status
+              channel
+              logPublically
+            }
+            memberRoleUpdated {
+              status
+              channel
+              logPublically
+            }
+            guildBanAdd {
+              status
+              channel
+              logPublically
+            }
+            guildBanRemove {
+              status
+              channel
+              logPublically
+            }
+          }
         }
       }
     }
@@ -102,102 +244,139 @@ const mutationQuery = gql`
 `;
 
 const mainLogs = [
-  { name: "Mod", status: true, query: "guild.channels", mutate: "guild.settings.settings.moderation.channel" },
+  {
+    name: "Mod",
+    status: true,
+    query: "guild.channels",
+    mutate: "guild.settings.settings.moderation.channel",
+  },
   {
     name: "Public",
     status: false,
     query: "guild.channels",
     mutate: "guild.settings.settings.moderation.publicModlogChannel",
   },
-  { name: "Server", status: true, query: "guild.channels", mutate: "guild.settings.settings.serverLogs.mainChannel" },
+  {
+    name: "Server",
+    status: true,
+    query: "guild.channels",
+    mutate: "guild.settings.settings.serverLogs.mainChannel",
+  },
 ];
 
 const serverLogs = [
-  { name: "Role Create", status: true, query: "serverLogs.roleCreate", mutate: "TODO" },
-  { name: "Role Delete", status: true, query: "serverLogs.roleDelete", mutate: "TODO" },
-  { name: "Role Update", status: true, query: "serverLogs.roleUpdate", mutate: "TODO" },
-  { name: "Member Add", status: true, query: "serverLogs.memberAdd", mutate: "TODO" },
+  { name: "Role Create", status: false, mutate: "roleCreate" },
+  { name: "Role Delete", status: true, mutate: "roleDelete" },
+  { name: "Role Update", status: true, mutate: "roleUpdate" },
+  { name: "Member Add", status: true, mutate: "memberAdd" },
   {
     name: "Member Remove",
     status: true,
-    query: "serverLogs.memberRemove",
-    mutate: "TODO",
+    mutate: "memberRemove",
   },
-  { name: "Command Ran", status: true, query: "serverLogs.cmdRan", mutate: "TODO" },
-  { name: "Tag Ran", status: true, query: "serverLogs.tagRan", mutate: "TODO" },
-  { name: "Story Ran", status: true, query: "serverLogs.storyRan", mutate: "TODO" },
+  { name: "Command Ran", status: true, mutate: "cmdRan" },
+  { name: "Tag Ran", status: true, mutate: "tagRan" },
+  { name: "Story Ran", status: true, mutate: "storyRan" },
   {
     name: "Message Delete",
     status: true,
-    query: "serverLogs.msgDeleted",
-    mutate: "TODO",
+    mutate: "msgDeleted",
   },
-  { name: "Message Edit", status: true, query: "serverLogs.msgUpdate", mutate: "TODO" },
-  { name: "Emoji Create", status: true, query: "serverLogs.emojiCreate", mutate: "TODO" },
-  { name: "Emoji Delete", status: true, query: "serverLogs.emojiDelete", mutate: "TODO" },
-  { name: "Emoji Update", status: true, query: "serverLogs.emojiUpdate", mutate: "TODO" },
+  { name: "Message Edit", status: true, mutate: "msgUpdate" },
+  { name: "Emoji Create", status: true, mutate: "emojiCreate" },
+  { name: "Emoji Delete", status: true, mutate: "emojiDelete" },
+  { name: "Emoji Update", status: true, mutate: "emojiUpdate" },
   {
     name: "Channel Create",
     status: true,
-    query: "serverLogs.channelCreate",
-    mutate: "TODO",
+    mutate: "channelCreate",
   },
   {
     name: "Channel Delete",
     status: true,
-    query: "serverLogs.channelDelete",
-    mutate: "TODO",
+    mutate: "channelDelete",
   },
   {
     name: "Channel Update",
     status: true,
-    query: "serverLogs.channelUpdate",
-    mutate: "TODO",
+    mutate: "channelUpdate",
   },
-  { name: "Server Deaf", status: true, query: "serverLogs.serverDeaf", mutate: "TODO" },
-  { name: "Server Mute", status: true, query: "serverLogs.serverMute", mutate: "TODO" },
+  { name: "Server Deaf", status: true, mutate: "serverDeaf" },
+  { name: "Server Mute", status: true, mutate: "serverMute" },
   {
     name: "Nickname Change",
     status: true,
-    query: "serverLogs.nicknameChanged",
-    mutate: "TODO",
+    mutate: "nicknameChanged",
   },
   {
     name: "Member Perms",
     status: true,
-    query: "serverLogs.memberRolePermissionsChanged",
-    mutate: "TODO",
+    mutate: "memberRolePermissionsChanged",
   },
   {
     name: "Member Roles",
     status: true,
-    query: "serverLogs.memberRoleUpdated",
-    mutate: "TODO",
+    mutate: "memberRoleUpdated",
   },
-  { name: "Member Ban", status: true, query: "serverLogs.guildBanAdd", mutate: "TODO" },
+  { name: "Member Ban", status: true, mutate: "guildBanAdd" },
   {
     name: "Member Unban",
     status: true,
-    query: "serverLogs.guildBanRemove",
-    mutate: "TODO",
+    mutate: "guildBanRemove",
   },
 ];
 
-const makeIndividualServerLogs = () => {
+const makeServerLogToggles = props => {
+  return (
+    <div key={props.query}>
+      <Editor.Checkbox query={props.query} mutate={props.mutate} children={props.title} />
+    </div>
+  );
+};
+
+const makeIndividualServerLogs = props => {
   return (
     <div>
-      <Heading2>Individual Server Logs</Heading2>
-      <div className={boxesHeader}>
-        {serverLogs.map((opt, index) => {
-          return createStatusAndChannelsBoxes({
-            key: index,
-            type: opt.name,
-            currentStatus: opt.status,
-            query: opt.query,
-            mutate: opt.mutate,
-          });
-        })}
-      </div>
+      <Editor query={qGuildBasic} mutation={mutationQuery}>
+        <Heading2>Individual Server Logs</Heading2>
+        <div className={boxesHeader}>
+          {serverLogs.map((opt, index) => {
+            return (
+              <div>
+                <Box padding style={{ width: "100%" }}>
+                  <Box.Title>{opt.name} Log</Box.Title>
+                  <Box.Body>
+                    {makeServerLogToggles({
+                      key: index,
+                      title: "Status",
+                      query: `guild.settings.settings.serverLogs.${opt.mutate}.status`,
+                      mutate: `guild.settings.settings.serverLogs.${opt.mutate}.status`,
+                    })}
+                    {makeServerLogToggles({
+                      key: index,
+                      title: "Log Publically",
+                      query: `guild.settings.settings.serverLogs.${
+                        opt.mutate
+                      }.logPublically`,
+                      mutate: `guild.settings.settings.serverLogs.${
+                        opt.mutate
+                      }.logPublically`,
+                    })}
+                    {channelOrRoleSelector({
+                      isChannel: true,
+                      type: opt.name,
+                      mutateString: `guild.settings.settings.serverLogs.${
+                        opt.mutate
+                      }.channel`,
+                      guildId: props.guildId,
+                    })}
+                  </Box.Body>
+                </Box>
+              </div>
+            );
+          })}
+        </div>
+      </Editor>
     </div>
   );
 };
@@ -205,15 +384,10 @@ const makeIndividualServerLogs = () => {
 const makeInputSettings = props => {
   return (
     <div>
-      <Editor query={props.editorQuery} mutation={props.editorMutate}>
-        <Box padding>
-          <Box.Title>{props.title}</Box.Title>
-          <Box.Body>
-            // TODO: Need validation of inputs
-            <Editor.Input mutate={props.inputMutate} query={props.inputQuery} />
-          </Box.Body>
-        </Box>
-      </Editor>
+      <Box.Title>{props.title}</Box.Title>
+      <Box.Body>
+        <Editor.Input mutate={props.mutate} query={props.query} />
+      </Box.Body>
     </div>
   );
 };
@@ -221,14 +395,10 @@ const makeInputSettings = props => {
 const makeStatusToggle = props => {
   return (
     <div>
-      <Editor query={props.editorQuery} mutation={props.editorMutate}>
-        <Box padding>
-          <Box.Title>{props.title}</Box.Title>
-          <Box.Body>
-            <Checkbox>{props.currentStatus}</Checkbox>
-          </Box.Body>
-        </Box>
-      </Editor>
+      <Box.Title>{props.title}</Box.Title>
+      <Box.Body>
+        <Checkbox>{props.currentStatus}</Checkbox>
+      </Box.Body>
     </div>
   );
 };
@@ -263,194 +433,276 @@ class ModerationEditor extends Component {
                 currentStatus: opt.status,
                 query: opt.query,
                 mutateString: opt.mutate,
-                guildId
+                guildId,
               });
             })}
-            {serverLogsStatus ? makeIndividualServerLogs() : null}
+            {serverLogsStatus ? makeIndividualServerLogs({ guildId }) : null}
           </div>
         </section>
-        {/*
-				<section>
-				<Heading2>Moderation Values</Heading2>
-					<div className={boxesHeader}>
-						{makeInputSettings({ editorQuery: "TODO", editorMutate: "TODO", title: "Max Warnings", inputQuery: "guild.settings.settings.moderation.maxNoWarnings", inputMutate: "TODO" })}
-						{makeInputSettings({ editorQuery: "TODO", editorMutate: "TODO", title: "Max Inactive Time", inputQuery: "guild.settings.settings.moderation.maxInactivityTime", inputMutate: "TODO" })}
 
-						<Box padding>
-							{channelOrRoleSelector({ isChannel: false, type: 'Inactive', mutateString: "TODO", query: "TODO" })}
-						</Box>
+        <section>
+          <Heading2>Moderation Values</Heading2>
+          <div className={boxesHeader}>
+            <Editor query={qGuildBasic} mutation={mutationQuery}>
+              <Box padding>
+                {makeInputSettings({
+                  title: "Max Warnings",
+                  query: "guild.settings.settings.moderation.maxNoWarnings",
+                  mutate: "maxNoWarnings",
+                })}
 
-						<Box padding>
-							{channelOrRoleSelector({ isChannel: false, type: 'Max Warnings', mutateString: "TODO", query: "TODO" })}
-						</Box>
+                {channelOrRoleSelector({
+                  isChannel: false,
+                  type: "Max Warnings",
+                  mutateString: "defaultMaxWarningsRole",
+                  guildId,
+                })}
+              </Box>
+
+              <Box padding>
+                {makeInputSettings({
+                  title: "Max Inactive Time",
+                  query: "guild.settings.settings.moderation.maxInactivityTime",
+                  mutate: "maxInactivityTime",
+                })}
+
+                {channelOrRoleSelector({
+                  isChannel: false,
+                  type: "Inactive",
+                  mutateString: "defaultInactivityRole",
+                  guildId,
+                })}
+              </Box>
+            </Editor>
           </div>
-				</section>
+        </section>
 
+        <section>
+          <Heading2>Mute Roles</Heading2>
+          <div className={boxesHeader}>
+            <Editor query={qGuildBasic} mutation={mutationQuery}>
+              <Box padding>
+                {channelOrRoleSelector({
+                  isChannel: false,
+                  type: "Text Muted",
+                  mutateString: "guild.settings.settings.moderation.mutedRoles.text",
+                  guildId,
+                })}
 
+                {channelOrRoleSelector({
+                  isChannel: false,
+                  type: "Voice Muted",
+                  mutateString: "guild.settings.settings.moderation.mutedRoles.voice",
+                  guildId,
+                })}
+              </Box>
+            </Editor>
+          </div>
+        </section>
 
-				<section>
-				<Heading2>Mute Roles</Heading2>
-				<div className={boxesHeader}>
-					<Editor query={qRoles} mutation="TODO">
-						<Box padding>
-							{channelOrRoleSelector({ isChannel: false, type: 'Text Muted', mutateString: "TODO", query: "TODO" })}
-						</Box>
+        <section>
+          <Heading2>Mod Mails</Heading2>
+          <div className={boxesHeader}>
+            <Editor query={qGuildBasic} mutation={mutationQuery}>
+              <Box padding>
+                <Box.Title>Mod Mails</Box.Title>
+                <Editor.Checkbox
+                  query="guild.settings.settings.mail.activated"
+                  mutate="activated"
+                  children="Status"
+                />
 
-						<Box padding>
-							{channelOrRoleSelector({ isChannel: false, type: 'Voice Muted', mutateString: "TODO", query: "TODO" })}
-						</Box>
-					</Editor>
-				</div>
-			</section>
+                {/*
+                <Box.Title>Permission To Reply</Box.Title>
+                <Query query={qRoles}>
+                  {({ loading, error, data }) => {
+                    if (loading) return "Loading";
+                    if (error) return "Error";
+                    let values = [
+                      { key: "first", value: "Admins Only" },
+                      { key: "second", value: "Admins + Mods" },
+                    ];
+                    const mutateString = "TODO";
+                    const roleQuery = "TODO";
 
+                    return (
+                      <Editor.Select
+                        values={values}
+                        mutate={mutateString}
+                        query={roleQuery}
+                      />
+                    );
+                  }}
+                </Query>*/}
+              </Box>
+              <Box padding>
+                {currentModMailStatus
+                  ? makeInputSettings({
+                      title: "Max Mails Per Guild",
+                      query: "guild.settings.settings.mail.maxMailsTotal",
+                      mutate: "maxMailsTotal",
+                    })
+                  : null}
+                {currentModMailStatus
+                  ? makeInputSettings({
+                      title: "Max Mails Per User",
+                      query: "guild.settings.settings.mail.maxMailPerUser",
+                      mutate: "maxMailPerUser",
+                    })
+                  : null}
+              </Box>
+            </Editor>
+          </div>
+        </section>
 
-			<section>
-			<Heading2>Mod Mails</Heading2>
-			// TODO: Fix this current value label
+        <section>
+          <Heading2>Auto Moderation</Heading2>
+          <div className={boxesHeader}>
+            <Editor query={qGuildBasic} mutation={mutationQuery}>
+              <Box padding>
+                {channelOrRoleSelector({
+                  isChannel: false,
+                  type: "Auto Assign",
+                  mutateString: "mainRole",
+                  guildId,
+                })}
+              </Box>
+              <Box padding>
+                <Box.Title>Capital Spam</Box.Title>
+                <Editor.Checkbox
+                  query="guild.settings.settings.mail.activated"
+                  mutate="activated"
+                  children="Status"
+                />
+                {currentCapitalSpamStatus
+                  ? makeInputSettings({
+                      title: "Max Allowed Percentage",
+                      query:
+                        "guild.settings.settings.moderation.capitalPercentage.amount",
+                      mutate: "amount",
+                    })
+                  : null}
+              </Box>
 
-			<div className={boxesHeader}>
-				{makeStatusToggle({ editorQuery: "TODO", editorMutation: "TODO", title: "Mod Mail Status", currentStatus: "TODO" })}
+              <Box padding>
+                <Box.Title>Naughty Words</Box.Title>
+                <Editor.Checkbox
+                  query="guild.settings.settings.naughtyWords.status"
+                  mutate="activated"
+                  children="Status"
+                />
 
-				<Box padding>
-					<Box.Title>Permission To Reply</Box.Title>
-					<Query query={qRoles}>
-						{({ loading, error, data }) => {
-							if (loading) return "Loading";
-							if (error) return "Error";
-							{/* TODO: Query these channels names }
-							let values = [{ key: 'first', value: 'Admins Only' }, { key: 'second', value: 'Admins + Mods' }];
-							const mutateString = "TODO";
-							const roleQuery = "TODO";
+                {currentNaughtyWordFilterStatus
+                  ? makeInputSettings({
+                      title: "Naughty Words",
+                      query: "guild.settings.settings.moderation.naughtyWords.words",
+                      mutate: "words",
+                    })
+                  : null}
+              </Box>
+            </Editor>
+            {/*
 
-							{/* TODO: fill this in properly }
-							return (
-								<Editor.Select
-									values={values}
-									mutate={mutateString}
-									query={roleQuery}
-									/>
-								);
-							}}
-					</Query>
-				</Box>
-				</Editor>
-				{currentModMailStatus ? makeInputSettings({ editorQuery: "TODO", editorMutate: "TODO", title: "Max Mails Per Guild", inputQuery: "guild.settings.settings.mail.maxMailsTotal", inputMutate: "TODO" }) : null}
-				{currentModMailStatus ? makeInputSettings({ editorQuery: "TODO", editorMutate: "TODO", title: "Max Mails Per User", inputQuery: "guild.settings.settings.mail.maxMailPerUser", inputMutate: "TODO" }) : null}
-			</div>
-		</section>
+              */}
+            // TODO: Unique Role Sets are missing need to think how to do it.
+          </div>
+        </section>
 
+        <section>
+          <Heading2>Welcome/Goodbye</Heading2>
+          <div className={boxesHeader}>
+            <Editor query={qGuildBasic} mutation={mutationQuery}>
+              <Box padding>
+                <Box.Title>Welcome Status</Box.Title>
+                <Box.Body>
+                  <Editor.Checkbox
+                    query="guild.settings.settings.hibye.welcome.channel"
+                    mutate="channel"
+                    children="Channel"
+                  />
+                  <br />
+                  <Editor.Checkbox
+                    query="guild.settings.settings.hibye.welcome.dm"
+                    mutate="dm"
+                    children="DM"
+                  />
+                </Box.Body>
+              </Box>
+              <Box padding>
+                <Box.Title>Goodbye Status</Box.Title>
+                <Box.Body>
+                  <Editor.Checkbox
+                    query="guild.settings.settings.hibye.goodbye.channel"
+                    mutate="channel"
+                    children="Channel"
+                  />
+                  <br />
+                  <Editor.Checkbox
+                    query="guild.settings.settings.hibye.goodbye.dm"
+                    mutate="dm"
+                    children="DM"
+                  />
+                </Box.Body>
+              </Box>
+              // TODO: Welcome and goodbye messages need to be done
+            </Editor>
+          </div>
+        </section>
 
+        <section>
+          <Heading2>Verification</Heading2>
+          <div className={boxesHeader}>
+            <Editor query={qGuildBasic} mutation={mutationQuery}>
+              <Box padding>
+                <Box.Title>Verification Status</Box.Title>
+                <Box.Body>
+                  <Editor.Checkbox
+                    query="guild.settings.settings.verify.status"
+                    mutate="status"
+                    children="Status"
+                  />
+                </Box.Body>
+              </Box>
 
-		<section>
-			<Heading2>Auto Moderation</Heading2>
-			// TODO: Fix this current value label
-			<div className={boxesHeader}>
-				<Editor query={qGuildBasic} mutation={mutationQuery}>
-					<Box padding>
-						{channelOrRoleSelector({ isChannel: false, type: 'Auto Assign', mutateString: "TODO", query: "TODO" })}
-					</Box>
-				</Editor>
+              <Box padding>
+                {channelOrRoleSelector({
+                  isChannel: true,
+                  type: "Verification Category",
+                  mutateString: `guild.settings.settings.verify.category`,
+                  needCategory: true,
+                  guildId,
+                })}
+              </Box>
 
-				{makeStatusToggle({ editorQuery: "TODO", editorMutation: "TODO", title: "Capital Spam Status", currentStatus: "TODO" })}
-				{currentCapitalSpamStatus ? makeInputSettings({ editorQuery: "TODO", editorMutate: "TODO", title: "Capital Spam Percentage", inputQuery: "guild.settings.settings.moderation.capitalPercentage.amount", inputMutate: "TODO" }) : null}
+              <Box padding>
+                <Box.Title>Verification First Message</Box.Title>
+                <Box.Body>
+                  // TODO: validate this is a embed
+                  <Editor.Input
+                    mutate="first"
+                    query="guild.settings.settings.verify.first"
+                  />
+                </Box.Body>
+              </Box>
 
-				{makeStatusToggle({ editorQuery: "TODO", editorMutation: "TODO", title: "Naughty Words Filter Status", currentStatus: "TODO" })}
-				{currentNaughtyWordFilterStatus ? makeInputSettings({ editorQuery: "TODO", editorMutate: "TODO", title: "Naughty Words", inputQuery: "guild.settings.settings.moderation.naughtyWords.words", inputMutate: "TODO" }) : null}
+              <Box padding>
+                {channelOrRoleSelector({
+                  isChannel: false,
+                  type: "Verification",
+                  mutateString: `guild.settings.settings.verify.role`,
+                  guildId,
+                })}
+              </Box>
 
-					// TODO: Unique Role Sets are missing need to think how to do it.
-		</div>
-	</section>
-
-			<section>
-				<Heading2>Welcome/Goodbye</Heading2>
-				// TODO: Fix this current value label
-				<div className={boxesHeader}>
-					<Editor query={qGuildBasic} mutation={mutationQuery}>
-						<Box padding>
-							<Box.Title>Welcome In Channel Status</Box.Title>
-							<Box.Body>
-								<Checkbox>Disabled</Checkbox>
-								<br/>
-								<Box.Title>Welcome In DM Status</Box.Title>
-								<Checkbox>Disabled</Checkbox>
-							</Box.Body>
-						</Box>
-
-						<Box padding>
-							<Box.Title>Goodbye In Channel Status</Box.Title>
-							<Box.Body>
-								<Checkbox>Disabled</Checkbox>
-								<br/>
-								<Box.Title>Goodbye In DM Status</Box.Title>
-								<Checkbox>Disabled</Checkbox>
-							</Box.Body>
-						</Box>
-
-						// TODO: Welcome and goodbye messages need to be done
-					</Editor>
-				</div>
-			</section>
-
-
-
-
-			<section>
-				<Heading2>Verification</Heading2>
-				// TODO: Fix this current value label
-				<div className={boxesHeader}>
-					<Editor query={qGuildBasic} mutation={mutationQuery}>
-						<Box padding>
-							<Box.Title>Verification Status</Box.Title>
-							<Box.Body>
-								<Checkbox>Disabled</Checkbox>
-							</Box.Body>
-						</Box>
-
-						<Box padding>
-							<Box.Title>Verification Category</Box.Title>
-							<Query query={qChannels}>
-								{({ loading, error, data }) => {
-									if (loading) return "Loading";
-									if (error) return "Error";
-									const values = data.channels.filter(channel => channel.type === 'category').map(channel => channel.name);
-
-									const mutateString = "TODO";
-									const roleQuery = "TODO";
-
-									{/* TODO: fill this in properly }
-									return (
-										<Editor.Select
-											values={values}
-											mutate={mutateString}
-											query={roleQuery}
-											/>
-										);
-									}}
-							</Query>
-						</Box>
-
-						<Box padding>
-							<Box.Title>Verification First Message</Box.Title>
-							<Box.Body>
-							// TODO: validate this is a embed
-							<Editor.Input mutate="TODO" query="guild.settings.settings.verify.first" />
-							</Box.Body>
-						</Box>
-
-						<Box padding>
-							{channelOrRoleSelector({ isChannel: false, type: 'Verification', mutateString: "TODO", query: "TODO" })}
-						</Box>
-
-						<Box padding>
-							<Box.Title>Reset Verification</Box.Title>
-							<Box.Body>
-								<Checkbox>Disabled</Checkbox>
-							</Box.Body>
-						</Box>
-					</Editor>
-				</div>
-			</section>
-								*/}
+              <Box padding>
+                <Box.Title>Reset Verification</Box.Title>
+                <Box.Body>
+                  // TODO: Add some button here to reset the verification settings.
+                </Box.Body>
+              </Box>
+            </Editor>
+          </div>
+        </section>
       </React.Fragment>
     );
   }
