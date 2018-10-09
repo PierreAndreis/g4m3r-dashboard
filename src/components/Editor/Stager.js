@@ -28,13 +28,13 @@ const dset = (path, value, obj = {}) => {
   return obj;
 };
 
-const transformToArray = (property, propKey, propValue, isArray, query, newValue, changes) => {
+const transformToArray = (property, propKey, propValue, isArray, query, newValue, state) => {
   let p = 2, arrayName, newProperty;
   newProperty = property.split ? property.split(".") : property;
   query = query.split ? query.split(".") : query;
   if (isArray) {
     arrayName = newProperty[newProperty.length - 1];
-    let existingArray = dlv(changes, newProperty);
+    let existingArray = dlv(state.changes, newProperty);
     if (existingArray) {
       const existingItem = existingArray.find(item => item[propKey] === propValue);
       if (existingItem) {
@@ -96,7 +96,7 @@ class Stager extends React.Component {
 
     // Available on Context to commit a property to a value
     onChange: (property, propKey, propValue, isArray, query) => newValue => {
-      const { veryNewValue } = transformToArray(property, propKey, propValue, isArray, query, newValue, this.state.changes)
+      const { veryNewValue } = transformToArray(property, propKey, propValue, isArray, query, newValue, this.state)
       this.setState(state => {
         if (!isArray) state.changes[property] = newValue;
         else {
