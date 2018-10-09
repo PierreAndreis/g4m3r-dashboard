@@ -39,6 +39,12 @@ const mutationQuery = gql`
       id
       settings {
         settings {
+          stories {
+            storyDeletion
+          }
+          tags {
+            tagDeletion
+          }
           events {
             advertiseAllEvents
             advertiseChannel
@@ -120,27 +126,27 @@ const generalPageToggles = [
   },
   {
     query: "guild.settings.settings.feedback.idea.status",
-    mutate: "status",
+    mutate: "ideaStatus",
     title: "Feedback Idea",
   },
   {
     query: "guild.settings.settings.feedback.bug.status",
-    mutate: "status",
+    mutate: "bugStatus",
     title: "Feedback Bug",
   },
   {
-    query: "guild.settings.settings.xp.notifications.server.channel",
-    mutate: "channel",
+    query: "guild.settings.settings.xp.notification.server.channel",
+    mutate: "xpNotificationServerChannel",
     title: "In Channel Server Level Up Notifications",
   },
   {
-    query: "guild.settings.settings.xp.notifications.server.dm",
-    mutate: "dm",
+    query: "guild.settings.settings.xp.notification.server.dm",
+    mutate: "xpNotificationServerDM",
     title: "In DM Server Level Up Notifications",
   },
   {
-    query: "guild.settings.settings.xp.notifications.global.channel",
-    mutate: "channel",
+    query: "guild.settings.settings.xp.notification.global.channel",
+    mutate: "xpNotificationGlobalChannel",
     title: "In Channel Global Level Up Notifications",
   },
   {
@@ -148,7 +154,6 @@ const generalPageToggles = [
     mutate: "useDefault",
     title: "Use Default Event Settings",
   },
-  ,
   {
     query: "guild.settings.settings.tags.tagDeletion",
     mutate: "tagDeletion",
@@ -239,7 +244,7 @@ class GeneralEditor extends Component {
                 <Box.Title>Feedback Idea Color</Box.Title>
                 <Box.Body>
                   <Editor.Input
-                    mutate="color"
+                    mutate="ideaColor"
                     query="guild.settings.settings.feedback.idea.color"
                   />
                 </Box.Body>
@@ -247,7 +252,7 @@ class GeneralEditor extends Component {
                 <Box.Title>Feedback Bug Color</Box.Title>
                 <Box.Body>
                   <Editor.Input
-                    mutate="color"
+                    mutate="bugColor"
                     query="guild.settings.settings.feedback.bug.color"
                   />
                 </Box.Body>
@@ -273,7 +278,7 @@ class GeneralEditor extends Component {
                           propFetch={"name"}
                           findFromArray={true}
                           values={values}
-                          mutate="guild.settings.settings.feedback.idea.channel"
+                          mutate="ideaChannel"
                           query="guild.channels"
                         />
                       );
@@ -298,7 +303,7 @@ class GeneralEditor extends Component {
                           propFetch={"name"}
                           findFromArray={true}
                           values={values}
-                          mutate="guild.settings.settings.feedback.bug.channel"
+                          mutate="bugChannel"
                           query="guild.channels"
                         />
                       );
@@ -310,7 +315,7 @@ class GeneralEditor extends Component {
                 <Box.Title>Feedback Idea Thumbs Up</Box.Title>
                 <Box.Body>
                   <Editor.Input
-                    mutate="thumbsUp"
+                    mutate="ideaThumbsUp"
                     query="guild.settings.settings.feedback.idea.thumbsUp"
                   />
                 </Box.Body>
@@ -318,7 +323,7 @@ class GeneralEditor extends Component {
                 <Box.Title>Feedback Idea Thumbs Down</Box.Title>
                 <Box.Body>
                   <Editor.Input
-                    mutate="thumbsDown"
+                    mutate="ideaThumbsDown"
                     query="guild.settings.settings.feedback.idea.thumbsDown"
                   />
                 </Box.Body>
@@ -326,7 +331,7 @@ class GeneralEditor extends Component {
                 <Box.Title>Feedback Bug Thumbs Up</Box.Title>
                 <Box.Body>
                   <Editor.Input
-                    mutate="thumbsUp"
+                    mutate="bugThumbsUp"
                     query="guild.settings.settings.feedback.bug.thumbsUp"
                   />
                 </Box.Body>
@@ -334,7 +339,7 @@ class GeneralEditor extends Component {
                 <Box.Title>Feedback Bug Thumbs Down</Box.Title>
                 <Box.Body>
                   <Editor.Input
-                    mutate="thumbsDown"
+                    mutate="bugThumbsDown"
                     query="guild.settings.settings.feedback.bug.thumbsDown"
                   />
                 </Box.Body>
@@ -365,7 +370,7 @@ class GeneralEditor extends Component {
                 <Box.Title>Duration</Box.Title>
                 <Box.Body>
                   <Editor.Input
-                    mutate="duration"
+                    mutate="eventDuration"
                     query="guild.settings.settings.events.duration"
                   />
                 </Box.Body>

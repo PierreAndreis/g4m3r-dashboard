@@ -66,6 +66,7 @@ export default gql`
               enabledRoles
             }
           }
+          menuTime
           moderation {
             status
             channel
@@ -199,6 +200,12 @@ export default gql`
               channel
               logPublically
             }
+          }
+          stories {
+            storyDeletion
+          }
+          tags {
+            tagDeletion
           }
           xp {
             notification {
