@@ -4,6 +4,82 @@ import Button from "../Button";
 
 export const StagerContext = React.createContext({});
 
+const dlv = (obj, key, def, p) => {
+  p = 0;
+  key = key.split ? key.split(".") : key;
+  while (obj && p < key.length) obj = obj[key[p++]];
+  return obj === undefined || p < key.length ? def : obj;
+};
+
+const dset = (path, value, obj = {}) => {
+  if (!obj) obj = {};
+  if (path.indexOf(".") === -1) {
+    obj[path] = value;
+  } else {
+    const route = path.split(".");
+    const lastKey = route.pop();
+    let reference = obj;
+    for (const key of route) {
+      if (!reference[key]) reference[key] = {};
+      reference = reference[key];
+    }
+    reference[lastKey] = value;
+  }
+  return obj;
+};
+
+const transformToArray = (property, propKey, propValue, isArray, query, newValue, changes) => {
+  let p = 2, arrayName, newProperty;
+  newProperty = property.split ? property.split(".") : property;
+  query = query.split ? query.split(".") : query;
+  if (isArray) {
+    arrayName = newProperty[newProperty.length - 1];
+    let existingArray = dlv(changes, newProperty);
+    if (existingArray) {
+      const existingItem = existingArray.find(item => item[propKey] === propValue);
+      if (existingItem) {
+        switch (query.length) {
+          case 1:
+            existingItem[query[0]] = newValue;
+            return { veryNewValue: existingArray }
+          case 2:
+            existingItem[query[0]] = { [query[1]]: newValue };
+            return { veryNewValue: existingArray }
+          case 3:
+            existingItem[query[0]] = { [query[1]]: { [query[2]]: newValue } };
+            return { veryNewValue: existingArray }
+        }
+      } else {
+        switch (query.length) {
+          case 1:
+            existingArray.push({ [propKey]: propValue, [query[0]]: newValue });
+            return { veryNewValue: existingArray }
+          case 2:
+            existingArray.push({ [propKey]: propValue, [query[0]]: { [query[1]]: newValue } });
+            return { veryNewValue: existingArray }
+          case 3:
+            break;
+        }
+      }
+    } else {
+      const existingArray = [];
+      
+      switch (query.length) {
+        case 1:
+          existingArray.push({ [propKey]: propValue, [query[0]]: newValue });
+          return { veryNewValue: existingArray }
+        case 2:
+          existingArray.push({ [propKey]: propValue, [query[0]]: { [query[1]]: newValue } });
+          return { veryNewValue: existingArray }
+        case 3:
+          break;
+      }
+    }
+  } else {
+    return { veryNewValue: newValue };
+  }
+
+};
 class Stager extends React.Component {
   state = {
     loading: true,
@@ -19,9 +95,14 @@ class Stager extends React.Component {
     changes: {},
 
     // Available on Context to commit a property to a value
-    onChange: property => newValue => {
+    onChange: (property, propKey, propValue, isArray, query) => newValue => {
+      const { veryNewValue } = transformToArray(property, propKey, propValue, isArray, query, newValue, this.state.changes)
       this.setState(state => {
-        state.changes[property] = newValue;
+        if (!isArray) state.changes[property] = newValue;
+        else {
+          const obj = dset(property, veryNewValue, state.changes);
+          state.changes = obj;
+        }
         return {
           modified: true,
           changes: state.changes,

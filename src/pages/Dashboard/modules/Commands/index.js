@@ -29,7 +29,17 @@ const mutationQuery = gql`
       id
       settings {
         settings {
-          commands
+          commands {
+            msgDelete
+            name
+            permission {
+              disabled
+              disabledChannels
+              disabledRoles
+              enabledChannels
+              enabledRoles
+            }
+          }
         }
       }
     }
@@ -414,10 +424,10 @@ class CommandsEditor extends Component {
                           justifyContent: "space-between",
                         }}
                       >
-                        <Editor.Checkbox propKey={'name'} propValue={value.name} mutate={`${value && value.name}.permission.disabled`} query={`permission.disabled`}>
+                        <Editor.Checkbox propKey={'name'} propValue={value.name} isArray={true} mutate={`settings.settings.commands`} query={`permission.disabled`}>
                           Disabled
                         </Editor.Checkbox>
-                        <Editor.Checkbox propKey={'name'} propValue={value.name} mutate={`${value && value.name}.msgDelete`} query={`msgDelete`}>
+                        <Editor.Checkbox propKey={'name'} propValue={value.name} isArray={true} mutate={`settings.settings.commands`} query={`msgDelete`}>
                           Trigger
                         </Editor.Checkbox>
                       </div>

@@ -34,13 +34,16 @@ const getEditedValue = (props, state) => {
     return getFromArray(array, props.propKey, value, props.propFetch);
   }
 
-  let obj;
+  let obj, array;
   if (Array.isArray(state.payload)) {
     obj = state.payload.find(data => data[props.propKey] === props.propValue);
   }
   let returnValue;
   if (state.changes.hasOwnProperty(props.mutate)) {
     returnValue = state.changes[props.mutate];
+  } else if (array = dlv(state.changes, props.mutate)) { 
+    const existingItem = array.find(item => item[props.propKey] === props.propValue);
+    returnValue = dlv(existingItem || obj, props.query);
   } else returnValue = dlv(obj || state.payload, props.query);
 
   return returnValue;
@@ -60,12 +63,12 @@ class WrapperEditorForGraphQL extends React.Component {
     </StagerContext.Consumer>
   );
 
-  static Checkbox = ({ mutate, query, propKey, propValue, ...otherProps }) => (
+  static Checkbox = ({ mutate, query, propKey, propValue, isArray, ...otherProps }) => (
     <StagerContext.Consumer>
       {state => (
         <Checkbox
           value={getEditedValue({ mutate, query, propKey, propValue }, state)}
-          onChange={state.onChange(mutate)}
+          onChange={state.onChange(mutate, propKey, propValue, isArray, query)}
           {...otherProps}
         />
       )}
