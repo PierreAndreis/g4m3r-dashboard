@@ -390,7 +390,7 @@ class GeneralEditor extends Component {
                 <Box.Title>Game</Box.Title>
                 <Box.Body>
                   <Editor.Input
-                    mutate="game"
+                    mutate="defaultEventGame"
                     query="guild.settings.settings.events.game"
                   />
                 </Box.Body>
@@ -426,7 +426,7 @@ class GeneralEditor extends Component {
                           propFetch={"name"}
                           findFromArray={true}
                           values={values}
-                          mutate="guild.settings.settings.events.advertiseChannel"
+                          mutate="advertiseChannel"
                           query="guild.channels"
                         />
                       );
