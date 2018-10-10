@@ -29,7 +29,7 @@ class Sidebar extends Component {
             <GenerateLink key={route.name} route={route} match={this.props.match} />
           ))}
         </div>
-        <div className={style.guildSelector}>lol</div>
+        <div className={style.guildSelector}></div>
       </div>
     );
   }
