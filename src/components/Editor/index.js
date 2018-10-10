@@ -28,22 +28,33 @@ const getFromArray = (array, propKey, value, propFetch) => {
 };
 
 const getEditedValue = (props, state) => {
+  // find a certain value from a object within an array for a compenent
   if (props.findFromArray) {
     const array = dlv(state.payload, props.query);
     const value = dlv(state.payload, props.mutate);
     return getFromArray(array, props.propKey, value, props.propFetch);
   }
 
-  let obj, array;
+  // state.payload is the array of commands in the Editor.Mapper as example
+  let obj, foundProp;
   if (Array.isArray(state.payload)) {
     obj = state.payload.find(data => data[props.propKey] === props.propValue);
   }
+
   let returnValue;
+  // check if state.changes has a simple property
   if (state.changes.hasOwnProperty(props.mutate)) {
     returnValue = state.changes[props.mutate];
-  } else if (array = dlv(state.changes, props.mutate)) { 
-    const existingItem = array.find(item => item[props.propKey] === props.propValue);
-    returnValue = dlv(existingItem || obj, props.query);
+    // check if state.chanages has a nested property / array
+  } else if (foundProp = dlv(state.changes, props.mutate)) {
+    // if foundProp isArray, get object from within Array
+    if (Array.isArray(foundProp)) {
+      const existingItem = foundProp.find(item => item[props.propKey] === props.propValue);
+      returnValue = dlv(existingItem || obj, props.query);
+    // if its not an array, get value from nested property
+    } else {
+      returnValue = dlv(state.payload, props.query);
+    }
   } else returnValue = dlv(obj || state.payload, props.query);
 
   return returnValue;
