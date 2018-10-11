@@ -43,8 +43,8 @@ const channelOrRoleSelector = props => {
           {({ loading, error, data }) => {
             if (loading) return "Loading";
             if (error) {
-              console.log("it errored;");
-              console.log(error);
+              // console.log("it errored;");
+              // console.log(error);
               return "Error";
             }
             let values = data.guild[props.isChannel ? "channels" : "roles"];
@@ -508,7 +508,6 @@ class ModerationEditor extends Component {
                     if (loading) return "Loading";
                     if (error) return "Error";
                     const values = data.client.settings.permissionLevels;
-                    console.log("perms levels", data);
                     return (
                       <Editor.Select
                         values={values}

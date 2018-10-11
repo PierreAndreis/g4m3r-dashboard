@@ -121,7 +121,13 @@ class Stager extends React.Component {
         loading: props.isLoading,
         errors: props.errors,
         payload: props.payload,
-        changes: {},
+        changes: {
+          settings: {
+            settings: {
+              commands: props.payload.guild.settings.settings.commands.map(c => ({ ...c }))
+            }
+          }
+        },
         modified: false,
         commiting: false,
       };
@@ -162,7 +168,7 @@ class Stager extends React.Component {
     if (loading) return <p>Loading</p>;
     if (error) return <p>Error!</p>;
 
-    console.log("commit?", this.state.modified, this.state.commiting);
+    // console.log("commit?", this.state.modified, this.state.commiting);
 
     return (
       <StagerContext.Provider value={this.state}>

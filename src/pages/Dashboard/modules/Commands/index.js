@@ -30,6 +30,7 @@ const mutationQuery = gql`
       settings {
         settings {
           commands {
+            category
             msgDelete
             name
             permission {
@@ -125,7 +126,23 @@ class CommandsEditor extends Component {
               <Editor.Mapper path="guild.settings.settings.commands">
                 {value => this.state.category === value.category && (
                   <Box padding>
-                    <Box.Title>{value && value.name.toUpperCase()}</Box.Title>
+                    <Box.Title>
+                      <div
+                        style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        width: '100%'
+                        }}
+                      >
+                        <div>
+                          {value && value.name.toUpperCase()}
+                        </div> &nbsp; &nbsp;
+                      {/* information icon */}
+                        {/* <div style={{ ['margin-left']: 'auto' }}>
+                          <img style={{ width: '20px', height: '20px' }} src={'https://cdn.discordapp.com/emojis/443803045382324225.png?v=1'}></img>
+                        </div> */}
+                      </div>
+                    </Box.Title>
                     <Box.Body>
                       <div
                         style={{
@@ -135,23 +152,23 @@ class CommandsEditor extends Component {
                         }}
                       >
                         <Editor.Checkbox propKey={'name'} propValue={value.name} isArray={true} mutate={`settings.settings.commands`} query={`permission.disabled`}>
-                          Disabled
+                          <div>Disabled</div>
                         </Editor.Checkbox>
                         <Editor.Checkbox propKey={'name'} propValue={value.name} isArray={true} mutate={`settings.settings.commands`} query={`msgDelete`}>
-                          Trigger
+                          <div>Trigger</div>
                         </Editor.Checkbox>
                       </div>
-                      Exceptions
+                      {/*Exceptions
                       <br />
                       <br />
-                      <div>
+                       <div>
                         <Button rounded small>
                           Roles
                         </Button>
                         <Button rounded small>
                           Channels
                         </Button>
-                      </div>
+                      </div> */}
                     </Box.Body>
                   </Box>
                 )
