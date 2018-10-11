@@ -3,7 +3,7 @@ import { css } from "emotion";
 
 const inputWrapper = css`
   margin: 0;
-  padding-left: 100px;
+  padding-left: 50px;
   input[type="checkbox"] {
     height: 0;
     width: 0;
