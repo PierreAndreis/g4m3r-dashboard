@@ -38,6 +38,9 @@ const mutationQuery = gql`
         settings {
           prefix
           menuTime
+          general {
+            deleteNotificationTime
+          }
         }
       }
     }
@@ -99,6 +102,16 @@ class GeneralEditor extends Component {
                   <Editor.Input
                     mutate="menuTime"
                     query="guild.settings.settings.menuTime"
+                  />
+                </Box.Body>
+              </Box>
+
+              <Box padding>
+                <Box.Title>Delete Notifications Delay</Box.Title>
+                <Box.Body>
+                  <Editor.Input
+                    mutate="deleteNotificationTime"
+                    query="guild.settings.settings.general.deleteNotificationTime"
                   />
                 </Box.Body>
               </Box>

@@ -10,6 +10,9 @@ export default gql`
           prefix
           timezone
           menuTime
+          general {
+            deleteNotificationTime
+          }
         }
       }
     }
