@@ -28,6 +28,79 @@ const cleanUpTimezone = timezones =>
     value: timezone,
   }));
 
+const makeGeneralPageToggle = props => {
+  return (
+    <div key={props.query}>
+      <Editor.Checkbox query={props.query} mutate={props.mutate} children={props.title} />
+      <br />
+      <br />
+    </div>
+  );
+};
+
+const generalPageToggles = [
+  {
+    query: "guild.settings.settings.general.militaryTimeFormat",
+    mutate: "militaryTimeFormat",
+    title: "24 Hour Time Format",
+  },
+  {
+    query: "guild.settings.settings.general.trackAnalytics",
+    mutate: "trackAnalytics",
+    title: "Enable Server Analytics",
+  },
+  {
+    query: "guild.settings.settings.general.deleteNotification",
+    mutate: "deleteNotification",
+    title: "Delete All Notifications",
+  },
+  {
+    query: "guild.settings.settings.feedback.idea.status",
+    mutate: "ideaStatus",
+    title: "Feedback Idea",
+  },
+  {
+    query: "guild.settings.settings.feedback.bug.status",
+    mutate: "bugStatus",
+    title: "Feedback Bug",
+  },
+  {
+    query: "guild.settings.settings.xp.notification.server.channel",
+    mutate: "xpNotificationServerChannel",
+    title: "In Channel Server Level Up Notifications",
+  },
+  {
+    query: "guild.settings.settings.xp.notification.server.dm",
+    mutate: "xpNotificationServerDM",
+    title: "In DM Server Level Up Notifications",
+  },
+  {
+    query: "guild.settings.settings.xp.notification.global.channel",
+    mutate: "xpNotificationGlobalChannel",
+    title: "In Channel Global Level Up Notifications",
+  },
+  {
+    query: "guild.settings.settings.events.useDefault",
+    mutate: "useDefault",
+    title: "Use Default Event Settings",
+  },
+  {
+    query: "guild.settings.settings.tags.tagDeletion",
+    mutate: "tagDeletion",
+    title: "Tag Trigger Deletion",
+  },
+  {
+    query: "guild.settings.settings.stories.storyDeletion",
+    mutate: "storyDeletion",
+    title: "Story Trigger Deletion",
+  },
+  {
+    query: "guild.settings.settings.events.advertiseAllEvents",
+    mutate: "advertiseAllEvents",
+    title: "Auto Advertise Events",
+  },
+];
+
 // todo: remove from here, put on graphql folder
 const mutationQuery = gql`
   mutation editGuild($guildId: String!, $input: guildInput!) {
@@ -38,6 +111,9 @@ const mutationQuery = gql`
         settings {
           prefix
           menuTime
+          events {
+            useDefault
+          }
           feedback {
             idea {
               color
@@ -56,6 +132,26 @@ const mutationQuery = gql`
           }
           general {
             deleteNotificationTime
+            militaryTimeFormat
+            trackAnalytics
+            deleteNotification
+          }
+          tags {
+            tagDeletion
+          }
+          stories {
+            storyDeletion
+          }
+          xp {
+            notification {
+              server {
+                channel
+                dm
+              }
+              global {
+                channel
+              }
+            }
           }
         }
       }
@@ -181,6 +277,20 @@ class GeneralEditor extends Component {
                     mutate="bugThumbsDown"
                     query="guild.settings.settings.feedback.bug.thumbsDown"
                   />
+                </Box.Body>
+              </Box>
+
+              <Box padding>
+                <Box.Title>General Settings</Box.Title>
+                <Box.Body>
+                  {generalPageToggles.map((opt, index) => {
+                    return makeGeneralPageToggle({
+                      query: opt.query,
+                      mutate: opt.mutate,
+                      title: opt.title,
+                      key: index,
+                    });
+                  })}
                 </Box.Body>
               </Box>
             </Editor>

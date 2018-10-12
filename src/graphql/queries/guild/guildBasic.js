@@ -10,6 +10,9 @@ export default gql`
           prefix
           timezone
           menuTime
+          events {
+            useDefault
+          }
           feedback {
             idea {
               color
@@ -28,6 +31,23 @@ export default gql`
           }
           general {
             deleteNotificationTime
+          }
+          tags {
+            tagDeletion
+          }
+          stories {
+            storyDeletion
+          }
+          xp {
+            notification {
+              server {
+                channel
+                dm
+              }
+              global {
+                channel
+              }
+            }
           }
         }
       }
