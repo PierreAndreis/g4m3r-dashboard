@@ -9,6 +9,7 @@ export default gql`
         settings {
           prefix
           timezone
+          menuTime
         }
       }
     }
