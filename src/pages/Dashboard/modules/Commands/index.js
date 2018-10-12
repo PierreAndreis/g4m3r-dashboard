@@ -62,7 +62,7 @@ class CommandsEditor extends Component {
     this.props.client
       .query({
         query: qClientBasic,
-        variables: { clientId: "270010504938913793" },
+        variables: { clientId: process.env.REACT_APP_CLIENT_ID },
       })
       .then(result => {
         this.setState({
