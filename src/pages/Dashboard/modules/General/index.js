@@ -43,11 +43,15 @@ const mutationQuery = gql`
               color
               status
               channel
+              thumbsUp
+              thumbsDown
             }
             bug {
               color
               status
               channel
+              thumbsUp
+              thumbsDown
             }
           }
           general {
@@ -142,6 +146,40 @@ class GeneralEditor extends Component {
                   <Editor.Input
                     mutate="bugColor"
                     query="guild.settings.settings.feedback.bug.color"
+                  />
+                </Box.Body>
+              </Box>
+
+              <Box padding>
+                <Box.Title>Feedback Idea Thumbs Up</Box.Title>
+                <Box.Body>
+                  <Editor.Input
+                    mutate="ideaThumbsUp"
+                    query="guild.settings.settings.feedback.idea.thumbsUp"
+                  />
+                </Box.Body>
+
+                <Box.Title>Feedback Idea Thumbs Down</Box.Title>
+                <Box.Body>
+                  <Editor.Input
+                    mutate="ideaThumbsDown"
+                    query="guild.settings.settings.feedback.idea.thumbsDown"
+                  />
+                </Box.Body>
+
+                <Box.Title>Feedback Bug Thumbs Up</Box.Title>
+                <Box.Body>
+                  <Editor.Input
+                    mutate="bugThumbsUp"
+                    query="guild.settings.settings.feedback.bug.thumbsUp"
+                  />
+                </Box.Body>
+
+                <Box.Title>Feedback Bug Thumbs Down</Box.Title>
+                <Box.Body>
+                  <Editor.Input
+                    mutate="bugThumbsDown"
+                    query="guild.settings.settings.feedback.bug.thumbsDown"
                   />
                 </Box.Body>
               </Box>

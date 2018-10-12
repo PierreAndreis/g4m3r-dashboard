@@ -15,11 +15,15 @@ export default gql`
               color
               status
               channel
+              thumbsUp
+              thumbsDown
             }
             bug {
               color
               status
               channel
+              thumbsUp
+              thumbsDown
             }
           }
           general {
