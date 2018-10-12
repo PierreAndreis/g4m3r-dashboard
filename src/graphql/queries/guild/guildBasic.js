@@ -10,6 +10,18 @@ export default gql`
           prefix
           timezone
           menuTime
+          feedback {
+            idea {
+              color
+              status
+              channel
+            }
+            bug {
+              color
+              status
+              channel
+            }
+          }
           general {
             deleteNotificationTime
           }

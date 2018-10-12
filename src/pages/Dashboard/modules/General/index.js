@@ -38,6 +38,18 @@ const mutationQuery = gql`
         settings {
           prefix
           menuTime
+          feedback {
+            idea {
+              color
+              status
+              channel
+            }
+            bug {
+              color
+              status
+              channel
+            }
+          }
           general {
             deleteNotificationTime
           }
@@ -112,6 +124,24 @@ class GeneralEditor extends Component {
                   <Editor.Input
                     mutate="deleteNotificationTime"
                     query="guild.settings.settings.general.deleteNotificationTime"
+                  />
+                </Box.Body>
+              </Box>
+
+              <Box padding>
+                <Box.Title>Feedback Idea Color</Box.Title>
+                <Box.Body>
+                  <Editor.Input
+                    mutate="ideaColor"
+                    query="guild.settings.settings.feedback.idea.color"
+                  />
+                </Box.Body>
+
+                <Box.Title>Feedback Bug Color</Box.Title>
+                <Box.Body>
+                  <Editor.Input
+                    mutate="bugColor"
+                    query="guild.settings.settings.feedback.bug.color"
                   />
                 </Box.Body>
               </Box>
