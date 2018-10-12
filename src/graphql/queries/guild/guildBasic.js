@@ -71,6 +71,7 @@ export default gql`
             status
             channel
             publicModlogChannel
+            publicModlogStatus
             maxNoWarnings
             maxInactivityTime
             defaultInactivityRole

@@ -5,15 +5,10 @@ import Button from "../../../../components/Button";
 import { Heading, SubHeader } from "../../../../components/Typography";
 import Modal from "../../../../global/Modal";
 import Box from "../../../../components/Box";
-// import Input from "../../../../components/Input";
-// import Select from "../../../../components/Select";
 import gql from "graphql-tag";
-import Checkbox from "../../../../components/Checkbox";
 import Editor from "../../../../components/Editor";
 import qGuildBasic from "../../../../graphql/queries/guild/guildBasic";
-import qCommands from "../../../../graphql/queries/guild/commands";
 import qClientBasic from "../../../../graphql/queries/client/clientBasic";
-import { CLIENT_ID } from './../../../../../src/global/constants';
 
 const boxesHeader = css`
   display: flex;
@@ -346,7 +341,13 @@ class CommandsEditor extends Component {
       })
       .then(result => {
         this.setState({
-          categories: [...new Set(result.data.client.commands.filter(c => !c.isMaintainer).map(c => c.category))],
+          categories: [
+            ...new Set(
+              result.data.client.commands
+                .filter(c => !c.isMaintainer)
+                .map(c => c.category)
+            ),
+          ],
         });
       });
   }
@@ -403,43 +404,53 @@ class CommandsEditor extends Component {
           <div className={boxesHeader} style={{ flexWrap: "wrap" }}>
             <Editor query={qGuildBasic} mutation={mutationQuery}>
               <Editor.Mapper path="guild.settings.settings.commands">
-                {value => this.state.category === value.category && (
-                  <Box padding>
-                    <Box.Title>{value && value.name.toUpperCase()}</Box.Title>
-                    <Box.Body>
-                      <div
-                        style={{
-                          display: "flex",
-                          marginBottom: "10px",
-                          justifyContent: "space-between",
-                        }}
-                      >
-                        <Editor.Checkbox propKey={'name'} propValue={value.name} mutate={`${value && value.name}.permission.disabled`} query={`permission.disabled`}>
-                          Disabled
-                        </Editor.Checkbox>
-                        <Editor.Checkbox propKey={'name'} propValue={value.name} mutate={`${value && value.name}.msgDelete`} query={`msgDelete`}>
-                          Trigger
-                        </Editor.Checkbox>
-                      </div>
-                      Exceptions
-                      <br />
-                      <br />
-                      <div>
-                        <Button rounded small>
-                          Roles
-                        </Button>
-                        <Button rounded small>
-                          Channels
-                        </Button>
-                      </div>
-                    </Box.Body>
-                  </Box>
-                )
+                {value =>
+                  this.state.category === value.category && (
+                    <Box padding>
+                      <Box.Title>{value && value.name.toUpperCase()}</Box.Title>
+                      <Box.Body>
+                        <div
+                          style={{
+                            display: "flex",
+                            marginBottom: "10px",
+                            justifyContent: "space-between",
+                          }}
+                        >
+                          <Editor.Checkbox
+                            propKey={"name"}
+                            propValue={value.name}
+                            mutate={`${value && value.name}.permission.disabled`}
+                            query={`permission.disabled`}
+                          >
+                            Disabled
+                          </Editor.Checkbox>
+                          <Editor.Checkbox
+                            propKey={"name"}
+                            propValue={value.name}
+                            mutate={`${value && value.name}.msgDelete`}
+                            query={`msgDelete`}
+                          >
+                            Trigger
+                          </Editor.Checkbox>
+                        </div>
+                        Exceptions
+                        <br />
+                        <br />
+                        <div>
+                          <Button rounded small>
+                            Roles
+                          </Button>
+                          <Button rounded small>
+                            Channels
+                          </Button>
+                        </div>
+                      </Box.Body>
+                    </Box>
+                  )
                 }
-                
               </Editor.Mapper>
 
-              { /* this.state.commands
+              {/* this.state.commands
                 .filter(cmd => cmd.category === this.state.category)
                 .map(cmd => {
                   return (

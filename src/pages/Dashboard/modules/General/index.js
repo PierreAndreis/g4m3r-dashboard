@@ -7,13 +7,9 @@ import Box from "../../../../components/Box";
 // import Select from "../../../../components/Select";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
-import Checkbox from "../../../../components/Checkbox";
-import SettingsToggler from "../../../../components/SettingsToggler";
 import Editor from "../../../../components/Editor";
 import qGuildBasic from "../../../../graphql/queries/guild/guildBasic";
 import qTimezone from "../../../../graphql/queries/utils/timezone";
-import qChannels from "../../../../graphql/queries/guild/channels";
-import guildBasic from "../../../../graphql/queries/guild/guildBasic";
 
 const boxesHeader = css`
   display: flex;

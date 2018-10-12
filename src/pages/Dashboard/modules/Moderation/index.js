@@ -5,13 +5,8 @@ import { Heading, SubHeader, Heading2 } from "../../../../components/Typography"
 import Box from "../../../../components/Box";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
-import Checkbox from "../../../../components/Checkbox";
 import Editor from "../../../../components/Editor";
-import qClientBasic from "../../../../graphql/queries/client/clientBasic";
-import qChannels from "../../../../graphql/queries/guild/channels";
 import qGuildBasic from "../../../../graphql/queries/guild/guildBasic";
-// import qPermissions from "../../../../graphql/queries/client/permissions";
-import { CLIENT_ID } from "./../../../../../src/global/constants";
 
 const serverLogsStatus = true;
 const currentModMailStatus = true;
@@ -77,11 +72,15 @@ const channelOrRoleSelector = props => {
 const createStatusAndChannelsBoxes = props => {
   return (
     <div key={props.mutateString}>
-      <Editor query={qChannels} mutation={mutationQuery}>
+      <Editor query={qGuildBasic} mutation={mutationQuery}>
         <Box padding style={{ width: "100%" }}>
           <Box.Title>{props.type} Log</Box.Title>
           <Box.Body>
-            <Checkbox>Status</Checkbox>
+            <Editor.Checkbox
+              query={props.checkboxQuery}
+              mutate={props.checkboxMutate}
+              children={props.type}
+            />
             {channelOrRoleSelector({
               isChannel: true,
               type: props.type,
@@ -111,6 +110,7 @@ const mutationQuery = gql`
             status
             channel
             publicModlogChannel
+            publicModlogStatus
             maxNoWarnings
             maxInactivityTime
             defaultInactivityRole
@@ -250,18 +250,24 @@ const mainLogs = [
     status: true,
     query: "guild.channels",
     mutate: "guild.settings.settings.moderation.channel",
+    checkboxMutate: "modlogStatus",
+    checkboxQuery: "guild.settings.settings.moderation.status",
   },
   {
     name: "Public",
     status: false,
     query: "guild.channels",
     mutate: "guild.settings.settings.moderation.publicModlogChannel",
+    checkboxMutate: "publiclogStatus",
+    checkboxQuery: "guild.settings.settings.publicModlogStatus",
   },
   {
     name: "Server",
     status: true,
     query: "guild.channels",
     mutate: "guild.settings.settings.serverLogs.mainChannel",
+    checkboxMutate: "serverlogStatus",
+    checkboxQuery: "guild.settings.settings.serverLogs.status",
   },
 ];
 
@@ -414,7 +420,6 @@ class ModerationEditor extends Component {
         </section>
         <section>
           <Heading2>Moderation Logs</Heading2>
-          // TODO: Fix the queries to actually edit the settings when toggled.
           <div className={boxesHeader}>
             {mainLogs.map((opt, index) => {
               return createStatusAndChannelsBoxes({
@@ -423,6 +428,8 @@ class ModerationEditor extends Component {
                 currentStatus: opt.status,
                 query: opt.query,
                 mutateString: opt.mutate,
+                checkboxMutate: opt.checkboxMutate,
+                checkboxQuery: opt.checkboxQuery,
                 guildId,
               });
             })}
@@ -502,7 +509,7 @@ class ModerationEditor extends Component {
                   children="Status"
                 />
 
-                <Box.Title>Permission To Reply</Box.Title>
+                {/*<Box.Title>Permission To Reply</Box.Title>
                 <Query query={qClientBasic} variables={{ clientId: "287128811961843712" }}>
                   {({ loading, error, data }) => {
                     if (loading) return "Loading";
@@ -517,7 +524,7 @@ class ModerationEditor extends Component {
                       />
                     );
                   }}
-                </Query>
+                </Query>*/}
               </Box>
               <Box padding>
                 {currentModMailStatus
@@ -661,7 +668,6 @@ class ModerationEditor extends Component {
               <Box padding>
                 <Box.Title>Verification First Message</Box.Title>
                 <Box.Body>
-                  // TODO: validate this is a embed
                   <Editor.Input
                     mutate="first"
                     query="guild.settings.settings.verify.first"
