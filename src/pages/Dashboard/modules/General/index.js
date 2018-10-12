@@ -96,7 +96,7 @@ class GeneralEditor extends Component {
               <Box padding>
                 <Box.Title>Menu Closing Time</Box.Title>
                 <Box.Body>
-                  <Editor.Checkbox
+                  <Editor.Input
                     mutate="menuTime"
                     query="guild.settings.settings.menuTime"
                   />
