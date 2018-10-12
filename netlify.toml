@@ -7,11 +7,11 @@ ID = "g4m3r-dashboard-beta"
   publish = "build/"
   # This will be your default build command
   command = "yarn build"
-  environment = { REACT_APP_API_URL = "http://api.g4m3r.xyz:3011", NODE_ENV = "10.0.0" }
+  environment = { REACT_APP_API_URL = "https://api.g4m3r.xyz", NODE_ENV = "10.0.0" }
 
 # Production context: All deploys from the Production branch set in your site's deploy settings will inherit these settings.
 [context.production]
-  environment = { REACT_APP_API_URL = "http://api.g4m3r.xyz:3011", NODE_ENV = "10.0.0" }
+  environment = { REACT_APP_API_URL = "https://api.g4m3r.xyz", NODE_ENV = "10.0.0" }
 
 
 # The following redirect is intended for use with most SPA's that handles routing internally.
