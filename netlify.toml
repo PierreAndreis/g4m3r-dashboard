@@ -1,5 +1,5 @@
 [Settings]
-ID = "g4m3r-dashboard"
+ID = "g4m3r-dashboard-beta"
 
 # Settings in the [build] context are global and are applied to all contexts unless otherwise overridden by more specific contexts.  
 
