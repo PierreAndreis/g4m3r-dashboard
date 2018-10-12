@@ -112,6 +112,10 @@ const mutationQuery = gql`
           prefix
           menuTime
           events {
+            defaultReminder
+            duration
+            game
+            maxAttendees
             useDefault
           }
           feedback {
@@ -291,6 +295,53 @@ class GeneralEditor extends Component {
                       key: index,
                     });
                   })}
+                </Box.Body>
+              </Box>
+            </Editor>
+          </div>
+        </section>
+
+        <section>
+          <Heading2>Event Settings</Heading2>
+          <div className={boxesHeader}>
+            <Editor query={qGuildBasic} mutation={mutationQuery}>
+              <Box padding>
+                <Box.Title>Duration</Box.Title>
+                <Box.Body>
+                  <Editor.Input
+                    mutate="eventDuration"
+                    query="guild.settings.settings.events.duration"
+                  />
+                </Box.Body>
+              </Box>
+
+              <Box padding>
+                <Box.Title>Max Attendees Allowed</Box.Title>
+                <Box.Body>
+                  <Editor.Input
+                    mutate="maxAttendees"
+                    query="guild.settings.settings.events.maxAttendees"
+                  />
+                </Box.Body>
+              </Box>
+
+              <Box padding>
+                <Box.Title>Game</Box.Title>
+                <Box.Body>
+                  <Editor.Input
+                    mutate="defaultEventGame"
+                    query="guild.settings.settings.events.game"
+                  />
+                </Box.Body>
+              </Box>
+
+              <Box padding>
+                <Box.Title>Reminder Time</Box.Title>
+                <Box.Body>
+                  <Editor.Input
+                    mutate="defaultReminder"
+                    query="guild.settings.settings.events.defaultReminder"
+                  />
                 </Box.Body>
               </Box>
             </Editor>

@@ -11,6 +11,10 @@ export default gql`
           timezone
           menuTime
           events {
+            defaultReminder
+            duration
+            game
+            maxAttendees
             useDefault
           }
           feedback {
