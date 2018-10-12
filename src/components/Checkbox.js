@@ -3,7 +3,7 @@ import { css } from "emotion";
 
 const inputWrapper = css`
   margin: 0;
-  padding-left: 50px;
+
   input[type="checkbox"] {
     height: 0;
     width: 0;
@@ -12,21 +12,26 @@ const inputWrapper = css`
   }
 
   label {
+    display: block;
+    padding-right: 60px;
+    position: relative;
+  }
+
+  span {
+    right: 0;
+    position: absolute;
+    top: -5px;
     cursor: pointer;
-    text-indent: -60px;
     font-size: 16px;
     color: #9b9b9b;
-    line-height: 25px;
     width: 50px;
     height: 26px;
     background: grey;
     display: block;
     border-radius: 100px;
-    position: relative;
-    margin-top: -15px;
   }
 
-  label:after {
+  span:after {
     content: "";
     position: absolute;
     top: 2px;
@@ -38,16 +43,16 @@ const inputWrapper = css`
     transition: 0.3s;
   }
 
-  input:checked + label {
+  input:checked + label > span {
     background-image: linear-gradient(90deg, #74ebd5 0%, #7aaeff 100%);
   }
 
-  input:checked + label:after {
+  input:checked + label > span:after {
     left: calc(100% - 2px);
     transform: translateX(-100%);
   }
 
-  label:active:after {
+  span:active:after {
     width: 30px;
   }
 `;
@@ -83,7 +88,9 @@ class Checkbox extends Component {
     return (
       <div className={inputWrapper} onClick={this.onChange}>
         <input type="checkbox" checked={value || false} {...other} />
-        <label htmlFor="switch">{children}</label>
+        <label>
+          {children} <span />
+        </label>
       </div>
     );
   }
