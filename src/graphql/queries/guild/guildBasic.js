@@ -66,11 +66,36 @@ export default gql`
               enabledRoles
             }
           }
+          hibye {
+            welcome {
+              dm
+              channel
+            }
+            goodbye {
+              dm
+              channel
+            }
+          }
+          mail {
+            activated
+            permissionToReply
+            maxMailPerUser
+            maxMailsTotal
+          }
           menuTime
           moderation {
+            capitalPercentage {
+              status
+              amount
+            }
+            naughtyWords {
+              status
+              words
+            }
             status
             channel
             publicModlogChannel
+            publicModlogStatus
             maxNoWarnings
             maxInactivityTime
             defaultInactivityRole
@@ -206,6 +231,12 @@ export default gql`
           }
           tags {
             tagDeletion
+          }
+          verify {
+            status
+            category
+            first
+            role
           }
           xp {
             notification {

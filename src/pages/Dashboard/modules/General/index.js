@@ -3,17 +3,11 @@ import { css } from "emotion";
 
 import { Heading, SubHeader, Heading2 } from "../../../../components/Typography";
 import Box from "../../../../components/Box";
-// import Input from "../../../../components/Input";
-// import Select from "../../../../components/Select";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
-import Checkbox from "../../../../components/Checkbox";
-import SettingsToggler from "../../../../components/SettingsToggler";
 import Editor from "../../../../components/Editor";
 import qGuildBasic from "../../../../graphql/queries/guild/guildBasic";
 import qTimezone from "../../../../graphql/queries/utils/timezone";
-import qChannels from "../../../../graphql/queries/guild/channels";
-import guildBasic from "../../../../graphql/queries/guild/guildBasic";
 
 const boxesHeader = css`
   display: flex;
@@ -81,6 +75,9 @@ const mutationQuery = gql`
           }
           prefix
           menuTime
+          moderation {
+            status
+          }
           xp {
             notification {
               server {
@@ -102,8 +99,6 @@ const makeGeneralPageToggle = props => {
   return (
     <div key={props.query}>
       <Editor.Checkbox query={props.query} mutate={props.mutate} children={props.title} />
-      <br />
-      <br />
     </div>
   );
 };

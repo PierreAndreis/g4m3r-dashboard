@@ -5,15 +5,10 @@ import Button from "../../../../components/Button";
 import { Heading, SubHeader } from "../../../../components/Typography";
 import Modal from "../../../../global/Modal";
 import Box from "../../../../components/Box";
-// import Input from "../../../../components/Input";
-// import Select from "../../../../components/Select";
 import gql from "graphql-tag";
-import Checkbox from "../../../../components/Checkbox";
 import Editor from "../../../../components/Editor";
 import qGuildBasic from "../../../../graphql/queries/guild/guildBasic";
-import qCommands from "../../../../graphql/queries/guild/commands";
 import qClientBasic from "../../../../graphql/queries/client/clientBasic";
-import { CLIENT_ID } from './../../../../../src/global/constants';
 
 const boxesHeader = css`
   display: flex;
@@ -66,11 +61,17 @@ class CommandsEditor extends Component {
       })
       .then(result => {
         this.setState({
-          categories: [...new Set(result.data.client.commands.filter(c => !c.isMaintainer).map(c => c.category))],
+          categories: [
+            ...new Set(
+              result.data.client.commands
+                .filter(c => !c.isMaintainer)
+                .map(c => c.category)
+            ),
+          ],
         });
       });
   }
-  
+
   changeCategory = category => e => {
     this.setState({
       category,
@@ -124,41 +125,52 @@ class CommandsEditor extends Component {
           <div className={boxesHeader} style={{ flexWrap: "wrap" }}>
             <Editor query={qGuildBasic} mutation={mutationQuery}>
               <Editor.Mapper path="guild.settings.settings.commands">
-                {value => this.state.category === value.category && (
-                  <Box padding>
-                    <Box.Title>
-                      <div
-                        style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        width: '100%'
-                        }}
-                      >
-                        <div>
-                          {value && value.name.toUpperCase()}
-                        </div> &nbsp; &nbsp;
-                      {/* information icon */}
-                        {/* <div style={{ ['margin-left']: 'auto' }}>
+                {value =>
+                  this.state.category === value.category && (
+                    <Box padding>
+                      <Box.Title>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            width: "100%",
+                          }}
+                        >
+                          <div>{value && value.name.toUpperCase()}</div> &nbsp; &nbsp;
+                          {/* information icon */}
+                          {/* <div style={{ ['margin-left']: 'auto' }}>
                           <img style={{ width: '20px', height: '20px' }} src={'https://cdn.discordapp.com/emojis/443803045382324225.png?v=1'}></img>
                         </div> */}
-                      </div>
-                    </Box.Title>
-                    <Box.Body>
-                      <div
-                        style={{
-                          display: "flex",
-                          marginBottom: "10px",
-                          justifyContent: "space-between",
-                        }}
-                      >
-                        <Editor.Checkbox propKey={'name'} propValue={value.name} isArray={true} mutate={`settings.settings.commands`} query={`permission.disabled`}>
-                          <div>Disabled</div>
-                        </Editor.Checkbox>
-                        <Editor.Checkbox propKey={'name'} propValue={value.name} isArray={true} mutate={`settings.settings.commands`} query={`msgDelete`}>
-                          <div>Trigger</div>
-                        </Editor.Checkbox>
-                      </div>
-                      {/*Exceptions
+                        </div>
+                      </Box.Title>
+                      <Box.Body>
+                        <div
+                          style={{
+                            display: "flex",
+                            marginBottom: "10px",
+                            justifyContent: "space-between",
+                          }}
+                        >
+                          <Editor.Checkbox
+                            propKey={"name"}
+                            propValue={value.name}
+                            isArray={true}
+                            mutate={`settings.settings.commands`}
+                            query={`permission.disabled`}
+                          >
+                            <div>Disabled</div>
+                          </Editor.Checkbox>
+                          <Editor.Checkbox
+                            propKey={"name"}
+                            propValue={value.name}
+                            isArray={true}
+                            mutate={`settings.settings.commands`}
+                            query={`msgDelete`}
+                          >
+                            <div>Trigger</div>
+                          </Editor.Checkbox>
+                        </div>
+                        {/*Exceptions
                       <br />
                       <br />
                        <div>
@@ -169,14 +181,13 @@ class CommandsEditor extends Component {
                           Channels
                         </Button>
                       </div> */}
-                    </Box.Body>
-                  </Box>
-                )
+                      </Box.Body>
+                    </Box>
+                  )
                 }
-                
               </Editor.Mapper>
 
-              { /* this.state.commands
+              {/* this.state.commands
                 .filter(cmd => cmd.category === this.state.category)
                 .map(cmd => {
                   return (

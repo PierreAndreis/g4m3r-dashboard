@@ -4,82 +4,6 @@ import Button from "../Button";
 
 export const StagerContext = React.createContext({});
 
-const dlv = (obj, key, def, p) => {
-  p = 0;
-  key = key.split ? key.split(".") : key;
-  while (obj && p < key.length) obj = obj[key[p++]];
-  return obj === undefined || p < key.length ? def : obj;
-};
-
-const dset = (path, value, obj = {}) => {
-  if (!obj) obj = {};
-  if (path.indexOf(".") === -1) {
-    obj[path] = value;
-  } else {
-    const route = path.split(".");
-    const lastKey = route.pop();
-    let reference = obj;
-    for (const key of route) {
-      if (!reference[key]) reference[key] = {};
-      reference = reference[key];
-    }
-    reference[lastKey] = value;
-  }
-  return obj;
-};
-
-const transformToArray = (property, propKey, propValue, isArray, query, newValue, state) => {
-  let p = 2, arrayName, newProperty;
-  newProperty = property.split ? property.split(".") : property;
-  query = query.split ? query.split(".") : query;
-  if (isArray) {
-    arrayName = newProperty[newProperty.length - 1];
-    let existingArray = dlv(state.changes, newProperty);
-    if (existingArray) {
-      const existingItem = existingArray.find(item => item[propKey] === propValue);
-      if (existingItem) {
-        switch (query.length) {
-          case 1:
-            existingItem[query[0]] = newValue;
-            return { veryNewValue: existingArray }
-          case 2:
-            existingItem[query[0]] = { [query[1]]: newValue };
-            return { veryNewValue: existingArray }
-          case 3:
-            existingItem[query[0]] = { [query[1]]: { [query[2]]: newValue } };
-            return { veryNewValue: existingArray }
-        }
-      } else {
-        switch (query.length) {
-          case 1:
-            existingArray.push({ [propKey]: propValue, [query[0]]: newValue });
-            return { veryNewValue: existingArray }
-          case 2:
-            existingArray.push({ [propKey]: propValue, [query[0]]: { [query[1]]: newValue } });
-            return { veryNewValue: existingArray }
-          case 3:
-            break;
-        }
-      }
-    } else {
-      const existingArray = [];
-      
-      switch (query.length) {
-        case 1:
-          existingArray.push({ [propKey]: propValue, [query[0]]: newValue });
-          return { veryNewValue: existingArray }
-        case 2:
-          existingArray.push({ [propKey]: propValue, [query[0]]: { [query[1]]: newValue } });
-          return { veryNewValue: existingArray }
-        case 3:
-          break;
-      }
-    }
-  } else {
-    return { veryNewValue: newValue };
-  }
-
-};
 class Stager extends React.Component {
   state = {
     loading: true,
@@ -95,14 +19,9 @@ class Stager extends React.Component {
     changes: {},
 
     // Available on Context to commit a property to a value
-    onChange: (property, propKey, propValue, isArray, query) => newValue => {
-      const { veryNewValue } = transformToArray(property, propKey, propValue, isArray, query, newValue, this.state)
+    onChange: property => newValue => {
       this.setState(state => {
-        if (!isArray) state.changes[property] = newValue;
-        else {
-          const obj = dset(property, veryNewValue, state.changes);
-          state.changes = obj;
-        }
+        state.changes[property] = newValue;
         return {
           modified: true,
           changes: state.changes,
@@ -121,13 +40,7 @@ class Stager extends React.Component {
         loading: props.isLoading,
         errors: props.errors,
         payload: props.payload,
-        changes: {
-          settings: {
-            settings: {
-              commands: props.payload.guild.settings.settings.commands.map(c => ({ ...c }))
-            }
-          }
-        },
+        changes: {},
         modified: false,
         commiting: false,
       };
@@ -154,12 +67,11 @@ class Stager extends React.Component {
   };
 
   revert = buttonState => {
-    // buttonState.loading();
     this.setState({
       modified: false,
       changes: {},
     });
-    // buttonState.success();
+    buttonState.success();
   };
 
   render() {
@@ -168,7 +80,7 @@ class Stager extends React.Component {
     if (loading) return <p>Loading</p>;
     if (error) return <p>Error!</p>;
 
-    // console.log("commit?", this.state.modified, this.state.commiting);
+    console.log("commit?", this.state.modified, this.state.commiting);
 
     return (
       <StagerContext.Provider value={this.state}>

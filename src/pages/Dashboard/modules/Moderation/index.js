@@ -1,22 +1,11 @@
 import React, { Component } from "react";
 import { css } from "emotion";
-
 import { Heading, SubHeader, Heading2 } from "../../../../components/Typography";
 import Box from "../../../../components/Box";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
-import Checkbox from "../../../../components/Checkbox";
 import Editor from "../../../../components/Editor";
-import qClientBasic from "../../../../graphql/queries/client/clientBasic";
-import qChannels from "../../../../graphql/queries/guild/channels";
 import qGuildBasic from "../../../../graphql/queries/guild/guildBasic";
-// import qPermissions from "../../../../graphql/queries/client/permissions";
-import { CLIENT_ID } from "./../../../../../src/global/constants";
-
-const serverLogsStatus = true;
-const currentModMailStatus = true;
-const currentCapitalSpamStatus = true;
-const currentNaughtyWordFilterStatus = true;
 
 const boxesHeader = css`
   display: flex;
@@ -34,42 +23,40 @@ const makeLineBreak = needBreak => {
 const channelOrRoleSelector = props => {
   return (
     <div>
-      <Editor query={qGuildBasic} mutation={mutationQuery}>
-        {makeLineBreak(props.isChannel)}
-        <Box.Title>
-          {props.type} {props.isChannel ? "Channel" : "Role"}
-        </Box.Title>
-        <Query query={qGuildBasic} variables={{ guildId: props.guildId }}>
-          {({ loading, error, data }) => {
-            if (loading) return "Loading";
-            if (error) {
-              // console.log("it errored;");
-              // console.log(error);
-              return "Error";
-            }
-            let values = data.guild[props.isChannel ? "channels" : "roles"];
+      {makeLineBreak(props.isChannel)}
+      <Box.Title>
+        {props.type} {props.isChannel ? "Channel" : "Role"}
+      </Box.Title>
+      <Query query={qGuildBasic} variables={{ guildId: props.guildId }}>
+        {({ loading, error, data }) => {
+          if (loading) return "Loading";
+          if (error) {
+            console.log("it errored;");
+            console.log(error);
+            return "Error";
+          }
+          let values = data.guild[props.isChannel ? "channels" : "roles"];
 
-            const channelType = props.needCategory ? "category" : "text";
-            if (props.isChannel) {
-              values = values.filter(channel => channel.type === channelType);
-            } else values = values.filter(role => role.id !== props.guildId);
-            values = values.sort((a, b) => a.name.localeCompare(b.name)).map(item => ({
-              key: item.id,
-              value: `${props.isChannel ? "#" : "@"}${item.name}`,
-            }));
-            return (
-              <Editor.Select
-                values={values}
-                propKey={"id"}
-                propFetch={"name"}
-                findFromArray={true}
-                mutate={props.mutateString}
-                query={`guild.${props.isChannel ? "channels" : "roles"}`}
-              />
-            );
-          }}
-        </Query>
-      </Editor>
+          const channelType = props.needCategory ? "category" : "text";
+          if (props.isChannel) {
+            values = values.filter(channel => channel.type === channelType);
+          } else values = values.filter(role => role.id !== props.guildId);
+          values = values.sort((a, b) => a.name.localeCompare(b.name)).map(item => ({
+            key: item.id,
+            value: `${props.isChannel ? "#" : "@"}${item.name}`,
+          }));
+          return (
+            <Editor.Select
+              values={values}
+              propKey={"id"}
+              propFetch={"name"}
+              findFromArray={true}
+              mutate={props.mutateString}
+              query={`guild.${props.isChannel ? "channels" : "roles"}`}
+            />
+          );
+        }}
+      </Query>
     </div>
   );
 };
@@ -77,21 +64,23 @@ const channelOrRoleSelector = props => {
 const createStatusAndChannelsBoxes = props => {
   return (
     <div key={props.mutateString}>
-      <Editor query={qGuildBasic} mutation={mutationQuery}>
-        <Box padding style={{ width: "100%" }}>
-          <Box.Title>{props.type} Log</Box.Title>
-          <Box.Body>
-            <Checkbox>Status</Checkbox>
-            {channelOrRoleSelector({
-              isChannel: true,
-              type: props.type,
-              mutateString: props.mutateString,
-              query: props.query,
-              guildId: props.guildId,
-            })}
-          </Box.Body>
-        </Box>
-      </Editor>
+      <Box padding style={{ width: "100%" }}>
+        <Box.Title>{props.type} Log</Box.Title>
+        <Box.Body>
+          <Editor.Checkbox
+            query={props.checkboxQuery}
+            mutate={props.checkboxMutate}
+            children={props.type}
+          />
+          {channelOrRoleSelector({
+            isChannel: true,
+            type: props.type,
+            mutateString: props.mutateString,
+            query: props.query,
+            guildId: props.guildId,
+          })}
+        </Box.Body>
+      </Box>
     </div>
   );
 };
@@ -107,10 +96,35 @@ const mutationQuery = gql`
           autoAssignRoles {
             mainRole
           }
+          hibye {
+            welcome {
+              dm
+              channel
+            }
+            goodbye {
+              dm
+              channel
+            }
+          }
+          mail {
+            activated
+            permissionToReply
+            maxMailPerUser
+            maxMailsTotal
+          }
           moderation {
+            capitalPercentage {
+              status
+              amount
+            }
+            naughtyWords {
+              status
+              words
+            }
             status
             channel
             publicModlogChannel
+            publicModlogStatus
             maxNoWarnings
             maxInactivityTime
             defaultInactivityRole
@@ -238,6 +252,12 @@ const mutationQuery = gql`
               logPublically
             }
           }
+          verify {
+            status
+            category
+            first
+            role
+          }
         }
       }
     }
@@ -250,18 +270,24 @@ const mainLogs = [
     status: true,
     query: "guild.channels",
     mutate: "guild.settings.settings.moderation.channel",
+    checkboxMutate: "modlogStatus",
+    checkboxQuery: "guild.settings.settings.moderation.status",
   },
   {
     name: "Public",
     status: false,
     query: "guild.channels",
     mutate: "guild.settings.settings.moderation.publicModlogChannel",
+    checkboxMutate: "publiclogStatus",
+    checkboxQuery: "guild.settings.settings.moderation.publicModlogStatus",
   },
   {
     name: "Server",
     status: true,
     query: "guild.channels",
     mutate: "guild.settings.settings.serverLogs.mainChannel",
+    checkboxMutate: "serverlogStatus",
+    checkboxQuery: "guild.settings.settings.serverLogs.status",
   },
 ];
 
@@ -338,46 +364,42 @@ const makeServerLogToggles = props => {
 const makeIndividualServerLogs = props => {
   return (
     <div>
-      <Editor query={qGuildBasic} mutation={mutationQuery}>
-        <Heading2>Individual Server Logs</Heading2>
-        <div className={boxesHeader}>
-          {serverLogs.map((opt, index) => {
-            return (
-              <div>
-                <Box padding style={{ width: "100%" }}>
-                  <Box.Title>{opt.name} Log</Box.Title>
-                  <Box.Body>
-                    {makeServerLogToggles({
-                      key: index,
-                      title: "Status",
-                      query: `guild.settings.settings.serverLogs.${opt.mutate}.status`,
-                      mutate: `guild.settings.settings.serverLogs.${opt.mutate}.status`,
-                    })}
-                    {makeServerLogToggles({
-                      key: index,
-                      title: "Log Publically",
-                      query: `guild.settings.settings.serverLogs.${
-                        opt.mutate
-                      }.logPublically`,
-                      mutate: `guild.settings.settings.serverLogs.${
-                        opt.mutate
-                      }.logPublically`,
-                    })}
-                    {channelOrRoleSelector({
-                      isChannel: true,
-                      type: opt.name,
-                      mutateString: `guild.settings.settings.serverLogs.${
-                        opt.mutate
-                      }.channel`,
-                      guildId: props.guildId,
-                    })}
-                  </Box.Body>
-                </Box>
-              </div>
-            );
-          })}
-        </div>
-      </Editor>
+      <Heading2>Individual Server Logs</Heading2>
+      <div className={boxesHeader}>
+        {serverLogs.map((opt, index) => {
+          return (
+            <div key={index}>
+              <Box padding style={{ width: "100%" }}>
+                <Box.Title>{opt.name} Log</Box.Title>
+                <Box.Body>
+                  {makeServerLogToggles({
+                    key: index,
+                    title: "Status",
+                    query: `guild.settings.settings.serverLogs.${opt.mutate}.status`,
+                    mutate: `${opt.mutate}Status`,
+                  })}
+                  {makeServerLogToggles({
+                    key: index,
+                    title: "Log Publically",
+                    query: `guild.settings.settings.serverLogs.${
+                      opt.mutate
+                    }.logPublically`,
+                    mutate: `${opt.mutate}LogPublically`,
+                  })}
+                  {channelOrRoleSelector({
+                    isChannel: true,
+                    type: opt.name,
+                    mutateString: `guild.settings.settings.serverLogs.${
+                      opt.mutate
+                    }.channel`,
+                    guildId: props.guildId,
+                  })}
+                </Box.Body>
+              </Box>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };
@@ -412,28 +434,29 @@ class ModerationEditor extends Component {
             amazing!
           </SubHeader>
         </section>
-        <section>
-          <Heading2>Moderation Logs</Heading2>
-          // TODO: Fix the queries to actually edit the settings when toggled.
-          <div className={boxesHeader}>
-            {mainLogs.map((opt, index) => {
-              return createStatusAndChannelsBoxes({
-                key: index,
-                type: opt.name,
-                currentStatus: opt.status,
-                query: opt.query,
-                mutateString: opt.mutate,
-                guildId,
-              });
-            })}
-            {serverLogsStatus ? makeIndividualServerLogs({ guildId }) : null}
-          </div>
-        </section>
+        <Editor query={qGuildBasic} mutation={mutationQuery}>
+          <section>
+            <Heading2>Moderation Logs</Heading2>
+            <div className={boxesHeader}>
+              {mainLogs.map((opt, index) => {
+                return createStatusAndChannelsBoxes({
+                  key: index,
+                  type: opt.name,
+                  currentStatus: opt.status,
+                  query: opt.query,
+                  mutateString: opt.mutate,
+                  checkboxMutate: opt.checkboxMutate,
+                  checkboxQuery: opt.checkboxQuery,
+                  guildId,
+                });
+              })}
+              {makeIndividualServerLogs({ guildId })}
+            </div>
+          </section>
 
-        <section>
-          <Heading2>Moderation Values</Heading2>
-          <div className={boxesHeader}>
-            <Editor query={qGuildBasic} mutation={mutationQuery}>
+          <section>
+            <Heading2>Moderation Values</Heading2>
+            <div className={boxesHeader}>
               <Box padding>
                 {makeInputSettings({
                   title: "Max Warnings",
@@ -463,51 +486,48 @@ class ModerationEditor extends Component {
                   guildId,
                 })}
               </Box>
-            </Editor>
-          </div>
-        </section>
+            </div>
+          </section>
 
-        <section>
-          <Heading2>Mute Roles</Heading2>
-          <div className={boxesHeader}>
-            <Editor query={qGuildBasic} mutation={mutationQuery}>
+          <section>
+            <Heading2>Mute Roles</Heading2>
+            <div className={boxesHeader}>
               <Box padding>
                 {channelOrRoleSelector({
                   isChannel: false,
                   type: "Text Muted",
-                  mutateString: "guild.settings.settings.moderation.mutedRoles.text",
+                  mutateString: "muteRoleText",
                   guildId,
                 })}
 
                 {channelOrRoleSelector({
                   isChannel: false,
                   type: "Voice Muted",
-                  mutateString: "guild.settings.settings.moderation.mutedRoles.voice",
+                  mutateString: "muteRoleVoice",
                   guildId,
                 })}
               </Box>
-            </Editor>
-          </div>
-        </section>
+            </div>
+          </section>
 
-        <section>
-          <Heading2>Mod Mails</Heading2>
-          <div className={boxesHeader}>
-            <Editor query={qGuildBasic} mutation={mutationQuery}>
+          <section>
+            <Heading2>Mod Mails</Heading2>
+            <div className={boxesHeader}>
               <Box padding>
                 <Box.Title>Mod Mails</Box.Title>
                 <Editor.Checkbox
                   query="guild.settings.settings.mail.activated"
-                  mutate="activated"
+                  mutate="modMailStatus"
                   children="Status"
                 />
 
-                <Box.Title>Permission To Reply</Box.Title>
-                <Query query={qClientBasic} variables={{ clientId: process.env.REACT_APP_CLIENT_ID }}>
+                {/*<Box.Title>Permission To Reply</Box.Title>
+                <Query query={qClientBasic} variables={{ clientId: "287128811961843712" }}>
                   {({ loading, error, data }) => {
                     if (loading) return "Loading";
                     if (error) return "Error";
                     const values = data.client.settings.permissionLevels;
+                    console.log("perms levels", data);
                     return (
                       <Editor.Select
                         values={values}
@@ -516,32 +536,26 @@ class ModerationEditor extends Component {
                       />
                     );
                   }}
-                </Query>
+                </Query>*/}
               </Box>
               <Box padding>
-                {currentModMailStatus
-                  ? makeInputSettings({
-                      title: "Max Mails Per Guild",
-                      query: "guild.settings.settings.mail.maxMailsTotal",
-                      mutate: "maxMailsTotal",
-                    })
-                  : null}
-                {currentModMailStatus
-                  ? makeInputSettings({
-                      title: "Max Mails Per User",
-                      query: "guild.settings.settings.mail.maxMailPerUser",
-                      mutate: "maxMailPerUser",
-                    })
-                  : null}
+                {makeInputSettings({
+                  title: "Max Mails Per Guild",
+                  query: "guild.settings.settings.mail.maxMailsTotal",
+                  mutate: "maxMailsTotal",
+                })}
+                {makeInputSettings({
+                  title: "Max Mails Per User",
+                  query: "guild.settings.settings.mail.maxMailPerUser",
+                  mutate: "maxMailPerUser",
+                })}
               </Box>
-            </Editor>
-          </div>
-        </section>
+            </div>
+          </section>
 
-        <section>
-          <Heading2>Auto Moderation</Heading2>
-          <div className={boxesHeader}>
-            <Editor query={qGuildBasic} mutation={mutationQuery}>
+          <section>
+            <Heading2>Auto Moderation</Heading2>
+            <div className={boxesHeader}>
               <Box padding>
                 {channelOrRoleSelector({
                   isChannel: false,
@@ -553,60 +567,48 @@ class ModerationEditor extends Component {
               <Box padding>
                 <Box.Title>Capital Spam</Box.Title>
                 <Editor.Checkbox
-                  query="guild.settings.settings.mail.activated"
-                  mutate="activated"
+                  query="guild.settings.settings.moderation.capitalPercentage.status"
+                  mutate="capitalPercentageStatus"
                   children="Status"
                 />
-                {currentCapitalSpamStatus
-                  ? makeInputSettings({
-                      title: "Max Allowed Percentage",
-                      query:
-                        "guild.settings.settings.moderation.capitalPercentage.amount",
-                      mutate: "amount",
-                    })
-                  : null}
+                {makeInputSettings({
+                  title: "Max Allowed Percentage",
+                  query: "guild.settings.settings.moderation.capitalPercentage.amount",
+                  mutate: "capitalPercentageAmount",
+                })}
               </Box>
-
               <Box padding>
                 <Box.Title>Naughty Words</Box.Title>
                 <Editor.Checkbox
-                  query="guild.settings.settings.naughtyWords.status"
-                  mutate="activated"
+                  query="guild.settings.settings.moderation.naughtyWords.status"
+                  mutate="naughtyWordStatus"
                   children="Status"
                 />
 
-                {currentNaughtyWordFilterStatus
-                  ? makeInputSettings({
-                      title: "Naughty Words",
-                      query: "guild.settings.settings.moderation.naughtyWords.words",
-                      mutate: "words",
-                    })
-                  : null}
+                {/*makeInputSettings({
+                  title: "Naughty Words",
+                  query: "guild.settings.settings.moderation.naughtyWords.words",
+                  mutate: "naughtyWordWords",
+                })*/}
               </Box>
-            </Editor>
-            {/*
+            </div>
+          </section>
 
-              */}
-            // TODO: Unique Role Sets are missing need to think how to do it.
-          </div>
-        </section>
-
-        <section>
-          <Heading2>Welcome/Goodbye</Heading2>
-          <div className={boxesHeader}>
-            <Editor query={qGuildBasic} mutation={mutationQuery}>
+          <section>
+            <Heading2>Welcome/Goodbye</Heading2>
+            <div className={boxesHeader}>
               <Box padding>
                 <Box.Title>Welcome Status</Box.Title>
                 <Box.Body>
                   <Editor.Checkbox
                     query="guild.settings.settings.hibye.welcome.channel"
-                    mutate="channel"
+                    mutate="welcomeChannelStatus"
                     children="Channel"
                   />
                   <br />
                   <Editor.Checkbox
                     query="guild.settings.settings.hibye.welcome.dm"
-                    mutate="dm"
+                    mutate="welcomeDmStatus"
                     children="DM"
                   />
                 </Box.Body>
@@ -616,32 +618,29 @@ class ModerationEditor extends Component {
                 <Box.Body>
                   <Editor.Checkbox
                     query="guild.settings.settings.hibye.goodbye.channel"
-                    mutate="channel"
+                    mutate="goodbyeChannelStatus"
                     children="Channel"
                   />
                   <br />
                   <Editor.Checkbox
                     query="guild.settings.settings.hibye.goodbye.dm"
-                    mutate="dm"
+                    mutate="goodbyeDmStatus"
                     children="DM"
                   />
                 </Box.Body>
               </Box>
-              // TODO: Welcome and goodbye messages need to be done
-            </Editor>
-          </div>
-        </section>
+            </div>
+          </section>
 
-        <section>
-          <Heading2>Verification</Heading2>
-          <div className={boxesHeader}>
-            <Editor query={qGuildBasic} mutation={mutationQuery}>
+          <section>
+            <Heading2>Verification</Heading2>
+            <div className={boxesHeader}>
               <Box padding>
                 <Box.Title>Verification Status</Box.Title>
                 <Box.Body>
                   <Editor.Checkbox
                     query="guild.settings.settings.verify.status"
-                    mutate="status"
+                    mutate="verifyStatus"
                     children="Status"
                   />
                 </Box.Body>
@@ -651,7 +650,7 @@ class ModerationEditor extends Component {
                 {channelOrRoleSelector({
                   isChannel: true,
                   type: "Verification Category",
-                  mutateString: `guild.settings.settings.verify.category`,
+                  mutateString: "verifyCategory",
                   needCategory: true,
                   guildId,
                 })}
@@ -660,9 +659,8 @@ class ModerationEditor extends Component {
               <Box padding>
                 <Box.Title>Verification First Message</Box.Title>
                 <Box.Body>
-                  // TODO: validate this is a embed
                   <Editor.Input
-                    mutate="first"
+                    mutate="verifyFirst"
                     query="guild.settings.settings.verify.first"
                   />
                 </Box.Body>
@@ -672,20 +670,18 @@ class ModerationEditor extends Component {
                 {channelOrRoleSelector({
                   isChannel: false,
                   type: "Verification",
-                  mutateString: `guild.settings.settings.verify.role`,
+                  mutateString: "verifyRole",
                   guildId,
                 })}
               </Box>
 
               <Box padding>
                 <Box.Title>Reset Verification</Box.Title>
-                <Box.Body>
-                  // TODO: Add some button here to reset the verification settings.
-                </Box.Body>
+                <Box.Body />
               </Box>
-            </Editor>
-          </div>
-        </section>
+            </div>
+          </section>
+        </Editor>
       </React.Fragment>
     );
   }
