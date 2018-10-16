@@ -15,10 +15,33 @@ const dropdownMenu = css`
   width: 100%;
   max-height: 200px;
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: scroll;
   padding: 0;
   margin-top: 5px;
   border-radius: 5px;
+
+  /* This is bad. Use portal in the future */
+  z-index: 99;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
   & > li {
     list-style-type: none;
     padding: 15px;
@@ -48,7 +71,6 @@ class Select extends React.Component {
           setState,
         }) => (
           <div className={wrapper}>
-            {/* <label {...getLabelProps()}>Type a timezone</label> */}
             <Input
               {...getInputProps()}
               placeholder={placeholder}

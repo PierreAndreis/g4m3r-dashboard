@@ -20,7 +20,7 @@ const layout = css`
 
 const content = css`
   background-color: #f8f8fd;
-  overflowx: auto;
+  overflow-x: auto;
   box-sizing: border-box;
   padding-top: 30px;
   & > section {
