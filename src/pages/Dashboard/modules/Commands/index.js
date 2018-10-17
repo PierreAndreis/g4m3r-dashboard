@@ -138,9 +138,9 @@ class CommandsEditor extends Component {
                         >
                           <div>{value && value.name.toUpperCase()}</div> &nbsp; &nbsp;
                           {/* information icon */}
-                          {/* <div style={{ ['margin-left']: 'auto' }}>
+                        <div style={{ ['margin-left']: 'auto' }}>
                           <img style={{ width: '20px', height: '20px' }} src={'https://cdn.discordapp.com/emojis/443803045382324225.png?v=1'}></img>
-                        </div> */}
+                        </div>
                         </div>
                       </Box.Title>
                       <Box.Body>
