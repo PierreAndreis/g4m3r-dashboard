@@ -195,7 +195,7 @@ class GeneralEditor extends Component {
                   <Editor.Input mutate="prefix" query="guild.settings.settings.prefix" />
                 </Box.Body>
               </Box>
-              <Box padding>
+              {/*<Box padding>
                 <Box.Title>Timezone</Box.Title>
                 <Box.Body>
                   <Query query={qTimezone}>
@@ -214,7 +214,7 @@ class GeneralEditor extends Component {
                     }}
                   </Query>
                 </Box.Body>
-              </Box>
+                  </Box>*/}
               <Box padding>
                 <Box.Title>Menu Closing Time</Box.Title>
                 <Box.Body>
@@ -252,7 +252,7 @@ class GeneralEditor extends Component {
                   />
                 </Box.Body>
               </Box>
-              <Box padding>
+              {/*<Box padding>
                 <Box.Title>Feedback Channels</Box.Title>
                 <Box.Body>
                   Ideas Channel
@@ -265,16 +265,17 @@ class GeneralEditor extends Component {
                         .sort((a, b) => a.name.localeCompare(b.name))
                         .map(channel => ({
                           key: channel.id,
-                          value: channel.name,
+                          value: `#${channel.name}`,
                         }));
                       return (
                         <Editor.Select
-                          propKey={"id"}
-                          propFetch={"name"}
+                          propKey="id"
+                          propFetch="name"
+                          pickChannelRole={true}
                           findFromArray={true}
                           values={values}
                           mutate="ideaChannel"
-                          query="guild.channels"
+                          query="guild.settings.settings.feedback.idea.channel"
                         />
                       );
                     }}
@@ -305,7 +306,7 @@ class GeneralEditor extends Component {
                     }}
                   </Query>
                 </Box.Body>
-              </Box>
+                  </Box>*/}
               <Box padding>
                 <Box.Title>Feedback Idea Thumbs Up</Box.Title>
                 <Box.Body>
@@ -401,7 +402,7 @@ class GeneralEditor extends Component {
                 </Box.Body>
               </Box>
 
-              <Box padding>
+              {/*<Box padding>
                 <Box.Title>Advertise Channels</Box.Title>
                 <Box.Body>
                   <Query query={qGuildBasic} variables={{ guildId: guildId }}>
@@ -428,7 +429,7 @@ class GeneralEditor extends Component {
                     }}
                   </Query>
                 </Box.Body>
-              </Box>
+                  </Box>*/}
             </Editor>
           </div>
         </section>

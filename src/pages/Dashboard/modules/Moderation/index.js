@@ -27,7 +27,7 @@ const channelOrRoleSelector = props => {
       <Box.Title>
         {props.type} {props.isChannel ? "Channel" : "Role"}
       </Box.Title>
-      <Query query={qGuildBasic} variables={{ guildId: props.guildId }}>
+      {/*<Query query={qGuildBasic} variables={{ guildId: props.guildId }}>
         {({ loading, error, data }) => {
           if (loading) return "Loading";
           if (error) {
@@ -56,7 +56,7 @@ const channelOrRoleSelector = props => {
             />
           );
         }}
-      </Query>
+      </Query>*/}
     </div>
   );
 };
@@ -269,7 +269,7 @@ const mainLogs = [
     name: "Mod",
     status: true,
     query: "guild.channels",
-    mutate: "guild.settings.settings.moderation.channel",
+    mutate: "modlogChannel",
     checkboxMutate: "modlogStatus",
     checkboxQuery: "guild.settings.settings.moderation.status",
   },
@@ -277,7 +277,7 @@ const mainLogs = [
     name: "Public",
     status: false,
     query: "guild.channels",
-    mutate: "guild.settings.settings.moderation.publicModlogChannel",
+    mutate: "publiclogChannel",
     checkboxMutate: "publiclogStatus",
     checkboxQuery: "guild.settings.settings.moderation.publicModlogStatus",
   },
@@ -285,7 +285,7 @@ const mainLogs = [
     name: "Server",
     status: true,
     query: "guild.channels",
-    mutate: "guild.settings.settings.serverLogs.mainChannel",
+    mutate: "serverlogMainChannel",
     checkboxMutate: "serverlogStatus",
     checkboxQuery: "guild.settings.settings.serverLogs.status",
   },
