@@ -23,7 +23,7 @@
     "react-transition-group": "^2.4.0"
   },
   "scripts": {
-    "start": "react-app-rewired start",
+    "start": "set PORT=3001 && react-app-rewired start",
     "build": "react-app-rewired build",
     "eject": "react-scripts eject"
   },
