@@ -18,13 +18,48 @@ const translateValue = (props, state) => {
   return getEditedValue(props, state) || getPlaceholder(props, state);
 };
 
-const getEditedValue = (props, state) => {
-  if (state.changes[props.mutate]) return state.changes[props.mutate];
-};
-
 const getPlaceholder = (props, state) => {
   return dlv(state.payload, props.query);
 };
+
+const getFromArray = (array, propKey, value, propFetch) => {
+  const foundObject = array.find(item => item[propKey] === value);
+  return foundObject ? foundObject[propFetch] : "None";
+};
+
+const getEditedValue = (props, state) => {
+  // find a certain value from a object within an array for a compenent
+  if (props.findFromArray) {
+    const array = dlv(state.payload, props.query);
+    const value = dlv(state.payload, props.mutate);
+    return getFromArray(array, props.propKey, value, props.propFetch);
+  }
+
+  // state.payload is the array of commands in the Editor.Mapper as example
+  let obj, foundProp;
+  if (Array.isArray(state.payload)) {
+    obj = state.payload.find(data => data[props.propKey] === props.propValue);
+  }
+
+  let returnValue;
+  // check if state.changes has a simple property
+  if (state.changes.hasOwnProperty(props.mutate)) {
+    returnValue = state.changes[props.mutate];
+    // check if state.chanages has a nested property / array
+  } else if (foundProp = dlv(state.changes, props.mutate)) {
+    // if foundProp isArray, get object from within Array
+    if (Array.isArray(foundProp)) {
+      const existingItem = foundProp.find(item => item[props.propKey] === props.propValue);
+      returnValue = dlv(existingItem || obj, props.query);
+    // if its not an array, get value from nested property
+    } else {
+      returnValue = dlv(state.payload, props.query);
+    }
+  } else returnValue = dlv(obj || state.payload, props.query);
+
+  return returnValue;
+};
+
 class WrapperEditorForGraphQL extends React.Component {
   static Input = ({ mutate, query, ...otherProps }) => (
     <StagerContext.Consumer>
@@ -39,12 +74,12 @@ class WrapperEditorForGraphQL extends React.Component {
     </StagerContext.Consumer>
   );
 
-  static Checkbox = ({ mutate, query, ...otherProps }) => (
+  static Checkbox = ({ mutate, query, propKey, propValue, isArray, ...otherProps }) => (
     <StagerContext.Consumer>
       {state => (
         <Checkbox
-          value={translateValue({ mutate, query }, state)}
-          onChange={state.onChange(mutate)}
+          value={getEditedValue({ mutate, query, propKey, propValue }, state)}
+          onChange={state.onChange(mutate, propKey, propValue, isArray, query)}
           {...otherProps}
         />
       )}
@@ -56,7 +91,7 @@ class WrapperEditorForGraphQL extends React.Component {
       {state => (
         <Select
           value={getEditedValue({ mutate, query }, state)}
-          placeholder={getPlaceholder({ mutate, query }, state)}
+          placeholder={translateValue({ mutate, query, ...otherProps }, state)}
           onChange={state.onChange(mutate)}
           {...otherProps}
         />
@@ -64,12 +99,34 @@ class WrapperEditorForGraphQL extends React.Component {
     </StagerContext.Consumer>
   );
 
+  static Mapper = ({ path = "", mutate, children, ...otherProps }) => (
+    <StagerContext.Consumer>
+      {state => {
+        const arr = dlv(state.payload, path, []);
+
+        // console.log("arr=", arr, state, path);
+        if (!Array.isArray(arr)) throw new Error(`Path ${path} must be an array!`);
+
+        // This has some perfomance issues because it's a new object for every render
+        const newContext = { ...state, payload: arr };
+
+        return arr.map((value, index) => (
+          <StagerContext.Provider value={newContext} key={index}>
+            {typeof children === "function" ? children(value) : children}
+          </StagerContext.Provider>
+        ));
+      }}
+    </StagerContext.Consumer>
+  );
+
   onCommit = commit => async changes => {
     const guildId = this.props.match.params.guildId;
+    const omitTypename = (key, value) => (key === '__typename' ? undefined : value)
+    const newPayload = JSON.parse(JSON.stringify(changes), omitTypename)
     let query = {
       variables: {
         guildId,
-        input: changes,
+        input: newPayload,
       },
     };
 
@@ -77,24 +134,30 @@ class WrapperEditorForGraphQL extends React.Component {
   };
 
   render() {
-    const { mutation, query, ...props } = this.props;
+    const { mutation, query, children, ...props } = this.props;
     const guildId = props.match.params.guildId;
 
     return (
       <Query query={query} variables={{ guildId: guildId }}>
-        {query => (
-          <Mutation mutation={mutation}>
-            {commit => (
-              <Stager
-                {...props}
-                isLoading={query.loading}
-                errors={query.errors}
-                payload={query.data}
-                onCommit={this.onCommit(commit)}
-              />
-            )}
-          </Mutation>
-        )}
+        {query =>
+          // console.log("queryResult=", query) || (
+          (
+            <Mutation mutation={mutation}>
+            {commit =>
+              (
+                <Stager
+                  {...props}
+                  isLoading={query.loading}
+                  errors={query.errors}
+                  payload={query.data}
+                  onCommit={this.onCommit(commit)}
+                >
+                  {children}
+                </Stager>
+              )}
+            </Mutation>
+          )
+        }
       </Query>
     );
   }
