@@ -4,6 +4,7 @@ import Downshift from "downshift";
 import Input from "./Input";
 import { ChevronDownIcon } from "mdi-react";
 import Box from "./Box";
+import Util from './../global/Util';
 
 const wrapper = css`
   width: 250px;
@@ -50,12 +51,36 @@ const dropdownMenu = css`
 `;
 
 class Select extends React.Component {
-  render() {
-    const { placeholder, onChange } = this.props;
 
+  render() {
+    const { onChange, payload, payloadProp, type, currentValue } = this.props;
+
+    const tempValues = Util.dlv(payload, payloadProp);
+  
+    let values;
+    switch (type) {
+      case 'role':
+        values = tempValues
+          .sort((a, b) => a.name.localeCompare(b.name))
+          .map(role => ({
+            key: role.id,
+            value: `@${role.name}`,
+          }));
+        break;
+      default: // channels
+        values = tempValues
+          .sort((a, b) => a.name.localeCompare(b.name))
+          .map(channel => ({
+            key: channel.id,
+            value: `#${channel.name}`,
+          }));
+    }
+
+    const placeholder = values.find(item => item.key === currentValue);
+    const placeholderValue = placeholder ? placeholder.value : `${type} deleted`;
     return (
       <Downshift
-        onChange={item => typeof onChange === "function" && onChange(item.value)}
+        onChange={item => typeof onChange === "function" && onChange(item.key)}
         itemToString={item => (item ? item.value : "")}
       >
         {({
@@ -73,7 +98,7 @@ class Select extends React.Component {
           <div className={wrapper}>
             <Input
               {...getInputProps()}
-              placeholder={placeholder}
+              placeholder={placeholderValue}
               icon={{
                 right: props => (
                   <div onClick={() => toggleMenu()}>
@@ -85,7 +110,7 @@ class Select extends React.Component {
             <div {...getMenuProps()}>
               {isOpen ? (
                 <Box className={dropdownMenu}>
-                  {this.props.values
+                  {values
                     .filter(
                       item =>
                         !inputValue ||

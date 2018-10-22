@@ -1,25 +1,19 @@
 import React from "react";
 import { Query, Mutation } from "react-apollo";
 import { withRouter } from "react-router-dom";
+import Util from './../../global/Util';
 import Input from "../Input";
 import Checkbox from "../Checkbox";
 import Select from "../Select";
 
 import Stager, { StagerContext } from "./Stager";
 
-const dlv = (obj, key, def, p) => {
-  p = 0;
-  key = key.split ? key.split(".") : key;
-  while (obj && p < key.length) obj = obj[key[p++]];
-  return obj === undefined || p < key.length ? def : obj;
-};
-
 const translateValue = (props, state) => {
   return getEditedValue(props, state) || getPlaceholder(props, state);
 };
 
 const getPlaceholder = (props, state) => {
-  return dlv(state.payload, props.query);
+  return Util.dlv(state.payload, props.query);
 };
 
 const getFromArray = (array, propKey, value, propFetch) => {
@@ -30,8 +24,8 @@ const getFromArray = (array, propKey, value, propFetch) => {
 const getEditedValue = (props, state) => {
   // find a certain value from a object within an array for a compenent
   if (props.findFromArray) {
-    const array = dlv(state.payload, props.query);
-    const value = dlv(state.payload, props.mutate);
+    const array = Util.dlv(state.payload, props.query);
+    const value = Util.dlv(state.payload, props.mutate);
     return getFromArray(array, props.propKey, value, props.propFetch);
   }
 
@@ -46,16 +40,16 @@ const getEditedValue = (props, state) => {
   if (state.changes.hasOwnProperty(props.mutate)) {
     returnValue = state.changes[props.mutate];
     // check if state.chanages has a nested property / array
-  } else if (foundProp = dlv(state.changes, props.mutate)) {
+  } else if (foundProp = Util.dlv(state.changes, props.mutate)) {
     // if foundProp isArray, get object from within Array
     if (Array.isArray(foundProp)) {
       const existingItem = foundProp.find(item => item[props.propKey] === props.propValue);
-      returnValue = dlv(existingItem || obj, props.query);
+      returnValue = Util.dlv(existingItem || obj, props.query);
     // if its not an array, get value from nested property
     } else {
-      returnValue = dlv(state.payload, props.query);
+      returnValue = Util.dlv(state.payload, props.query);
     }
-  } else returnValue = dlv(obj || state.payload, props.query);
+  } else returnValue = Util.dlv(obj || state.payload, props.query);
 
   return returnValue;
 };
@@ -93,6 +87,7 @@ class WrapperEditorForGraphQL extends React.Component {
           value={getEditedValue({ mutate, query }, state)}
           placeholder={translateValue({ mutate, query, ...otherProps }, state)}
           onChange={state.onChange(mutate)}
+          payload={state.payload}
           {...otherProps}
         />
       )}
@@ -102,7 +97,7 @@ class WrapperEditorForGraphQL extends React.Component {
   static Mapper = ({ path = "", mutate, children, ...otherProps }) => (
     <StagerContext.Consumer>
       {state => {
-        const arr = dlv(state.payload, path, []);
+        const arr = Util.dlv(state.payload, path, []);
 
         // console.log("arr=", arr, state, path);
         if (!Array.isArray(arr)) throw new Error(`Path ${path} must be an array!`);

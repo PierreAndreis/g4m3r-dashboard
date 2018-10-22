@@ -22,7 +22,7 @@ const channelOrRoleSelector = props => {
   return (
     <div>
       {props.type}
-      <Query query={qGuildBasic} variables={{ guildId: props.guildId }}>
+      {/* <Query query={qGuildBasic} variables={{ guildId: props.guildId }}>
         {({ loading, error, data }) => {
           if (loading) return "Loading";
           if (error) {
@@ -51,7 +51,7 @@ const channelOrRoleSelector = props => {
             />
           );
         }}
-      </Query>
+      </Query> */}
       <br />
     </div>
   );

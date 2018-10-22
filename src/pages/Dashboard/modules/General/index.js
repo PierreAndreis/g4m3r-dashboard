@@ -195,7 +195,7 @@ class GeneralEditor extends Component {
                   <Editor.Input mutate="prefix" query="guild.settings.settings.prefix" />
                 </Box.Body>
               </Box>
-              {/*<Box padding>
+              <Box padding>
                 <Box.Title>Timezone</Box.Title>
                 <Box.Body>
                   <Query query={qTimezone}>
@@ -214,7 +214,7 @@ class GeneralEditor extends Component {
                     }}
                   </Query>
                 </Box.Body>
-                  </Box>*/}
+              </Box>
               <Box padding>
                 <Box.Title>Menu Closing Time</Box.Title>
                 <Box.Body>
@@ -252,36 +252,20 @@ class GeneralEditor extends Component {
                   />
                 </Box.Body>
               </Box>
-              {/*<Box padding>
+              <Box padding>
                 <Box.Title>Feedback Channels</Box.Title>
                 <Box.Body>
                   Ideas Channel
-                  <Query query={qGuildBasic} variables={{ guildId: guildId }}>
-                    {({ loading, error, data }) => {
-                      if (loading) return "Loading";
-                      if (error) return "Error";
-                      const values = data.guild.channels
-                        .filter(channel => channel.type === "text")
-                        .sort((a, b) => a.name.localeCompare(b.name))
-                        .map(channel => ({
-                          key: channel.id,
-                          value: `#${channel.name}`,
-                        }));
-                      return (
-                        <Editor.Select
-                          propKey="id"
-                          propFetch="name"
-                          pickChannelRole={true}
-                          findFromArray={true}
-                          values={values}
-                          mutate="ideaChannel"
-                          query="guild.settings.settings.feedback.idea.channel"
-                        />
-                      );
-                    }}
-                  </Query>
+                  <Editor.Select
+                    propKey='id'
+                    propFetch='name'
+                    payloadProp={'guild.channels'}
+                    type={'channel'}
+                    mutate='ideaChannel'
+                    query='guild.settings.settings.feedback.idea.channel'
+                  />
                   <br />
-                  Bugs Channel
+                  {/*Bugs Channel
                   <Query query={qGuildBasic} variables={{ guildId: guildId }}>
                     {({ loading, error, data }) => {
                       if (loading) return "Loading";
@@ -305,8 +289,9 @@ class GeneralEditor extends Component {
                       );
                     }}
                   </Query>
+                  */}
                 </Box.Body>
-                  </Box>*/}
+              </Box>
               <Box padding>
                 <Box.Title>Feedback Idea Thumbs Up</Box.Title>
                 <Box.Body>
