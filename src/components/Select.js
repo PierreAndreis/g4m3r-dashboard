@@ -53,31 +53,47 @@ const dropdownMenu = css`
 class Select extends React.Component {
 
   render() {
-    const { onChange, payload, payloadProp, type, currentValue } = this.props;
+    const { onChange, payload, payloadProp, type, currentValue, values } = this.props;
 
-    const tempValues = Util.dlv(payload, payloadProp);
-  
-    let values;
+
+    let tempValues, newValues;
+    
+    if (!values) tempValues = Util.dlv(payload, payloadProp);
+    else newValues = values;
+
+    function compare(a, b) {
+      if (!a || !a.name || !b || !b.name) return 0;
+      if (a.name < b.name)
+        return -1;
+      if (a.name > b.name)
+        return 1;
+      return 0;
+    }
+
     switch (type) {
       case 'role':
-        values = tempValues
-          .sort((a, b) => a.name.localeCompare(b.name))
+        newValues = tempValues
           .map(role => ({
             key: role.id,
             value: `@${role.name}`,
           }));
         break;
-      default: // channels
-        values = tempValues
-          .sort((a, b) => a.name.localeCompare(b.name))
+      case 'channel': // channels
+        newValues = tempValues
+          .filter(channel => channel.type === 'text')
+          .sort(compare)
           .map(channel => ({
             key: channel.id,
             value: `#${channel.name}`,
           }));
+        break;
+      case 'Permission':
+        newValues = newValues.map(perm => ({ key: perm.id, value: perm.value }))
+        break;
     }
 
-    const placeholder = values.find(item => item.key === currentValue);
-    const placeholderValue = placeholder ? placeholder.value : `${type} deleted`;
+    const placeholder = newValues.find(item => item.key === currentValue);
+    const placeholderValue = placeholder ? placeholder.value : `${type} not set`;
     return (
       <Downshift
         onChange={item => typeof onChange === "function" && onChange(item.key)}
@@ -110,7 +126,7 @@ class Select extends React.Component {
             <div {...getMenuProps()}>
               {isOpen ? (
                 <Box className={dropdownMenu}>
-                  {values
+                  {newValues
                     .filter(
                       item =>
                         !inputValue ||

@@ -6,6 +6,7 @@ import mutationQuery from "../../../../graphql/queries/mutations/moderation";
 import { Query } from "react-apollo";
 import Editor from "../../../../components/Editor";
 import qGuildBasic from "../../../../graphql/queries/guild/guildBasic";
+import qClientBasic from "../../../../graphql/queries/client/clientBasic";
 import { mainLogs, serverLogs, modFeatureToggles } from "../../../../constants/moderation";
 import Button from "../../../../components/Button";
 
@@ -22,36 +23,14 @@ const channelOrRoleSelector = props => {
   return (
     <div>
       {props.type}
-      {/* <Query query={qGuildBasic} variables={{ guildId: props.guildId }}>
-        {({ loading, error, data }) => {
-          if (loading) return "Loading";
-          if (error) {
-            console.log("it errored;");
-            console.log(error);
-            return "Error";
-          }
-          let values = data.guild[props.isChannel ? "channels" : "roles"];
-
-          const channelType = props.needCategory ? "category" : "text";
-          if (props.isChannel) {
-            values = values.filter(channel => channel.type === channelType);
-          } else values = values.filter(role => role.id !== props.guildId);
-          values = values.sort((a, b) => a.name.localeCompare(b.name)).map(item => ({
-            key: item.id,
-            value: `${props.isChannel ? "#" : "@"}${item.name}`,
-          }));
-          return (
-            <Editor.Select
-              values={values}
-              propKey={"id"}
-              propFetch={"name"}
-              findFromArray={true}
-              mutate={props.mutateString}
-              query={`guild.${props.isChannel ? "channels" : "roles"}`}
-            />
-          );
-        }}
-      </Query> */}
+      <Editor.Select
+        propKey={'id'}
+        propFetch={'name'}
+        payloadProp={`guild.${props.isChannel ? "channels" : "roles"}`}
+        type={props.isChannel ? "channel" : "role"}
+        mutate={props.mutateString}
+        query={props.query}
+      />
       <br />
     </div>
   );
@@ -229,7 +208,8 @@ class ModerationEditor extends Component {
                               type: opt.name,
                               mutateString: `guild.settings.settings.serverLogs.${
                                 opt.mutate
-                              }.channel`,
+                                }.channel`,
+                              query: opt.query,
                               guildId,
                             })}
                             <br />
@@ -259,6 +239,7 @@ class ModerationEditor extends Component {
                     isChannel: false,
                     type: "Max Warnings",
                     mutateString: "defaultMaxWarningsRole",
+                    query: "guild.settings.settings.moderation.defaultMaxWarningsRole",
                     guildId,
                   })}
                 </Box>
@@ -274,6 +255,7 @@ class ModerationEditor extends Component {
                     isChannel: false,
                     type: "Inactive",
                     mutateString: "defaultInactivityRole",
+                    query: "guild.settings.settings.moderation.defaultInactivityRole",
                     guildId,
                   })}
                 </Box>
@@ -291,6 +273,7 @@ class ModerationEditor extends Component {
                     isChannel: false,
                     type: "Text Muted",
                     mutateString: "muteRoleText",
+                    query: "guild.settings.settings.moderation.mutedRoles.text",
                     guildId,
                   })}
 
@@ -298,6 +281,7 @@ class ModerationEditor extends Component {
                     isChannel: false,
                     type: "Voice Muted",
                     mutateString: "muteRoleVoice",
+                    query: "guild.settings.settings.moderation.mutedRoles.voice",
                     guildId,
                   })}
                 </Box>
@@ -312,7 +296,7 @@ class ModerationEditor extends Component {
                 <Box padding>
                   <Box.Title>Mod Mails</Box.Title>
 
-                  {/*<Box.Title>Permission To Reply</Box.Title>
+                  <Box.Title>Permission To Reply</Box.Title>
                   <Query query={qClientBasic} variables={{ clientId: "287128811961843712" }}>
                     {({ loading, error, data }) => {
                       if (loading) return "Loading";
@@ -322,12 +306,13 @@ class ModerationEditor extends Component {
                       return (
                         <Editor.Select
                           values={values}
-                          mutate="permissionToReply"
-                          query="guild.settings.settings.mail.permissionToReply"
+                          mutate={"permissionToReply"}
+                          type={'Permission'}
+                          query={"guild.settings.settings.mail.permissionToReply"}
                         />
                       );
                     }}
-                  </Query>*/}
+                  </Query>
                 </Box>
                 <Box padding>
                   {makeInputSettings({
@@ -354,6 +339,7 @@ class ModerationEditor extends Component {
                     isChannel: false,
                     type: "Auto Assign",
                     mutateString: "mainRole",
+                    query: 'guild.settings.settings.autoAssignRoles.mainRole',
                     guildId,
                   })}
                 </Box>
@@ -386,6 +372,7 @@ class ModerationEditor extends Component {
                     isChannel: true,
                     type: "Verification Category",
                     mutateString: "verifyCategory",
+                    query: 'guild.settings.settings.verify.category',
                     needCategory: true,
                     guildId,
                   })}
@@ -406,6 +393,7 @@ class ModerationEditor extends Component {
                     isChannel: false,
                     type: "Verification",
                     mutateString: "verifyRole",
+                    query: 'guild.settings.settings.verify.role',
                     guildId,
                   })}
                 </Box>
