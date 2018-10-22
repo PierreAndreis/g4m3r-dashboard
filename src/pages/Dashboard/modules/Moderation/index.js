@@ -301,7 +301,7 @@ class ModerationEditor extends Component {
                   <Box.Title>Mod Mails</Box.Title>
 
                   <Box.Title>Permission To Reply</Box.Title>
-                  <Query query={qClientBasic} variables={{ clientId: "287128811961843712" }}>
+                  <Query query={qClientBasic} variables={{ clientId: process.env.REACT_APP_CLIENT_ID }}>
                     {({ loading, error, data }) => {
                       if (loading) return "Loading";
                       if (error) return "Error";
