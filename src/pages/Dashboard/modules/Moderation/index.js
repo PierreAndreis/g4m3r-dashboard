@@ -6,7 +6,11 @@ import mutationQuery from "../../../../graphql/queries/mutations/moderation";
 import { Query } from "react-apollo";
 import Editor from "../../../../components/Editor";
 import qGuildBasic from "../../../../graphql/queries/guild/guildBasic";
-import { mainLogs, serverLogs, modFeatureToggles } from "../../../../constants/moderation";
+import {
+  mainLogs,
+  serverLogs,
+  modFeatureToggles,
+} from "../../../../constants/moderation";
 import Button from "../../../../components/Button";
 
 const boxesHeader = css`
@@ -74,8 +78,14 @@ class ModerationEditor extends Component {
     this.state = {
       isOpenModal: false,
       category: "Basic",
-      categories: ["Basic", "Server Logs", "Mod Values", "Auto-Mod", "Mute Module", "Mod Mails", "Verification"],
-      commands: [],
+      categories: [
+        "Basic",
+        "Server Logs",
+        "Auto-Mod",
+        "Mute Module",
+        "Mod Mails",
+        "Verification",
+      ],
     };
   }
 
@@ -120,7 +130,7 @@ class ModerationEditor extends Component {
         </section>
 
         <Editor query={qGuildBasic} mutation={mutationQuery}>
-          {this.state.category === "Basic" ? 
+          {this.state.category === "Basic" ? (
             <section>
               <Heading2>Moderation Logs</Heading2>
               <div className={boxesHeader}>
@@ -181,11 +191,10 @@ class ModerationEditor extends Component {
                   </Box.Body>
                 </Box>
               </div>
-              </section>
-              : null
-            }
-          
-          {this.state.category === "Server Logs" ?
+            </section>
+          ) : null}
+
+          {this.state.category === "Server Logs" ? (
             <section>
               <Heading2>Individual Server Logs</Heading2>
               <div className={boxesHeader}>
@@ -242,9 +251,9 @@ class ModerationEditor extends Component {
                 </div>
               </div>
             </section>
-          : null }
+          ) : null}
 
-          {this.state.category === "Mod Values" ? 
+          {this.state.category === "Mod Values" ? (
             <section>
               <Heading2>Moderation Values</Heading2>
               <div className={boxesHeader}>
@@ -279,10 +288,9 @@ class ModerationEditor extends Component {
                 </Box>
               </div>
             </section>
-            : null }
+          ) : null}
 
-
-          {this.state.category === "Mute Module" ?
+          {this.state.category === "Mute Module" ? (
             <section>
               <Heading2>Mute Roles</Heading2>
               <div className={boxesHeader}>
@@ -303,9 +311,9 @@ class ModerationEditor extends Component {
                 </Box>
               </div>
             </section>
-          : null }
-          
-          {this.state.category === "Mod Mails" ?
+          ) : null}
+
+          {this.state.category === "Mod Mails" ? (
             <section>
               <Heading2>Mod Mails</Heading2>
               <div className={boxesHeader}>
@@ -343,9 +351,9 @@ class ModerationEditor extends Component {
                 </Box>
               </div>
             </section>
-          : null }
+          ) : null}
 
-          {this.state.category === "Auto-Mod" ?
+          {this.state.category === "Auto-Mod" ? (
             <section>
               <Heading2>Auto Moderation</Heading2>
               <div className={boxesHeader}>
@@ -375,9 +383,9 @@ class ModerationEditor extends Component {
                 </Box>
               </div>
             </section>
-          : null}
+          ) : null}
 
-          {this.state.category === "Verification" ?
+          {this.state.category === "Verification" ? (
             <section>
               <Heading2>Verification</Heading2>
               <div className={boxesHeader}>
@@ -416,7 +424,7 @@ class ModerationEditor extends Component {
                 </Box>
               </div>
             </section>
-          : null }
+          ) : null}
         </Editor>
       </React.Fragment>
     );
