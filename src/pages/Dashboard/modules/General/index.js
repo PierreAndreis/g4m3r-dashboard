@@ -154,6 +154,39 @@ class GeneralEditor extends Component {
               <Heading2>Overview</Heading2>
               <div className={boxesHeader}>
                 <Box padding>
+                  <Box.Title>Feedback Bug Color</Box.Title>
+                  <Box.Body>
+                    <Editor.Input
+                      mutate="bugColor"
+                      query="guild.settings.settings.feedback.bug.color"
+                    />
+                  </Box.Body>
+                </Box>
+                <Box padding>
+                  <Box.Title>Feedback Channels</Box.Title>
+                  <Box.Body>
+                    Ideas Channel
+                    <Editor.Select
+                      propKey={'id'}
+                      propFetch={'name'}
+                      payloadProp={'guild.channels'}
+                      type={'channel'}
+                      mutate={'ideaChannel'}
+                      query={'guild.settings.settings.feedback.idea.channel'}
+                    />
+                    <br />
+                    Bugs Channel
+                    <Editor.Select
+                      propKey={'id'}
+                      propFetch={'name'}
+                      payloadProp={'guild.channels'}
+                      type={'channel'}
+                      mutate={'bugChannel'}
+                      query={'guild.settings.settings.feedback.bug.channel'}
+                    />
+                  </Box.Body>
+                </Box>
+                <Box padding>
                   <Box.Title>Feedback Idea Thumbs Up</Box.Title>
                   <Box.Body>
                     <Editor.Input
@@ -201,58 +234,6 @@ class GeneralEditor extends Component {
                       mutate="bugColor"
                       query="guild.settings.settings.feedback.bug.color"
                     />
-                  </Box.Body>
-                  <Box.Title>Feedback Channels</Box.Title>
-                  <Box.Body>
-                    Ideas Channel
-                    <Query query={qGuildBasic} variables={{ guildId: guildId }}>
-                      {({ loading, error, data }) => {
-                        if (loading) return "Loading";
-                        if (error) return "Error";
-                        const values = data.guild.channels
-                          .filter(channel => channel.type === "text")
-                          .sort((a, b) => a.name.localeCompare(b.name))
-                          .map(channel => ({
-                            key: channel.id,
-                            value: channel.name,
-                          }));
-                        return (
-                          <Editor.Select
-                            propKey={"id"}
-                            propFetch={"name"}
-                            findFromArray={true}
-                            values={values}
-                            mutate="ideaChannel"
-                            query="guild.channels"
-                          />
-                        );
-                      }}
-                    </Query>
-                    <br />
-                    Bugs Channel
-                    <Query query={qGuildBasic} variables={{ guildId: guildId }}>
-                      {({ loading, error, data }) => {
-                        if (loading) return "Loading";
-                        if (error) return "Error";
-                        const values = data.guild.channels
-                          .filter(channel => channel.type === "text")
-                          .sort((a, b) => a.name.localeCompare(b.name))
-                          .map(channel => ({
-                            key: channel.id,
-                            value: channel.name,
-                          }));
-                        return (
-                          <Editor.Select
-                            propKey={"id"}
-                            propFetch={"name"}
-                            findFromArray={true}
-                            values={values}
-                            mutate="bugChannel"
-                            query="guild.channels"
-                          />
-                        );
-                      }}
-                    </Query>
                   </Box.Body>
                 </Box>
               </div>
@@ -306,29 +287,14 @@ class GeneralEditor extends Component {
                 <Box padding>
                   <Box.Title>Advertise Channels</Box.Title>
                   <Box.Body>
-                    <Query query={qGuildBasic} variables={{ guildId: guildId }}>
-                      {({ loading, error, data }) => {
-                        if (loading) return "Loading";
-                        if (error) return "Error";
-                        const values = data.guild.channels
-                          .filter(channel => channel.type === "text")
-                          .sort((a, b) => a.name.localeCompare(b.name))
-                          .map(channel => ({
-                            key: channel.id,
-                            value: channel.name,
-                          }));
-                        return (
-                          <Editor.Select
-                            propKey={"id"}
-                            propFetch={"name"}
-                            findFromArray={true}
-                            values={values}
-                            mutate="advertiseChannel"
-                            query="guild.channels"
-                          />
-                        );
-                      }}
-                    </Query>
+                    <Editor.Select
+                      propKey={'id'}
+                      propFetch={'name'}
+                      payloadProp={'guild.channels'}
+                      type={'channel'}
+                      mutate={'bugChannel'}
+                      query={'guild.settings.settings.events.advertiseChannel'}
+                    />
                   </Box.Body>
                 </Box>
               </div>
