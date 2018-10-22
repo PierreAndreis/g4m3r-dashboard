@@ -85,7 +85,7 @@ class WrapperEditorForGraphQL extends React.Component {
       {state => (
         <Select
           value={getEditedValue({ mutate, query }, state)}
-          placeholder={translateValue({ mutate, query, ...otherProps }, state)}
+          currentValue={translateValue({ mutate, query, ...otherProps }, state)}
           onChange={state.onChange(mutate)}
           payload={state.payload}
           {...otherProps}
