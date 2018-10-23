@@ -182,17 +182,17 @@ const Server = ({ image, name, href }) => (
 let slidesAmount = 5, spaceBetween = 5, circleSize = "50px";
 if (window.innerWidth > Util.BREAKPOINTS.medium) {
   slidesAmount = 6;
-  spaceBetween = 3;
+  spaceBetween = 5;
   circleSize = "70px";
 }
 if (window.innerWidth > Util.BREAKPOINTS.large) {
   slidesAmount = 7;
-  spaceBetween = 3;
+  spaceBetween = 5;
   circleSize = "80px";
 }
 if (window.innerWidth > Util.BREAKPOINTS.xLarge) {
   slidesAmount = 7;
-  spaceBetween = 3;
+  spaceBetween = 5;
   circleSize = "100px";
 }
 
