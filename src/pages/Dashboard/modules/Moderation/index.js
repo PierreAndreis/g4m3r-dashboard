@@ -284,17 +284,16 @@ class ModerationEditor extends Component {
               <Heading2>Mute Roles</Heading2>
               <div className={boxesHeader}>
                 <Box padding>
+                  <Box.Title>Text Muted Role</Box.Title>
                   {channelOrRoleSelector({
                     isChannel: false,
-                    type: "Text Muted",
                     mutateString: "muteRoleText",
                     query: "guild.settings.settings.moderation.mutedRoles.text",
                     guildId,
                   })}
-
+                  <Box.Title>Voice Muted Role</Box.Title>
                   {channelOrRoleSelector({
                     isChannel: false,
-                    type: "Voice Muted",
                     mutateString: "muteRoleVoice",
                     query: "guild.settings.settings.moderation.mutedRoles.voice",
                     guildId,
