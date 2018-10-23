@@ -23,6 +23,10 @@ const boxesHeader = css`
   }
 `;
 
+const validateNumber = value => {
+  return !isNaN(value);
+};
+
 const channelOrRoleSelector = props => {
   return (
     <div>
@@ -45,7 +49,11 @@ const makeInputSettings = props => {
     <div>
       <Box.Title>{props.title}</Box.Title>
       <Box.Body>
-        <Editor.Input mutate={props.mutate} query={props.query} />
+        <Editor.Input
+          mutate={props.mutate}
+          query={props.query}
+          validateFunction={props.validateFunction}
+        />
       </Box.Body>
     </div>
   );
@@ -239,6 +247,7 @@ class ModerationEditor extends Component {
                     title: "Max Warnings",
                     query: "guild.settings.settings.moderation.maxNoWarnings",
                     mutate: "maxNoWarnings",
+                    validateFunction: validateNumber,
                   })}
 
                   {channelOrRoleSelector({
@@ -255,6 +264,7 @@ class ModerationEditor extends Component {
                     title: "Max Inactive Time",
                     query: "guild.settings.settings.moderation.maxInactivityTime",
                     mutate: "maxInactivityTime",
+                    validateFunction: validateNumber,
                   })}
 
                   {channelOrRoleSelector({
@@ -332,11 +342,13 @@ class ModerationEditor extends Component {
                     title: "Max Mails Per Guild",
                     query: "guild.settings.settings.mail.maxMailsTotal",
                     mutate: "maxMailsTotal",
+                    validateFunction: validateNumber,
                   })}
                   {makeInputSettings({
                     title: "Max Mails Per User",
                     query: "guild.settings.settings.mail.maxMailPerUser",
                     mutate: "maxMailPerUser",
+                    validateFunction: validateNumber,
                   })}
                 </Box>
               </div>
@@ -369,6 +381,7 @@ class ModerationEditor extends Component {
                     title: "Max Allowed Percentage",
                     query: "guild.settings.settings.moderation.capitalPercentage.amount",
                     mutate: "capitalPercentageAmount",
+                    validateFunction: validateNumber,
                   })}
                 </Box>
                 <Box padding>
