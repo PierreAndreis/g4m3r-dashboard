@@ -1,6 +1,8 @@
 import React from "react";
 import { css, keyframes } from "emotion";
 
+import Util from "./../../global/Util";
+
 const scaleIn = keyframes`
   to {
     transform: scale(1);
@@ -10,6 +12,12 @@ const scaleIn = keyframes`
 const container = css`
   width: 400px;
   height: 100px;
+  ${Util.mq.large(css`
+    height: 120px;
+  `)}
+  ${Util.mq.xLarge(css`
+    height: 150px;
+  `)}
   position: relative;
   display: flex;
   align-items: center;
@@ -26,6 +34,16 @@ const Logo = css`
   height: 100px;
   border-radius: 100%;
   align-self: center;
+  ${Util.mq.large(css`
+    background-size: 80%;
+     width: 120px;
+    height: 120px;
+  `)}
+  ${Util.mq.xLarge(css`
+    background-size: 80%;
+    width: 150px;
+    height: 150px;
+  `)}
 `;
 
 const bg = css`
