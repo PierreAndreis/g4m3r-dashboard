@@ -296,11 +296,16 @@ class ModerationEditor extends Component {
 
           {this.state.category === "Mod Mails" ? (
             <section>
-              <Heading2>Mod Mails</Heading2>
               <div className={boxesHeader}>
                 <Box padding>
                   <Box.Title>Mod Mails</Box.Title>
-
+                  <Editor.Checkbox
+                    query="guild.settings.settings.mail.activated"
+                    mutate="modMailStatus"
+                    children="Mod Mail Status"
+                  />
+                  <br />
+                  <br />
                   <Box.Title>Permission To Reply</Box.Title>
                   <Query
                     query={qClientBasic}
@@ -343,9 +348,9 @@ class ModerationEditor extends Component {
               <Heading2>Auto Moderation</Heading2>
               <div className={boxesHeader}>
                 <Box padding>
+                  <Box.Title>Auto-Assign Role</Box.Title>
                   {channelOrRoleSelector({
                     isChannel: false,
-                    type: "Auto Assign",
                     mutateString: "mainRole",
                     query: "guild.settings.settings.autoAssignRoles.mainRole",
                     guildId,
@@ -353,6 +358,13 @@ class ModerationEditor extends Component {
                 </Box>
                 <Box padding>
                   <Box.Title>Capital Spam</Box.Title>
+                  <Editor.Checkbox
+                    query="guild.settings.settings.moderation.capitalPercentage.status"
+                    mutate="capitalPercentageStatus"
+                    children="Capital Spam Filter Status"
+                  />
+                  <br />
+                  <br />
                   {makeInputSettings({
                     title: "Max Allowed Percentage",
                     query: "guild.settings.settings.moderation.capitalPercentage.amount",
@@ -361,6 +373,11 @@ class ModerationEditor extends Component {
                 </Box>
                 <Box padding>
                   <Box.Title>Naughty Words</Box.Title>
+                  <Editor.Checkbox
+                    query="guild.settings.settings.moderation.naughtyWords.status"
+                    mutate="naughtyWordStatus"
+                    children="Naughty Word Filter Status"
+                  />
                   {/*makeInputSettings({
                     title: "Naughty Words",
                     query: "guild.settings.settings.moderation.naughtyWords.words",
@@ -376,9 +393,17 @@ class ModerationEditor extends Component {
               <Heading2>Verification</Heading2>
               <div className={boxesHeader}>
                 <Box padding>
+                  <Box.Title>Verification System</Box.Title>
+                  <Editor.Checkbox
+                    query="guild.settings.settings.verify.status"
+                    mutate="verifyStatus"
+                    children="Verification System Status"
+                  />
+                  <br />
+                  <br />
+                  <Box.Title>Verification Category</Box.Title>
                   {channelOrRoleSelector({
                     isChannel: true,
-                    type: "Verification Category",
                     mutateString: "verifyCategory",
                     query: "guild.settings.settings.verify.category",
                     needCategory: true,
@@ -397,9 +422,9 @@ class ModerationEditor extends Component {
                 </Box>
 
                 <Box padding>
+                  <Box.Title>Verification Role</Box.Title>
                   {channelOrRoleSelector({
                     isChannel: false,
-                    type: "Verification",
                     mutateString: "verifyRole",
                     query: "guild.settings.settings.verify.role",
                     guildId,
