@@ -152,15 +152,6 @@ class GeneralEditor extends Component {
               <Heading2>Overview</Heading2>
               <div className={boxesHeader}>
                 <Box padding>
-                  <Box.Title>Feedback Bug Color</Box.Title>
-                  <Box.Body>
-                    <Editor.Input
-                      mutate="bugColor"
-                      query="guild.settings.settings.feedback.bug.color"
-                    />
-                  </Box.Body>
-                </Box>
-                <Box padding>
                   <Box.Title>Feedback Channels</Box.Title>
                   <Box.Body>
                     Ideas Channel
@@ -181,6 +172,21 @@ class GeneralEditor extends Component {
                       type={"channel"}
                       mutate={"bugChannel"}
                       query={"guild.settings.settings.feedback.bug.channel"}
+                    />
+                  </Box.Body>
+                  <Box.Title>Feedback Idea Color</Box.Title>
+                  <Box.Body>
+                    <Editor.Input
+                      mutate="ideaColor"
+                      query="guild.settings.settings.feedback.idea.color"
+                    />
+                  </Box.Body>
+
+                  <Box.Title>Feedback Bug Color</Box.Title>
+                  <Box.Body>
+                    <Editor.Input
+                      mutate="bugColor"
+                      query="guild.settings.settings.feedback.bug.color"
                     />
                   </Box.Body>
                 </Box>
@@ -214,23 +220,6 @@ class GeneralEditor extends Component {
                     <Editor.Input
                       mutate="bugThumbsDown"
                       query="guild.settings.settings.feedback.bug.thumbsDown"
-                    />
-                  </Box.Body>
-                </Box>
-                <Box padding>
-                  <Box.Title>Feedback Idea Color</Box.Title>
-                  <Box.Body>
-                    <Editor.Input
-                      mutate="ideaColor"
-                      query="guild.settings.settings.feedback.idea.color"
-                    />
-                  </Box.Body>
-
-                  <Box.Title>Feedback Bug Color</Box.Title>
-                  <Box.Body>
-                    <Editor.Input
-                      mutate="bugColor"
-                      query="guild.settings.settings.feedback.bug.color"
                     />
                   </Box.Body>
                 </Box>
@@ -290,7 +279,7 @@ class GeneralEditor extends Component {
                       propFetch={"name"}
                       payloadProp={"guild.channels"}
                       type={"channel"}
-                      mutate={"bugChannel"}
+                      mutate={"advertiseChannel"}
                       query={"guild.settings.settings.events.advertiseChannel"}
                     />
                   </Box.Body>
