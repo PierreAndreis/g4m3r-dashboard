@@ -150,7 +150,21 @@ class GeneralEditor extends Component {
           {this.state.category === "Feedback" ? (
             <section>
               <Heading2>Overview</Heading2>
+
               <div className={boxesHeader}>
+                <Box padding>
+                  <Box.Title>Feedback Status</Box.Title>
+                  <Editor.Checkbox
+                    query="guild.settings.settings.feedback.idea.status"
+                    mutate="ideaStatus"
+                    children="Feedback Idea Status"
+                  />
+                  <Editor.Checkbox
+                    query="guild.settings.settings.feedback.idea.status"
+                    mutate="bugStatus"
+                    children="Feedback Bug Status"
+                  />
+                </Box>
                 <Box padding>
                   <Box.Title>Feedback Channels</Box.Title>
                   <Box.Body>
@@ -174,6 +188,8 @@ class GeneralEditor extends Component {
                       query={"guild.settings.settings.feedback.bug.channel"}
                     />
                   </Box.Body>
+                </Box>
+                <Box padding>
                   <Box.Title>Feedback Idea Color</Box.Title>
                   <Box.Body>
                     <Editor.Input
@@ -232,6 +248,14 @@ class GeneralEditor extends Component {
               <Heading2>Event Settings</Heading2>
               <div className={boxesHeader}>
                 <Box padding>
+                  <Box.Title>Event Defaults</Box.Title>
+                  <Editor.Checkbox
+                    query="guild.settings.settings.events.useDefault"
+                    mutate="useDefault"
+                    children="Use Default Event Settings"
+                  />
+                </Box>
+                <Box padding>
                   <Box.Title>Duration</Box.Title>
                   <Box.Body>
                     <Editor.Input
@@ -272,7 +296,14 @@ class GeneralEditor extends Component {
                 </Box>
 
                 <Box padding>
-                  <Box.Title>Advertise Channels</Box.Title>
+                  <Box.Title>Event Advertisements</Box.Title>
+                  <Editor.Checkbox
+                    query="guild.settings.settings.events.advertiseAllEvents"
+                    mutate="advertiseAllEvents"
+                    children="Auto Advertise Events"
+                  />
+                  <br />
+                  <Box.Title>Advertise Channel</Box.Title>
                   <Box.Body>
                     <Editor.Select
                       propKey={"id"}

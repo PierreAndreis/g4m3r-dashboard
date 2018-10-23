@@ -15,16 +15,6 @@ export const generalPageToggles = [
     title: "Delete All Notifications",
   },
   {
-    query: "guild.settings.settings.feedback.idea.status",
-    mutate: "ideaStatus",
-    title: "Feedback Idea",
-  },
-  {
-    query: "guild.settings.settings.feedback.bug.status",
-    mutate: "bugStatus",
-    title: "Feedback Bug",
-  },
-  {
     query: "guild.settings.settings.xp.notification.server.channel",
     mutate: "xpNotificationServerChannel",
     title: "In Channel Server Level Up Notifications",
@@ -40,11 +30,6 @@ export const generalPageToggles = [
     title: "In Channel Global Level Up Notifications",
   },
   {
-    query: "guild.settings.settings.events.useDefault",
-    mutate: "useDefault",
-    title: "Use Default Event Settings",
-  },
-  {
     query: "guild.settings.settings.tags.tagDeletion",
     mutate: "tagDeletion",
     title: "Tag Trigger Deletion",
@@ -53,10 +38,5 @@ export const generalPageToggles = [
     query: "guild.settings.settings.stories.storyDeletion",
     mutate: "storyDeletion",
     title: "Story Trigger Deletion",
-  },
-  {
-    query: "guild.settings.settings.events.advertiseAllEvents",
-    mutate: "advertiseAllEvents",
-    title: "Auto Advertise Events",
   },
 ];
