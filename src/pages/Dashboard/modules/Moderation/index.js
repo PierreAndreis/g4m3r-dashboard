@@ -7,7 +7,11 @@ import { Query } from "react-apollo";
 import Editor from "../../../../components/Editor";
 import qGuildBasic from "../../../../graphql/queries/guild/guildBasic";
 import qClientBasic from "../../../../graphql/queries/client/clientBasic";
-import { mainLogs, serverLogs, modFeatureToggles } from "../../../../constants/moderation";
+import {
+  mainLogs,
+  serverLogs,
+  modFeatureToggles,
+} from "../../../../constants/moderation";
 import Button from "../../../../components/Button";
 
 const boxesHeader = css`
@@ -24,8 +28,8 @@ const channelOrRoleSelector = props => {
     <div>
       {props.type}
       <Editor.Select
-        propKey={'id'}
-        propFetch={'name'}
+        propKey={"id"}
+        propFetch={"name"}
         payloadProp={`guild.${props.isChannel ? "channels" : "roles"}`}
         type={props.isChannel ? "channel" : "role"}
         mutate={props.mutateString}
@@ -115,9 +119,8 @@ class ModerationEditor extends Component {
                     <br />
                     {mainLogs.map((opt, index) => {
                       return (
-                        <div>
+                        <div key={index}>
                           <Editor.Checkbox
-                            key={index}
                             query={opt.checkboxQuery}
                             mutate={opt.checkboxMutate}
                             children={opt.name}
@@ -211,9 +214,7 @@ class ModerationEditor extends Component {
                             {channelOrRoleSelector({
                               isChannel: true,
                               type: opt.name,
-                              mutateString: `guild.settings.settings.serverLogs.${
-                                opt.mutate
-                                }.channel`,
+                              mutateString: `${opt.mutate}Channel`,
                               query: opt.query,
                               guildId,
                             })}
@@ -301,7 +302,10 @@ class ModerationEditor extends Component {
                   <Box.Title>Mod Mails</Box.Title>
 
                   <Box.Title>Permission To Reply</Box.Title>
-                  <Query query={qClientBasic} variables={{ clientId: process.env.REACT_APP_CLIENT_ID }}>
+                  <Query
+                    query={qClientBasic}
+                    variables={{ clientId: process.env.REACT_APP_CLIENT_ID }}
+                  >
                     {({ loading, error, data }) => {
                       if (loading) return "Loading";
                       if (error) return "Error";
@@ -311,7 +315,7 @@ class ModerationEditor extends Component {
                         <Editor.Select
                           values={values}
                           mutate={"permissionToReply"}
-                          type={'Permission'}
+                          type={"Permission"}
                           query={"guild.settings.settings.mail.permissionToReply"}
                         />
                       );
@@ -343,7 +347,7 @@ class ModerationEditor extends Component {
                     isChannel: false,
                     type: "Auto Assign",
                     mutateString: "mainRole",
-                    query: 'guild.settings.settings.autoAssignRoles.mainRole',
+                    query: "guild.settings.settings.autoAssignRoles.mainRole",
                     guildId,
                   })}
                 </Box>
@@ -376,7 +380,7 @@ class ModerationEditor extends Component {
                     isChannel: true,
                     type: "Verification Category",
                     mutateString: "verifyCategory",
-                    query: 'guild.settings.settings.verify.category',
+                    query: "guild.settings.settings.verify.category",
                     needCategory: true,
                     guildId,
                   })}
@@ -397,7 +401,7 @@ class ModerationEditor extends Component {
                     isChannel: false,
                     type: "Verification",
                     mutateString: "verifyRole",
-                    query: 'guild.settings.settings.verify.role',
+                    query: "guild.settings.settings.verify.role",
                     guildId,
                   })}
                 </Box>

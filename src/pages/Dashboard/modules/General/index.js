@@ -3,7 +3,6 @@ import { css } from "emotion";
 import mutationQuery from "../../../../graphql/queries/mutations/general";
 import { Heading, SubHeader, Heading2 } from "../../../../components/Typography";
 import Box from "../../../../components/Box";
-import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import Editor from "../../../../components/Editor";
 import qGuildBasic from "../../../../graphql/queries/guild/guildBasic";
@@ -52,7 +51,6 @@ class GeneralEditor extends Component {
   };
 
   render() {
-    let guildId = this.props.match.params.guildId;
     return (
       <React.Fragment>
         <section>
@@ -167,22 +165,22 @@ class GeneralEditor extends Component {
                   <Box.Body>
                     Ideas Channel
                     <Editor.Select
-                      propKey={'id'}
-                      propFetch={'name'}
-                      payloadProp={'guild.channels'}
-                      type={'channel'}
-                      mutate={'ideaChannel'}
-                      query={'guild.settings.settings.feedback.idea.channel'}
+                      propKey={"id"}
+                      propFetch={"name"}
+                      payloadProp={"guild.channels"}
+                      type={"channel"}
+                      mutate={"ideaChannel"}
+                      query={"guild.settings.settings.feedback.idea.channel"}
                     />
                     <br />
                     Bugs Channel
                     <Editor.Select
-                      propKey={'id'}
-                      propFetch={'name'}
-                      payloadProp={'guild.channels'}
-                      type={'channel'}
-                      mutate={'bugChannel'}
-                      query={'guild.settings.settings.feedback.bug.channel'}
+                      propKey={"id"}
+                      propFetch={"name"}
+                      payloadProp={"guild.channels"}
+                      type={"channel"}
+                      mutate={"bugChannel"}
+                      query={"guild.settings.settings.feedback.bug.channel"}
                     />
                   </Box.Body>
                 </Box>
@@ -288,12 +286,12 @@ class GeneralEditor extends Component {
                   <Box.Title>Advertise Channels</Box.Title>
                   <Box.Body>
                     <Editor.Select
-                      propKey={'id'}
-                      propFetch={'name'}
-                      payloadProp={'guild.channels'}
-                      type={'channel'}
-                      mutate={'bugChannel'}
-                      query={'guild.settings.settings.events.advertiseChannel'}
+                      propKey={"id"}
+                      propFetch={"name"}
+                      payloadProp={"guild.channels"}
+                      type={"channel"}
+                      mutate={"bugChannel"}
+                      query={"guild.settings.settings.events.advertiseChannel"}
                     />
                   </Box.Body>
                 </Box>

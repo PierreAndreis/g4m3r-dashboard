@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { css } from "emotion";
-import { Query, withApollo } from "react-apollo";
+import { withApollo } from "react-apollo";
 import Button from "../../../../components/Button";
 import { Heading, SubHeader } from "../../../../components/Typography";
 import Modal from "../../../../global/Modal";

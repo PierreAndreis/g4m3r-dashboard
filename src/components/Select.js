@@ -4,7 +4,7 @@ import Downshift from "downshift";
 import Input from "./Input";
 import { ChevronDownIcon } from "mdi-react";
 import Box from "./Box";
-import Util from './../global/Util';
+import Util from "./../global/Util";
 
 const wrapper = css`
   width: 250px;
@@ -51,49 +51,45 @@ const dropdownMenu = css`
 `;
 
 class Select extends React.Component {
-
   render() {
     const { onChange, payload, payloadProp, type, currentValue, values } = this.props;
 
-
     let tempValues, newValues;
-    
+
     if (!values) tempValues = Util.dlv(payload, payloadProp);
     else newValues = values;
 
     function compare(a, b) {
       if (!a || !a.name || !b || !b.name) return 0;
-      if (a.name < b.name)
-        return -1;
-      if (a.name > b.name)
-        return 1;
+      if (a.name < b.name) return -1;
+      if (a.name > b.name) return 1;
       return 0;
     }
 
     switch (type) {
-      case 'role':
-        newValues = tempValues
-          .map(role => ({
-            key: role.id,
-            value: `@${role.name}`,
-          }));
+      case "role":
+        newValues = tempValues.map(role => ({
+          key: role.id,
+          value: `@${role.name}`,
+        }));
         break;
-      case 'channel': // channels
+      case "channel": // channels
         newValues = tempValues
-          .filter(channel => channel.type === 'text')
+          .filter(channel => channel.type === "text")
           .sort(compare)
           .map(channel => ({
             key: channel.id,
             value: `#${channel.name}`,
           }));
         break;
-      case 'Permission':
-        newValues = newValues.map(perm => ({ key: perm.id, value: perm.value }))
+      case "Permission":
+        newValues = newValues.map(perm => ({ key: perm.id, value: perm.value }));
         break;
+      default:
     }
 
     const placeholder = newValues.find(item => item.key === currentValue);
-    const placeholderValue = placeholder ? placeholder.value : `${type} not set`;
+    const placeholderValue = placeholder ? placeholder.value : `None`;
     return (
       <Downshift
         onChange={item => typeof onChange === "function" && onChange(item.key)}
