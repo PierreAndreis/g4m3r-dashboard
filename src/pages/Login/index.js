@@ -21,13 +21,16 @@ const background = css`
 
 const BoxLogin = css`
   max-width: 500px;
+  min-height: 200px;
   ${Util.mq.large(css`
-    max-width: 700px;
+    max-width: 800px;
+    min-height: 250px;
   `)}
   ${Util.mq.xLarge(css`
-    max-width: 1000px;
+    max-width: 1100px;
+    min-height: 300px;
   `)}
-  min-height: 200px;
+
   width: 100%;
   padding: 10px;
   display: flex;

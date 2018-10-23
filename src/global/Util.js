@@ -37,6 +37,8 @@ class Util {
 		},
 		{}
 	);
+
+	static BREAKPOINTS = BREAKPOINTS;
 	
 }
 
