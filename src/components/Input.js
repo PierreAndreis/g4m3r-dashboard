@@ -33,15 +33,37 @@ const input = css`
   }
 `;
 
+const errorInput = css`
+  width: 100%;
+  height: 100%;
+  background: #eaeaea;
+  border-radius: 5px;
+  outline: 0;
+  border: 2px solid red;
+  padding: 2px 10px;
+  box-sizing: border-box;
+  &:focus {
+    background: white;
+    border-color: #7aaeff;
+    ${"" /* border-color: #83e0d7; */};
+    box-shadow: 0 0 0 0.2rem rgba(122, 174, 255, 0.15);
+  }
+`;
+
 class Input extends Component {
   onChange = e => {
     typeof this.props.onChange === "function" && this.props.onChange(e);
   };
 
   render() {
-    const { className, icon, onChange, value, ...other } = this.props;
+    const { className, icon, onChange, value, validateFunction, ...other } = this.props;
 
     let icons = [];
+    let isInvalid = false;
+    if (value && validateFunction) {
+      const isValid = validateFunction(value);
+      if (!isValid) isInvalid = true;
+    }
 
     if (icon && icon.right) {
       icons.push(
@@ -55,7 +77,7 @@ class Input extends Component {
     return (
       <div className={inputWrapper}>
         <input
-          className={input}
+          className={isInvalid ? errorInput : input}
           value={value || ""}
           onChange={this.onChange}
           {...other}
