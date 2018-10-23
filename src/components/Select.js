@@ -68,14 +68,26 @@ class Select extends React.Component {
 
     switch (type) {
       case "role":
-        newValues = tempValues.map(role => ({
-          key: role.id,
-          value: `@${role.name}`,
-        }));
+        newValues = tempValues
+          .filter(role => role.name !== "@everyone" && !role.managed)
+          .sort(compare)
+          .map(role => ({
+            key: role.id,
+            value: `@${role.name}`,
+          }));
         break;
       case "channel": // channels
         newValues = tempValues
           .filter(channel => channel.type === "text")
+          .sort(compare)
+          .map(channel => ({
+            key: channel.id,
+            value: `#${channel.name}`,
+          }));
+        break;
+      case "category": // category channels
+        newValues = tempValues
+          .filter(channel => channel.type === "category")
           .sort(compare)
           .map(channel => ({
             key: channel.id,

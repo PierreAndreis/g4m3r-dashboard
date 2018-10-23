@@ -31,7 +31,7 @@ const channelOrRoleSelector = props => {
         propKey={"id"}
         propFetch={"name"}
         payloadProp={`guild.${props.isChannel ? "channels" : "roles"}`}
-        type={props.isChannel ? "channel" : "role"}
+        type={props.isChannel ? (props.needCategory ? "category" : "channel") : "role"}
         mutate={props.mutateString}
         query={props.query}
       />
@@ -60,9 +60,9 @@ class ModerationEditor extends Component {
       categories: [
         "Basic",
         "Server Logs",
-        "Auto-Mod",
         "Mute Module",
         "Mod Mails",
+        "Auto-Mod",
         "Verification",
       ],
     };
