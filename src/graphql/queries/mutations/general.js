@@ -8,9 +8,13 @@ export default gql`
       settings {
         settings {
           stories {
+            allowCreation
+            allowUsage
             storyDeletion
           }
           tags {
+            allowCreation
+            allowUsage
             tagDeletion
           }
           events {

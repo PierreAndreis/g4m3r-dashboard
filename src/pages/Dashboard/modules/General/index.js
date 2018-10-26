@@ -10,6 +10,7 @@ import qTimezone from "../../../../graphql/queries/utils/timezone";
 import Button from "../../../../components/Button";
 import { generalPageToggles } from "../../../../constants/general";
 import textEmojis from "../../../../constants/textEmojis";
+import qClientBasic from "../../../../graphql/queries/client/clientBasic";
 
 const boxesHeader = css`
   display: flex;
@@ -70,7 +71,7 @@ class GeneralEditor extends Component {
     this.state = {
       isOpenModal: false,
       category: "Basic",
-      categories: ["Basic", "Feedback", "Events"],
+      categories: ["Basic", "Feedback", "Events", "Tags/Stories"],
     };
   }
 
@@ -356,6 +357,100 @@ class GeneralEditor extends Component {
                       query={"guild.settings.settings.events.advertiseChannel"}
                     />
                   </Box.Body>
+                </Box>
+              </div>
+            </section>
+          ) : null}
+
+          {this.state.category === "Tags/Stories" ? (
+            <section>
+              <div style={boxesHeader}>
+                <Box padding>
+                  <Box.Title>Create Tags Permission</Box.Title>
+                  <Query
+                    query={qClientBasic}
+                    variables={{ clientId: process.env.REACT_APP_CLIENT_ID }}
+                  >
+                    {({ loading, error, data }) => {
+                      if (loading) return "Loading";
+                      if (error) return "Error";
+                      const values = data.client.settings.permissionLevels;
+                      console.log("perms levels", data);
+                      return (
+                        <Editor.Select
+                          values={values}
+                          mutate={"tagsAllowCreation"}
+                          type={"Permission"}
+                          query={"guild.settings.settings.tags.allowCreation"}
+                        />
+                      );
+                    }}
+                  </Query>
+
+                  <Box.Title>Use Tags Permission</Box.Title>
+                  <Query
+                    query={qClientBasic}
+                    variables={{ clientId: process.env.REACT_APP_CLIENT_ID }}
+                  >
+                    {({ loading, error, data }) => {
+                      if (loading) return "Loading";
+                      if (error) return "Error";
+                      const values = data.client.settings.permissionLevels;
+                      console.log("perms levels", data);
+                      return (
+                        <Editor.Select
+                          values={values}
+                          mutate={"tagsAllowUsage"}
+                          type={"Permission"}
+                          query={"guild.settings.settings.tags.allowUsage"}
+                        />
+                      );
+                    }}
+                  </Query>
+                </Box>
+
+                <Box padding>
+                  <Box.Title>Create Stories Permission</Box.Title>
+                  <Query
+                    query={qClientBasic}
+                    variables={{ clientId: process.env.REACT_APP_CLIENT_ID }}
+                  >
+                    {({ loading, error, data }) => {
+                      if (loading) return "Loading";
+                      if (error) return "Error";
+                      const values = data.client.settings.permissionLevels;
+                      console.log("perms levels", data);
+                      return (
+                        <Editor.Select
+                          values={values}
+                          mutate={"storiesAllowCreation"}
+                          type={"Permission"}
+                          query={"guild.settings.settings.stories.allowCreation"}
+                        />
+                      );
+                    }}
+                  </Query>
+
+                  <Box.Title>Create Stories Permission</Box.Title>
+                  <Query
+                    query={qClientBasic}
+                    variables={{ clientId: process.env.REACT_APP_CLIENT_ID }}
+                  >
+                    {({ loading, error, data }) => {
+                      if (loading) return "Loading";
+                      if (error) return "Error";
+                      const values = data.client.settings.permissionLevels;
+                      console.log("perms levels", data);
+                      return (
+                        <Editor.Select
+                          values={values}
+                          mutate={"storiesAllowCreation"}
+                          type={"Permission"}
+                          query={"guild.settings.settings.stories.allowCreation"}
+                        />
+                      );
+                    }}
+                  </Query>
                 </Box>
               </div>
             </section>
