@@ -7,6 +7,7 @@ import General from "./modules/General";
 import Commands from "./modules/Commands";
 import Button from "../../components/Button";
 import Moderation from "./modules/Moderation";
+import SpecialFeatures from "./modules/Special Features";
 
 const Test = () => (
   <div>
@@ -70,12 +71,12 @@ export const router = [
   //   icon: AppleKeyboardCommandIcon,
   //   component: Commands,
   // },
-  // {
-  //   name: "Special Features",
-  //   path: "features",
-  //   icon: StarIcon,
-  //   component: Test,
-  // },
+  {
+    name: "Special Features",
+    path: "features",
+    icon: StarIcon,
+    component: SpecialFeatures,
+  },
   {
     name: "Moderation",
     path: "moderation",

@@ -247,6 +247,13 @@ export default gql`
             first
             role
           }
+          vip {
+            isVIP
+            vainglory {
+              guildNotificationChannel
+              maxInactiveTime
+            }
+          }
           xp {
             notification {
               server {
