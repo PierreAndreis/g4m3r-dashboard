@@ -64,18 +64,18 @@ export const router = [
     icon: SettingsIcon,
     component: General,
   },
-  {
-    name: "Commands",
-    path: "commands",
-    icon: AppleKeyboardCommandIcon,
-    component: Commands,
-  },
-  {
-    name: "Special Features",
-    path: "features",
-    icon: StarIcon,
-    component: Test,
-  },
+  // {
+  //   name: "Commands",
+  //   path: "commands",
+  //   icon: AppleKeyboardCommandIcon,
+  //   component: Commands,
+  // },
+  // {
+  //   name: "Special Features",
+  //   path: "features",
+  //   icon: StarIcon,
+  //   component: Test,
+  // },
   {
     name: "Moderation",
     path: "moderation",
