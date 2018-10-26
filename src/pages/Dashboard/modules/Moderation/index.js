@@ -366,6 +366,27 @@ class ModerationEditor extends Component {
                     query: "guild.settings.settings.autoAssignRoles.mainRole",
                     guildId,
                   })}
+
+                  <Box.Title>Allow AFK Responses Permission</Box.Title>
+                  <Query
+                    query={qClientBasic}
+                    variables={{ clientId: process.env.REACT_APP_CLIENT_ID }}
+                  >
+                    {({ loading, error, data }) => {
+                      if (loading) return "Loading";
+                      if (error) return "Error";
+                      const values = data.client.settings.permissionLevels;
+                      console.log("perms levels", data);
+                      return (
+                        <Editor.Select
+                          values={values}
+                          mutate={"allowAfkResponses"}
+                          type={"Permission"}
+                          query={"guild.settings.settings.allowAfkResponses"}
+                        />
+                      );
+                    }}
+                  </Query>
                 </Box>
                 <Box padding>
                   <Box.Title>Capital Spam</Box.Title>

@@ -7,6 +7,7 @@ export default gql`
       id
       settings {
         settings {
+          allowAfkResponses
           autoAssignRoles {
             mainRole
           }

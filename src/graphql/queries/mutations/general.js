@@ -26,6 +26,10 @@ export default gql`
             game
             maxAttendees
             platform
+            permissions {
+              add
+              create
+            }
             useDefault
           }
           feedback {

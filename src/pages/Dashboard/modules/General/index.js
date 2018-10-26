@@ -358,6 +358,49 @@ class GeneralEditor extends Component {
                     />
                   </Box.Body>
                 </Box>
+
+                <Box padding>
+                  <Box.Title>Create Events Permission</Box.Title>
+                  <Query
+                    query={qClientBasic}
+                    variables={{ clientId: process.env.REACT_APP_CLIENT_ID }}
+                  >
+                    {({ loading, error, data }) => {
+                      if (loading) return "Loading";
+                      if (error) return "Error";
+                      const values = data.client.settings.permissionLevels;
+                      console.log("perms levels", data);
+                      return (
+                        <Editor.Select
+                          values={values}
+                          mutate={"eventsAllowCreation"}
+                          type={"Permission"}
+                          query={"guild.settings.settings.events.permissions.create"}
+                        />
+                      );
+                    }}
+                  </Query>
+                  <Box.Title>Use Stories Permission</Box.Title>
+                  <Query
+                    query={qClientBasic}
+                    variables={{ clientId: process.env.REACT_APP_CLIENT_ID }}
+                  >
+                    {({ loading, error, data }) => {
+                      if (loading) return "Loading";
+                      if (error) return "Error";
+                      const values = data.client.settings.permissionLevels;
+                      console.log("perms levels", data);
+                      return (
+                        <Editor.Select
+                          values={values}
+                          mutate={"eventsAllowAddMember"}
+                          type={"Permission"}
+                          query={"guild.settings.settings.events.permissions.add"}
+                        />
+                      );
+                    }}
+                  </Query>
+                </Box>
               </div>
             </section>
           ) : null}

@@ -17,6 +17,7 @@ export default gql`
       }
       settings {
         settings {
+          allowAfkResponses
           prefix
           events {
             advertiseAllEvents
@@ -26,6 +27,10 @@ export default gql`
             duration
             game
             maxAttendees
+            permissions {
+              add
+              create
+            }
             platform
             useDefault
           }
