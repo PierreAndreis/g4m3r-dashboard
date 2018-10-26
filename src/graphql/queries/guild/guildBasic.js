@@ -227,9 +227,13 @@ export default gql`
             }
           }
           stories {
+            allowCreation
+            allowUsage
             storyDeletion
           }
           tags {
+            allowCreation
+            allowUsage
             tagDeletion
           }
           verify {

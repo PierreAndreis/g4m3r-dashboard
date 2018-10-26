@@ -364,7 +364,7 @@ class GeneralEditor extends Component {
 
           {this.state.category === "Tags/Stories" ? (
             <section>
-              <div style={boxesHeader}>
+              <div className={boxesHeader}>
                 <Box padding>
                   <Box.Title>Create Tags Permission</Box.Title>
                   <Query
@@ -431,7 +431,7 @@ class GeneralEditor extends Component {
                     }}
                   </Query>
 
-                  <Box.Title>Create Stories Permission</Box.Title>
+                  <Box.Title>Use Stories Permission</Box.Title>
                   <Query
                     query={qClientBasic}
                     variables={{ clientId: process.env.REACT_APP_CLIENT_ID }}
