@@ -45,7 +45,9 @@ const makeInputSettings = props => {
         <Editor.Input
           mutate={props.mutate}
           query={props.query}
-          validateFunction={props.validateFunction}
+          type={props.type}
+          max={props.max}
+          min={props.min}
         />
       </Box.Body>
     </div>
@@ -119,6 +121,7 @@ class SpecialFeatureEditor extends Component {
                     query: "guild.settings.settings.vip.vainglory.maxInactiveTime",
                     mutate: "vaingloryGuildMaxInactiveTime",
                     validateFunction: validateNumber,
+                    type: "number"
                   })}
                 </Box>
               </div>

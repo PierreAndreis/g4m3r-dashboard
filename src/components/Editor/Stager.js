@@ -1,9 +1,13 @@
 import React from "react";
+import { inject, observer } from "mobx-react";
+
 import Snackbar from "../Snackbar";
 import Button from "../Button";
 
 export const StagerContext = React.createContext({});
 
+@inject('errorhandling')
+@observer
 class Stager extends React.Component {
   state = {
     loading: true,
@@ -27,7 +31,7 @@ class Stager extends React.Component {
           changes: state.changes,
         };
       });
-    },
+    }
   };
 
   static getDerivedStateFromProps(props, state) {
@@ -43,6 +47,8 @@ class Stager extends React.Component {
         changes: {},
         modified: false,
         commiting: false,
+        errorExists: false,
+        userErrors: new Set()
       };
     }
 
@@ -69,7 +75,9 @@ class Stager extends React.Component {
   revert = buttonState => {
     this.setState({
       modified: false,
+      errorExists: false,
       changes: {},
+      userErrors: new Set()
     });
     buttonState.success();
   };
@@ -80,24 +88,28 @@ class Stager extends React.Component {
     if (loading) return <p>Loading</p>;
     if (error) return <p>Error!</p>;
 
-    console.log("commit?", this.state.modified, this.state.commiting);
+    // console.log("commit?", this.state.modified, this.state.commiting, this.props.errorhandling.hasErrors);
 
     return (
       <StagerContext.Provider value={this.state}>
         {this.props.children}
 
         <Snackbar open={modified || commiting}>
-          <div>Would you like to save your changes?</div>
+          {
+            this.props.errorhandling.hasErrors ?
+              <div>Cannot save changes while errors exist!</div> :
+              <div>Would you like to save your changes?</div>
+          }
           <Snackbar.ButtonContainer>
             <Button
               onClick={this.revert}
               simple
-              style={{ border: 0, color: "white" }}
+              style={{ border: 0, color: this.props.errorhandling.hasErrors ? 'red' : "white" }}
               disabled={commiting}
             >
               Revert
             </Button>
-            <Button onClick={this.commit} disabled={commiting}>
+            <Button onClick={this.commit} disabled={commiting || this.props.errorhandling.hasErrors}>
               Save
             </Button>
           </Snackbar.ButtonContainer>

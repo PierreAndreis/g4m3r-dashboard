@@ -129,6 +129,7 @@ class Select extends React.Component {
                     <ChevronDownIcon {...props} />
                   </div>
                 ),
+                type: 'select'
               }}
             />
             <div {...getMenuProps()}>
