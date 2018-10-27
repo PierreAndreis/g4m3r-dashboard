@@ -1,3 +1,4 @@
+/* eslint-disable no-cond-assign */
 import React from "react";
 import { Query, Mutation } from "react-apollo";
 import { withRouter } from "react-router-dom";
@@ -40,6 +41,7 @@ const getEditedValue = (props, state) => {
   if (state.changes.hasOwnProperty(props.mutate)) {
     returnValue = state.changes[props.mutate];
     // check if state.chanages has a nested property / array
+    
   } else if (foundProp = Util.dlv(state.changes, props.mutate)) {
     // if foundProp isArray, get object from within Array
     if (Array.isArray(foundProp)) {
@@ -55,13 +57,15 @@ const getEditedValue = (props, state) => {
 };
 
 class WrapperEditorForGraphQL extends React.Component {
-  static Input = ({ mutate, query, ...otherProps }) => (
+  static Input = ({ mutate, query, type, ...otherProps }) => (
     <StagerContext.Consumer>
       {state => (
         <Input
           value={getEditedValue({ mutate, query }, state)}
           placeholder={getPlaceholder({ mutate, query }, state)}
           onChange={e => state.onChange(mutate)(e.target.value)}
+          type={type}
+          mutate={mutate}
           {...otherProps}
         />
       )}

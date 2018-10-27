@@ -53,6 +53,9 @@ const makeInputSettings = props => {
           mutate={props.mutate}
           query={props.query}
           validateFunction={props.validateFunction}
+          type={props.type}
+          max={props.max}
+          min={props.min}
         />
       </Box.Body>
     </div>
@@ -247,7 +250,7 @@ class ModerationEditor extends Component {
                     title: "Max Warnings",
                     query: "guild.settings.settings.moderation.maxNoWarnings",
                     mutate: "maxNoWarnings",
-                    validateFunction: validateNumber,
+                    type: "number"
                   })}
 
                   {channelOrRoleSelector({
@@ -264,7 +267,7 @@ class ModerationEditor extends Component {
                     title: "Max Inactive Time",
                     query: "guild.settings.settings.moderation.maxInactivityTime",
                     mutate: "maxInactivityTime",
-                    validateFunction: validateNumber,
+                    type: "number"
                   })}
 
                   {channelOrRoleSelector({
@@ -341,13 +344,13 @@ class ModerationEditor extends Component {
                     title: "Max Mails Per Guild",
                     query: "guild.settings.settings.mail.maxMailsTotal",
                     mutate: "maxMailsTotal",
-                    validateFunction: validateNumber,
+                    type: "number"
                   })}
                   {makeInputSettings({
                     title: "Max Mails Per User",
                     query: "guild.settings.settings.mail.maxMailPerUser",
                     mutate: "maxMailPerUser",
-                    validateFunction: validateNumber,
+                    type: "number"
                   })}
                 </Box>
               </div>
@@ -401,7 +404,9 @@ class ModerationEditor extends Component {
                     title: "Max Allowed Percentage",
                     query: "guild.settings.settings.moderation.capitalPercentage.amount",
                     mutate: "capitalPercentageAmount",
-                    validateFunction: validateNumber,
+                    type: "number",
+                    max: 100,
+                    min: 0
                   })}
                 </Box>
                 <Box padding>
@@ -415,6 +420,7 @@ class ModerationEditor extends Component {
                     title: "Naughty Words",
                     query: "guild.settings.settings.moderation.naughtyWords.words",
                     mutate: "naughtyWordWords",
+                    type: "string"
                   })*/}
                 </Box>
               </div>
@@ -450,6 +456,7 @@ class ModerationEditor extends Component {
                     <Editor.Input
                       mutate="verifyFirst"
                       query="guild.settings.settings.verify.first"
+                      type="string"
                     />
                   </Box.Body>
                 </Box>
