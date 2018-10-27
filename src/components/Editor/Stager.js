@@ -47,8 +47,6 @@ class Stager extends React.Component {
         changes: {},
         modified: false,
         commiting: false,
-        errorExists: false,
-        userErrors: new Set()
       };
     }
 
@@ -75,10 +73,9 @@ class Stager extends React.Component {
   revert = buttonState => {
     this.setState({
       modified: false,
-      errorExists: false,
       changes: {},
-      userErrors: new Set()
     });
+    this.props.errorhandling.removeAll();
     buttonState.success();
   };
 
