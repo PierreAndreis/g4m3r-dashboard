@@ -77,8 +77,8 @@ class SpecialFeatureEditor extends Component {
         <section>
           <Heading>Special Features (VIP ONLY)</Heading>
           <SubHeader>
-            Thank you for supporting G4M3R. As a VIP, you have unlocked all the following
-            features for your server.
+            Thank you for supporting G4M3R. As a VIP, you have unlocked all of the
+            following features for your server.
           </SubHeader>
         </section>
 
@@ -121,7 +121,7 @@ class SpecialFeatureEditor extends Component {
                     query: "guild.settings.settings.vip.vainglory.maxInactiveTime",
                     mutate: "vaingloryGuildMaxInactiveTime",
                     validateFunction: validateNumber,
-                    type: "number"
+                    type: "number",
                   })}
                 </Box>
               </div>

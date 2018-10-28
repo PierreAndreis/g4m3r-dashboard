@@ -31,7 +31,6 @@ const ButtonBase = css`
     border-width: 0;
     color: white;
     background-image: linear-gradient(90deg, #92d8e0 0%, #8cc7eb 100%);
-    box-shadow: 0 0px 30px #8cc7eb;
   }
 `;
 

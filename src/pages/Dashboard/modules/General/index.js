@@ -57,15 +57,11 @@ class GeneralEditor extends Component {
         <section>
           <Heading>General</Heading>
           <SubHeader>
-            Welcome to the G4M3R dashboard. Here you can edit any and all settings of your
-            bot easily.
+            Welcome to the general settings page for G4M3R. You can find other features by
+            clicking on the pages in the sidebar.
             <br />
             <br />
-            This is the general settings page for your discord server. You can find other
-            settings and features to edit on the other pages on the sidebar.
-            <br />
-            <br />
-            Thank you for using G4M3R!
+            Thank you for choosing G4M3R!
           </SubHeader>
         </section>
 
@@ -95,7 +91,7 @@ class GeneralEditor extends Component {
                     <Editor.Input
                       mutate="prefix"
                       query="guild.settings.settings.prefix"
-                      type='string'
+                      type="string"
                     />
                   </Box.Body>
                   <Box.Title>Timezone</Box.Title>
@@ -273,7 +269,7 @@ class GeneralEditor extends Component {
                     <Editor.Input
                       mutate="eventDuration"
                       query="guild.settings.settings.events.duration"
-                      type={'number'}
+                      type={"number"}
                     />
                   </Box.Body>
                 </Box>
@@ -284,7 +280,7 @@ class GeneralEditor extends Component {
                     <Editor.Input
                       mutate="maxAttendees"
                       query="guild.settings.settings.events.maxAttendees"
-                      type={'number'}
+                      type={"number"}
                     />
                   </Box.Body>
                 </Box>
@@ -305,7 +301,7 @@ class GeneralEditor extends Component {
                     <Editor.Input
                       mutate="defaultReminder"
                       query="guild.settings.settings.events.defaultReminder"
-                      type={'number'}
+                      type={"number"}
                     />
                   </Box.Body>
                 </Box>

@@ -23,10 +23,10 @@ const inputWrapper = css`
     top: -5px;
     cursor: pointer;
     font-size: 16px;
-    color: #9b9b9b;
+    color: c6c6c6;
     width: 50px;
     height: 26px;
-    background: grey;
+    background: #c6c6c6;
     display: block;
     border-radius: 100px;
   }
