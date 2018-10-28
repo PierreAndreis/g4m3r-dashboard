@@ -249,7 +249,7 @@ class ModerationEditor extends Component {
                     title: "Max Warnings",
                     query: "guild.settings.settings.moderation.maxNoWarnings",
                     mutate: "maxNoWarnings",
-                    type: "number"
+                    type: "number",
                   })}
 
                   {channelOrRoleSelector({
@@ -266,7 +266,7 @@ class ModerationEditor extends Component {
                     title: "Max Inactive Time",
                     query: "guild.settings.settings.moderation.maxInactivityTime",
                     mutate: "maxInactivityTime",
-                    type: "number"
+                    type: "number",
                   })}
 
                   {channelOrRoleSelector({
@@ -343,13 +343,13 @@ class ModerationEditor extends Component {
                     title: "Max Mails Per Guild",
                     query: "guild.settings.settings.mail.maxMailsTotal",
                     mutate: "maxMailsTotal",
-                    type: "number"
+                    type: "number",
                   })}
                   {makeInputSettings({
                     title: "Max Mails Per User",
                     query: "guild.settings.settings.mail.maxMailPerUser",
                     mutate: "maxMailPerUser",
-                    type: "number"
+                    type: "number",
                   })}
                 </Box>
               </div>
@@ -405,15 +405,15 @@ class ModerationEditor extends Component {
                     mutate: "capitalPercentageAmount",
                     type: "number",
                     max: 100,
-                    min: 0
+                    min: 0,
                   })}
                 </Box>
                 <Box padding>
-                  <Box.Title>Naughty Words</Box.Title>
+                  <Box.Title>Banned Words</Box.Title>
                   <Editor.Checkbox
                     query="guild.settings.settings.moderation.naughtyWords.status"
                     mutate="naughtyWordStatus"
-                    children="Naughty Word Filter Status"
+                    children="Banned Word Filter Status"
                   />
                   {/*makeInputSettings({
                     title: "Naughty Words",
