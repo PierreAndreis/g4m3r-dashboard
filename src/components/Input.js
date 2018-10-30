@@ -47,10 +47,10 @@ const errorInput = css`
 
 const errorHighlight = css`
   position: absolute;
-  bottom: -15px;
-  left: 5;
+  bottom: 1px;
+  left: 10px;
   color: red;
-  font-size: 0.9rem;
+  font-size: 12px;
 `;
 
 class Input extends Component {
