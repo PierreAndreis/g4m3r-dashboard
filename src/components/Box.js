@@ -28,7 +28,7 @@ const BoxTitle = css`
   display: flex;
   font-size: 18px;
   color: #4a4a4a;
-  margin: 0px 10px;
+  margin: 0 10px 10px;
 `;
 
 const BoxBody = css`
