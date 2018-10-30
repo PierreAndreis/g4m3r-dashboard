@@ -16,7 +16,7 @@ import Validation from "./../../../../global/validation";
 const boxesHeader = css`
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
+  align-items: flex-start;
 
   & > div {
     margin-bottom: 20px;

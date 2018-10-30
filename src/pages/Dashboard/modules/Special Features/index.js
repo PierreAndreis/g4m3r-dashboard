@@ -10,7 +10,7 @@ import Button from "../../../../components/Button";
 const boxesHeader = css`
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
+  align-items: flex-start;
   & > div {
     margin-bottom: 20px;
     margin-right: 20px;
