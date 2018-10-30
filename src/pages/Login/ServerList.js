@@ -25,10 +25,9 @@ const container = css`
 
   ${Util.mq.large(css`
     min-height: 250px;
-  `)}
-  ${Util.mq.xLarge(css`
+  `)} ${Util.mq.xLarge(css`
     min-height: 300px;
-  `)}
+  `)};
 `;
 
 const userDetails = css`
@@ -79,12 +78,11 @@ const serverSpace = css`
     & > * {
       height: 140px;
     }
-  `)}
-  ${Util.mq.xLarge(css`
+  `)} ${Util.mq.xLarge(css`
     & > * {
       height: 160px;
     }
-  `)}
+  `)};
 `;
 
 const serverContainer = css`
@@ -135,8 +133,7 @@ const serverContainer = css`
     & > b {
       font-size: 13px;
     }
-  `)}
-  ${Util.mq.xLarge(css`
+  `)} ${Util.mq.xLarge(css`
     width: 140px;
     height: 140px;
     & > img {
@@ -146,7 +143,7 @@ const serverContainer = css`
     & > b {
       font-size: 14px;
     }
-  `)}
+  `)};
 `;
 
 const emptyContainer = css`
@@ -164,10 +161,9 @@ const emptyDescription = css`
   color: rgba(255, 255, 255, 0.8);
   ${Util.mq.large(css`
     font-size: 15px;
-  `)}
-  ${Util.mq.xLarge(css`
+  `)} ${Util.mq.xLarge(css`
     font-size: 17px;
-  `)}
+  `)};
 `;
 
 const Server = ({ image, name, href }) => (
@@ -179,7 +175,9 @@ const Server = ({ image, name, href }) => (
   </Link>
 );
 
-let slidesAmount = 5, spaceBetween = 5, circleSize = "50px";
+let slidesAmount = 5,
+  spaceBetween = 5,
+  circleSize = "50px";
 if (window.innerWidth > Util.BREAKPOINTS.medium) {
   slidesAmount = 6;
   spaceBetween = 5;

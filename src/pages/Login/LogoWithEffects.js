@@ -14,8 +14,7 @@ const container = css`
   height: 100px;
   ${Util.mq.large(css`
     height: 120px;
-  `)}
-  ${Util.mq.xLarge(css`
+  `)} ${Util.mq.xLarge(css`
     height: 150px;
   `)}
   position: relative;
@@ -36,14 +35,13 @@ const Logo = css`
   align-self: center;
   ${Util.mq.large(css`
     background-size: 80%;
-     width: 120px;
+    width: 120px;
     height: 120px;
-  `)}
-  ${Util.mq.xLarge(css`
+  `)} ${Util.mq.xLarge(css`
     background-size: 80%;
     width: 150px;
     height: 150px;
-  `)}
+  `)};
 `;
 
 const bg = css`

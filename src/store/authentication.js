@@ -1,7 +1,8 @@
 import { observable, action, computed } from "mobx";
 
 class AuthentationStore {
-  @observable token = null;
+  @observable
+  token = null;
 
   @computed
   get isLoggedIn() {

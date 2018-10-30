@@ -19,7 +19,6 @@ export default class DashboardRouter extends React.Component {
           );
         }}
       </Query>
-    
     );
   }
 }
