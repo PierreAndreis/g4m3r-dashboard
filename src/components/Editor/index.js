@@ -6,6 +6,7 @@ import Util from "./../../global/Util";
 import Input from "../Input";
 import Checkbox from "../Checkbox";
 import Select from "../Select";
+import ColorPicker from "../ColorPicker";
 
 import Stager, { StagerContext } from "./Stager";
 
@@ -88,6 +89,18 @@ class WrapperEditorForGraphQL extends React.Component {
     <StagerContext.Consumer>
       {state => (
         <Checkbox
+          value={getEditedValue({ mutate, query }, state)}
+          onChange={state.onChange(mutate, isArray, query)}
+          {...otherProps}
+        />
+      )}
+    </StagerContext.Consumer>
+  );
+
+  static ColorPicker = ({ mutate, query, isArray, ...otherProps }) => (
+    <StagerContext.Consumer>
+      {state => (
+        <ColorPicker
           value={getEditedValue({ mutate, query }, state)}
           onChange={state.onChange(mutate, isArray, query)}
           {...otherProps}

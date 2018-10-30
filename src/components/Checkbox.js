@@ -1,11 +1,14 @@
 import React, { Component } from "react";
 import { css } from "emotion";
 
-const inputWrapper = css`
+const checkboxCss = css`
+  padding: 0;
   margin: 0;
-  padding: 10px 0;
   width: 100%;
+  height: 32px;
   box-sizing: border-box;
+  white-space: pre-wrap;
+  position: relative;
 
   input[type="checkbox"] {
     height: 0;
@@ -15,16 +18,18 @@ const inputWrapper = css`
   }
 
   label {
-    display: block;
+    margin-top: -18px;
+    box-sizing: border-box;
     padding-right: 60px;
     position: relative;
-    margin-top: -20px;
+    height: 32px;
+    display: flex;
+    align-items: center;
   }
 
   span {
     right: 0;
     position: absolute;
-    top: -4px;
     cursor: pointer;
     font-size: 16px;
     color: #c6c6c6;
@@ -70,7 +75,7 @@ class Checkbox extends Component {
     const { className, onChange, value, children, ...other } = this.props;
 
     return (
-      <div className={inputWrapper} onClick={this.onChange}>
+      <div className={checkboxCss} onClick={this.onChange}>
         {/* On change handler is needed to surpress props type error */}
         <input
           type="checkbox"

@@ -18,6 +18,7 @@ import { extractChannel, extractRoles } from "../../../../util/transformers";
 const boxesHeader = css`
   display: flex;
   flex-wrap: wrap;
+  align-items: baseline;
   & > div {
     margin-bottom: 20px;
     margin-right: 20px;

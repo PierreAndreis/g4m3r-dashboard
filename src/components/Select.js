@@ -8,11 +8,13 @@ import Box from "./Box";
 const wrapper = css`
   width: 100%;
   position: relative;
+  box-sizing: border-box;
 `;
 
 const dropdownMenu = css`
   position: absolute;
   width: 100%;
+  min-width: 150px;
   max-height: 200px;
   overflow-x: hidden;
   overflow-y: scroll;

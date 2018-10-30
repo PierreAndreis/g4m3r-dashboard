@@ -16,6 +16,7 @@ import Validation from "./../../../../global/validation";
 const boxesHeader = css`
   display: flex;
   flex-wrap: wrap;
+  align-items: baseline;
 
   & > div {
     margin-bottom: 20px;
@@ -28,14 +29,6 @@ const cleanUpTimezone = timezones =>
     key: timezone,
     value: timezone,
   }));
-
-const makeGeneralPageToggle = props => {
-  return (
-    <div key={props.query}>
-      <Editor.Checkbox query={props.query} mutate={props.mutate} children={props.title} />
-    </div>
-  );
-};
 
 class GeneralEditor extends Component {
   constructor(props) {
@@ -88,65 +81,77 @@ class GeneralEditor extends Component {
               <Heading2>Overview</Heading2>
               <div className={boxesHeader}>
                 <Box padding>
-                  <Box.Title>Prefix</Box.Title>
                   <Box.Body>
-                    <Editor.Input
-                      mutate="prefix"
-                      query="guild.settings.settings.prefix"
-                      type="string"
-                    />
-                  </Box.Body>
-                  <Box.Title>Timezone</Box.Title>
-                  <Box.Body>
-                    <Query query={qTimezone}>
-                      {({ loading, error, data }) => {
-                        if (loading) return "Loading";
-                        if (error) return "Error";
-                        let values = cleanUpTimezone(data.listTimezones);
+                    <Box.Option>
+                      <div>Prefix</div>
+                      <div>
+                        <Editor.Input
+                          mutate="prefix"
+                          query="guild.settings.settings.prefix"
+                          type="string"
+                        />
+                      </div>
+                    </Box.Option>
+                    <Box.Option>
+                      <div>Timezone</div>
+                      <div>
+                        <Query query={qTimezone}>
+                          {({ loading, error, data }) => {
+                            if (loading) return "Loading";
+                            if (error) return "Error";
+                            let values = cleanUpTimezone(data.listTimezones);
 
-                        return (
-                          <Editor.Select
-                            values={values}
-                            mutate="timezone"
-                            query="guild.settings.settings.timezone"
-                          />
-                        );
-                      }}
-                    </Query>
-                  </Box.Body>
-                  <Box.Title>Menu Closing Time</Box.Title>
-                  <Box.Body>
-                    <Editor.Input
-                      mutate="menuTime"
-                      query="guild.settings.settings.menuTime"
-                      type="number"
-                      validate={Validation.all(
-                        Validation.isNumber(),
-                        Validation.numberMin(10),
-                        Validation.numberMax(91)
-                      )}
-                    />
-                  </Box.Body>
-                  <Box.Title>Delete Notifications Delay</Box.Title>
-                  <Box.Body>
-                    <Editor.Input
-                      mutate="deleteNotificationTime"
-                      query="guild.settings.settings.general.deleteNotificationTime"
-                      type="number"
-                    />
+                            return (
+                              <Editor.Select
+                                autoComplete
+                                values={values}
+                                mutate="timezone"
+                                query="guild.settings.settings.timezone"
+                              />
+                            );
+                          }}
+                        </Query>
+                      </div>
+                    </Box.Option>
+                    <Box.Option>
+                      <div>Menu Closing Time</div>
+                      <div>
+                        <Editor.Input
+                          mutate="menuTime"
+                          query="guild.settings.settings.menuTime"
+                          type="number"
+                          validate={Validation.all(
+                            Validation.isNumber(),
+                            Validation.numberMin(10),
+                            Validation.numberMax(91)
+                          )}
+                        />
+                      </div>
+                    </Box.Option>
+                    <Box.Option>
+                      <div>Delete Notifications Delay</div>
+                      <div>
+                        <Editor.Input
+                          mutate="deleteNotificationTime"
+                          query="guild.settings.settings.general.deleteNotificationTime"
+                          type="number"
+                        />
+                      </div>
+                    </Box.Option>
                   </Box.Body>
                 </Box>
 
                 <Box padding>
-                  <Box.Title>General Settings</Box.Title>
                   <Box.Body>
                     {generalPageToggles.map((opt, index) => {
-                      return makeGeneralPageToggle({
-                        query: opt.query,
-                        mutate: opt.mutate,
-                        title: opt.title,
-                        key: index,
-                      });
+                      return (
+                        <Box.Option>
+                          <div>{opt.title}</div>
+                          <div>
+                            <Editor.Checkbox query={opt.query} mutate={opt.mutate} />
+                          </div>
+                        </Box.Option>
+                      );
                     })}
                   </Box.Body>
                 </Box>
@@ -200,10 +205,9 @@ class GeneralEditor extends Component {
                 <Box padding>
                   <Box.Title>Feedback Idea Color</Box.Title>
                   <Box.Body>
-                    <Editor.Input
+                    <Editor.ColorPicker
                       mutate="ideaColor"
                       query="guild.settings.settings.feedback.idea.color"
-                      type="hexcolor"
                     />
                   </Box.Body>
 
@@ -212,7 +216,6 @@ class GeneralEditor extends Component {
                     <Editor.Input
                       mutate="bugColor"
                       query="guild.settings.settings.feedback.bug.color"
-                      type="hexcolor"
                     />
                   </Box.Body>
                 </Box>
