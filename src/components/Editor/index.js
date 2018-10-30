@@ -2,7 +2,7 @@
 import React from "react";
 import { Query, Mutation } from "react-apollo";
 import { withRouter } from "react-router-dom";
-import Util from './../../global/Util';
+import Util from "./../../global/Util";
 import Input from "../Input";
 import Checkbox from "../Checkbox";
 import Select from "../Select";
@@ -41,13 +41,14 @@ const getEditedValue = (props, state) => {
   if (state.changes.hasOwnProperty(props.mutate)) {
     returnValue = state.changes[props.mutate];
     // check if state.chanages has a nested property / array
-    
-  } else if (foundProp = Util.dlv(state.changes, props.mutate)) {
+  } else if ((foundProp = Util.dlv(state.changes, props.mutate))) {
     // if foundProp isArray, get object from within Array
     if (Array.isArray(foundProp)) {
-      const existingItem = foundProp.find(item => item[props.propKey] === props.propValue);
+      const existingItem = foundProp.find(
+        item => item[props.propKey] === props.propValue
+      );
       returnValue = Util.dlv(existingItem || obj, props.query);
-    // if its not an array, get value from nested property
+      // if its not an array, get value from nested property
     } else {
       returnValue = Util.dlv(state.payload, props.query);
     }
@@ -57,18 +58,29 @@ const getEditedValue = (props, state) => {
 };
 
 class WrapperEditorForGraphQL extends React.Component {
-  static Input = ({ mutate, query, type, ...otherProps }) => (
+  static Input = ({ mutate, query, type, validate, ...otherProps }) => (
     <StagerContext.Consumer>
-      {state => (
-        <Input
-          value={getEditedValue({ mutate, query }, state)}
-          placeholder={getPlaceholder({ mutate, query }, state)}
-          onChange={e => state.onChange(mutate)(e.target.value)}
-          type={type}
-          mutate={mutate}
-          {...otherProps}
-        />
-      )}
+      {state => {
+        const errorMessage = state.validationErrors.get(mutate);
+
+        return (
+          <Input
+            value={getEditedValue({ mutate, query }, state)}
+            placeholder={getPlaceholder({ mutate, query }, state)}
+            onChange={e => {
+              state.onChange(mutate)(e.target.value);
+              if (typeof validate === "function") {
+                // Need stager to know if validation is up
+                state.resultValidation(mutate, validate(e.target.value));
+              }
+            }}
+            // todo, find how to create an error message
+            errorMessage={errorMessage}
+            mutate={mutate}
+            {...otherProps}
+          />
+        );
+      }}
     </StagerContext.Consumer>
   );
 
@@ -84,17 +96,24 @@ class WrapperEditorForGraphQL extends React.Component {
     </StagerContext.Consumer>
   );
 
-  static Select = ({ mutate, query, ...otherProps }) => (
+  static Select = ({ mutate, query, values, ...otherProps }) => (
     <StagerContext.Consumer>
-      {state => (
-        <Select
-          value={getEditedValue({ mutate, query }, state)}
-          currentValue={translateValue({ mutate, query, ...otherProps }, state)}
-          onChange={state.onChange(mutate)}
-          payload={state.payload}
-          {...otherProps}
-        />
-      )}
+      {state => {
+        if (typeof values === "function") {
+          values = values(state.payload);
+        }
+
+        return (
+          <Select
+            value={getEditedValue({ mutate, query }, state)}
+            currentValue={translateValue({ mutate, query, ...otherProps }, state)}
+            onChange={state.onChange(mutate)}
+            payload={state.payload}
+            values={values}
+            {...otherProps}
+          />
+        );
+      }}
     </StagerContext.Consumer>
   );
 
@@ -103,7 +122,6 @@ class WrapperEditorForGraphQL extends React.Component {
       {state => {
         const arr = Util.dlv(state.payload, path, []);
 
-        // console.log("arr=", arr, state, path);
         if (!Array.isArray(arr)) throw new Error(`Path ${path} must be an array!`);
 
         // This has some perfomance issues because it's a new object for every render
@@ -120,8 +138,8 @@ class WrapperEditorForGraphQL extends React.Component {
 
   onCommit = commit => async changes => {
     const guildId = this.props.match.params.guildId;
-    const omitTypename = (key, value) => (key === '__typename' ? undefined : value)
-    const newPayload = JSON.parse(JSON.stringify(changes), omitTypename)
+    const omitTypename = (key, value) => (key === "__typename" ? undefined : value);
+    const newPayload = JSON.parse(JSON.stringify(changes), omitTypename);
     let query = {
       variables: {
         guildId,
@@ -138,25 +156,21 @@ class WrapperEditorForGraphQL extends React.Component {
 
     return (
       <Query query={query} variables={{ guildId: guildId }}>
-        {query =>
-          // console.log("queryResult=", query) || (
-          (
-            <Mutation mutation={mutation}>
-            {commit =>
-              (
-                <Stager
-                  {...props}
-                  isLoading={query.loading}
-                  errors={query.errors}
-                  payload={query.data}
-                  onCommit={this.onCommit(commit)}
-                >
-                  {children}
-                </Stager>
-              )}
-            </Mutation>
-          )
-        }
+        {query => (
+          <Mutation mutation={mutation}>
+            {commit => (
+              <Stager
+                {...props}
+                isLoading={query.loading}
+                errors={query.errors}
+                payload={query.data}
+                onCommit={this.onCommit(commit)}
+              >
+                {children}
+              </Stager>
+            )}
+          </Mutation>
+        )}
       </Query>
     );
   }

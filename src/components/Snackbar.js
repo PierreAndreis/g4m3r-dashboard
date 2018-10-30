@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { CSSTransition } from "react-transition-group";
+import { Transition, animated } from "react-spring";
+
 import { css } from "emotion";
 import classNames from "classnames";
 
@@ -22,20 +23,6 @@ const snackbar = css`
   align-items: center;
 
   transform: translateX(-50%) translateY(100%);
-  
-
-  &.slide-exit,
-  &.slide-enter-active,
-  &.slide-enter-done,
-  &.fade-exit-active {
-    visiblity: visible;
-    transform: translateX(-50%) translateY(0%);
-  }
-  &.slide-enter,
-  &.slide-exit-done {
-    visiblity: none;
-    transform: translateX(-50%) translateY(100%);
-  }
 `;
 
 const buttonContainer = css`
@@ -59,17 +46,22 @@ class Snackbar extends React.Component {
     const { open, className } = this.props;
 
     return ReactDOM.createPortal(
-      <CSSTransition
-        in={open}
-        timeout={{
-          enter: 300,
-          exit: 400,
-        }}
-        classNames="slide"
-        // unmountOnExit
+      <Transition
+        native
+        items={open}
+        from={{ transform: "translateX(-50%) translateY(100%)" }}
+        enter={{ transform: "translateX(-50%) translateY(0%);" }}
+        leave={{ transform: "translateX(-50%) translateY(100%);" }}
       >
-        <div className={classNames(className, snackbar)}>{this.props.children}</div>
-      </CSSTransition>,
+        {show =>
+          show &&
+          (style => (
+            <animated.div className={classNames(className, snackbar)} style={style}>
+              {this.props.children}
+            </animated.div>
+          ))
+        }
+      </Transition>,
       document.getElementById("snackbar")
     );
   }

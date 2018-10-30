@@ -28,7 +28,6 @@ const ButtonBase = css`
   }
   &.active {
     border-color: transparent;
-    border-width: 0;
     color: white;
     background-image: linear-gradient(90deg, #92d8e0 0%, #8cc7eb 100%);
   }
@@ -43,7 +42,7 @@ const ButtonSimple = css`
   }
 
   &.active:hover {
-    transform: translateY(-1px);
+    opacity: 0.6;
   }
 
   &:focus:not(.active) {
@@ -126,7 +125,7 @@ export default class Button extends Component {
     }
   };
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(_, prevState) {
     if (
       (this.state.status === "success" && prevState.status !== "success") ||
       (this.state.status === "error" && prevState.status !== "error")

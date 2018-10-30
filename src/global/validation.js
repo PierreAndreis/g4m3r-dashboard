@@ -1,53 +1,95 @@
-import { regexAdHocEmoji, regexAdHocEmojiAnimated, regexUnicodeEmoji, regexUnicodeTextEmoji } from '../constants/validation';
+import {
+  regexAdHocEmoji,
+  regexAdHocEmojiAnimated,
+  regexUnicodeEmoji,
+  regexUnicodeTextEmoji,
+} from "../constants/validation";
 import textEmojis from "../constants/textEmojis";
 
-export const validateInput = (type, value, max, min) => {
-	let noError = false, errorMessage = 'some error';
-	switch (type) {
-		case 'number':
-			if (!isNaN(value)) {
-				value = parseInt(value);
-				if (max && min) {
-					if (value > max) errorMessage = `Number is too high (max: ${max})`
-					else if (value < min) errorMessage = `Number is too low (min: ${min})`
-					else noError = true;
-				} else if (max) {
-					if (value > max) errorMessage = `Number is too high (max: ${max})`
-					else noError = true;
-				} else if (min) {
-					if (value < min) errorMessage = `Number is too low (min: ${min})`
-					else noError = true;
-				} else noError = true;
-			} else errorMessage = `Input is not a number`;
-			break;
-		case 'emoji':
-			const cleanEmoji = value.replace(/:/g, "");
-			value = textEmojis[cleanEmoji] || value;
+const validationMessages = {
+  required: "This field is required",
 
-			const isEmoji = regexUnicodeTextEmoji.exec(value) || regexUnicodeEmoji.exec(value) || regexAdHocEmoji.exec(value) || regexAdHocEmojiAnimated.exec(value);
-			errorMessage = 'This is not a valid emoji';
+  stringMin: min => `String is too short (min: ${min} chars)`,
+  stringMax: max => `String is too long (max: ${max} chars)`,
 
-			noError = isEmoji;
-			break;
-		case 'hexcolor':
-			noError = /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(value);
-			errorMessage = 'This is not a valid hex color code'
-			break;
-		default:
-			if (typeof value === 'string') {
-				if (max && min) {
-					if (value.lenght > max) errorMessage = `String is too long (max: ${max} chars)`
-					else if (value.lenght < min) errorMessage = `String is too short (min: ${max} chars)`;
-					else noError = true;
-				} else if (max) {
-					if (value.lenght > max) errorMessage = `String is too long (max: ${max} chars)`
-					else noError = true;
-				} else if (min) {
-					if (value.lenght < min) errorMessage = `String is too short (min: ${max} chars)`;
-					else noError = true;
-				} else noError = true;
-			}
-			break;
-	}
-	return { noError, errorMessage };
+  hexColor: `This is not a valid hex color code`,
+  emoji: `This is not a valid emoji`,
+
+  isNumber: `This is not a valid number`,
+
+  numberMin: min => `Number is too low (min: ${min})`,
+  numberMax: max => `Number is too high (max: ${max})`,
 };
+
+// returns false if is valid
+// returns a string if is not valid, the string is the explaination why it failed
+const Validation = {
+  required: () => value => {
+    if (!value || value === "" || typeof value === "undefined") {
+      return validationMessages.required;
+    }
+  },
+
+  // String validations
+
+  stringMin: min => value => {
+    if (value.length > min) {
+      return validationMessages.stringMin(min);
+    }
+  },
+
+  stringMax: max => value => {
+    if (value.length < max) {
+      return validationMessages.stringMax(max);
+    }
+  },
+
+  hexColor: () => value => {
+    if (/(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(value)) {
+      return validationMessages.hexColor;
+    }
+  },
+
+  emoji: () => value => {
+    const cleanEmoji = value.replace(/:/g, "");
+    if (textEmojis[cleanEmoji]) value = textEmojis[cleanEmoji];
+
+    if (
+      regexUnicodeTextEmoji.test(value) ||
+      regexUnicodeEmoji.test(value) ||
+      regexAdHocEmoji.test(value) ||
+      regexAdHocEmojiAnimated.test(value)
+    ) {
+      return validationMessages.emoji;
+    }
+  },
+
+  // Numbers validation
+  isNumber: () => value => {
+    if (isNaN(Number(value))) {
+      return validationMessages.isNumber;
+    }
+  },
+  numberMin: min => value => {
+    if (Number(value) < min) {
+      return validationMessages.numberMin(min);
+    }
+  },
+  numberMax: max => value => {
+    if (Number(value) > max) {
+      return validationMessages.numberMax(max);
+    }
+  },
+
+  // Helpers
+  all: (...fns) => value => {
+    for (const fn of fns) {
+      const res = fn(value);
+      if (res) {
+        return res;
+      }
+    }
+  },
+};
+
+export default Validation;

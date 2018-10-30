@@ -16,10 +16,6 @@ const boxesHeader = css`
   }
 `;
 
-const validateNumber = value => {
-  return !isNaN(value);
-};
-
 const channelOrRoleSelector = props => {
   return (
     <div>
@@ -28,7 +24,6 @@ const channelOrRoleSelector = props => {
         propKey={"id"}
         propFetch={"name"}
         payloadProp={`guild.${props.isChannel ? "channels" : "roles"}`}
-        type={props.isChannel ? (props.needCategory ? "category" : "channel") : "role"}
         mutate={props.mutateString}
         query={props.query}
       />
@@ -42,13 +37,7 @@ const makeInputSettings = props => {
     <div>
       <Box.Title>{props.title}</Box.Title>
       <Box.Body>
-        <Editor.Input
-          mutate={props.mutate}
-          query={props.query}
-          type={props.type}
-          max={props.max}
-          min={props.min}
-        />
+        <Editor.Input mutate={props.mutate} query={props.query} />
       </Box.Body>
     </div>
   );
@@ -107,7 +96,6 @@ class SpecialFeatureEditor extends Component {
                   <Box.Body>
                     {channelOrRoleSelector({
                       isChannel: true,
-                      type: "Activity Report Channel",
                       mutateString: "vaingloryGuildActivityChannel",
                       query:
                         "guild.settings.settings.vip.vainglory.guildNotificationChannel",
@@ -120,8 +108,6 @@ class SpecialFeatureEditor extends Component {
                     title: "Max Inactivity Days Allowed",
                     query: "guild.settings.settings.vip.vainglory.maxInactiveTime",
                     mutate: "vaingloryGuildMaxInactiveTime",
-                    validateFunction: validateNumber,
-                    type: "number",
                   })}
                 </Box>
               </div>

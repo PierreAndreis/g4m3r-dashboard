@@ -23,8 +23,34 @@ const boxesHeader = css`
   }
 `;
 
-const validateNumber = value => {
-  return !isNaN(value);
+// Please move these 3 below away from this file if you are going to re-use
+function compare(a, b) {
+  if (!a || !a.name || !b || !b.name) return 0;
+  if (a.name < b.name) return -1;
+  if (a.name > b.name) return 1;
+  return 0;
+}
+
+const extractChannel = payload => {
+  const values = (payload && payload.guild && payload.guild.channels) || [];
+  return values
+    .filter(channel => channel.type === "text")
+    .sort(compare)
+    .map(channel => ({
+      key: channel.id,
+      value: `#${channel.name}`,
+    }));
+};
+
+const extractRoles = payload => {
+  const values = (payload && payload.guild && payload.guild.roles) || [];
+  return values
+    .filter(role => role.name !== "@everyone" && !role.managed)
+    .sort(compare)
+    .map(role => ({
+      key: role.id,
+      value: `@${role.name}`,
+    }));
 };
 
 const channelOrRoleSelector = props => {
@@ -32,10 +58,7 @@ const channelOrRoleSelector = props => {
     <div>
       {props.type}
       <Editor.Select
-        propKey={"id"}
-        propFetch={"name"}
-        payloadProp={`guild.${props.isChannel ? "channels" : "roles"}`}
-        type={props.isChannel ? (props.needCategory ? "category" : "channel") : "role"}
+        values={props.isChannel ? extractChannel : extractRoles}
         mutate={props.mutateString}
         query={props.query}
       />
@@ -91,12 +114,8 @@ class ModerationEditor extends Component {
         <section>
           <Heading>Moderation</Heading>
           <SubHeader>
-            Are you ready to set up all the moderation tools you need for your server?
-            <br />
-            <br />
             Our bots moderation tools help run Official gaming servers for servers like
             Arena of Valor Official Discord Server.
-            <br />
             <br />
             Learning to master the moderation tools on G4M3R, can make your server just as
             amazing!
@@ -126,7 +145,6 @@ class ModerationEditor extends Component {
                 <Box padding>
                   <Box.Title>Log Toggles</Box.Title>
                   <Box.Body>
-                    <br />
                     {mainLogs.map((opt, index) => {
                       return (
                         <div key={index}>
@@ -135,8 +153,6 @@ class ModerationEditor extends Component {
                             mutate={opt.checkboxMutate}
                             children={opt.name}
                           />
-                          <br />
-                          <br />
                         </div>
                       );
                     })}

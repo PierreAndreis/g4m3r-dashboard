@@ -1,15 +1,13 @@
 import React, { Component } from "react";
-import { inject, observer } from "mobx-react";
 
 import { AlertBoxIcon } from "mdi-react";
 import { css } from "emotion";
-
-import { validateInput } from '../global/validation';
 
 const inputWrapper = css`
   width: 250px;
   height: 40px;
   position: relative;
+  margin-bottom: 13px;
 `;
 
 const iconIn = css`
@@ -44,7 +42,7 @@ const errorInput = css`
   background: #eaeaea;
   border-radius: 5px;
   outline: 0;
-  border: 1px solid red;
+  border: 2px solid red;
   padding: 2px 10px;
   box-sizing: border-box;
   &:focus {
@@ -54,69 +52,57 @@ const errorInput = css`
 `;
 
 const errorHighlight = css`
+  position: absolute;
+  margin-top: -10px;
   color: red;
-  margin: 5px 0px 0px 5px;
   font-size: 0.9rem;
 `;
 
-@inject('errorhandling')
-@observer
 class Input extends Component {
-
   onChange = e => {
     typeof this.props.onChange === "function" && this.props.onChange(e);
   };
 
-  validate = e => {
-    if (e && e.target) {
-      const { noError, errorMessage } = validateInput(this.props.type, e.target.value, this.props.max, this.props.min);
-      if (noError) {
-        if (this.props.errorhandling.exists(this.props.mutate)) this.props.errorhandling.removeError(this.props.mutate)
-        this.onChange(e);
-      } else {
-        this.props.errorhandling.saveError(this.props.mutate, errorMessage)
-        this.onChange(e);
-      }
-      return noError;
-    }
-  };
-
   render() {
-    const { className, icon, onChange, type, max, min, value, mutate, ...other } = this.props;
+    const {
+      className,
+      icon,
+      onChange,
+      value,
+      mutate,
+      errorMessage,
+      ...other
+    } = this.props;
 
     let icons = [];
-    const errorExists = this.props.errorhandling.exists(mutate);
-    if (errorExists) {
+    if (errorMessage) {
       icons.push(
         <div key="right-icon" className={iconIn} style={{ right: 5 }}>
           <AlertBoxIcon color="red" size="25px" />
         </div>
-      )
+      );
     }
 
-    if (!errorExists && icon && icon.right) {
-      if (icon.type === 'select') {
+    if (!errorMessage && icon && icon.right) {
       icons.push(
         <div key="right-icon" className={iconIn} style={{ right: 5 }}>
           <icon.right color="grey" size="25px" />
-          {/* x */}
         </div>
-        );
-      }
+      );
     }
 
     return (
       <React.Fragment>
         <div className={inputWrapper}>
           <input
-            className={errorExists ? errorInput : input}
+            className={errorMessage ? errorInput : input}
             value={value || ""}
-            onChange={this.validate}
+            onChange={this.onChange}
             {...other}
           />
           {icons}
         </div>
-        {errorExists ? <div className={errorHighlight}>{errorExists}</div> : null}
+        {errorMessage ? <div className={errorHighlight}>{errorMessage}</div> : null}
       </React.Fragment>
     );
   }

@@ -58,26 +58,6 @@ const inputWrapper = css`
 `;
 
 class Checkbox extends Component {
-  // state = {
-  //   checked: false,
-  // };
-
-  // // static getDerivedStateFromProps(props, state) {
-  // //   if (props.value) {
-  // //     return {
-  // //       checked: props.value,
-  // //     };
-  // //   }
-  // //   return null;
-  // // }
-
-  // // componentDidUpdate(prevState) {
-  // //   if (prevState.checked !== this.state.checked) {
-  // //     typeof this.props.onChange === "function" &&
-  // //       this.props.onChange(this.state.checked);
-  // //   }
-  // // }
-
   onChange = () => {
     typeof this.props.onChange === "function" && this.props.onChange(!this.props.value);
   };
@@ -87,7 +67,13 @@ class Checkbox extends Component {
 
     return (
       <div className={inputWrapper} onClick={this.onChange}>
-        <input type="checkbox" checked={value || false} {...other} />
+        {/* On change handler is needed to surpress props type error */}
+        <input
+          type="checkbox"
+          checked={value || false}
+          {...other}
+          onChange={() => null}
+        />
         <label>
           {children} <span />
         </label>

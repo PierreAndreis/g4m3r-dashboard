@@ -11,6 +11,8 @@ import Button from "../../../../components/Button";
 import { generalPageToggles } from "../../../../constants/general";
 import qClientBasic from "../../../../graphql/queries/client/clientBasic";
 
+import Validation from "./../../../../global/validation";
+
 const boxesHeader = css`
   display: flex;
   flex-wrap: wrap;
@@ -81,7 +83,7 @@ class GeneralEditor extends Component {
         </section>
 
         <Editor query={qGuildBasic} mutation={mutationQuery}>
-          {this.state.category === "Basic" ? (
+          {this.state.category === "Basic" && (
             <section>
               <Heading2>Overview</Heading2>
               <div className={boxesHeader}>
@@ -118,8 +120,11 @@ class GeneralEditor extends Component {
                       mutate="menuTime"
                       query="guild.settings.settings.menuTime"
                       type="number"
-                      max={120}
-                      min={10}
+                      validate={Validation.all(
+                        Validation.isNumber(),
+                        Validation.numberMin(10),
+                        Validation.numberMax(91)
+                      )}
                     />
                   </Box.Body>
                   <Box.Title>Delete Notifications Delay</Box.Title>
@@ -147,9 +152,9 @@ class GeneralEditor extends Component {
                 </Box>
               </div>
             </section>
-          ) : null}
+          )}
 
-          {this.state.category === "Feedback" ? (
+          {this.state.category === "Feedback" && (
             <section>
               <Heading2>Overview</Heading2>
 
@@ -249,9 +254,9 @@ class GeneralEditor extends Component {
                 </Box>
               </div>
             </section>
-          ) : null}
+          )}
 
-          {this.state.category === "Events" ? (
+          {this.state.category === "Events" && (
             <section>
               <Heading2>Event Settings</Heading2>
               <div className={boxesHeader}>
@@ -342,7 +347,6 @@ class GeneralEditor extends Component {
                         <Editor.Select
                           values={values}
                           mutate={"eventsAllowCreation"}
-                          type={"Permission"}
                           query={"guild.settings.settings.events.permissions.create"}
                         />
                       );
@@ -357,12 +361,11 @@ class GeneralEditor extends Component {
                       if (loading) return "Loading";
                       if (error) return "Error";
                       const values = data.client.settings.permissionLevels;
-                      console.log("perms levels", data);
+
                       return (
                         <Editor.Select
                           values={values}
                           mutate={"eventsAllowAddMember"}
-                          type={"Permission"}
                           query={"guild.settings.settings.events.permissions.add"}
                         />
                       );
@@ -371,9 +374,9 @@ class GeneralEditor extends Component {
                 </Box>
               </div>
             </section>
-          ) : null}
+          )}
 
-          {this.state.category === "Tags/Stories" ? (
+          {this.state.category === "Tags/Stories" && (
             <section>
               <div className={boxesHeader}>
                 <Box padding>
@@ -385,13 +388,15 @@ class GeneralEditor extends Component {
                     {({ loading, error, data }) => {
                       if (loading) return "Loading";
                       if (error) return "Error";
-                      const values = data.client.settings.permissionLevels;
-                      console.log("perms levels", data);
+                      const values = data.client.settings.permissionLevels.map(perm => ({
+                        key: perm.id,
+                        value: perm.value,
+                      }));
+
                       return (
                         <Editor.Select
                           values={values}
                           mutate={"tagsAllowCreation"}
-                          type={"Permission"}
                           query={"guild.settings.settings.tags.allowCreation"}
                         />
                       );
@@ -406,13 +411,14 @@ class GeneralEditor extends Component {
                     {({ loading, error, data }) => {
                       if (loading) return "Loading";
                       if (error) return "Error";
-                      const values = data.client.settings.permissionLevels;
-                      console.log("perms levels", data);
+                      const values = data.client.settings.permissionLevels.map(perm => ({
+                        key: perm.id,
+                        value: perm.value,
+                      }));
                       return (
                         <Editor.Select
                           values={values}
                           mutate={"tagsAllowUsage"}
-                          type={"Permission"}
                           query={"guild.settings.settings.tags.allowUsage"}
                         />
                       );
@@ -465,7 +471,7 @@ class GeneralEditor extends Component {
                 </Box>
               </div>
             </section>
-          ) : null}
+          )}
         </Editor>
       </React.Fragment>
     );

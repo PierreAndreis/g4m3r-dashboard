@@ -1,17 +1,16 @@
 import React from "react";
-import { inject, observer } from "mobx-react";
 
 import Snackbar from "../Snackbar";
 import Button from "../Button";
 
 export const StagerContext = React.createContext({});
 
-@inject('errorhandling')
-@observer
 class Stager extends React.Component {
   state = {
     loading: true,
     errors: null,
+
+    validationErrors: new Map([]),
 
     payload: {},
 
@@ -31,7 +30,18 @@ class Stager extends React.Component {
           changes: state.changes,
         };
       });
-    }
+    },
+
+    resultValidation: (mutate, errorMessage) => {
+      this.setState(({ validationErrors }) => {
+        if (errorMessage) validationErrors.set(mutate, errorMessage);
+        if (!errorMessage) validationErrors.delete(mutate);
+
+        return {
+          validationErrors,
+        };
+      });
+    },
   };
 
   static getDerivedStateFromProps(props, state) {
@@ -75,38 +85,33 @@ class Stager extends React.Component {
       modified: false,
       changes: {},
     });
-    this.props.errorhandling.removeAll();
     buttonState.success();
   };
 
   render() {
-    const { modified, commiting, loading, error } = this.state;
+    const { modified, commiting, loading, error, validationErrors } = this.state;
 
     if (loading) return <p>Loading</p>;
     if (error) return <p>Error!</p>;
 
-    // console.log("commit?", this.state.modified, this.state.commiting, this.props.errorhandling.hasErrors);
+    const isValid = validationErrors.size < 1;
+    console.log(validationErrors);
 
     return (
       <StagerContext.Provider value={this.state}>
         {this.props.children}
 
         <Snackbar open={modified || commiting}>
-          {
-            this.props.errorhandling.hasErrors ?
-              <div>Cannot save changes while errors exist!</div> :
-              <div>Would you like to save your changes?</div>
-          }
           <Snackbar.ButtonContainer>
-            <Button
-              onClick={this.revert}
-              simple
-              style={{ border: 0, color: this.props.errorhandling.hasErrors ? 'red' : "white" }}
-              disabled={commiting}
-            >
+            {isValid ? "Is valid" : "Not valid"}
+            <Button onClick={this.revert} simple disabled={commiting}>
               Revert
             </Button>
-            <Button onClick={this.commit} disabled={commiting || this.props.errorhandling.hasErrors}>
+            <Button
+              onClick={this.commit}
+              disabled={commiting || !isValid}
+              error={!isValid}
+            >
               Save
             </Button>
           </Snackbar.ButtonContainer>
