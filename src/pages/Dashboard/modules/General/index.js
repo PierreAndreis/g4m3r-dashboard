@@ -10,7 +10,7 @@ import qTimezone from "../../../../graphql/queries/utils/timezone";
 import Button from "../../../../components/Button";
 import { generalPageToggles } from "../../../../constants/general";
 import qClientBasic from "../../../../graphql/queries/client/clientBasic";
-
+import { extractChannel, extractRoles } from "../../../../util/transformers";
 import Validation from "./../../../../global/validation";
 
 const boxesHeader = css`
@@ -160,39 +160,40 @@ class GeneralEditor extends Component {
 
               <div className={boxesHeader}>
                 <Box padding>
-                  <Box.Title>Feedback Status</Box.Title>
-                  <Editor.Checkbox
-                    query="guild.settings.settings.feedback.idea.status"
-                    mutate="ideaStatus"
-                    children="Feedback Idea Status"
-                  />
-                  <Editor.Checkbox
-                    query="guild.settings.settings.feedback.idea.status"
-                    mutate="bugStatus"
-                    children="Feedback Bug Status"
-                  />
+                  <Box.Title>Idea Status</Box.Title>
+                  <Box.Body>
+                    <Editor.Checkbox
+                      query="guild.settings.settings.feedback.idea.status"
+                      mutate="ideaStatus"
+                      children="Feedback Idea Status"
+                    />
+                  </Box.Body>
+
+                  <Box.Title>Bug Status</Box.Title>
+                  <Box.Body>
+                    <Editor.Checkbox
+                      query="guild.settings.settings.feedback.idea.status"
+                      mutate="bugStatus"
+                      children="Feedback Bug Status"
+                    />
+                  </Box.Body>
                 </Box>
                 <Box padding>
-                  <Box.Title>Feedback Channels</Box.Title>
+                  <Box.Title>Idea Channel</Box.Title>
                   <Box.Body>
-                    Ideas Channel
                     <Editor.Select
-                      propKey={"id"}
-                      propFetch={"name"}
-                      payloadProp={"guild.channels"}
-                      type={"channel"}
-                      mutate={"ideaChannel"}
-                      query={"guild.settings.settings.feedback.idea.channel"}
+                      values={extractChannel}
+                      mutate="ideaChannel"
+                      query="guild.settings.settings.feedback.idea.channel"
                     />
-                    <br />
-                    Bugs Channel
+                  </Box.Body>
+
+                  <Box.Title>Bugs Channel</Box.Title>
+                  <Box.Body>
                     <Editor.Select
-                      propKey={"id"}
-                      propFetch={"name"}
-                      payloadProp={"guild.channels"}
-                      type={"channel"}
-                      mutate={"bugChannel"}
-                      query={"guild.settings.settings.feedback.bug.channel"}
+                      values={extractChannel}
+                      mutate="bugChannel"
+                      query="guild.settings.settings.feedback.bug.channel"
                     />
                   </Box.Body>
                 </Box>
@@ -233,7 +234,9 @@ class GeneralEditor extends Component {
                       type="emoji"
                     />
                   </Box.Body>
+                </Box>
 
+                <Box padding>
                   <Box.Title>Feedback Bug Thumbs Up</Box.Title>
                   <Box.Body>
                     <Editor.Input
@@ -322,12 +325,9 @@ class GeneralEditor extends Component {
                   <Box.Title>Advertise Channel</Box.Title>
                   <Box.Body>
                     <Editor.Select
-                      propKey={"id"}
-                      propFetch={"name"}
-                      payloadProp={"guild.channels"}
-                      type={"channel"}
-                      mutate={"advertiseChannel"}
-                      query={"guild.settings.settings.events.advertiseChannel"}
+                      values={extractChannel}
+                      mutate="advertiseChannel"
+                      query="guild.settings.settings.events.advertiseChannel"
                     />
                   </Box.Body>
                 </Box>
