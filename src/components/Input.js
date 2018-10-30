@@ -52,7 +52,7 @@ const errorInput = css`
 `;
 
 const errorHighlight = css`
-  position: absolute;
+  position: relative;
   margin-top: -10px;
   color: red;
   font-size: 0.9rem;

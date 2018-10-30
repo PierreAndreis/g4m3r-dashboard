@@ -84,6 +84,7 @@ class Stager extends React.Component {
     this.setState({
       modified: false,
       changes: {},
+      validationErrors: new Map([]),
     });
     buttonState.success();
   };
