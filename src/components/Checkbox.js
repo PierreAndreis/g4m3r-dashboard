@@ -3,7 +3,7 @@ import { css } from "emotion";
 
 const checkboxCss = css`
   padding: 0;
-  margin: 0;
+  margin: 5px 0;
   width: 100%;
   height: 32px;
   box-sizing: border-box;
@@ -25,6 +25,9 @@ const checkboxCss = css`
     height: 32px;
     display: flex;
     align-items: center;
+    & > h2 {
+      margin: 0;
+    }
   }
 
   span {
