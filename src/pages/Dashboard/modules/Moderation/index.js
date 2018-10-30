@@ -113,54 +113,37 @@ class ModerationEditor extends Component {
             <section>
               <Heading2>Moderation Logs</Heading2>
               <div className={boxesHeader}>
-                <Box padding>
-                  <Box.Title>Log Toggles</Box.Title>
-                  <Box.Body>
-                    {mainLogs.map((opt, index) => {
-                      return (
-                        <div key={index}>
-                          <Editor.Checkbox
-                            query={opt.checkboxQuery}
-                            mutate={opt.checkboxMutate}
-                            children={opt.name}
-                          />
-                        </div>
-                      );
-                    })}
-                  </Box.Body>
-                </Box>
-
-                <Box padding>
-                  <Box.Title>Log Channel Selector</Box.Title>
-                  <Box.Body>
-                    {mainLogs.map((opt, index) => {
-                      return (
-                        <div key={index}>
-                          {channelOrRoleSelector({
-                            isChannel: true,
-                            type: opt.name,
-                            mutateString: opt.mutate,
-                            query: opt.query,
-                            guildId,
-                          })}
-                        </div>
-                      );
-                    })}
-                  </Box.Body>
-                </Box>
+                {mainLogs.map(log => (
+                  <Box padding key={log.name}>
+                    <Box.Body>
+                      <Editor.CheckboxCollapse
+                        label={<Box.Title>{log.name}</Box.Title>}
+                        query={log.checkboxQuery}
+                        mutate={log.checkboxMutate}
+                      >
+                        <Box.Option>
+                          <div>Channel</div>
+                          <div>
+                            <Editor.Select
+                              values={extractChannel}
+                              query={log.query}
+                              mutate={log.mutate}
+                            />
+                          </div>
+                        </Box.Option>
+                      </Editor.CheckboxCollapse>
+                    </Box.Body>
+                  </Box>
+                ))}
 
                 <Box padding>
                   <Box.Title>Moderation Feature Toggles</Box.Title>
                   <Box.Body>
                     {modFeatureToggles.map((opt, index) => {
                       return (
-                        <div key={index}>
-                          <Editor.Checkbox
-                            query={opt.query}
-                            mutate={opt.mutate}
-                            children={opt.children}
-                          />
-                        </div>
+                        <Box.Option key={index}>
+                          <Editor.Checkbox {...opt} />
+                        </Box.Option>
                       );
                     })}
                   </Box.Body>
@@ -444,7 +427,7 @@ class ModerationEditor extends Component {
                       type="string"
                     />
                   </Box.Body>
-                </Box>*/} 
+                </Box>*/}
 
                 <Box padding>
                   <Box.Title>Verification Role</Box.Title>

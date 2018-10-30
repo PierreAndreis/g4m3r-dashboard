@@ -21,20 +21,40 @@ const BoxCenter = css`
 `;
 
 const BoxPadding = css`
-  padding: 15px;
+  padding: 15px 0;
 `;
 
 const BoxTitle = css`
   display: flex;
   font-size: 18px;
   color: #4a4a4a;
-  margin: 10px 5px;
+  margin: 0px 10px;
 `;
 
 const BoxBody = css`
-  padding: 15px;
   width: 100%;
   box-sizing: border-box;
+
+  .${BoxTitle} {
+    margin: 0;
+  }
+
+  .${BoxPadding} & {
+    & > div {
+      padding: 5px 15px;
+    }
+  }
+`;
+
+const BoxOption = css`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+
+  &:nth-child(odd) {
+    background: rgba(0, 0, 0, 0.03);
+  }
 `;
 
 export default class Box extends Component {
@@ -46,6 +66,12 @@ export default class Box extends Component {
 
   static Body = ({ children, className, ...otherProps }) => (
     <div className={classNames(BoxBody, className)} {...otherProps}>
+      {children}
+    </div>
+  );
+
+  static Option = ({ children, className, ...otherProps }) => (
+    <div className={classNames(BoxOption, className)} {...otherProps}>
       {children}
     </div>
   );

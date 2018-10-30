@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 
 import { AlertBoxIcon } from "mdi-react";
-import { css } from "emotion";
+import { css, cx } from "emotion";
 
 const inputWrapper = css`
-  width: 250px;
+  width: 100%;
   height: 40px;
   position: relative;
-  margin-bottom: 13px;
 `;
 
 const iconIn = css`
@@ -36,24 +35,19 @@ const input = css`
   }
 `;
 
+const asButton = css`
+  cursor: pointer;
+  color: black;
+`;
+
 const errorInput = css`
-  width: 100%;
-  height: 100%;
-  background: #eaeaea;
-  border-radius: 5px;
-  outline: 0;
   border: 2px solid red;
-  padding: 2px 10px;
-  box-sizing: border-box;
-  &:focus {
-    background: white;
-    box-shadow: 0 0 0 0.2rem rgba(122, 174, 255, 0.15);
-  }
 `;
 
 const errorHighlight = css`
-  position: relative;
-  margin-top: -10px;
+  position: absolute;
+  bottom: -15px;
+  left: 5;
   color: red;
   font-size: 0.9rem;
 `;
@@ -71,6 +65,9 @@ class Input extends Component {
       value,
       mutate,
       errorMessage,
+      buttonMode,
+      disabled,
+      onClick,
       ...other
     } = this.props;
 
@@ -92,18 +89,18 @@ class Input extends Component {
     }
 
     return (
-      <React.Fragment>
-        <div className={inputWrapper}>
-          <input
-            className={errorMessage ? errorInput : input}
-            value={value || ""}
-            onChange={this.onChange}
-            {...other}
-          />
-          {icons}
-        </div>
+      <div className={inputWrapper} onClick={() => buttonMode && onClick()}>
+        <input
+          className={cx(input, { [errorInput]: errorMessage, [asButton]: buttonMode })}
+          value={value || ""}
+          onChange={this.onChange}
+          disabled={disabled || buttonMode}
+          {...other}
+        />
+        {icons}
+
         {errorMessage ? <div className={errorHighlight}>{errorMessage}</div> : null}
-      </React.Fragment>
+      </div>
     );
   }
 }

@@ -84,15 +84,41 @@ class WrapperEditorForGraphQL extends React.Component {
     </StagerContext.Consumer>
   );
 
-  static Checkbox = ({ mutate, query, propKey, propValue, isArray, ...otherProps }) => (
+  static Checkbox = ({ mutate, query, isArray, ...otherProps }) => (
     <StagerContext.Consumer>
       {state => (
         <Checkbox
-          value={getEditedValue({ mutate, query, propKey, propValue }, state)}
-          onChange={state.onChange(mutate, propKey, propValue, isArray, query)}
+          value={getEditedValue({ mutate, query }, state)}
+          onChange={state.onChange(mutate, isArray, query)}
           {...otherProps}
         />
       )}
+    </StagerContext.Consumer>
+  );
+
+  static CheckboxCollapse = ({
+    mutate,
+    query,
+    isArray,
+    children,
+    label,
+    ...otherProps
+  }) => (
+    <StagerContext.Consumer>
+      {state => {
+        const value = getEditedValue({ mutate, query }, state);
+        return (
+          <React.Fragment>
+            <Checkbox
+              value={value}
+              onChange={state.onChange(mutate, isArray, query)}
+              children={label}
+              {...otherProps}
+            />
+            {value && children}
+          </React.Fragment>
+        );
+      }}
     </StagerContext.Consumer>
   );
 

@@ -6,7 +6,7 @@ import { ChevronDownIcon } from "mdi-react";
 import Box from "./Box";
 
 const wrapper = css`
-  width: 250px;
+  width: 100%;
   position: relative;
 `;
 
@@ -17,7 +17,7 @@ const dropdownMenu = css`
   overflow-x: hidden;
   overflow-y: scroll;
   padding: 0;
-  margin-top: -13px;
+  margin-left: -2px;
   border-radius: 5px;
 
   /* This is bad. Use portal in the future */
@@ -53,7 +53,7 @@ const dropdownMenu = css`
 
 class Select extends React.Component {
   render() {
-    const { onChange, currentValue, values } = this.props;
+    const { onChange, currentValue, values, autoComplete } = this.props;
 
     if (!values) {
       return <div>Error!</div>;
@@ -78,15 +78,16 @@ class Select extends React.Component {
         }) => (
           <div className={wrapper}>
             <Input
-              {...getInputProps()}
+              {...getInputProps({ disabled: !autoComplete })}
               placeholder={placeholderValue}
+              buttonMode={!autoComplete}
+              onClick={toggleMenu}
               icon={{
                 right: props => (
-                  <div onClick={() => toggleMenu()}>
+                  <div onClick={toggleMenu}>
                     <ChevronDownIcon {...props} />
                   </div>
                 ),
-                type: "select",
               }}
             />
             <div {...getMenuProps()}>
@@ -95,8 +96,10 @@ class Select extends React.Component {
                   {values
                     .filter(
                       item =>
-                        !inputValue ||
-                        item.value.toLowerCase().includes(inputValue.toLowerCase())
+                        autoComplete
+                          ? !inputValue ||
+                            item.value.toLowerCase().includes(inputValue.toLowerCase())
+                          : true
                     )
                     .map((item, index) => (
                       <li

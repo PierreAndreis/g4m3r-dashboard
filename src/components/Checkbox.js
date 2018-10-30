@@ -3,6 +3,9 @@ import { css } from "emotion";
 
 const inputWrapper = css`
   margin: 0;
+  padding: 10px 0;
+  width: 100%;
+  box-sizing: border-box;
 
   input[type="checkbox"] {
     height: 0;
@@ -15,15 +18,16 @@ const inputWrapper = css`
     display: block;
     padding-right: 60px;
     position: relative;
+    margin-top: -20px;
   }
 
   span {
     right: 0;
     position: absolute;
-    top: -5px;
+    top: -4px;
     cursor: pointer;
     font-size: 16px;
-    color: c6c6c6;
+    color: #c6c6c6;
     width: 50px;
     height: 26px;
     background: #c6c6c6;

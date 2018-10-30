@@ -96,7 +96,6 @@ class Stager extends React.Component {
     if (error) return <p>Error!</p>;
 
     const isValid = validationErrors.size < 1;
-    console.log(validationErrors);
 
     return (
       <StagerContext.Provider value={this.state}>
