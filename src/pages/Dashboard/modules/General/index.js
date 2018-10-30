@@ -10,7 +10,7 @@ import qTimezone from "../../../../graphql/queries/utils/timezone";
 import Button from "../../../../components/Button";
 import { generalPageToggles } from "../../../../constants/general";
 import qClientBasic from "../../../../graphql/queries/client/clientBasic";
-import { extractChannel, extractRoles } from "../../../../util/transformers";
+import { extractChannel } from "../../../../util/transformers";
 import Validation from "./../../../../global/validation";
 
 const boxesHeader = css`
