@@ -216,7 +216,6 @@ class ModerationEditor extends Component {
                               guildId,
                             })}
                             <br />
-                            <br />
                           </div>
                         );
                       })}
@@ -436,7 +435,7 @@ class ModerationEditor extends Component {
                   })}
                 </Box>
 
-                <Box padding>
+                {/*<Box padding>
                   <Box.Title>Verification First Message</Box.Title>
                   <Box.Body>
                     <Editor.Input
@@ -445,7 +444,7 @@ class ModerationEditor extends Component {
                       type="string"
                     />
                   </Box.Body>
-                </Box>
+                </Box>*/} 
 
                 <Box padding>
                   <Box.Title>Verification Role</Box.Title>
