@@ -17,7 +17,8 @@ import { extractChannel, extractRoles } from "../../../../util/transformers";
 import Validation from "./../../../../global/validation";
 import HelpModal from "../../../../components/HelpModal";
 import TabsManager from "../../../../components/Tabs";
-import ModerationFeatureTogglesHelp from "../../../../constants/help/moderation/basic/WelcomeChannelStatusHelp";
+import TextMutedRoleHelp from "../../../../constants/help/moderation/muted/TextMutedRoleHelp";
+import VoiceMutedRoleHelp from "../../../../constants/help/moderation/muted/VoiceMutedRoleHelp";
 
 const boxesHeader = css`
   display: flex;
@@ -31,7 +32,6 @@ const boxesHeader = css`
 
 class ModerationEditor extends Component {
   render() {
-    let guildId = this.props.match.params.guildId;
     return (
       <React.Fragment>
         <section>
@@ -48,7 +48,6 @@ class ModerationEditor extends Component {
         <Editor query={qGuildBasic} mutation={mutationQuery}>
           <TabsManager>
             <TabsManager.Section name="Basic">
-              <Heading2>Moderation Logs</Heading2>
               <div className={boxesHeader}>
                 {mainLogs.map(log => (
                   <Box padding key={log.name}>
@@ -197,6 +196,9 @@ class ModerationEditor extends Component {
                           query="guild.settings.settings.moderation.mutedRoles.text"
                         />
                       </div>
+                      <div>
+                        <HelpModal content={TextMutedRoleHelp} />
+                      </div>
                     </Box.Option>
                     <Box.Option>
                       <div>Voice Muted Role</div>
@@ -206,6 +208,9 @@ class ModerationEditor extends Component {
                           mutate="muteRoleVoice"
                           query="guild.settings.settings.moderation.mutedRoles.voice"
                         />
+                      </div>
+                      <div>
+                        <HelpModal content={VoiceMutedRoleHelp} />
                       </div>
                     </Box.Option>
                   </Box.Body>
