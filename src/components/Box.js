@@ -45,7 +45,7 @@ const BoxBody = css`
   }
 `;
 
-const BoxBoddyPadding = css`
+const BoxBodyPadding = css`
   padding: 5px 15px;
 `;
 
@@ -72,7 +72,10 @@ export default class Box extends Component {
   );
 
   static Body = ({ children, className, padding, ...otherProps }) => (
-    <div className={classNames(BoxBody, BoxBoddyPadding, className)} {...otherProps}>
+    <div
+      className={classNames(BoxBody, { [BoxBodyPadding]: padding }, className)}
+      {...otherProps}
+    >
       {children}
     </div>
   );
