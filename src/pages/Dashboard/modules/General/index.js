@@ -24,6 +24,22 @@ const boxesHeader = css`
   }
 `;
 
+const feedbackData = [
+  {
+    title: "Bugs Status",
+    query: "guild.settings.settings.feedback.bug.status",
+    mutate: "bugStatus",
+    options: [
+      {
+        optionTitle: "Channel",
+        values: extractChannel,
+        optionQuery: "guild.settings.settings.feedback.bug.channel",
+        optionMutate: "bugChannel",
+      },
+    ],
+  },
+];
+
 const cleanUpTimezone = timezones =>
   timezones.map(timezone => ({
     key: timezone,
@@ -161,101 +177,110 @@ class GeneralEditor extends Component {
 
           {this.state.category === "Feedback" && (
             <section>
-              <Heading2>Overview</Heading2>
-
               <div className={boxesHeader}>
                 <Box padding>
-                  <Box.Title>Idea Status</Box.Title>
                   <Box.Body>
-                    <Editor.Checkbox
+                    <Editor.CheckboxCollapse
+                      label={<Box.Title>Ideas Status</Box.Title>}
                       query="guild.settings.settings.feedback.idea.status"
                       mutate="ideaStatus"
-                      children="Feedback Idea Status"
-                    />
-                  </Box.Body>
+                    >
+                      <Box.Option>
+                        <div>Channel</div>
+                        <div>
+                          <Editor.Select
+                            values={extractChannel}
+                            query="guild.settings.settings.feedback.idea.channel"
+                            mutate="ideaChannel"
+                          />
+                        </div>
+                      </Box.Option>
 
-                  <Box.Title>Bug Status</Box.Title>
+                      <Box.Option>
+                        <div>Color</div>
+                        <div>
+                          <Editor.ColorPicker
+                            mutate="ideaColor"
+                            query="guild.settings.settings.feedback.idea.color"
+                          />
+                        </div>
+                      </Box.Option>
+
+                      <Box.Option>
+                        <div>Thumbs Up</div>
+                        <div>
+                          <Editor.Input
+                            mutate="ideaThumbsUp"
+                            query="guild.settings.settings.feedback.idea.thumbsUp"
+                            type="emoji"
+                          />
+                        </div>
+                      </Box.Option>
+
+                      <Box.Option>
+                        <div>Thumbs Down</div>
+                        <div>
+                          <Editor.Input
+                            mutate="ideaThumbsDown"
+                            query="guild.settings.settings.feedback.idea.thumbsDown"
+                            type="emoji"
+                          />
+                        </div>
+                      </Box.Option>
+                    </Editor.CheckboxCollapse>
+                  </Box.Body>
+                </Box>
+
+                <Box padding>
                   <Box.Body>
-                    <Editor.Checkbox
-                      query="guild.settings.settings.feedback.idea.status"
+                    <Editor.CheckboxCollapse
+                      label={<Box.Title>Bug Status</Box.Title>}
+                      query="guild.settings.settings.feedback.bug.status"
                       mutate="bugStatus"
-                      children="Feedback Bug Status"
-                    />
-                  </Box.Body>
-                </Box>
-                <Box padding>
-                  <Box.Title>Idea Channel</Box.Title>
-                  <Box.Body>
-                    <Editor.Select
-                      values={extractChannel}
-                      mutate="ideaChannel"
-                      query="guild.settings.settings.feedback.idea.channel"
-                    />
-                  </Box.Body>
+                    >
+                      <Box.Option>
+                        <div>Channel</div>
+                        <div>
+                          <Editor.Select
+                            values={extractChannel}
+                            query="guild.settings.settings.feedback.bug.channel"
+                            mutate="bugChannel"
+                          />
+                        </div>
+                      </Box.Option>
 
-                  <Box.Title>Bugs Channel</Box.Title>
-                  <Box.Body>
-                    <Editor.Select
-                      values={extractChannel}
-                      mutate="bugChannel"
-                      query="guild.settings.settings.feedback.bug.channel"
-                    />
-                  </Box.Body>
-                </Box>
-                <Box padding>
-                  <Box.Title>Feedback Idea Color</Box.Title>
-                  <Box.Body>
-                    <Editor.ColorPicker
-                      mutate="ideaColor"
-                      query="guild.settings.settings.feedback.idea.color"
-                    />
-                  </Box.Body>
+                      <Box.Option>
+                        <div>Color</div>
+                        <div>
+                          <Editor.ColorPicker
+                            mutate="bugColor"
+                            query="guild.settings.settings.feedback.bug.color"
+                          />
+                        </div>
+                      </Box.Option>
 
-                  <Box.Title>Feedback Bug Color</Box.Title>
-                  <Box.Body>
-                    <Editor.Input
-                      mutate="bugColor"
-                      query="guild.settings.settings.feedback.bug.color"
-                    />
-                  </Box.Body>
-                </Box>
-                <Box padding>
-                  <Box.Title>Feedback Idea Thumbs Up</Box.Title>
-                  <Box.Body>
-                    <Editor.Input
-                      mutate="ideaThumbsUp"
-                      query="guild.settings.settings.feedback.idea.thumbsUp"
-                      type="emoji"
-                    />
-                  </Box.Body>
+                      <Box.Option>
+                        <div>Thumbs Up</div>
+                        <div>
+                          <Editor.Input
+                            mutate="bugThumbsUp"
+                            query="guild.settings.settings.feedback.bug.thumbsUp"
+                            type="emoji"
+                          />
+                        </div>
+                      </Box.Option>
 
-                  <Box.Title>Feedback Idea Thumbs Down</Box.Title>
-                  <Box.Body>
-                    <Editor.Input
-                      mutate="ideaThumbsDown"
-                      query="guild.settings.settings.feedback.idea.thumbsDown"
-                      type="emoji"
-                    />
-                  </Box.Body>
-                </Box>
-
-                <Box padding>
-                  <Box.Title>Feedback Bug Thumbs Up</Box.Title>
-                  <Box.Body>
-                    <Editor.Input
-                      mutate="bugThumbsUp"
-                      query="guild.settings.settings.feedback.bug.thumbsUp"
-                      type="emoji"
-                    />
-                  </Box.Body>
-
-                  <Box.Title>Feedback Bug Thumbs Down</Box.Title>
-                  <Box.Body>
-                    <Editor.Input
-                      mutate="bugThumbsDown"
-                      query="guild.settings.settings.feedback.bug.thumbsDown"
-                      type="emoji"
-                    />
+                      <Box.Option>
+                        <div>Thumbs Down</div>
+                        <div>
+                          <Editor.Input
+                            mutate="bugThumbsDown"
+                            query="guild.settings.settings.feedback.bug.thumbsDown"
+                            type="emoji"
+                          />
+                        </div>
+                      </Box.Option>
+                    </Editor.CheckboxCollapse>
                   </Box.Body>
                 </Box>
               </div>
