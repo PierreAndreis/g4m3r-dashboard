@@ -8,6 +8,7 @@ import qGuildBasic from "../../../../graphql/queries/guild/guildBasic";
 import Button from "../../../../components/Button";
 import { extractChannel } from "../../../../util/transformers";
 import Validation from "./../../../../global/validation";
+import TabsManager from "../../../../components/Tabs";
 
 const boxesHeader = css`
   display: flex;
@@ -20,22 +21,7 @@ const boxesHeader = css`
 `;
 
 class SpecialFeatureEditor extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      category: "Vainglory",
-      categories: ["Vainglory"],
-    };
-  }
-
-  changeCategory = category => e => {
-    this.setState({
-      category,
-    });
-  };
-
   render() {
-    let guildId = this.props.match.params.guildId;
     return (
       <React.Fragment>
         <section>
@@ -46,24 +32,9 @@ class SpecialFeatureEditor extends Component {
           </SubHeader>
         </section>
 
-        <section>
-          {this.state.categories.map(category => {
-            return (
-              <Button
-                key={category}
-                onClick={this.changeCategory(category)}
-                simple
-                active={this.state.category === category}
-              >
-                {category}
-              </Button>
-            );
-          })}
-        </section>
-
         <Editor query={qGuildBasic} mutation={mutationQuery}>
-          {this.state.category === "Vainglory" ? (
-            <section>
+          <TabsManager>
+            <TabsManager.Section name="Vainglory">
               <Heading2>Vainglory Guild Features</Heading2>
               <div className={boxesHeader}>
                 <Box padding>
@@ -91,8 +62,8 @@ class SpecialFeatureEditor extends Component {
                   </Box.Body>
                 </Box>
               </div>
-            </section>
-          ) : null}
+            </TabsManager.Section>
+          </TabsManager>
         </Editor>
       </React.Fragment>
     );

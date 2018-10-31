@@ -16,6 +16,7 @@ import Button from "../../../../components/Button";
 import { extractChannel, extractRoles } from "../../../../util/transformers";
 import Validation from "./../../../../global/validation";
 import HelpModal from "../../../../components/HelpModal";
+import TabsManager from "../../../../components/Tabs";
 
 const boxesHeader = css`
   display: flex;
@@ -27,58 +28,7 @@ const boxesHeader = css`
   }
 `;
 
-const channelOrRoleSelector = props => {
-  return (
-    <div>
-      {props.type}
-      <Editor.Select
-        values={props.isChannel ? extractChannel : extractRoles}
-        mutate={props.mutateString}
-        query={props.query}
-      />
-    </div>
-  );
-};
-
-const makeInputSettings = props => {
-  return (
-    <div>
-      <Box.Title>{props.title}</Box.Title>
-      <Box.Body>
-        <Editor.Input
-          mutate={props.mutate}
-          query={props.query}
-          type={props.type}
-          max={props.max}
-          min={props.min}
-        />
-      </Box.Body>
-    </div>
-  );
-};
-
 class ModerationEditor extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      category: "Basic",
-      categories: [
-        "Basic",
-        "Server Logs",
-        "Mute Module",
-        "Mod Mails",
-        "Auto-Mod",
-        "Verification",
-      ],
-    };
-  }
-
-  changeCategory = category => e => {
-    this.setState({
-      category,
-    });
-  };
-
   render() {
     let guildId = this.props.match.params.guildId;
     return (
@@ -94,24 +44,9 @@ class ModerationEditor extends Component {
           </SubHeader>
         </section>
 
-        <section>
-          {this.state.categories.map(category => {
-            return (
-              <Button
-                key={category}
-                onClick={this.changeCategory(category)}
-                simple
-                active={this.state.category === category}
-              >
-                {category}
-              </Button>
-            );
-          })}
-        </section>
-
         <Editor query={qGuildBasic} mutation={mutationQuery}>
-          {this.state.category === "Basic" ? (
-            <section>
+          <TabsManager>
+            <TabsManager.Section name="Basic">
               <Heading2>Moderation Logs</Heading2>
               <div className={boxesHeader}>
                 {mainLogs.map(log => (
@@ -155,11 +90,8 @@ class ModerationEditor extends Component {
                   </Box.Body>
                 </Box>
               </div>
-            </section>
-          ) : null}
-
-          {this.state.category === "Server Logs" ? (
-            <section>
+            </TabsManager.Section>
+            <TabsManager.Section name="Server Logs">
               <div className={boxesHeader}>
                 {serverLogs.map((opt, index) => {
                   return (
@@ -200,11 +132,9 @@ class ModerationEditor extends Component {
                   );
                 })}
               </div>
-            </section>
-          ) : null}
-
-          {this.state.category === "Mod Values" ? (
-            <section>
+            </TabsManager.Section>
+            {/*
+            <TabsManager.Section name="Mod Values">
               <Heading2>Moderation Values</Heading2>
               <div className={boxesHeader}>
                 <Box padding>
@@ -241,11 +171,8 @@ class ModerationEditor extends Component {
                   })}
                 </Box>
               </div>
-            </section>
-          ) : null}
-
-          {this.state.category === "Mute Module" ? (
-            <section>
+                </TabsManager.Section>*/}
+            <TabsManager.Section name="Mute Module">
               <div className={boxesHeader}>
                 <Box padding>
                   <Box.Body>
@@ -272,11 +199,9 @@ class ModerationEditor extends Component {
                   </Box.Body>
                 </Box>
               </div>
-            </section>
-          ) : null}
+            </TabsManager.Section>
 
-          {this.state.category === "Mod Mails" ? (
-            <section>
+            <TabsManager.Section name="Mod Mails">
               <div className={boxesHeader}>
                 <Box padding>
                   <Box.Body>
@@ -345,11 +270,8 @@ class ModerationEditor extends Component {
                   </Box.Body>
                 </Box>
               </div>
-            </section>
-          ) : null}
-
-          {this.state.category === "Auto-Mod" ? (
-            <section>
+            </TabsManager.Section>
+            <TabsManager.Section name="Auto-Mod">
               <div className={boxesHeader}>
                 <Box padding>
                   <Box.Body>
@@ -434,11 +356,8 @@ class ModerationEditor extends Component {
                   </Box.Body>
                 </Box>
               </div>
-            </section>
-          ) : null}
-
-          {this.state.category === "Verification" ? (
-            <section>
+            </TabsManager.Section>
+            <TabsManager.Section name="Verification">
               <div className={boxesHeader}>
                 <Box padding>
                   <Box.Body>
@@ -483,8 +402,8 @@ class ModerationEditor extends Component {
                   </Box.Body>
                 </Box>
               </div>
-            </section>
-          ) : null}
+            </TabsManager.Section>
+          </TabsManager>
         </Editor>
       </React.Fragment>
     );
