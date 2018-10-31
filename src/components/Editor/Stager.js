@@ -102,7 +102,7 @@ class Stager extends React.Component {
 
         <Snackbar open={modified || commiting}>
           <Snackbar.ButtonContainer>
-            <div>{isValid ? "Is valid" : "Not validddddddddddddddddddd"}</div>
+            <div>{isValid ? "Is valid" : "Not valid"}</div>
             <Button onClick={this.revert} simple disabled={commiting}>
               Revert
             </Button>
