@@ -19,7 +19,12 @@ import HelpModal from "../../../../components/HelpModal";
 import TabsManager from "../../../../components/Tabs";
 import TextMutedRoleHelp from "../../../../constants/help/moderation/muted/TextMutedRoleHelp";
 import VoiceMutedRoleHelp from "../../../../constants/help/moderation/muted/VoiceMutedRoleHelp";
+import ModMailStatusHelp from "../../../../constants/help/moderation/modmail/ModMailStatusHelp";
+import ModMailPermissionToReplyHelp from "../../../../constants/help/moderation/modmail/ModMailPermissionToReplyHelp";
+import ModMailMailMailsPerGuildHelp from "../../../../constants/help/moderation/modmail/ModMailMailMailsPerGuildHelp";
+import ModMailMailMailsPerUserHelp from "../../../../constants/help/moderation/modmail/ModMailMailMailsPerUserHelp";
 
+ModMailMailMailsPerGuildHelp;
 const boxesHeader = css`
   display: flex;
   flex-wrap: wrap;
@@ -223,7 +228,11 @@ class ModerationEditor extends Component {
                 <Box padding>
                   <Box.Body>
                     <Editor.CheckboxCollapse
-                      label={<Box.Title>Mod Mails Status</Box.Title>}
+                      label={
+                        <Box.Title>
+                          Mod Mails Status {<HelpModal content={ModMailStatusHelp} />}
+                        </Box.Title>
+                      }
                       query="guild.settings.settings.mail.activated"
                       mutate="modMailStatus"
                     >
@@ -250,6 +259,9 @@ class ModerationEditor extends Component {
                             }}
                           </Query>
                         </div>
+                        <div>
+                          <HelpModal content={ModMailPermissionToReplyHelp} />
+                        </div>
                       </Box.Option>
 
                       <Box.Option>
@@ -265,6 +277,9 @@ class ModerationEditor extends Component {
                               Validation.numberMax(50)
                             )}
                           />
+                        </div>{" "}
+                        <div>
+                          <HelpModal content={ModMailMailMailsPerGuildHelp} />
                         </div>
                       </Box.Option>
 
@@ -282,12 +297,16 @@ class ModerationEditor extends Component {
                             )}
                           />
                         </div>
+                        <div>
+                          <HelpModal content={ModMailMailMailsPerUserHelp} />
+                        </div>
                       </Box.Option>
                     </Editor.CheckboxCollapse>
                   </Box.Body>
                 </Box>
               </div>
             </TabsManager.Section>
+
             <TabsManager.Section name="Auto-Mod">
               <div className={boxesHeader}>
                 <Box padding>
