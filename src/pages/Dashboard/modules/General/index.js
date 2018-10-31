@@ -406,55 +406,58 @@ class GeneralEditor extends Component {
                   <Box.Body>
                     <Box.Option>
                       <div>Create</div>
+                      <div>
+                        <Query
+                          query={qClientBasic}
+                          variables={{ clientId: process.env.REACT_APP_CLIENT_ID }}
+                        >
+                          {({ loading, error, data }) => {
+                            if (loading) return "Loading";
+                            if (error) return "Error";
+                            const values = data.client.settings.permissionLevels.map(
+                              perm => ({
+                                key: perm.id,
+                                value: perm.value,
+                              })
+                            );
 
-                      <Query
-                        query={qClientBasic}
-                        variables={{ clientId: process.env.REACT_APP_CLIENT_ID }}
-                      >
-                        {({ loading, error, data }) => {
-                          if (loading) return "Loading";
-                          if (error) return "Error";
-                          const values = data.client.settings.permissionLevels.map(
-                            perm => ({
-                              key: perm.id,
-                              value: perm.value,
-                            })
-                          );
-
-                          return (
-                            <Editor.Select
-                              values={values}
-                              mutate={"tagsAllowCreation"}
-                              query={"guild.settings.settings.tags.allowCreation"}
-                            />
-                          );
-                        }}
-                      </Query>
+                            return (
+                              <Editor.Select
+                                values={values}
+                                mutate={"tagsAllowCreation"}
+                                query={"guild.settings.settings.tags.allowCreation"}
+                              />
+                            );
+                          }}
+                        </Query>
+                      </div>
                     </Box.Option>
                     <Box.Option>
                       <div>Use</div>
-                      <Query
-                        query={qClientBasic}
-                        variables={{ clientId: process.env.REACT_APP_CLIENT_ID }}
-                      >
-                        {({ loading, error, data }) => {
-                          if (loading) return "Loading";
-                          if (error) return "Error";
-                          const values = data.client.settings.permissionLevels.map(
-                            perm => ({
-                              key: perm.id,
-                              value: perm.value,
-                            })
-                          );
-                          return (
-                            <Editor.Select
-                              values={values}
-                              mutate="tagsAllowUsage"
-                              query="guild.settings.settings.tags.allowUsage"
-                            />
-                          );
-                        }}
-                      </Query>
+                      <div>
+                        <Query
+                          query={qClientBasic}
+                          variables={{ clientId: process.env.REACT_APP_CLIENT_ID }}
+                        >
+                          {({ loading, error, data }) => {
+                            if (loading) return "Loading";
+                            if (error) return "Error";
+                            const values = data.client.settings.permissionLevels.map(
+                              perm => ({
+                                key: perm.id,
+                                value: perm.value,
+                              })
+                            );
+                            return (
+                              <Editor.Select
+                                values={values}
+                                mutate="tagsAllowUsage"
+                                query="guild.settings.settings.tags.allowUsage"
+                              />
+                            );
+                          }}
+                        </Query>
+                      </div>
                     </Box.Option>
 
                     <Box.Option>
@@ -474,57 +477,60 @@ class GeneralEditor extends Component {
                   <Box.Body>
                     <Box.Option>
                       <div>Create</div>
+                      <div>
+                        <Query
+                          query={qClientBasic}
+                          variables={{ clientId: process.env.REACT_APP_CLIENT_ID }}
+                        >
+                          {({ loading, error, data }) => {
+                            if (loading) return "Loading";
+                            if (error) return "Error";
+                            const values = data.client.settings.permissionLevels.map(
+                              perm => ({
+                                key: perm.id,
+                                value: perm.value,
+                              })
+                            );
 
-                      <Query
-                        query={qClientBasic}
-                        variables={{ clientId: process.env.REACT_APP_CLIENT_ID }}
-                      >
-                        {({ loading, error, data }) => {
-                          if (loading) return "Loading";
-                          if (error) return "Error";
-                          const values = data.client.settings.permissionLevels.map(
-                            perm => ({
-                              key: perm.id,
-                              value: perm.value,
-                            })
-                          );
-
-                          return (
-                            <Editor.Select
-                              values={values}
-                              mutate="storiesAllowCreation"
-                              type="Permission"
-                              query="guild.settings.settings.stories.allowCreation"
-                            />
-                          );
-                        }}
-                      </Query>
+                            return (
+                              <Editor.Select
+                                values={values}
+                                mutate="storiesAllowCreation"
+                                type="Permission"
+                                query="guild.settings.settings.stories.allowCreation"
+                              />
+                            );
+                          }}
+                        </Query>
+                      </div>
                     </Box.Option>
                     <Box.Option>
                       <div>Use</div>
-                      <Query
-                        query={qClientBasic}
-                        variables={{ clientId: process.env.REACT_APP_CLIENT_ID }}
-                      >
-                        {({ loading, error, data }) => {
-                          if (loading) return "Loading";
-                          if (error) return "Error";
-                          const values = data.client.settings.permissionLevels.map(
-                            perm => ({
-                              key: perm.id,
-                              value: perm.value,
-                            })
-                          );
-                          return (
-                            <Editor.Select
-                              values={values}
-                              mutate="storiesAllowCreation"
-                              type="Permission"
-                              query="guild.settings.settings.stories.allowCreation"
-                            />
-                          );
-                        }}
-                      </Query>
+                      <div>
+                        <Query
+                          query={qClientBasic}
+                          variables={{ clientId: process.env.REACT_APP_CLIENT_ID }}
+                        >
+                          {({ loading, error, data }) => {
+                            if (loading) return "Loading";
+                            if (error) return "Error";
+                            const values = data.client.settings.permissionLevels.map(
+                              perm => ({
+                                key: perm.id,
+                                value: perm.value,
+                              })
+                            );
+                            return (
+                              <Editor.Select
+                                values={values}
+                                mutate="storiesAllowCreation"
+                                type="Permission"
+                                query="guild.settings.settings.stories.allowCreation"
+                              />
+                            );
+                          }}
+                        </Query>
+                      </div>
                     </Box.Option>
 
                     <Box.Option>
