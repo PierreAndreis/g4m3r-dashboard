@@ -23,7 +23,8 @@ import ChannelDeleteLogHelp from "./help/moderation/serverlogs/ChannelDeleteLogH
 import ChannelUpdateLogHelp from "./help/moderation/serverlogs/ChannelUpdateLogHelp";
 import ServerDeafLogHelp from "./help/moderation/serverlogs/ServerDeafLogHelp";
 import ServerMuteLogHelp from "./help/moderation/serverlogs/ServerMuteLogHelp";
-import NicknameChangeLogHelp from "./help/moderation/serverlogs/NicknameChangeLogHelp";
+import NicknameChangeLogHelp from "./help/moderation/serverlogs/NicknameChangeLogHelp.js";
+// import NicknameChangeLogHelp from "./help/moderation/serverlogs/NicknameChangeLogHelp";
 import MemberPermsLogHelp from "./help/moderation/serverlogs/MemberPermsLogHelp";
 import MemberRolesLogHelp from "./help/moderation/serverlogs/MemberRolesLogHelp";
 import MemberBanLogHelp from "./help/moderation/serverlogs/MemberBanLogHelp";
