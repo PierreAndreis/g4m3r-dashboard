@@ -35,7 +35,6 @@ const channelOrRoleSelector = props => {
         mutate={props.mutateString}
         query={props.query}
       />
-      <br />
     </div>
   );
 };
@@ -247,21 +246,19 @@ class ModerationEditor extends Component {
                   <Box.Body>
                     <Box.Option>
                       <div>Text Muted Role</div>
-                      {channelOrRoleSelector({
-                        isChannel: false,
-                        mutateString: "muteRoleText",
-                        query: "guild.settings.settings.moderation.mutedRoles.text",
-                        guildId,
-                      })}
+                      <Editor.Select
+                        values={extractRoles}
+                        mutate="muteRoleText"
+                        query="guild.settings.settings.moderation.mutedRoles.text"
+                      />
                     </Box.Option>
                     <Box.Option>
                       <div>Voice Muted Role</div>
-                      {channelOrRoleSelector({
-                        isChannel: false,
-                        mutateString: "muteRoleVoice",
-                        query: "guild.settings.settings.moderation.mutedRoles.voice",
-                        guildId,
-                      })}
+                      <Editor.Select
+                        values={extractRoles}
+                        mutate="muteRoleVoice"
+                        query="guild.settings.settings.moderation.mutedRoles.voice"
+                      />
                     </Box.Option>
                   </Box.Body>
                 </Box>
@@ -346,66 +343,86 @@ class ModerationEditor extends Component {
             <section>
               <div className={boxesHeader}>
                 <Box padding>
-                  <Box.Title>Auto-Assign Role</Box.Title>
-                  {channelOrRoleSelector({
-                    isChannel: false,
-                    mutateString: "mainRole",
-                    query: "guild.settings.settings.autoAssignRoles.mainRole",
-                    guildId,
-                  })}
+                  <Box.Body>
+                    <Box.Title>Auto-Assign Role</Box.Title>
+                    <Editor.Select
+                      values={extractRoles}
+                      mutate="mainRole"
+                      query="guild.settings.settings.autoAssignRoles.mainRole"
+                    />
+                  </Box.Body>
+                </Box>
 
-                  <Box.Title>Allow AFK Responses Permission</Box.Title>
-                  <Query
-                    query={qClientBasic}
-                    variables={{ clientId: process.env.REACT_APP_CLIENT_ID }}
-                  >
-                    {({ loading, error, data }) => {
-                      if (loading) return "Loading";
-                      if (error) return "Error";
-                      const values = data.client.settings.permissionLevels;
-                      console.log("perms levels", data);
-                      return (
-                        <Editor.Select
-                          values={values}
-                          mutate={"allowAfkResponses"}
-                          type={"Permission"}
-                          query={"guild.settings.settings.allowAfkResponses"}
-                        />
-                      );
-                    }}
-                  </Query>
-                </Box>
                 <Box padding>
-                  <Box.Title>Capital Spam</Box.Title>
-                  <Editor.Checkbox
-                    query="guild.settings.settings.moderation.capitalPercentage.status"
-                    mutate="capitalPercentageStatus"
-                    children="Capital Spam Filter Status"
-                  />
-                  <br />
-                  <br />
-                  {makeInputSettings({
-                    title: "Max Allowed Percentage",
-                    query: "guild.settings.settings.moderation.capitalPercentage.amount",
-                    mutate: "capitalPercentageAmount",
-                    type: "number",
-                    max: 100,
-                    min: 0,
-                  })}
+                  <Box.Body>
+                    <Box.Title>Allow AFK Responses Permission</Box.Title>
+                    <Query
+                      query={qClientBasic}
+                      variables={{ clientId: process.env.REACT_APP_CLIENT_ID }}
+                    >
+                      {({ loading, error, data }) => {
+                        if (loading) return "Loading";
+                        if (error) return "Error";
+                        const values = data.client.settings.permissionLevels;
+                        console.log("perms levels", data);
+                        return (
+                          <Editor.Select
+                            values={values}
+                            mutate={"allowAfkResponses"}
+                            type={"Permission"}
+                            query={"guild.settings.settings.allowAfkResponses"}
+                          />
+                        );
+                      }}
+                    </Query>
+                  </Box.Body>
                 </Box>
+
                 <Box padding>
-                  <Box.Title>Banned Words</Box.Title>
-                  <Editor.Checkbox
-                    query="guild.settings.settings.moderation.naughtyWords.status"
-                    mutate="naughtyWordStatus"
-                    children="Banned Word Filter Status"
-                  />
-                  {/*makeInputSettings({
-                    title: "Naughty Words",
-                    query: "guild.settings.settings.moderation.naughtyWords.words",
-                    mutate: "naughtyWordWords",
-                    type: "string"
-                  })*/}
+                  <Box.Body>
+                    <Editor.CheckboxCollapse
+                      label={<Box.Title>Capital Spam Filter Status</Box.Title>}
+                      query="guild.settings.settings.moderation.capitalPercentage.status"
+                      mutate="capitalPercentageStatus"
+                    >
+                      <Box.Option>
+                        <div>Max Allowed Percentage</div>
+                        <div>
+                          <Editor.Input
+                            query="guild.settings.settings.moderation.capitalPercentage.amount"
+                            mutate="capitalPercentageAmount"
+                            type="number"
+                            validate={Validation.all(
+                              Validation.isNumber(),
+                              Validation.numberMin(60),
+                              Validation.numberMax(100)
+                            )}
+                          />
+                        </div>
+                      </Box.Option>
+                    </Editor.CheckboxCollapse>
+                  </Box.Body>
+                </Box>
+
+                <Box padding>
+                  <Box.Body>
+                    <Editor.CheckboxCollapse
+                      label={<Box.Title>Banned Word Filter Status</Box.Title>}
+                      query="guild.settings.settings.moderation.naughtyWords.status"
+                      mutate="naughtyWordStatus"
+                    >
+                      {/*<Box.Option>
+                        <div>Naughty Words</div>
+                        <div>
+                          <Editor.Input
+                            query="guild.settings.settings.moderation.naughtyWords.words"
+                            mutate="naughtyWordWords"
+                            type="string"
+                          />
+                        </div>
+                      </Box.Option>*/}
+                    </Editor.CheckboxCollapse>
+                  </Box.Body>
                 </Box>
               </div>
             </section>
@@ -413,51 +430,48 @@ class ModerationEditor extends Component {
 
           {this.state.category === "Verification" ? (
             <section>
-              <Heading2>Verification</Heading2>
               <div className={boxesHeader}>
                 <Box padding>
-                  <Box.Title>Verification System</Box.Title>
-                  <Editor.Checkbox
-                    query="guild.settings.settings.verify.status"
-                    mutate="verifyStatus"
-                    children="Verification System Status"
-                  />
-                  <br />
-                  <br />
-                  <Box.Title>Verification Category</Box.Title>
-                  {channelOrRoleSelector({
-                    isChannel: true,
-                    mutateString: "verifyCategory",
-                    query: "guild.settings.settings.verify.category",
-                    needCategory: true,
-                    guildId,
-                  })}
-                </Box>
-
-                {/*<Box padding>
-                  <Box.Title>Verification First Message</Box.Title>
                   <Box.Body>
-                    <Editor.Input
-                      mutate="verifyFirst"
-                      query="guild.settings.settings.verify.first"
-                      type="string"
-                    />
+                    <Editor.CheckboxCollapse
+                      label={<Box.Title>Verification System Status</Box.Title>}
+                      query="guild.settings.settings.verify.status"
+                      mutate="verifyStatus"
+                    >
+                      <Box.Option>
+                        <div>Category Channel</div>
+                        <div>
+                          <Editor.Select
+                            values={extractChannel}
+                            mutate="verifyCategory"
+                            query="guild.settings.settings.verify.category"
+                          />
+                        </div>
+                      </Box.Option>
+
+                      {/*<Box.Option>
+                        <div>First Message</div>
+                        <div>
+                          <Editor.Input
+                            mutate="verifyFirst"
+                            query="guild.settings.settings.verify.first"
+                            type="string"
+                          />
+                        </div>
+                      </Box.Option>*/}
+
+                      <Box.Option>
+                        <div>Verification Role</div>
+                        <div>
+                          <Editor.Select
+                            values={extractRoles}
+                            mutate="verifyRole"
+                            query="guild.settings.settings.verify.role"
+                          />
+                        </div>
+                      </Box.Option>
+                    </Editor.CheckboxCollapse>
                   </Box.Body>
-                </Box>*/}
-
-                <Box padding>
-                  <Box.Title>Verification Role</Box.Title>
-                  {channelOrRoleSelector({
-                    isChannel: false,
-                    mutateString: "verifyRole",
-                    query: "guild.settings.settings.verify.role",
-                    guildId,
-                  })}
-                </Box>
-
-                <Box padding>
-                  <Box.Title>Reset Verification</Box.Title>
-                  <Box.Body />
                 </Box>
               </div>
             </section>
