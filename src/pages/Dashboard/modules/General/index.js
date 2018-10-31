@@ -352,45 +352,51 @@ class GeneralEditor extends Component {
                     <Box.Title>Event Permissions</Box.Title>
                     <Box.Option>
                       <div>Create</div>
-                      <Query
-                        query={qClientBasic}
-                        variables={{ clientId: process.env.REACT_APP_CLIENT_ID }}
-                      >
-                        {({ loading, error, data }) => {
-                          if (loading) return "Loading";
-                          if (error) return "Error";
-                          const values = data.client.settings.permissionLevels;
-                          console.log("perms levels", data);
-                          return (
-                            <Editor.Select
-                              values={values}
-                              mutate={"eventsAllowCreation"}
-                              query={"guild.settings.settings.events.permissions.create"}
-                            />
-                          );
-                        }}
-                      </Query>
+                      <div>
+                        <Query
+                          query={qClientBasic}
+                          variables={{ clientId: process.env.REACT_APP_CLIENT_ID }}
+                        >
+                          {({ loading, error, data }) => {
+                            if (loading) return "Loading";
+                            if (error) return "Error";
+                            const values = data.client.settings.permissionLevels;
+                            console.log("perms levels", data);
+                            return (
+                              <Editor.Select
+                                values={values}
+                                mutate={"eventsAllowCreation"}
+                                query={
+                                  "guild.settings.settings.events.permissions.create"
+                                }
+                              />
+                            );
+                          }}
+                        </Query>
+                      </div>
                     </Box.Option>
                     <Box.Option>
                       <div>Add Member</div>
-                      <Query
-                        query={qClientBasic}
-                        variables={{ clientId: process.env.REACT_APP_CLIENT_ID }}
-                      >
-                        {({ loading, error, data }) => {
-                          if (loading) return "Loading";
-                          if (error) return "Error";
-                          const values = data.client.settings.permissionLevels;
+                      <div>
+                        <Query
+                          query={qClientBasic}
+                          variables={{ clientId: process.env.REACT_APP_CLIENT_ID }}
+                        >
+                          {({ loading, error, data }) => {
+                            if (loading) return "Loading";
+                            if (error) return "Error";
+                            const values = data.client.settings.permissionLevels;
 
-                          return (
-                            <Editor.Select
-                              values={values}
-                              mutate={"eventsAllowAddMember"}
-                              query={"guild.settings.settings.events.permissions.add"}
-                            />
-                          );
-                        }}
-                      </Query>
+                            return (
+                              <Editor.Select
+                                values={values}
+                                mutate={"eventsAllowAddMember"}
+                                query={"guild.settings.settings.events.permissions.add"}
+                              />
+                            );
+                          }}
+                        </Query>
+                      </div>
                     </Box.Option>
                   </Box.Body>
                 </Box>
