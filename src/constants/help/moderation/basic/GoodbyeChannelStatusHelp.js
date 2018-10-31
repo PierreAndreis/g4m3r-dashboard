@@ -9,7 +9,7 @@ export default (
         The goodbye channel status enables or disables whether the goodbye message should
         be sent in the goodbye channel.
       </p>
-      <img src="https://i.imgur.com/a4rLEaa.png" width="300" height="400" />
+      <img src="https://i.imgur.com/a4rLEaa.png" width="90%" />
     </Box.Body>
   </div>
 );

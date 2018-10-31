@@ -9,8 +9,7 @@ export default (
       <img
         src="https://i.imgur.com/Nv1qZKu.png"
         alt="role update logs example"
-        width="300"
-        height="400"
+        width="90%"
       />
     </Box.Body>
   </div>

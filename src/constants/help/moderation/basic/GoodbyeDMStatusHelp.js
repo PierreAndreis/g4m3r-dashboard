@@ -11,7 +11,7 @@ export default (
         will only be sent if the user shares another server with G4M3R and has Direct
         Messages enabled.
       </p>
-      <img src="https://i.imgur.com/xG8gjrU.png" width="300" height="400" />
+      <img src="https://i.imgur.com/xG8gjrU.png" width="90%" />
     </Box.Body>
   </div>
 );

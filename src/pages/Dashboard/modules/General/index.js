@@ -71,7 +71,6 @@ class GeneralEditor extends Component {
                         <Editor.Input
                           mutate="prefix"
                           query="guild.settings.settings.prefix"
-                          type="string"
                         />
                       </div>
                     </Box.Option>
@@ -117,7 +116,11 @@ class GeneralEditor extends Component {
                         <Editor.Input
                           mutate="deleteNotificationTime"
                           query="guild.settings.settings.general.deleteNotificationTime"
-                          type="number"
+                          validate={Validation.all(
+                            Validation.isNumber(),
+                            Validation.numberMin(1000),
+                            Validation.numberMax(100000)
+                          )}
                         />
                       </div>
                     </Box.Option>
@@ -266,7 +269,9 @@ class GeneralEditor extends Component {
                           <Editor.Input
                             mutate="eventDuration"
                             query="guild.settings.settings.events.duration"
-                            type={"number"}
+                            validate={Validation.all(
+                              Validation.isNumber()
+                            )}
                           />
                         </div>
                       </Box.Option>
@@ -277,7 +282,10 @@ class GeneralEditor extends Component {
                           <Editor.Input
                             mutate="maxAttendees"
                             query="guild.settings.settings.events.maxAttendees"
-                            type={"number"}
+                            validate={Validation.all(
+                              Validation.isNumber(),
+                              Validation.numberMax(99999)
+                            )}
                           />
                         </div>
                       </Box.Option>
@@ -288,6 +296,10 @@ class GeneralEditor extends Component {
                           <Editor.Input
                             mutate="defaultEventGame"
                             query="guild.settings.settings.events.game"
+                            validate={Validation.all(
+                              Validation.stringMin(1),
+                              Validation.stringMax(40)
+                            )}
                           />
                         </div>
                       </Box.Option>
@@ -298,7 +310,9 @@ class GeneralEditor extends Component {
                           <Editor.Input
                             mutate="defaultReminder"
                             query="guild.settings.settings.events.defaultReminder"
-                            type={"number"}
+                            validate={Validation.all(
+                              Validation.isNumber()
+                            )}
                           />
                         </div>
                       </Box.Option>
