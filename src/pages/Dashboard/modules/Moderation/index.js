@@ -245,19 +245,23 @@ class ModerationEditor extends Component {
                   <Box.Body>
                     <Box.Option>
                       <div>Text Muted Role</div>
-                      <Editor.Select
-                        values={extractRoles}
-                        mutate="muteRoleText"
-                        query="guild.settings.settings.moderation.mutedRoles.text"
-                      />
+                      <div>
+                        <Editor.Select
+                          values={extractRoles}
+                          mutate="muteRoleText"
+                          query="guild.settings.settings.moderation.mutedRoles.text"
+                        />
+                      </div>
                     </Box.Option>
                     <Box.Option>
                       <div>Voice Muted Role</div>
-                      <Editor.Select
-                        values={extractRoles}
-                        mutate="muteRoleVoice"
-                        query="guild.settings.settings.moderation.mutedRoles.voice"
-                      />
+                      <div>
+                        <Editor.Select
+                          values={extractRoles}
+                          mutate="muteRoleVoice"
+                          query="guild.settings.settings.moderation.mutedRoles.voice"
+                        />
+                      </div>
                     </Box.Option>
                   </Box.Body>
                 </Box>
