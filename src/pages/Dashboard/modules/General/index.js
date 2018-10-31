@@ -351,7 +351,7 @@ class GeneralEditor extends Component {
                   <Box.Body>
                     <Box.Title>Event Permissions</Box.Title>
                     <Box.Option>
-                      <div>Create Events Permission</div>
+                      <div>Create</div>
                       <Query
                         query={qClientBasic}
                         variables={{ clientId: process.env.REACT_APP_CLIENT_ID }}
@@ -372,7 +372,7 @@ class GeneralEditor extends Component {
                       </Query>
                     </Box.Option>
                     <Box.Option>
-                      <div>Add Member Permission</div>
+                      <div>Add Member</div>
                       <Query
                         query={qClientBasic}
                         variables={{ clientId: process.env.REACT_APP_CLIENT_ID }}
