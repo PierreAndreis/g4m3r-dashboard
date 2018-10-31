@@ -14,6 +14,7 @@ import {
 } from "../../../../constants/moderation";
 import Button from "../../../../components/Button";
 import { extractChannel, extractRoles } from "../../../../util/transformers";
+import Validation from "./../../../../global/validation";
 
 const boxesHeader = css`
   display: flex;
@@ -272,48 +273,70 @@ class ModerationEditor extends Component {
             <section>
               <div className={boxesHeader}>
                 <Box padding>
-                  <Box.Title>Mod Mails</Box.Title>
-                  <Editor.Checkbox
-                    query="guild.settings.settings.mail.activated"
-                    mutate="modMailStatus"
-                    children="Mod Mail Status"
-                  />
-                  <br />
-                  <br />
-                  <Box.Title>Permission To Reply</Box.Title>
-                  <Query
-                    query={qClientBasic}
-                    variables={{ clientId: process.env.REACT_APP_CLIENT_ID }}
-                  >
-                    {({ loading, error, data }) => {
-                      if (loading) return "Loading";
-                      if (error) return "Error";
-                      const values = data.client.settings.permissionLevels;
-                      console.log("perms levels", data);
-                      return (
-                        <Editor.Select
-                          values={values}
-                          mutate={"permissionToReply"}
-                          type={"Permission"}
-                          query={"guild.settings.settings.mail.permissionToReply"}
-                        />
-                      );
-                    }}
-                  </Query>
-                </Box>
-                <Box padding>
-                  {makeInputSettings({
-                    title: "Max Mails Per Guild",
-                    query: "guild.settings.settings.mail.maxMailsTotal",
-                    mutate: "maxMailsTotal",
-                    type: "number",
-                  })}
-                  {makeInputSettings({
-                    title: "Max Mails Per User",
-                    query: "guild.settings.settings.mail.maxMailPerUser",
-                    mutate: "maxMailPerUser",
-                    type: "number",
-                  })}
+                  <Box.Body>
+                    <Editor.CheckboxCollapse
+                      label={<Box.Title>Mod Mails Status</Box.Title>}
+                      query="guild.settings.settings.mail.activated"
+                      mutate="modMailStatus"
+                    >
+                      <Box.Option>
+                        <div>Permission To Reply</div>
+                        <div>
+                          <Query
+                            query={qClientBasic}
+                            variables={{ clientId: process.env.REACT_APP_CLIENT_ID }}
+                          >
+                            {({ loading, error, data }) => {
+                              if (loading) return "Loading";
+                              if (error) return "Error";
+                              const values = data.client.settings.permissionLevels;
+
+                              return (
+                                <Editor.Select
+                                  values={values}
+                                  mutate="permissionToReply"
+                                  type="Permission"
+                                  query="guild.settings.settings.mail.permissionToReply"
+                                />
+                              );
+                            }}
+                          </Query>
+                        </div>
+                      </Box.Option>
+
+                      <Box.Option>
+                        <div>Max Mails Per Guild</div>
+                        <div>
+                          <Editor.Input
+                            query="guild.settings.settings.mail.maxMailsTotal"
+                            mutate="maxMailsTotal"
+                            type="number"
+                            validate={Validation.all(
+                              Validation.isNumber(),
+                              Validation.numberMin(10),
+                              Validation.numberMax(50)
+                            )}
+                          />
+                        </div>
+                      </Box.Option>
+
+                      <Box.Option>
+                        <div>Max Mails Per User</div>
+                        <div>
+                          <Editor.Input
+                            query="guild.settings.settings.mail.maxMailPerUser"
+                            mutate="maxMailPerUser"
+                            type="number"
+                            validate={Validation.all(
+                              Validation.isNumber(),
+                              Validation.numberMin(1),
+                              Validation.numberMax(5)
+                            )}
+                          />
+                        </div>
+                      </Box.Option>
+                    </Editor.CheckboxCollapse>
+                  </Box.Body>
                 </Box>
               </div>
             </section>
@@ -321,7 +344,6 @@ class ModerationEditor extends Component {
 
           {this.state.category === "Auto-Mod" ? (
             <section>
-              <Heading2>Auto Moderation</Heading2>
               <div className={boxesHeader}>
                 <Box padding>
                   <Box.Title>Auto-Assign Role</Box.Title>
