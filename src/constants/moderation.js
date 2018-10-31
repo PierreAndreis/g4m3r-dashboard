@@ -1,11 +1,11 @@
-import ModLogsHelp from "./help/ModLogsHelp";
-import ServerLogsHelp from "./help/ServerLogsHelp";
-import PublicLogsHelp from "./help/PublicLogsHelp";
-import WelcomeChannelStatusHelp from "./help/WelcomeChannelStatusHelp";
-import WelcomeDMStatusHelp from "./help/WelcomeDMStatusHelp";
-import GoodbyeChannelStatusHelp from "./help/GoodbyeChannelStatusHelp";
-import GoodbyeDMStatusHelp from "./help/GoodbyeDMStatusHelp";
-
+import ModLogsHelp from "./help/moderation/basic/ModLogsHelp";
+import ServerLogsHelp from "./help/moderation/basic/ServerLogsHelp";
+import PublicLogsHelp from "./help/moderation/basic/PublicLogsHelp";
+import WelcomeChannelStatusHelp from "./help/moderation/basic/WelcomeChannelStatusHelp";
+import WelcomeDMStatusHelp from "./help/moderation/basic/WelcomeDMStatusHelp";
+import GoodbyeChannelStatusHelp from "./help/moderation/basic/GoodbyeChannelStatusHelp";
+import GoodbyeDMStatusHelp from "./help/moderation/basic/GoodbyeDMStatusHelp";
+import RoleCreateLogHelp from "./help/moderation/serverlogs/RoleCreateLogHelp";
 
 export const mainLogs = [
   {
@@ -39,6 +39,7 @@ export const serverLogs = [
     name: "Role Create",
     mutate: "roleCreate",
     query: "guild.settings.settings.serverLogs.roleCreate.channel",
+    help: RoleCreateLogHelp,
   },
   {
     name: "Role Delete",
@@ -157,24 +158,24 @@ export const modFeatureToggles = [
     query: "guild.settings.settings.hibye.welcome.channel",
     mutate: "welcomeChannelStatus",
     children: "Welcome Channel Status",
-    help: WelcomeChannelStatusHelp
+    help: WelcomeChannelStatusHelp,
   },
   {
     query: "guild.settings.settings.hibye.welcome.dm",
     mutate: "welcomeDmStatus",
     children: "Welcome DM Status",
-    help: WelcomeDMStatusHelp
+    help: WelcomeDMStatusHelp,
   },
   {
     query: "guild.settings.settings.hibye.goodbye.channel",
     mutate: "goodbyeChannelStatus",
     children: "Goodbye Channel Status",
-    help: GoodbyeChannelStatusHelp
+    help: GoodbyeChannelStatusHelp,
   },
   {
     query: "guild.settings.settings.hibye.goodbye.dm",
     mutate: "goodbyeDmStatus",
     children: "Goodbye DM Status",
-    help: GoodbyeDMStatusHelp
+    help: GoodbyeDMStatusHelp,
   },
 ];

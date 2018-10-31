@@ -17,7 +17,7 @@ import { extractChannel, extractRoles } from "../../../../util/transformers";
 import Validation from "./../../../../global/validation";
 import HelpModal from "../../../../components/HelpModal";
 import TabsManager from "../../../../components/Tabs";
-import ModerationFeatureTogglesHelp from "../../../../constants/help/WelcomeChannelStatusHelp";
+import ModerationFeatureTogglesHelp from "../../../../constants/help/moderation/basic/WelcomeChannelStatusHelp";
 
 const boxesHeader = css`
   display: flex;
