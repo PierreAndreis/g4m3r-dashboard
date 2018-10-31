@@ -2,7 +2,7 @@ import React from "react";
 import { css } from "emotion";
 import { Transition, animated } from "react-spring";
 
-import { BoxBase } from "./Box";
+import { BoxBase, BoxPadding } from "./Box";
 import Portal from "./Portal";
 
 const modal = css`
@@ -29,7 +29,7 @@ const backdrop = css`
 
 const modalContent = css`
   ${BoxBase};
-  width: auto;
+  ${BoxPadding} width: auto;
   height: auto;
   max-height: 90%;
   max-width: 800px;
@@ -45,8 +45,15 @@ const modalContent = css`
 `;
 
 class Modal extends React.Component {
-  onClose = () => {
-    if (typeof this.props.onClose === "function") this.props.onClose();
+  onClose = e => {
+    if (typeof this.props.onClose === "function") this.props.onClose(e);
+  };
+
+  onBodyClick = e => {
+    if (this.props.disablePropagation) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
   };
 
   render() {
@@ -87,7 +94,11 @@ class Modal extends React.Component {
                   style={{ opacity: styles.backdropOpacity }}
                   onClick={this.onClose}
                 />
-                <animated.div className={modalContent} style={styles}>
+                <animated.div
+                  className={modalContent}
+                  style={styles}
+                  onClick={this.onBodyClick}
+                >
                   {this.props.children}
                 </animated.div>
               </div>

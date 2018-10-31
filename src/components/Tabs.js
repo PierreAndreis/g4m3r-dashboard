@@ -11,7 +11,7 @@ class TabsManager extends React.Component {
 
     if (sections.length < 1)
       throw new Error(
-        "No sections found inside TabsManager. At least one section with props name should be present"
+        "No section found inside TabsManager. At least one section with props name should be present"
       );
 
     this.state = {
@@ -60,6 +60,7 @@ class TabsManager extends React.Component {
         <section>
           <Transition
             native
+            trail={100}
             items={selected}
             from={{ position: "absolute", transform: "translateY(30px)", opacity: 0 }}
             enter={{ transform: "translateY(0)", opacity: 1 }}

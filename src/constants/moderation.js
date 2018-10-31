@@ -1,3 +1,5 @@
+import ModLogsHelp from "./help/ModLogsHelp";
+
 export const mainLogs = [
   {
     name: "Mod Logs",
@@ -5,6 +7,8 @@ export const mainLogs = [
     mutate: "modlogChannel",
     checkboxMutate: "modlogStatus",
     checkboxQuery: "guild.settings.settings.moderation.status",
+
+    help: ModLogsHelp,
   },
   {
     name: "Public Logs",

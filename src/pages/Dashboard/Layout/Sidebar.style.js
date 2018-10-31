@@ -67,7 +67,6 @@ export const menu = css`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  z-index: 3;
 
   & > a {
     padding: 10px;

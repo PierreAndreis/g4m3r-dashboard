@@ -23,7 +23,7 @@ const BoxCenter = css`
   justify-self: center;
 `;
 
-const BoxPadding = css`
+export const BoxPadding = css`
   padding: 15px 0;
 `;
 
@@ -43,6 +43,10 @@ const BoxBody = css`
       padding: 5px 15px;
     }
   }
+`;
+
+const BoxBoddyPadding = css`
+  padding: 5px 15px;
 `;
 
 const BoxOption = css`
@@ -67,8 +71,8 @@ export default class Box extends Component {
     </h2>
   );
 
-  static Body = ({ children, className, ...otherProps }) => (
-    <div className={classNames(BoxBody, className)} {...otherProps}>
+  static Body = ({ children, className, padding, ...otherProps }) => (
+    <div className={classNames(BoxBody, BoxBoddyPadding, className)} {...otherProps}>
       {children}
     </div>
   );

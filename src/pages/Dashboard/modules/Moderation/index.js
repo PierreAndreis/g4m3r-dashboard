@@ -15,6 +15,7 @@ import {
 import Button from "../../../../components/Button";
 import { extractChannel, extractRoles } from "../../../../util/transformers";
 import Validation from "./../../../../global/validation";
+import HelpModal from "../../../../components/HelpModal";
 
 const boxesHeader = css`
   display: flex;
@@ -117,7 +118,12 @@ class ModerationEditor extends Component {
                   <Box padding key={log.name}>
                     <Box.Body>
                       <Editor.CheckboxCollapse
-                        label={<Box.Title>{log.name}</Box.Title>}
+                        label={
+                          <Box.Title>
+                            {log.name}
+                            {log.help && <HelpModal content={log.help} />}
+                          </Box.Title>
+                        }
                         query={log.checkboxQuery}
                         mutate={log.checkboxMutate}
                       >
