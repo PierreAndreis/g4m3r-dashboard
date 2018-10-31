@@ -24,22 +24,6 @@ const boxesHeader = css`
   }
 `;
 
-const feedbackData = [
-  {
-    title: "Bugs Status",
-    query: "guild.settings.settings.feedback.bug.status",
-    mutate: "bugStatus",
-    options: [
-      {
-        optionTitle: "Channel",
-        values: extractChannel,
-        optionQuery: "guild.settings.settings.feedback.bug.channel",
-        optionMutate: "bugChannel",
-      },
-    ],
-  },
-];
-
 const cleanUpTimezone = timezones =>
   timezones.map(timezone => ({
     key: timezone,

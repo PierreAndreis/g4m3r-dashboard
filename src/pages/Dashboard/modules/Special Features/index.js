@@ -6,6 +6,8 @@ import mutationQuery from "../../../../graphql/queries/mutations/moderation";
 import Editor from "../../../../components/Editor";
 import qGuildBasic from "../../../../graphql/queries/guild/guildBasic";
 import Button from "../../../../components/Button";
+import { extractChannel } from "../../../../util/transformers";
+import Validation from "./../../../../global/validation";
 
 const boxesHeader = css`
   display: flex;
@@ -16,33 +18,6 @@ const boxesHeader = css`
     margin-right: 20px;
   }
 `;
-
-const channelOrRoleSelector = props => {
-  return (
-    <div>
-      {props.type}
-      <Editor.Select
-        propKey={"id"}
-        propFetch={"name"}
-        payloadProp={`guild.${props.isChannel ? "channels" : "roles"}`}
-        mutate={props.mutateString}
-        query={props.query}
-      />
-      <br />
-    </div>
-  );
-};
-
-const makeInputSettings = props => {
-  return (
-    <div>
-      <Box.Title>{props.title}</Box.Title>
-      <Box.Body>
-        <Editor.Input mutate={props.mutate} query={props.query} />
-      </Box.Body>
-    </div>
-  );
-};
 
 class SpecialFeatureEditor extends Component {
   constructor(props) {
@@ -95,21 +70,26 @@ class SpecialFeatureEditor extends Component {
                 <Box padding>
                   <Box.Title>Activity Reports Channel</Box.Title>
                   <Box.Body>
-                    {channelOrRoleSelector({
-                      isChannel: true,
-                      mutateString: "vaingloryGuildActivityChannel",
-                      query:
-                        "guild.settings.settings.vip.vainglory.guildNotificationChannel",
-                      guildId,
-                    })}
+                    <Editor.Select
+                      values={extractChannel}
+                      query="guild.settings.settings.vip.vainglory.guildNotificationChannel"
+                      mutate="vaingloryGuildActivityChannel"
+                    />
                   </Box.Body>
                 </Box>
                 <Box padding>
-                  {makeInputSettings({
-                    title: "Max Inactivity Days Allowed",
-                    query: "guild.settings.settings.vip.vainglory.maxInactiveTime",
-                    mutate: "vaingloryGuildMaxInactiveTime",
-                  })}
+                  <Box.Title>Max Inactive Days Allowed</Box.Title>
+                  <Box.Body>
+                    <Editor.Input
+                      mutate="vaingloryGuildMaxInactiveTime"
+                      query="guild.settings.settings.vip.vainglory.maxInactiveTime"
+                      type="number"
+                      validate={Validation.all(
+                        Validation.isNumber(),
+                        Validation.numberMin(1)
+                      )}
+                    />
+                  </Box.Body>
                 </Box>
               </div>
             </section>
