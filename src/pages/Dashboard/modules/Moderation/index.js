@@ -241,23 +241,28 @@ class ModerationEditor extends Component {
 
           {this.state.category === "Mute Module" ? (
             <section>
-              <Heading2>Mute Roles</Heading2>
               <div className={boxesHeader}>
                 <Box padding>
-                  <Box.Title>Text Muted Role</Box.Title>
-                  {channelOrRoleSelector({
-                    isChannel: false,
-                    mutateString: "muteRoleText",
-                    query: "guild.settings.settings.moderation.mutedRoles.text",
-                    guildId,
-                  })}
-                  <Box.Title>Voice Muted Role</Box.Title>
-                  {channelOrRoleSelector({
-                    isChannel: false,
-                    mutateString: "muteRoleVoice",
-                    query: "guild.settings.settings.moderation.mutedRoles.voice",
-                    guildId,
-                  })}
+                  <Box.Body>
+                    <Box.Option>
+                      <div>Text Muted Role</div>
+                      {channelOrRoleSelector({
+                        isChannel: false,
+                        mutateString: "muteRoleText",
+                        query: "guild.settings.settings.moderation.mutedRoles.text",
+                        guildId,
+                      })}
+                    </Box.Option>
+                    <Box.Option>
+                      <div>Voice Muted Role</div>
+                      {channelOrRoleSelector({
+                        isChannel: false,
+                        mutateString: "muteRoleVoice",
+                        query: "guild.settings.settings.moderation.mutedRoles.voice",
+                        guildId,
+                      })}
+                    </Box.Option>
+                  </Box.Body>
                 </Box>
               </div>
             </section>
