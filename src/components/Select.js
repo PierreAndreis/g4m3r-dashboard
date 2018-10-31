@@ -86,7 +86,10 @@ class Select extends React.Component {
               onClick={toggleMenu}
               icon={{
                 right: props => (
-                  <div onClick={toggleMenu}>
+                  <div
+                    onClick={() => autoComplete && toggleMenu()}
+                    style={{ cursor: "pointer" }}
+                  >
                     <ChevronDownIcon {...props} />
                   </div>
                 ),
