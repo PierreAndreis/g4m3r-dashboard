@@ -81,11 +81,16 @@ class ModerationEditor extends Component {
                 <Box padding>
                   <Box.Title>Moderation Feature Toggles</Box.Title>
                   <Box.Body>
-                    {modFeatureToggles.map((opt, index) => {
+                    {modFeatureToggles.map(({ children, help, ...opt }, index) => {
                       return (
                         <Box.Option key={index}>
-                          <Editor.Checkbox {...opt} />
-                          <HelpModal content={opt.help} />
+                          <div>{children}</div>
+                          <div>
+                            <Editor.Checkbox {...opt} />
+                          </div>
+                          <div>
+                            <HelpModal content={help} />
+                          </div>
                         </Box.Option>
                       );
                     })}
