@@ -105,7 +105,12 @@ class ModerationEditor extends Component {
                     <Box padding key={index}>
                       <Box.Body>
                         <Editor.CheckboxCollapse
-                          label={<Box.Title>{opt.name}</Box.Title>}
+                          label={
+                            <Box.Title>
+                              {opt.name}
+                              {opt.help && <HelpModal content={opt.help} />}
+                            </Box.Title>
+                          }
                           query={`guild.settings.settings.serverLogs.${
                             opt.mutate
                           }.status`}

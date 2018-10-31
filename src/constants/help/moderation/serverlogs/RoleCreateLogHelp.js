@@ -8,7 +8,12 @@ export default (
       <p>
         Role create logs are posted whenever someone creates a new role on the server.
       </p>
-      <img src="https://i.imgur.com/MCQjqmg.png" width="300" height="400" />
+      <img
+        src="https://i.imgur.com/q75j72S.png"
+        alt="role create logs example"
+        width="300"
+        height="400"
+      />
     </Box.Body>
   </div>
 );
