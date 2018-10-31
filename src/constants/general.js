@@ -29,14 +29,4 @@ export const generalPageToggles = [
     mutate: "xpNotificationGlobalChannel",
     title: "In Channel Global Level Up Notifications",
   },
-  {
-    query: "guild.settings.settings.tags.tagDeletion",
-    mutate: "tagDeletion",
-    title: "Tag Trigger Deletion",
-  },
-  {
-    query: "guild.settings.settings.stories.storyDeletion",
-    mutate: "storyDeletion",
-    title: "Story Trigger Deletion",
-  },
 ];
