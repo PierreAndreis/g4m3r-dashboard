@@ -1,0 +1,15 @@
+import React from "react";
+import Box from "../../components/Box";
+
+export default (
+  <div>
+    <Box.Title>What is Welcome Channel Status?</Box.Title>
+    <Box.Body padding>
+      <p>
+        The welcome channel status enables or disables whether the welcome message should
+        be sent in the welcome channel.
+      </p>
+      <img src="https://i.imgur.com/a4rLEaa.png" width="300" height="400" />
+    </Box.Body>
+  </div>
+);

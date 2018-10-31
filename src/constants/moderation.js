@@ -1,4 +1,11 @@
 import ModLogsHelp from "./help/ModLogsHelp";
+import ServerLogsHelp from "./help/ServerLogsHelp";
+import PublicLogsHelp from "./help/PublicLogsHelp";
+import WelcomeChannelStatusHelp from "./help/WelcomeChannelStatusHelp";
+import WelcomeDMStatusHelp from "./help/WelcomeDMStatusHelp";
+import GoodbyeChannelStatusHelp from "./help/GoodbyeChannelStatusHelp";
+import GoodbyeDMStatusHelp from "./help/GoodbyeDMStatusHelp";
+
 
 export const mainLogs = [
   {
@@ -7,7 +14,6 @@ export const mainLogs = [
     mutate: "modlogChannel",
     checkboxMutate: "modlogStatus",
     checkboxQuery: "guild.settings.settings.moderation.status",
-
     help: ModLogsHelp,
   },
   {
@@ -16,6 +22,7 @@ export const mainLogs = [
     mutate: "publiclogChannel",
     checkboxMutate: "publiclogStatus",
     checkboxQuery: "guild.settings.settings.moderation.publicModlogStatus",
+    help: PublicLogsHelp,
   },
   {
     name: "Server Logs",
@@ -23,6 +30,7 @@ export const mainLogs = [
     mutate: "serverlogChannel",
     checkboxMutate: "serverlogStatus",
     checkboxQuery: "guild.settings.settings.serverLogs.status",
+    help: ServerLogsHelp,
   },
 ];
 
@@ -149,20 +157,24 @@ export const modFeatureToggles = [
     query: "guild.settings.settings.hibye.welcome.channel",
     mutate: "welcomeChannelStatus",
     children: "Welcome Channel Status",
+    help: WelcomeChannelStatusHelp
   },
   {
     query: "guild.settings.settings.hibye.welcome.dm",
     mutate: "welcomeDmStatus",
     children: "Welcome DM Status",
+    help: WelcomeDMStatusHelp
   },
   {
     query: "guild.settings.settings.hibye.goodbye.channel",
     mutate: "goodbyeChannelStatus",
     children: "Goodbye Channel Status",
+    help: GoodbyeChannelStatusHelp
   },
   {
     query: "guild.settings.settings.hibye.goodbye.dm",
     mutate: "goodbyeDmStatus",
     children: "Goodbye DM Status",
+    help: GoodbyeDMStatusHelp
   },
 ];

@@ -17,6 +17,7 @@ import { extractChannel, extractRoles } from "../../../../util/transformers";
 import Validation from "./../../../../global/validation";
 import HelpModal from "../../../../components/HelpModal";
 import TabsManager from "../../../../components/Tabs";
+import ModerationFeatureTogglesHelp from "../../../../constants/help/WelcomeChannelStatusHelp";
 
 const boxesHeader = css`
   display: flex;
@@ -84,6 +85,7 @@ class ModerationEditor extends Component {
                       return (
                         <Box.Option key={index}>
                           <Editor.Checkbox {...opt} />
+                          <HelpModal content={opt.help} />
                         </Box.Option>
                       );
                     })}

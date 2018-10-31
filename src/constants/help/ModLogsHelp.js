@@ -6,17 +6,11 @@ export default (
     <Box.Title>What is Mod Logs?</Box.Title>
     <Box.Body padding>
       <p>
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-        Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-        unknown printer took a galley of type and scrambled it to make a type specimen
-        book. It has survived not only five centuries, but also the leap into electronic
-        typesetting, remaining essentially unchanged.
+        Moderation logs are where you every action taken by a moderator with G4M3R is
+        logged. For example, when you warn, mute, kick, or ban someone the reasons and
+        action can be logged.
       </p>
-      <p>
-        It was popularised in the 1960s with the release of Letraset sheets containing
-        Lorem Ipsum passages, and more recently with desktop publishing software like
-        Aldus PageMaker including versions of Lorem Ipsum.
-      </p>
+      <img src="https://i.imgur.com/MCQjqmg.png" width="300" height="400" />
     </Box.Body>
   </div>
 );
