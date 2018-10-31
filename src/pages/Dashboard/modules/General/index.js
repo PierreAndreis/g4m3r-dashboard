@@ -289,116 +289,127 @@ class GeneralEditor extends Component {
 
           {this.state.category === "Events" && (
             <section>
-              <Heading2>Event Settings</Heading2>
               <div className={boxesHeader}>
                 <Box padding>
-                  <Box.Title>Event Defaults</Box.Title>
-                  <Editor.Checkbox
-                    query="guild.settings.settings.events.useDefault"
-                    mutate="useDefault"
-                    children="Use Default Event Settings"
-                  />
-                </Box>
-                <Box padding>
-                  <Box.Title>Duration</Box.Title>
                   <Box.Body>
-                    <Editor.Input
-                      mutate="eventDuration"
-                      query="guild.settings.settings.events.duration"
-                      type={"number"}
-                    />
+                    <Editor.CheckboxCollapse
+                      label={<Box.Title>Use Event Defaults</Box.Title>}
+                      query="guild.settings.settings.events.useDefault"
+                      mutate="useDefault"
+                    >
+                      <Box.Option>
+                        <div>Duration</div>
+                        <div>
+                          <Editor.Input
+                            mutate="eventDuration"
+                            query="guild.settings.settings.events.duration"
+                            type={"number"}
+                          />
+                        </div>
+                      </Box.Option>
+
+                      <Box.Option>
+                        <div>Max Attendees Allowed</div>
+                        <div>
+                          <Editor.Input
+                            mutate="maxAttendees"
+                            query="guild.settings.settings.events.maxAttendees"
+                            type={"number"}
+                          />
+                        </div>
+                      </Box.Option>
+
+                      <Box.Option>
+                        <div>Game</div>
+                        <div>
+                          <Editor.Input
+                            mutate="defaultEventGame"
+                            query="guild.settings.settings.events.game"
+                          />
+                        </div>
+                      </Box.Option>
+
+                      <Box.Option>
+                        <div>Reminder Time</div>
+                        <div>
+                          <Editor.Input
+                            mutate="defaultReminder"
+                            query="guild.settings.settings.events.defaultReminder"
+                            type={"number"}
+                          />
+                        </div>
+                      </Box.Option>
+
+                      <Box.Option>
+                        <div>Auto Advertise</div>
+                        <div>
+                          <Editor.Checkbox
+                            query="guild.settings.settings.events.advertiseAllEvents"
+                            mutate="advertiseAllEvents"
+                          />
+                        </div>
+                      </Box.Option>
+
+                      <Box.Option>
+                        <div>Advertise Channel</div>
+                        <div>
+                          <Editor.Select
+                            values={extractChannel}
+                            mutate="advertiseChannel"
+                            query="guild.settings.settings.events.advertiseChannel"
+                          />
+                        </div>
+                      </Box.Option>
+                    </Editor.CheckboxCollapse>
                   </Box.Body>
                 </Box>
 
                 <Box padding>
-                  <Box.Title>Max Attendees Allowed</Box.Title>
                   <Box.Body>
-                    <Editor.Input
-                      mutate="maxAttendees"
-                      query="guild.settings.settings.events.maxAttendees"
-                      type={"number"}
-                    />
+                    <Box.Title>Event Permissions</Box.Title>
+                    <Box.Option>
+                      <div>Create Events Permission</div>
+                      <Query
+                        query={qClientBasic}
+                        variables={{ clientId: process.env.REACT_APP_CLIENT_ID }}
+                      >
+                        {({ loading, error, data }) => {
+                          if (loading) return "Loading";
+                          if (error) return "Error";
+                          const values = data.client.settings.permissionLevels;
+                          console.log("perms levels", data);
+                          return (
+                            <Editor.Select
+                              values={values}
+                              mutate={"eventsAllowCreation"}
+                              query={"guild.settings.settings.events.permissions.create"}
+                            />
+                          );
+                        }}
+                      </Query>
+                    </Box.Option>
+                    <Box.Option>
+                      <div>Add Member Permission</div>
+                      <Query
+                        query={qClientBasic}
+                        variables={{ clientId: process.env.REACT_APP_CLIENT_ID }}
+                      >
+                        {({ loading, error, data }) => {
+                          if (loading) return "Loading";
+                          if (error) return "Error";
+                          const values = data.client.settings.permissionLevels;
+
+                          return (
+                            <Editor.Select
+                              values={values}
+                              mutate={"eventsAllowAddMember"}
+                              query={"guild.settings.settings.events.permissions.add"}
+                            />
+                          );
+                        }}
+                      </Query>
+                    </Box.Option>
                   </Box.Body>
-                </Box>
-
-                <Box padding>
-                  <Box.Title>Game</Box.Title>
-                  <Box.Body>
-                    <Editor.Input
-                      mutate="defaultEventGame"
-                      query="guild.settings.settings.events.game"
-                    />
-                  </Box.Body>
-                </Box>
-
-                <Box padding>
-                  <Box.Title>Reminder Time</Box.Title>
-                  <Box.Body>
-                    <Editor.Input
-                      mutate="defaultReminder"
-                      query="guild.settings.settings.events.defaultReminder"
-                      type={"number"}
-                    />
-                  </Box.Body>
-                </Box>
-
-                <Box padding>
-                  <Box.Title>Event Advertisements</Box.Title>
-                  <Editor.Checkbox
-                    query="guild.settings.settings.events.advertiseAllEvents"
-                    mutate="advertiseAllEvents"
-                    children="Auto Advertise Events"
-                  />
-                  <br />
-                  <Box.Title>Advertise Channel</Box.Title>
-                  <Box.Body>
-                    <Editor.Select
-                      values={extractChannel}
-                      mutate="advertiseChannel"
-                      query="guild.settings.settings.events.advertiseChannel"
-                    />
-                  </Box.Body>
-                </Box>
-
-                <Box padding>
-                  <Box.Title>Create Events Permission</Box.Title>
-                  <Query
-                    query={qClientBasic}
-                    variables={{ clientId: process.env.REACT_APP_CLIENT_ID }}
-                  >
-                    {({ loading, error, data }) => {
-                      if (loading) return "Loading";
-                      if (error) return "Error";
-                      const values = data.client.settings.permissionLevels;
-                      console.log("perms levels", data);
-                      return (
-                        <Editor.Select
-                          values={values}
-                          mutate={"eventsAllowCreation"}
-                          query={"guild.settings.settings.events.permissions.create"}
-                        />
-                      );
-                    }}
-                  </Query>
-                  <Box.Title>Use Stories Permission</Box.Title>
-                  <Query
-                    query={qClientBasic}
-                    variables={{ clientId: process.env.REACT_APP_CLIENT_ID }}
-                  >
-                    {({ loading, error, data }) => {
-                      if (loading) return "Loading";
-                      if (error) return "Error";
-                      const values = data.client.settings.permissionLevels;
-
-                      return (
-                        <Editor.Select
-                          values={values}
-                          mutate={"eventsAllowAddMember"}
-                          query={"guild.settings.settings.events.permissions.add"}
-                        />
-                      );
-                    }}
-                  </Query>
                 </Box>
               </div>
             </section>
