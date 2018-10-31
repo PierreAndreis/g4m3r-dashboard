@@ -21,10 +21,17 @@ import TextMutedRoleHelp from "../../../../constants/help/moderation/muted/TextM
 import VoiceMutedRoleHelp from "../../../../constants/help/moderation/muted/VoiceMutedRoleHelp";
 import ModMailStatusHelp from "../../../../constants/help/moderation/modmail/ModMailStatusHelp";
 import ModMailPermissionToReplyHelp from "../../../../constants/help/moderation/modmail/ModMailPermissionToReplyHelp";
-import ModMailMailMailsPerGuildHelp from "../../../../constants/help/moderation/modmail/ModMailMailMailsPerGuildHelp";
-import ModMailMailMailsPerUserHelp from "../../../../constants/help/moderation/modmail/ModMailMailMailsPerUserHelp";
+import ModMailPerGuildHelp from "../../../../constants/help/moderation/modmail/ModMailPerGuildHelp";
+import ModMailPerUserHelp from "../../../../constants/help/moderation/modmail/ModMailPerUserHelp";
+import AutoAssignRoleHelp from "../../../../constants/help/moderation/automod/AutoAssignRoleHelp";
+import AFKResponsePermissionHelp from "../../../../constants/help/moderation/automod/AFKResponsePermissionHelp";
+import CapitalSpamFilterStatusHelp from "../../../../constants/help/moderation/automod/CapitalSpamFilterStatusHelp";
+import CapitalSpamFilterMaxAllowedPercentage from "../../../../constants/help/moderation/automod/CapitalSpamFilterMaxAllowedPercentage";
+import BannedWordFilterStatusHelp from "../../../../constants/help/moderation/automod/BannedWordFilterStatusHelp";
+import VerificationSystemStatusHelp from "../../../../constants/help/moderation/verification/VerificationSystemStatusHelp";
+import VerificationCategoryHelp from "../../../../constants/help/moderation/verification/VerificationCategoryHelp";
+import VerificationRoleHelp from "../../../../constants/help/moderation/verification/VerificationRoleHelp";
 
-ModMailMailMailsPerGuildHelp;
 const boxesHeader = css`
   display: flex;
   flex-wrap: wrap;
@@ -279,7 +286,7 @@ class ModerationEditor extends Component {
                           />
                         </div>{" "}
                         <div>
-                          <HelpModal content={ModMailMailMailsPerGuildHelp} />
+                          <HelpModal content={ModMailPerGuildHelp} />
                         </div>
                       </Box.Option>
 
@@ -298,7 +305,7 @@ class ModerationEditor extends Component {
                           />
                         </div>
                         <div>
-                          <HelpModal content={ModMailMailMailsPerUserHelp} />
+                          <HelpModal content={ModMailPerUserHelp} />
                         </div>
                       </Box.Option>
                     </Editor.CheckboxCollapse>
@@ -311,44 +318,59 @@ class ModerationEditor extends Component {
               <div className={boxesHeader}>
                 <Box padding>
                   <Box.Body>
-                    <Box.Title>Auto-Assign Role</Box.Title>
-                    <Editor.Select
-                      values={extractRoles}
-                      mutate="mainRole"
-                      query="guild.settings.settings.autoAssignRoles.mainRole"
-                    />
-                  </Box.Body>
-                </Box>
+                    <Box.Option>
+                      <div>Auto-Assign Role</div>
+                      <div>
+                        <Editor.Select
+                          values={extractRoles}
+                          mutate="mainRole"
+                          query="guild.settings.settings.autoAssignRoles.mainRole"
+                        />
+                      </div>
+                      <div>
+                        <HelpModal content={AutoAssignRoleHelp} />
+                      </div>
+                    </Box.Option>
 
-                <Box padding>
-                  <Box.Body>
-                    <Box.Title>Allow AFK Responses Permission</Box.Title>
-                    <Query
-                      query={qClientBasic}
-                      variables={{ clientId: process.env.REACT_APP_CLIENT_ID }}
-                    >
-                      {({ loading, error, data }) => {
-                        if (loading) return "Loading";
-                        if (error) return "Error";
-                        const values = data.client.settings.permissionLevels;
-                        console.log("perms levels", data);
-                        return (
-                          <Editor.Select
-                            values={values}
-                            mutate={"allowAfkResponses"}
-                            type={"Permission"}
-                            query={"guild.settings.settings.allowAfkResponses"}
-                          />
-                        );
-                      }}
-                    </Query>
+                    <Box.Option>
+                      <div>AFK Responses Permission</div>
+                      <div>
+                        <Query
+                          query={qClientBasic}
+                          variables={{ clientId: process.env.REACT_APP_CLIENT_ID }}
+                        >
+                          {({ loading, error, data }) => {
+                            if (loading) return "Loading";
+                            if (error) return "Error";
+                            const values = data.client.settings.permissionLevels;
+                            console.log("perms levels", data);
+                            return (
+                              <Editor.Select
+                                values={values}
+                                mutate="allowAfkResponses"
+                                type="Permission"
+                                query="guild.settings.settings.allowAfkResponses"
+                              />
+                            );
+                          }}
+                        </Query>
+                      </div>
+                      <div>
+                        <HelpModal content={AFKResponsePermissionHelp} />
+                      </div>
+                    </Box.Option>
                   </Box.Body>
                 </Box>
 
                 <Box padding>
                   <Box.Body>
                     <Editor.CheckboxCollapse
-                      label={<Box.Title>Capital Spam Filter Status</Box.Title>}
+                      label={
+                        <Box.Title>
+                          Capital Spam Filter Status
+                          {<HelpModal content={CapitalSpamFilterStatusHelp} />}
+                        </Box.Title>
+                      }
                       query="guild.settings.settings.moderation.capitalPercentage.status"
                       mutate="capitalPercentageStatus"
                     >
@@ -366,6 +388,9 @@ class ModerationEditor extends Component {
                             )}
                           />
                         </div>
+                        <div>
+                          <HelpModal content={CapitalSpamFilterMaxAllowedPercentage} />
+                        </div>
                       </Box.Option>
                     </Editor.CheckboxCollapse>
                   </Box.Body>
@@ -374,7 +399,12 @@ class ModerationEditor extends Component {
                 <Box padding>
                   <Box.Body>
                     <Editor.CheckboxCollapse
-                      label={<Box.Title>Banned Word Filter Status</Box.Title>}
+                      label={
+                        <Box.Title>
+                          Banned Word Filter Status
+                          {<HelpModal content={BannedWordFilterStatusHelp} />}
+                        </Box.Title>
+                      }
                       query="guild.settings.settings.moderation.naughtyWords.status"
                       mutate="naughtyWordStatus"
                     >
@@ -393,12 +423,18 @@ class ModerationEditor extends Component {
                 </Box>
               </div>
             </TabsManager.Section>
+
             <TabsManager.Section name="Verification">
               <div className={boxesHeader}>
                 <Box padding>
                   <Box.Body>
                     <Editor.CheckboxCollapse
-                      label={<Box.Title>Verification System Status</Box.Title>}
+                      label={
+                        <Box.Title>
+                          Verification System Status
+                          {<HelpModal content={VerificationSystemStatusHelp} />}
+                        </Box.Title>
+                      }
                       query="guild.settings.settings.verify.status"
                       mutate="verifyStatus"
                     >
@@ -410,6 +446,9 @@ class ModerationEditor extends Component {
                             mutate="verifyCategory"
                             query="guild.settings.settings.verify.category"
                           />
+                        </div>
+                        <div>
+                          <HelpModal content={VerificationCategoryHelp} />
                         </div>
                       </Box.Option>
 
@@ -432,6 +471,9 @@ class ModerationEditor extends Component {
                             mutate="verifyRole"
                             query="guild.settings.settings.verify.role"
                           />
+                        </div>
+                        <div>
+                          <HelpModal content={VerificationRoleHelp} />
                         </div>
                       </Box.Option>
                     </Editor.CheckboxCollapse>
