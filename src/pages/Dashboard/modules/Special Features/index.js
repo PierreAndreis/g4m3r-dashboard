@@ -23,7 +23,6 @@ class SpecialFeatureEditor extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isOpenModal: false,
       category: "Vainglory",
       categories: ["Vainglory"],
     };

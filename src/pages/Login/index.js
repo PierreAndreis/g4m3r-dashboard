@@ -25,10 +25,11 @@ const BoxLogin = css`
   ${Util.mq.large(css`
     max-width: 800px;
     min-height: 250px;
-  `)} ${Util.mq.xLarge(css`
+  `)};
+  ${Util.mq.xLarge(css`
     max-width: 1100px;
     min-height: 300px;
-  `)}
+  `)};
 
   width: 100%;
   padding: 10px;

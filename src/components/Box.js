@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import { css } from "emotion";
 import classNames from "classnames";
-import { inputWrapper as CheckboxCss } from "./Checkbox";
 
-const BoxBase = css`
+export const BoxBase = css`
   background: white;
   ${"" /* border-radius: 15px; */};
   min-width: 350px;

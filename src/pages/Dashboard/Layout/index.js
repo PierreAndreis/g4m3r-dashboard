@@ -66,7 +66,7 @@ class Layout extends Component {
     const isMobile = this.props.isMobile;
     const { isMenuOpen } = this.state;
     return (
-      <div className={layout}>
+      <div className={layout} style={this.props.style}>
         {isMobile && (
           <MobileHeader isMenuOpen={isMenuOpen} toggleMenu={this.toggleMenu} />
         )}

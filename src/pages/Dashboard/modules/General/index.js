@@ -34,7 +34,6 @@ class GeneralEditor extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isOpenModal: false,
       category: "Basic",
       categories: ["Basic", "Feedback", "Events", "Tags/Stories"],
     };

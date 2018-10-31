@@ -3,7 +3,6 @@ import { css } from "emotion";
 import { withApollo } from "react-apollo";
 import Button from "../../../../components/Button";
 import { Heading, SubHeader } from "../../../../components/Typography";
-import Modal from "../../../../global/Modal";
 import Box from "../../../../components/Box";
 import gql from "graphql-tag";
 import Editor from "../../../../components/Editor";
@@ -46,7 +45,6 @@ class CommandsEditor extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isOpenModal: false,
       category: "Basic",
       categories: [],
       commands: [],
@@ -78,26 +76,9 @@ class CommandsEditor extends Component {
     });
   };
 
-  toggleModal = () => {
-    this.setState({
-      isOpenModal: !this.state.isOpenModal,
-    });
-  };
-
   render() {
     return (
       <React.Fragment>
-        <Modal
-          onClose={this.toggleModal}
-          open={this.state.isOpenModal}
-          render={() => {
-            return (
-              <div>
-                <div>something</div>
-              </div>
-            );
-          }}
-        />
         <section>
           <Heading>Commands</Heading>
           <SubHeader>
