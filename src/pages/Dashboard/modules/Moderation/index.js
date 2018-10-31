@@ -168,17 +168,6 @@ class ModerationEditor extends Component {
                           mutate={`${opt.mutate}Status`}
                         >
                           <Box.Option>
-                            <div>Channel</div>
-                            <div>
-                              <Editor.Select
-                                values={extractChannel}
-                                mutate={`${opt.mutate}Channel`}
-                                query={opt.query}
-                              />
-                            </div>
-                          </Box.Option>
-
-                          <Box.Option>
                             <div>Log Publically</div>
                             <div>
                               <Editor.Checkbox
@@ -186,6 +175,17 @@ class ModerationEditor extends Component {
                                   opt.mutate
                                 }.logPublically`}
                                 mutate={`${opt.mutate}LogPublically`}
+                              />
+                            </div>
+                          </Box.Option>
+
+                          <Box.Option>
+                            <div>Channel</div>
+                            <div>
+                              <Editor.Select
+                                values={extractChannel}
+                                mutate={`${opt.mutate}Channel`}
+                                query={opt.query}
                               />
                             </div>
                           </Box.Option>
