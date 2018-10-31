@@ -155,57 +155,45 @@ class ModerationEditor extends Component {
 
           {this.state.category === "Server Logs" ? (
             <section>
-              <Heading2>Individual Server Logs</Heading2>
               <div className={boxesHeader}>
-                <div className={boxesHeader}>
-                  <Box padding>
-                    <Box.Title>Server Log Status Toggles</Box.Title>
-                    <Box.Body>
-                      {serverLogs.map((opt, index) => {
-                        return (
-                          <div key={index}>
-                            <Editor.Checkbox
-                              query={`guild.settings.settings.serverLogs.${
-                                opt.mutate
-                              }.status`}
-                              mutate={`${opt.mutate}Status`}
-                              children={opt.name}
-                            />
-                            <Editor.Checkbox
-                              query={`guild.settings.settings.serverLogs.${
-                                opt.mutate
-                              }.logPublically`}
-                              mutate={`${opt.mutate}LogPublically`}
-                              children={`${opt.name} Public Log`}
-                            />
-                            <br />
-                            <br />
-                          </div>
-                        );
-                      })}
-                    </Box.Body>
-                  </Box>
+                {serverLogs.map((opt, index) => {
+                  return (
+                    <Box padding key={index}>
+                      <Box.Body>
+                        <Editor.CheckboxCollapse
+                          label={<Box.Title>{opt.name}</Box.Title>}
+                          query={`guild.settings.settings.serverLogs.${
+                            opt.mutate
+                          }.status`}
+                          mutate={`${opt.mutate}Status`}
+                        >
+                          <Box.Option>
+                            <div>Channel</div>
+                            <div>
+                              <Editor.Select
+                                values={extractChannel}
+                                mutate={`${opt.mutate}Channel`}
+                                query={opt.query}
+                              />
+                            </div>
+                          </Box.Option>
 
-                  <Box padding>
-                    <Box.Title>Server Logs Channel Selector</Box.Title>
-                    <Box.Body>
-                      {serverLogs.map((opt, index) => {
-                        return (
-                          <div key={index}>
-                            {channelOrRoleSelector({
-                              isChannel: true,
-                              type: opt.name,
-                              mutateString: `${opt.mutate}Channel`,
-                              query: opt.query,
-                              guildId,
-                            })}
-                            <br />
-                          </div>
-                        );
-                      })}
-                    </Box.Body>
-                  </Box>
-                </div>
+                          <Box.Option>
+                            <div>Log Publically</div>
+                            <div>
+                              <Editor.Checkbox
+                                query={`guild.settings.settings.serverLogs.${
+                                  opt.mutate
+                                }.logPublically`}
+                                mutate={`${opt.mutate}LogPublically`}
+                              />
+                            </div>
+                          </Box.Option>
+                        </Editor.CheckboxCollapse>
+                      </Box.Body>
+                    </Box>
+                  );
+                })}
               </div>
             </section>
           ) : null}
