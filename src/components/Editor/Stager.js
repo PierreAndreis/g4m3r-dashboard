@@ -48,7 +48,6 @@ class Stager extends React.Component {
     // If there are no changes staged,
     // Or there are changes staged AND we already started to commit
     if (!state.modified) {
-      console.log("updating..");
       // Reset state back to initial and update with new props
       return {
         loading: props.isLoading,

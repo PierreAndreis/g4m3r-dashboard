@@ -7,11 +7,11 @@ import { Query } from "react-apollo";
 import Editor from "../../../../components/Editor";
 import qGuildBasic from "../../../../graphql/queries/guild/guildBasic";
 import qTimezone from "../../../../graphql/queries/utils/timezone";
-import Button from "../../../../components/Button";
 import { generalPageToggles } from "../../../../constants/general";
 import qClientBasic from "../../../../graphql/queries/client/clientBasic";
 import { extractChannel } from "../../../../util/transformers";
 import Validation from "./../../../../global/validation";
+import TabsManager from "../../../../components/Tabs";
 
 const boxesHeader = css`
   display: flex;
@@ -59,24 +59,9 @@ class GeneralEditor extends Component {
           </SubHeader>
         </section>
 
-        <section>
-          {this.state.categories.map(category => {
-            return (
-              <Button
-                key={category}
-                onClick={this.changeCategory(category)}
-                simple
-                active={this.state.category === category}
-              >
-                {category}
-              </Button>
-            );
-          })}
-        </section>
-
         <Editor query={qGuildBasic} mutation={mutationQuery}>
-          {this.state.category === "Basic" && (
-            <section>
+          <TabsManager>
+            <TabsManager.Section name="Basic">
               <div className={boxesHeader}>
                 <Box padding>
                   <Box.Body>
@@ -141,9 +126,9 @@ class GeneralEditor extends Component {
 
                 <Box padding>
                   <Box.Body>
-                    {generalPageToggles.map((opt, index) => {
+                    {generalPageToggles.map(opt => {
                       return (
-                        <Box.Option>
+                        <Box.Option key={opt.title}>
                           <div>{opt.title}</div>
                           <div>
                             <Editor.Checkbox query={opt.query} mutate={opt.mutate} />
@@ -154,11 +139,9 @@ class GeneralEditor extends Component {
                   </Box.Body>
                 </Box>
               </div>
-            </section>
-          )}
+            </TabsManager.Section>
 
-          {this.state.category === "Feedback" && (
-            <section>
+            <TabsManager.Section name="Feedback">
               <div className={boxesHeader}>
                 <Box padding>
                   <Box.Body>
@@ -266,11 +249,9 @@ class GeneralEditor extends Component {
                   </Box.Body>
                 </Box>
               </div>
-            </section>
-          )}
+            </TabsManager.Section>
 
-          {this.state.category === "Events" && (
-            <section>
+            <TabsManager.Section name="Events">
               <div className={boxesHeader}>
                 <Box padding>
                   <Box.Body>
@@ -400,11 +381,9 @@ class GeneralEditor extends Component {
                   </Box.Body>
                 </Box>
               </div>
-            </section>
-          )}
+            </TabsManager.Section>
 
-          {this.state.category === "Tags/Stories" && (
-            <section>
+            <TabsManager.Section name="Tags/Stories">
               <div className={boxesHeader}>
                 <Box padding>
                   <Box.Title>Tag Permissions</Box.Title>
@@ -550,8 +529,8 @@ class GeneralEditor extends Component {
                   </Box.Body>
                 </Box>
               </div>
-            </section>
-          )}
+            </TabsManager.Section>
+          </TabsManager>
         </Editor>
       </React.Fragment>
     );

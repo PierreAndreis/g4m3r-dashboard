@@ -25,7 +25,7 @@ export default class DashboardRouter extends React.Component {
     let guildId = this.props.match.params.guildId;
     return (
       <Query query={guildBasic} variables={{ guildId: guildId }}>
-        {({ loading, error, data }) => {
+        {({ loading, error }) => {
           if (error) return <p>Error :(</p>;
           return (
             <Transition
