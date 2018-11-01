@@ -59,7 +59,7 @@ const getEditedValue = (props, state) => {
 };
 
 class WrapperEditorForGraphQL extends React.Component {
-  static Input = ({ mutate, query, type, validate, ...otherProps }) => (
+  static Input = ({ mutate, query, validate, ...otherProps }) => (
     <StagerContext.Consumer>
       {state => {
         const errorMessage = state.validationErrors.get(mutate);

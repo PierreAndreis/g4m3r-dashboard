@@ -4,11 +4,11 @@ import { Transition, animated } from "react-spring";
 
 import { css } from "emotion";
 import classNames from "classnames";
+import Util from '../global/Util';
 
 const snackbar = css`
   position: fixed;
-  padding: 20px 24px;
-  box-sizing: border-box;
+  padding: 12px 24px;
   margin: 0;
   bottom: 0;
   left: 50%;
@@ -23,6 +23,11 @@ const snackbar = css`
   align-items: center;
 
   transform: translateX(-50%) translateY(100%);
+
+  ${Util.mqmax.medium(css`
+     width: 100%;
+     left:  50%;
+  `)};
 `;
 
 const buttonContainer = css`
@@ -31,10 +36,16 @@ const buttonContainer = css`
   padding-left: 15px;
   align-items: center;
   justify-content: space-between;
-
   & > button {
     margin: 0 5px;
   }
+  & > div {
+    margin: 0 10px;
+  }
+
+  ${Util.mqmax.medium(css`
+     margin: auto;
+  `)};
 `;
 
 class Snackbar extends React.Component {
