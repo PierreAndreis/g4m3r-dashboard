@@ -101,7 +101,6 @@ class GeneralEditor extends Component {
                         <Editor.Input
                           mutate="menuTime"
                           query="guild.settings.settings.menuTime"
-                          type="number"
                           validate={Validation.all(
                             Validation.isNumber(),
                             Validation.numberMin(10),
