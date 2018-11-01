@@ -8679,9 +8679,9 @@ url-parse-lax@^1.0.0:
     prepend-http "^1.0.1"
 
 url-parse@^1.1.8, url-parse@~1.4.0:
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/url-parse/-/url-parse-1.4.1.tgz#4dec9dad3dc8585f862fed461d2e19bbf623df30"
-  integrity sha512-x95Td74QcvICAA0+qERaVkRpTGKyBHHYdwL2LXZm5t/gBtCB9KQSO/0zQgSTYEV1p0WcvSg79TLNPSvd5IDJMQ==
+  version "1.4.3"
+  resolved "https://registry.yarnpkg.com/url-parse/-/url-parse-1.4.3.tgz#bfaee455c889023219d757e045fa6a684ec36c15"
+  integrity sha512-rh+KuAW36YKo0vClhQzLLveoj8FwPJNu65xLb7Mrt+eZht0IPT0IXgSv8gcMegZ6NvjJUALf6Mf25POlMwD1Fw==
   dependencies:
     querystringify "^2.0.0"
     requires-port "^1.0.0"
