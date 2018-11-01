@@ -17,6 +17,16 @@ import PrefixHelp from "../../../../constants/help/general/basic/PrefixHelp";
 import TimezoneHelp from "../../../../constants/help/general/basic/TimezoneHelp";
 import MenuClosingTimeHelp from "../../../../constants/help/general/basic/MenuClosingTimeHelp";
 import DeleteNotificationsDelayHelp from "../../../../constants/help/general/basic/DeleteNotificationsDelayHelp";
+import BugChannelHelp from "../../../../constants/help/general/feedback/BugChannelHelp";
+import BugColorHelp from "../../../../constants/help/general/feedback/BugColorHelp";
+import BugStatusHelp from "../../../../constants/help/general/feedback/BugStatusHelp";
+import BugThumbsDownHelp from "../../../../constants/help/general/feedback/BugThumbsDownHelp";
+import BugThumbsUpHelp from "../../../../constants/help/general/feedback/BugThumbsUpHelp";
+import IdeasChannelHelp from "../../../../constants/help/general/feedback/IdeasChannelHelp";
+import IdeasColorHelp from "../../../../constants/help/general/feedback/IdeasColorHelp";
+import IdeasStatusHelp from "../../../../constants/help/general/feedback/IdeasStatusHelp";
+import IdeasThumbsDownHelp from "../../../../constants/help/general/feedback/IdeasThumbsDownHelp";
+import IdeasThumbsUpHelp from "../../../../constants/help/general/feedback/IdeasThumbsUpHelp";
 
 const boxesHeader = css`
   display: flex;
@@ -168,7 +178,12 @@ class GeneralEditor extends Component {
                 <Box padding>
                   <Box.Body>
                     <Editor.CheckboxCollapse
-                      label={<Box.Title>Ideas Status</Box.Title>}
+                      label={
+                        <Box.Title>
+                          Ideas Status
+                          <HelpModal content={IdeasStatusHelp} />
+                        </Box.Title>
+                      }
                       query="guild.settings.settings.feedback.idea.status"
                       mutate="ideaStatus"
                     >
@@ -181,6 +196,9 @@ class GeneralEditor extends Component {
                             mutate="ideaChannel"
                           />
                         </div>
+                        <div>
+                          <HelpModal content={IdeasChannelHelp} />
+                        </div>
                       </Box.Option>
 
                       <Box.Option>
@@ -190,6 +208,9 @@ class GeneralEditor extends Component {
                             mutate="ideaColor"
                             query="guild.settings.settings.feedback.idea.color"
                           />
+                        </div>
+                        <div>
+                          <HelpModal content={IdeasColorHelp} />
                         </div>
                       </Box.Option>
 
@@ -202,6 +223,9 @@ class GeneralEditor extends Component {
                             type="emoji"
                           />
                         </div>
+                        <div>
+                          <HelpModal content={IdeasThumbsUpHelp} />
+                        </div>
                       </Box.Option>
 
                       <Box.Option>
@@ -213,6 +237,9 @@ class GeneralEditor extends Component {
                             type="emoji"
                           />
                         </div>
+                        <div>
+                          <HelpModal content={IdeasThumbsDownHelp} />
+                        </div>
                       </Box.Option>
                     </Editor.CheckboxCollapse>
                   </Box.Body>
@@ -221,7 +248,12 @@ class GeneralEditor extends Component {
                 <Box padding>
                   <Box.Body>
                     <Editor.CheckboxCollapse
-                      label={<Box.Title>Bug Status</Box.Title>}
+                      label={
+                        <Box.Title>
+                          Bug Status
+                          <HelpModal content={BugStatusHelp} />
+                        </Box.Title>
+                      }
                       query="guild.settings.settings.feedback.bug.status"
                       mutate="bugStatus"
                     >
@@ -234,6 +266,9 @@ class GeneralEditor extends Component {
                             mutate="bugChannel"
                           />
                         </div>
+                        <div>
+                          <HelpModal content={BugChannelHelp} />
+                        </div>
                       </Box.Option>
 
                       <Box.Option>
@@ -243,6 +278,9 @@ class GeneralEditor extends Component {
                             mutate="bugColor"
                             query="guild.settings.settings.feedback.bug.color"
                           />
+                        </div>
+                        <div>
+                          <HelpModal content={BugColorHelp} />
                         </div>
                       </Box.Option>
 
@@ -255,6 +293,9 @@ class GeneralEditor extends Component {
                             type="emoji"
                           />
                         </div>
+                        <div>
+                          <HelpModal content={BugThumbsUpHelp} />
+                        </div>
                       </Box.Option>
 
                       <Box.Option>
@@ -265,6 +306,9 @@ class GeneralEditor extends Component {
                             query="guild.settings.settings.feedback.bug.thumbsDown"
                             type="emoji"
                           />
+                        </div>
+                        <div>
+                          <HelpModal content={BugThumbsDownHelp} />
                         </div>
                       </Box.Option>
                     </Editor.CheckboxCollapse>
