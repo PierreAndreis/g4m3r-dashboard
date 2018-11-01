@@ -1,13 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { CSSTransition } from "react-transition-group";
+import { Transition, animated } from "react-spring";
+
 import { css } from "emotion";
 import classNames from "classnames";
+import Util from '../global/Util';
 
 const snackbar = css`
   position: fixed;
-  padding: 20px 24px;
-  box-sizing: border-box;
+  padding: 12px 24px;
   margin: 0;
   bottom: 0;
   left: 50%;
@@ -23,16 +24,10 @@ const snackbar = css`
 
   transform: translateX(-50%) translateY(100%);
 
-  &.slide-exit,
-  &.slide-enter-active,
-  &.slide-enter-done,
-  &.fade-exit-active {
-    transform: translateX(-50%) translateY(0%);
-  }
-  &.slide-enter,
-  &.slide-exit-done {
-    transform: translateX(-50%) translateY(100%);
-  }
+  ${Util.mqmax.medium(css`
+     width: 100%;
+     left:  50%;
+  `)};
 `;
 
 const buttonContainer = css`
@@ -41,10 +36,16 @@ const buttonContainer = css`
   padding-left: 15px;
   align-items: center;
   justify-content: space-between;
-
   & > button {
     margin: 0 5px;
   }
+  & > div {
+    margin: 0 10px;
+  }
+
+  ${Util.mqmax.medium(css`
+     margin: auto;
+  `)};
 `;
 
 class Snackbar extends React.Component {
@@ -56,17 +57,22 @@ class Snackbar extends React.Component {
     const { open, className } = this.props;
 
     return ReactDOM.createPortal(
-      <CSSTransition
-        in={open}
-        timeout={{
-          enter: 300,
-          exit: 900,
-        }}
-        classNames="slide"
-        // unmountOnExit
+      <Transition
+        native
+        items={open}
+        from={{ transform: "translateX(-50%) translateY(100%)" }}
+        enter={{ transform: "translateX(-50%) translateY(0%);" }}
+        leave={{ transform: "translateX(-50%) translateY(100%);" }}
       >
-        <div className={classNames(className, snackbar)}>{this.props.children}</div>
-      </CSSTransition>,
+        {show =>
+          show &&
+          (style => (
+            <animated.div className={classNames(className, snackbar)} style={style}>
+              {this.props.children}
+            </animated.div>
+          ))
+        }
+      </Transition>,
       document.getElementById("snackbar")
     );
   }

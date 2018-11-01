@@ -1,10 +1,14 @@
 import { css } from "emotion";
+import mq from "../../../global/breakpoints";
 
 export const container = css`
   position: relative;
   display: flex;
   flex-direction: column;
   background-image: linear-gradient(0deg, #7aaeff 0%, #74e1eb 100%);
+  overflow: hidden;
+  width: 250px;
+
   &:after {
     content: "";
     display: block;
@@ -17,6 +21,21 @@ export const container = css`
     bottom: 0;
     left: 30px;
   }
+
+  ${mq.small(
+    css`
+      height: 100%;
+      position: absolute;
+      transform: translateX(-100%);
+      z-index: 2;
+      transition: 0.4s;
+      transition-timing-function: ease-in-out;
+      &:after {
+        width: 100%;
+        left: 0px;
+      }
+    `
+  )};
 `;
 
 export const logoContainer = css`
@@ -84,4 +103,8 @@ export const guildSelector = css`
   position: relative;
   z-index: 2;
   display: flex;
+`;
+
+export const showSideBar = css`
+  transform: translateX(0%);
 `;

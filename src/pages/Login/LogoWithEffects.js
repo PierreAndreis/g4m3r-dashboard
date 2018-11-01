@@ -1,6 +1,8 @@
 import React from "react";
 import { css, keyframes } from "emotion";
 
+import Util from "./../../global/Util";
+
 const scaleIn = keyframes`
   to {
     transform: scale(1);
@@ -10,13 +12,19 @@ const scaleIn = keyframes`
 const container = css`
   width: 400px;
   height: 100px;
+  ${Util.mq.large(css`
+    height: 120px;
+  `)};
+  ${Util.mq.xLarge(css`
+    height: 150px;
+  `)};
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
 `;
 
-const Logo = css`
+export const logo = css`
   background-image: url("/images/logo.svg");
   background-size: 70%;
   background-position: center center;
@@ -26,6 +34,16 @@ const Logo = css`
   height: 100px;
   border-radius: 100%;
   align-self: center;
+  ${Util.mq.large(css`
+    background-size: 80%;
+    width: 120px;
+    height: 120px;
+  `)};
+  ${Util.mq.xLarge(css`
+    background-size: 80%;
+    width: 150px;
+    height: 150px;
+  `)};
 `;
 
 const bg = css`
@@ -483,7 +501,7 @@ export default class LogoWithEffects extends React.Component {
             <ellipse cx="139.526905" cy="96.6789333" fill="#4386FB" rx="1" ry="1" />
           </g>
         </svg>
-        <div className={Logo} />
+        <div className={logo} />
       </div>
     );
   }

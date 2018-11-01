@@ -10,6 +10,7 @@ import AddCircleIcon from "mdi-react/PlusCircleOutlineIcon";
 import LogoutIcon from "mdi-react/LogoutIcon";
 import Swiper from "react-id-swiper";
 import meQuery from "../../graphql/queries/user/me";
+import Util from "./../../global/Util";
 
 const container = css`
   width: 100%;
@@ -21,6 +22,12 @@ const container = css`
     font-weight: 700;
   }
   padding-top: 30px;
+
+  ${Util.mq.large(css`
+    min-height: 250px;
+  `)} ${Util.mq.xLarge(css`
+    min-height: 300px;
+  `)};
 `;
 
 const userDetails = css`
@@ -66,6 +73,16 @@ const serverSpace = css`
   & .swiper-scrollbar {
     bottom: 0px;
   }
+
+  ${Util.mq.large(css`
+    & > * {
+      height: 140px;
+    }
+  `)} ${Util.mq.xLarge(css`
+    & > * {
+      height: 160px;
+    }
+  `)};
 `;
 
 const serverContainer = css`
@@ -97,6 +114,7 @@ const serverContainer = css`
   }
   & > b {
     font-size: 12px;
+    text-align: center;
     margin-top: auto;
     width: 100%;
     display: block;
@@ -105,6 +123,27 @@ const serverContainer = css`
     white-space: nowrap;
     color: rgba(255, 255, 255, 0.8);
   }
+  ${Util.mq.large(css`
+    width: 120px;
+    height: 120px;
+    & > img {
+      width: 70px;
+      height: 70px;
+    }
+    & > b {
+      font-size: 13px;
+    }
+  `)} ${Util.mq.xLarge(css`
+    width: 140px;
+    height: 140px;
+    & > img {
+      width: 90px;
+      height: 90px;
+    }
+    & > b {
+      font-size: 14px;
+    }
+  `)};
 `;
 
 const emptyContainer = css`
@@ -117,8 +156,14 @@ const emptyContainer = css`
 
 const emptyDescription = css`
   font-size: 13px;
+  text-align: center;
   margin-top: auto;
   color: rgba(255, 255, 255, 0.8);
+  ${Util.mq.large(css`
+    font-size: 15px;
+  `)} ${Util.mq.xLarge(css`
+    font-size: 17px;
+  `)};
 `;
 
 const Server = ({ image, name, href }) => (
@@ -130,6 +175,25 @@ const Server = ({ image, name, href }) => (
   </Link>
 );
 
+let slidesAmount = 5,
+  spaceBetween = 5,
+  circleSize = "50px";
+if (window.innerWidth > Util.BREAKPOINTS.medium) {
+  slidesAmount = 6;
+  spaceBetween = 5;
+  circleSize = "70px";
+}
+if (window.innerWidth > Util.BREAKPOINTS.large) {
+  slidesAmount = 7;
+  spaceBetween = 5;
+  circleSize = "80px";
+}
+if (window.innerWidth > Util.BREAKPOINTS.xLarge) {
+  slidesAmount = 7;
+  spaceBetween = 5;
+  circleSize = "100px";
+}
+
 @inject("authentication")
 class ServerList extends React.Component {
   render() {
@@ -138,9 +202,9 @@ class ServerList extends React.Component {
         el: ".swiper-scrollbar",
         hide: false,
       },
-      slidesPerView: 5,
+      slidesPerView: slidesAmount,
       rebuildOnUpdate: true,
-      spaceBetween: 5,
+      spaceBetween: spaceBetween,
     };
 
     return (
@@ -149,8 +213,7 @@ class ServerList extends React.Component {
           if (loading) return <p>Loading...</p>;
           if (error) {
             this.props.authentication.setToken(null);
-            window.reload();
-            return <p>Error!</p>;
+            return <p>Error! Please refresh the page. (temporary)</p>;
           }
 
           let me = data.me;
@@ -179,7 +242,7 @@ class ServerList extends React.Component {
                     >
                       <div className={classNames(serverContainer, emptyContainer)}>
                         <div>
-                          <AddCircleIcon size="36px" />
+                          <AddCircleIcon size={circleSize} />
                         </div>
                         <div className={emptyDescription}>Add Server</div>
                       </div>
@@ -189,7 +252,7 @@ class ServerList extends React.Component {
                       <div key={guild.id}>
                         <Server
                           name={guild.name}
-                          image={guild.icon}
+                          image={guild.icon || "/images/server_default.png"}
                           href={`/g/${guild.id}`}
                         />
                       </div>

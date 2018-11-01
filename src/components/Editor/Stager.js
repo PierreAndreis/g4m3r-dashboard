@@ -1,4 +1,5 @@
 import React from "react";
+
 import Snackbar from "../Snackbar";
 import Button from "../Button";
 
@@ -8,6 +9,8 @@ class Stager extends React.Component {
   state = {
     loading: true,
     errors: null,
+
+    validationErrors: new Map([]),
 
     payload: {},
 
@@ -28,13 +31,23 @@ class Stager extends React.Component {
         };
       });
     },
+
+    resultValidation: (mutate, errorMessage) => {
+      this.setState(({ validationErrors }) => {
+        if (errorMessage) validationErrors.set(mutate, errorMessage);
+        if (!errorMessage) validationErrors.delete(mutate);
+
+        return {
+          validationErrors,
+        };
+      });
+    },
   };
 
   static getDerivedStateFromProps(props, state) {
     // If there are no changes staged,
     // Or there are changes staged AND we already started to commit
     if (!state.modified) {
-      console.log("updating..");
       // Reset state back to initial and update with new props
       return {
         loading: props.isLoading,
@@ -70,34 +83,34 @@ class Stager extends React.Component {
     this.setState({
       modified: false,
       changes: {},
+      validationErrors: new Map([]),
     });
     buttonState.success();
   };
 
   render() {
-    const { modified, commiting, loading, error } = this.state;
+    const { modified, commiting, loading, error, validationErrors } = this.state;
 
     if (loading) return <p>Loading</p>;
     if (error) return <p>Error!</p>;
 
-    console.log("commit?", this.state.modified, this.state.commiting);
+    const isValid = validationErrors.size < 1;
 
     return (
       <StagerContext.Provider value={this.state}>
         {this.props.children}
 
         <Snackbar open={modified || commiting}>
-          <div>Would you like to save your changes?</div>
           <Snackbar.ButtonContainer>
-            <Button
-              onClick={this.revert}
-              simple
-              style={{ border: 0, color: "white" }}
-              disabled={commiting}
-            >
+            <div>{isValid ? "Is valid" : "Not valid"}</div>
+            <Button onClick={this.revert} simple disabled={commiting}>
               Revert
             </Button>
-            <Button onClick={this.commit} disabled={commiting}>
+            <Button
+              onClick={this.commit}
+              disabled={commiting || !isValid}
+              error={!isValid}
+            >
               Save
             </Button>
           </Snackbar.ButtonContainer>

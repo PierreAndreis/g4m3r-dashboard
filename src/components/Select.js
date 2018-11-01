@@ -6,55 +6,90 @@ import { ChevronDownIcon } from "mdi-react";
 import Box from "./Box";
 
 const wrapper = css`
-  width: 250px;
+  width: 100%;
   position: relative;
+  box-sizing: border-box;
 `;
 
 const dropdownMenu = css`
   position: absolute;
   width: 100%;
+  min-width: 150px;
   max-height: 200px;
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: scroll;
   padding: 0;
-  margin-top: 5px;
+  margin-left: -2px;
   border-radius: 5px;
+
+  /* This is bad. Use portal in the future */
+  z-index: 99;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
   & > li {
     list-style-type: none;
     padding: 15px;
-    text-size: 15px;
+    font-size: 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    cursor: pointer;
   }
 `;
 
 class Select extends React.Component {
   render() {
-    const { placeholder, onChange } = this.props;
+    const { onChange, currentValue, values, autoComplete } = this.props;
 
+    if (!values) {
+      return <div>Error!</div>;
+    }
+
+    const placeholder = values.find(item => item.key === currentValue);
+    const placeholderValue = placeholder ? placeholder.value : `None`;
     return (
       <Downshift
-        onChange={item => typeof onChange === "function" && onChange(item.value)}
+        onChange={item => typeof onChange === "function" && onChange(item.key)}
         itemToString={item => (item ? item.value : "")}
       >
         {({
           getInputProps,
           getItemProps,
-          getLabelProps,
           toggleMenu,
           getMenuProps,
           isOpen,
           inputValue,
           highlightedIndex,
           selectedItem,
-          setState,
         }) => (
           <div className={wrapper}>
-            {/* <label {...getLabelProps()}>Type a timezone</label> */}
             <Input
-              {...getInputProps()}
-              placeholder={placeholder}
+              {...getInputProps({ disabled: !autoComplete })}
+              placeholder={placeholderValue}
+              buttonMode={!autoComplete}
+              onClick={toggleMenu}
               icon={{
                 right: props => (
-                  <div onClick={() => toggleMenu()}>
+                  <div
+                    onClick={() => autoComplete && toggleMenu()}
+                    style={{ cursor: "pointer" }}
+                  >
                     <ChevronDownIcon {...props} />
                   </div>
                 ),
@@ -63,11 +98,13 @@ class Select extends React.Component {
             <div {...getMenuProps()}>
               {isOpen ? (
                 <Box className={dropdownMenu}>
-                  {this.props.values
+                  {values
                     .filter(
                       item =>
-                        !inputValue ||
-                        item.value.toLowerCase().includes(inputValue.toLowerCase())
+                        autoComplete
+                          ? !inputValue ||
+                            item.value.toLowerCase().includes(inputValue.toLowerCase())
+                          : true
                     )
                     .map((item, index) => (
                       <li
@@ -77,7 +114,9 @@ class Select extends React.Component {
                           item,
                           style: {
                             backgroundColor:
-                              highlightedIndex === index ? "lightgray" : "white",
+                              highlightedIndex === index
+                                ? "rgba(0, 0, 0, 0.05)"
+                                : "white",
                             fontWeight: selectedItem === item ? "bold" : "normal",
                           },
                         })}

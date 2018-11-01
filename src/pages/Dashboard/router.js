@@ -5,9 +5,57 @@ import { StarIcon, FlashIcon } from "mdi-react";
 import { Route, Switch } from "react-router-dom";
 import General from "./modules/General";
 import Commands from "./modules/Commands";
+import Button from "../../components/Button";
+import Moderation from "./modules/Moderation";
+import SpecialFeatures from "./modules/Special Features";
 
-const Test = () => <div>test</div>;
-const Test2 = () => <div>test2</div>;
+const Test = () => (
+  <div>
+    <section>
+      <br />
+      <br />
+      <Button simple onClick={bA => bA.success()}>
+        Button Simple
+      </Button>
+      <br />
+      <br />
+      <Button onClick={bA => bA.success()}>Button Normal</Button>
+      <br />
+      <br />
+      <Button active onClick={bA => bA.success()}>
+        Button Active
+      </Button>
+      <br />
+      <br />
+      <Button onClick={bA => bA.success()}>Button hover </Button>
+      <br />
+      <br />
+      <Button big>Button big</Button>
+      <br />
+      <br />
+      <Button small>Button small</Button>
+      <br />
+      <br />
+      <Button rounded small>
+        Button Small & Rounded
+      </Button>
+      <br />
+      <br />
+      <Button disabled>Button Disabled</Button>
+      <br />
+      <br />
+      <Button loading>Button Loading</Button>
+      <br />
+      <br />
+      <Button error>Button Error</Button>
+      <br />
+      <br />
+      <Button success>Button Success</Button>
+      <br />
+      <br />
+    </section>
+  </div>
+);
 
 export const router = [
   {
@@ -17,23 +65,23 @@ export const router = [
     icon: SettingsIcon,
     component: General,
   },
-  {
-    name: "Commands",
-    path: "commands",
-    icon: AppleKeyboardCommandIcon,
-    component: Commands,
-  },
+  // {
+  //   name: "Commands",
+  //   path: "commands",
+  //   icon: AppleKeyboardCommandIcon,
+  //   component: Commands,
+  // },
   {
     name: "Special Features",
     path: "features",
     icon: StarIcon,
-    component: Test,
+    component: SpecialFeatures,
   },
   {
     name: "Moderation",
     path: "moderation",
     icon: FlashIcon,
-    component: Test2,
+    component: Moderation,
   },
 ];
 

@@ -1,10 +1,13 @@
 import React, { Component } from "react";
-import { css } from "emotion";
+
+import { AlertBoxIcon } from "mdi-react";
+import { css, cx } from "emotion";
 
 const inputWrapper = css`
-  width: 250px;
+  width: 100%;
   height: 40px;
   position: relative;
+  box-sizing: border-box;
 `;
 
 const iconIn = css`
@@ -33,34 +36,71 @@ const input = css`
   }
 `;
 
+const asButton = css`
+  cursor: pointer;
+  color: black;
+`;
+
+const errorInput = css`
+  border: 2px solid red;
+`;
+
+const errorHighlight = css`
+  position: absolute;
+  bottom: 1px;
+  left: 10px;
+  color: red;
+  font-size: 12px;
+`;
+
 class Input extends Component {
   onChange = e => {
     typeof this.props.onChange === "function" && this.props.onChange(e);
   };
 
   render() {
-    const { className, icon, onChange, value, ...other } = this.props;
+    const {
+      className,
+      icon,
+      onChange,
+      value,
+      mutate,
+      errorMessage,
+      buttonMode,
+      disabled,
+      onClick,
+      ...other
+    } = this.props;
 
     let icons = [];
+    if (errorMessage) {
+      icons.push(
+        <div key="right-icon" className={iconIn} style={{ right: 5 }}>
+          <AlertBoxIcon color="red" size="25px" />
+        </div>
+      );
+    }
 
-    if (icon && icon.right) {
+    if (!errorMessage && icon && icon.right) {
       icons.push(
         <div key="right-icon" className={iconIn} style={{ right: 5 }}>
           <icon.right color="grey" size="25px" />
-          {/* x */}
         </div>
       );
     }
 
     return (
-      <div className={inputWrapper}>
+      <div className={inputWrapper} onClick={() => buttonMode && onClick()}>
         <input
-          className={input}
+          className={cx(input, { [errorInput]: errorMessage, [asButton]: buttonMode })}
           value={value || ""}
           onChange={this.onChange}
+          disabled={disabled || buttonMode}
           {...other}
         />
         {icons}
+
+        {errorMessage ? <div className={errorHighlight}>{errorMessage}</div> : null}
       </div>
     );
   }
