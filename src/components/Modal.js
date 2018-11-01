@@ -4,6 +4,7 @@ import { Transition, animated } from "react-spring";
 
 import { BoxBase, BoxPadding } from "./Box";
 import Portal from "./Portal";
+import Util from '../global/Util';
 
 const modal = css`
   position: absolute;
@@ -34,14 +35,32 @@ const modalContent = css`
   max-height: 90%;
   max-width: 800px;
   padding-bottom: 20px;
+  overflow-y: scroll;
 
-  @media screen and (max-width: 500px) {
+  ${Util.mqmax.medium(css`
     width: 100%;
     max-width: 100%;
-    height: 100%;
-    max-height: 100%;
+    max-height: 80%;
     border-radius: 0;
-  }
+  `)}
+`;
+
+const modalClose = css`
+    
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+
+    :hover,
+    :focus {
+      color: #bbb;
+      text-decoration: none;
+      cursor: pointer;
+    }
 `;
 
 class Modal extends React.Component {
@@ -94,6 +113,12 @@ class Modal extends React.Component {
                   style={{ opacity: styles.backdropOpacity }}
                   onClick={this.onClose}
                 />
+                <span
+                  className={modalClose}
+                  onClick={this.onClose}
+                >
+                  &times;
+                </span>
                 <animated.div
                   className={modalContent}
                   style={styles}

@@ -10,7 +10,7 @@ export default (
         sent in a private message to the user when join your server. This welcome message
         will only be sent if the user has Direct Messages enabled.
       </p>
-      <img src="https://i.imgur.com/xG8gjrU.png" width="300" height="400" />
+      <img src="https://i.imgur.com/xG8gjrU.png" width="90%" />
     </Box.Body>
   </div>
 );

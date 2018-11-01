@@ -33,13 +33,13 @@ const Validation = {
   // String validations
 
   stringMin: min => value => {
-    if (value.length > min) {
+    if (value.length < min) {
       return validationMessages.stringMin(min);
-    }
+    } 
   },
 
   stringMax: max => value => {
-    if (value.length < max) {
+    if (value.length > max) {
       return validationMessages.stringMax(max);
     }
   },
