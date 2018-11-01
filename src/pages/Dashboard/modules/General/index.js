@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { css } from "emotion";
 import mutationQuery from "../../../../graphql/queries/mutations/general";
-import { Heading, SubHeader, Heading2 } from "../../../../components/Typography";
+import { Heading, SubHeader } from "../../../../components/Typography";
 import Box from "../../../../components/Box";
 import { Query } from "react-apollo";
 import Editor from "../../../../components/Editor";
@@ -12,6 +12,11 @@ import qClientBasic from "../../../../graphql/queries/client/clientBasic";
 import { extractChannel } from "../../../../util/transformers";
 import Validation from "./../../../../global/validation";
 import TabsManager from "../../../../components/Tabs";
+import HelpModal from "../../../../components/HelpModal";
+import PrefixHelp from "../../../../constants/help/general/basic/PrefixHelp";
+import TimezoneHelp from "../../../../constants/help/general/basic/TimezoneHelp";
+import MenuClosingTimeHelp from "../../../../constants/help/general/basic/MenuClosingTimeHelp";
+import DeleteNotificationsDelayHelp from "../../../../constants/help/general/basic/DeleteNotificationsDelayHelp";
 
 const boxesHeader = css`
   display: flex;
@@ -73,6 +78,9 @@ class GeneralEditor extends Component {
                           query="guild.settings.settings.prefix"
                         />
                       </div>
+                      <div>
+                        <HelpModal content={PrefixHelp} />
+                      </div>
                     </Box.Option>
                     <Box.Option>
                       <div>Timezone</div>
@@ -94,6 +102,9 @@ class GeneralEditor extends Component {
                           }}
                         </Query>
                       </div>
+                      <div>
+                        <HelpModal content={TimezoneHelp} />
+                      </div>
                     </Box.Option>
                     <Box.Option>
                       <div>Menu Closing Time</div>
@@ -107,6 +118,9 @@ class GeneralEditor extends Component {
                             Validation.numberMax(91)
                           )}
                         />
+                      </div>
+                      <div>
+                        <HelpModal content={MenuClosingTimeHelp} />
                       </div>
                     </Box.Option>
                     <Box.Option>
@@ -122,6 +136,9 @@ class GeneralEditor extends Component {
                           )}
                         />
                       </div>
+                      <div>
+                        <HelpModal content={DeleteNotificationsDelayHelp} />
+                      </div>
                     </Box.Option>
                   </Box.Body>
                 </Box>
@@ -134,6 +151,9 @@ class GeneralEditor extends Component {
                           <div>{opt.title}</div>
                           <div>
                             <Editor.Checkbox query={opt.query} mutate={opt.mutate} />
+                          </div>
+                          <div>
+                            <HelpModal content={opt.help} />
                           </div>
                         </Box.Option>
                       );
@@ -268,9 +288,7 @@ class GeneralEditor extends Component {
                           <Editor.Input
                             mutate="eventDuration"
                             query="guild.settings.settings.events.duration"
-                            validate={Validation.all(
-                              Validation.isNumber()
-                            )}
+                            validate={Validation.all(Validation.isNumber())}
                           />
                         </div>
                       </Box.Option>
@@ -309,9 +327,7 @@ class GeneralEditor extends Component {
                           <Editor.Input
                             mutate="defaultReminder"
                             query="guild.settings.settings.events.defaultReminder"
-                            validate={Validation.all(
-                              Validation.isNumber()
-                            )}
+                            validate={Validation.all(Validation.isNumber())}
                           />
                         </div>
                       </Box.Option>

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { css } from "emotion";
-import { Heading, SubHeader, Heading2 } from "../../../../components/Typography";
+import { Heading, SubHeader } from "../../../../components/Typography";
 import Box from "../../../../components/Box";
 import mutationQuery from "../../../../graphql/queries/mutations/moderation";
 import { Query } from "react-apollo";
@@ -12,7 +12,6 @@ import {
   serverLogs,
   modFeatureToggles,
 } from "../../../../constants/moderation";
-import Button from "../../../../components/Button";
 import { extractChannel, extractRoles } from "../../../../util/transformers";
 import Validation from "./../../../../global/validation";
 import HelpModal from "../../../../components/HelpModal";
@@ -356,7 +355,6 @@ class ModerationEditor extends Component {
                         <HelpModal content={AFKResponsePermissionHelp} />
                       </div>
                     </Box.Option>
-
                   </Box.Body>
                 </Box>
 

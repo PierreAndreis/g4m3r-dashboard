@@ -5,7 +5,6 @@ import Box from "../../../../components/Box";
 import mutationQuery from "../../../../graphql/queries/mutations/moderation";
 import Editor from "../../../../components/Editor";
 import qGuildBasic from "../../../../graphql/queries/guild/guildBasic";
-import Button from "../../../../components/Button";
 import { extractChannel } from "../../../../util/transformers";
 import Validation from "./../../../../global/validation";
 import TabsManager from "../../../../components/Tabs";
