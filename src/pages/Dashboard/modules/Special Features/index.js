@@ -9,7 +9,9 @@ import Button from "../../../../components/Button";
 import { extractChannel } from "../../../../util/transformers";
 import Validation from "./../../../../global/validation";
 import TabsManager from "../../../../components/Tabs";
-
+import MaxInactiveDaysAllowedHelp from "../../../../constants/help/features/vainglory/MaxInactiveDaysAllowedHelp";
+import HelpModal from "../../../../components/HelpModal";
+import ActivityReportsChannelHelp from "../../../../constants/help/features/vainglory/ActivityReportsChannelHelp";
 const boxesHeader = css`
   display: flex;
   flex-wrap: wrap;
@@ -38,27 +40,38 @@ class SpecialFeatureEditor extends Component {
               <Heading2>Vainglory Guild Features</Heading2>
               <div className={boxesHeader}>
                 <Box padding>
-                  <Box.Title>Activity Reports Channel</Box.Title>
                   <Box.Body>
-                    <Editor.Select
-                      values={extractChannel}
-                      query="guild.settings.settings.vip.vainglory.guildNotificationChannel"
-                      mutate="vaingloryGuildActivityChannel"
-                    />
-                  </Box.Body>
-                </Box>
-                <Box padding>
-                  <Box.Title>Max Inactive Days Allowed</Box.Title>
-                  <Box.Body>
-                    <Editor.Input
-                      mutate="vaingloryGuildMaxInactiveTime"
-                      query="guild.settings.settings.vip.vainglory.maxInactiveTime"
-                      type="number"
-                      validate={Validation.all(
-                        Validation.isNumber(),
-                        Validation.numberMin(1)
-                      )}
-                    />
+                    <Box.Option>
+                      <div>Activity Reports Channel</div>
+                      <div>
+                        <Editor.Select
+                          values={extractChannel}
+                          query="guild.settings.settings.vip.vainglory.guildNotificationChannel"
+                          mutate="vaingloryGuildActivityChannel"
+                        />
+                      </div>
+                      <div>
+                        <HelpModal content={ActivityReportsChannelHelp} />
+                      </div>
+                    </Box.Option>
+
+                    <Box.Option>
+                      <div>Max Inactive Days Allowed</div>
+                      <div>
+                        <Editor.Input
+                          mutate="vaingloryGuildMaxInactiveTime"
+                          query="guild.settings.settings.vip.vainglory.maxInactiveTime"
+                          type="number"
+                          validate={Validation.all(
+                            Validation.isNumber(),
+                            Validation.numberMin(1)
+                          )}
+                        />
+                      </div>
+                      <div>
+                        <HelpModal content={MaxInactiveDaysAllowedHelp} />
+                      </div>
+                    </Box.Option>
                   </Box.Body>
                 </Box>
               </div>
