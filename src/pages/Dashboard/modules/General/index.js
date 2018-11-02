@@ -27,6 +27,21 @@ import IdeasColorHelp from "../../../../constants/help/general/feedback/IdeasCol
 import IdeasStatusHelp from "../../../../constants/help/general/feedback/IdeasStatusHelp";
 import IdeasThumbsDownHelp from "../../../../constants/help/general/feedback/IdeasThumbsDownHelp";
 import IdeasThumbsUpHelp from "../../../../constants/help/general/feedback/IdeasThumbsUpHelp";
+import UseEventDefaultsHelp from "../../../../constants/help/general/events/UseEventDefaultsHelp";
+import EventDurationHelp from "../../../../constants/help/general/events/EventDurationHelp";
+import MaxAttendeesAllowedHelp from "../../../../constants/help/general/events/MaxAttendeesAllowedHelp";
+import EventGameHelp from "../../../../constants/help/general/events/EventGameHelp";
+import EventReminderTimeHelp from "../../../../constants/help/general/events/EventReminderTimeHelp";
+import EventAutoAdvertiseHelp from "../../../../constants/help/general/events/EventAutoAdvertiseHelp";
+import EventAdvertiseChannelHelp from "../../../../constants/help/general/events/EventAdvertiseChannelHelp";
+import EventCreatePermissionHelp from "../../../../constants/help/general/events/EventCreatePermissionHelp";
+import EventAddMemberPermissionHelp from "../../../../constants/help/general/events/EventAddMemberPermissionHelp";
+import TagCreatePermissionHelp from "../../../../constants/help/general/tags-stories/TagCreatePermissionHelp";
+import TagUsePermissionHelp from "../../../../constants/help/general/tags-stories/TagUsePermissionHelp";
+import TagTriggerDeletionHelp from "../../../../constants/help/general/tags-stories/TagTriggerDeletionHelp";
+import StoriesCreatePermissionHelp from "../../../../constants/help/general/tags-stories/StoriesCreatePermissionHelp";
+import StoriesUsePermissionHelp from "../../../../constants/help/general/tags-stories/StoriesUsePermissionHelp";
+import StoriesTriggerDeletionHelp from "../../../../constants/help/general/tags-stories/StoriesTriggerDeletionHelp";
 
 const boxesHeader = css`
   display: flex;
@@ -322,7 +337,12 @@ class GeneralEditor extends Component {
                 <Box padding>
                   <Box.Body>
                     <Editor.CheckboxCollapse
-                      label={<Box.Title>Use Event Defaults</Box.Title>}
+                      label={
+                        <Box.Title>
+                          Use Event Defaults
+                          <HelpModal content={UseEventDefaultsHelp} />
+                        </Box.Title>
+                      }
                       query="guild.settings.settings.events.useDefault"
                       mutate="useDefault"
                     >
@@ -334,6 +354,9 @@ class GeneralEditor extends Component {
                             query="guild.settings.settings.events.duration"
                             validate={Validation.all(Validation.isNumber())}
                           />
+                        </div>
+                        <div>
+                          <HelpModal content={EventDurationHelp} />
                         </div>
                       </Box.Option>
 
@@ -349,6 +372,9 @@ class GeneralEditor extends Component {
                             )}
                           />
                         </div>
+                        <div>
+                          <HelpModal content={MaxAttendeesAllowedHelp} />
+                        </div>
                       </Box.Option>
 
                       <Box.Option>
@@ -363,6 +389,9 @@ class GeneralEditor extends Component {
                             )}
                           />
                         </div>
+                        <div>
+                          <HelpModal content={EventGameHelp} />
+                        </div>
                       </Box.Option>
 
                       <Box.Option>
@@ -374,6 +403,9 @@ class GeneralEditor extends Component {
                             validate={Validation.all(Validation.isNumber())}
                           />
                         </div>
+                        <div>
+                          <HelpModal content={EventReminderTimeHelp} />
+                        </div>
                       </Box.Option>
 
                       <Box.Option>
@@ -383,6 +415,9 @@ class GeneralEditor extends Component {
                             query="guild.settings.settings.events.advertiseAllEvents"
                             mutate="advertiseAllEvents"
                           />
+                        </div>
+                        <div>
+                          <HelpModal content={EventAutoAdvertiseHelp} />
                         </div>
                       </Box.Option>
 
@@ -394,6 +429,9 @@ class GeneralEditor extends Component {
                             mutate="advertiseChannel"
                             query="guild.settings.settings.events.advertiseChannel"
                           />
+                        </div>
+                        <div>
+                          <HelpModal content={EventAdvertiseChannelHelp} />
                         </div>
                       </Box.Option>
                     </Editor.CheckboxCollapse>
@@ -427,6 +465,9 @@ class GeneralEditor extends Component {
                           }}
                         </Query>
                       </div>
+                      <div>
+                        <HelpModal content={EventCreatePermissionHelp} />
+                      </div>
                     </Box.Option>
                     <Box.Option>
                       <div>Add Member</div>
@@ -449,6 +490,9 @@ class GeneralEditor extends Component {
                             );
                           }}
                         </Query>
+                      </div>
+                      <div>
+                        <HelpModal content={EventAddMemberPermissionHelp} />
                       </div>
                     </Box.Option>
                   </Box.Body>
@@ -488,6 +532,9 @@ class GeneralEditor extends Component {
                           }}
                         </Query>
                       </div>
+                      <div>
+                        <HelpModal content={TagCreatePermissionHelp} />
+                      </div>
                     </Box.Option>
                     <Box.Option>
                       <div>Use</div>
@@ -515,6 +562,9 @@ class GeneralEditor extends Component {
                           }}
                         </Query>
                       </div>
+                      <div>
+                        <HelpModal content={TagUsePermissionHelp} />
+                      </div>
                     </Box.Option>
 
                     <Box.Option>
@@ -524,6 +574,9 @@ class GeneralEditor extends Component {
                           query="guild.settings.settings.tags.tagDeletion"
                           mutate="tagDeletion"
                         />
+                      </div>
+                      <div>
+                        <HelpModal content={TagTriggerDeletionHelp} />
                       </div>
                     </Box.Option>
                   </Box.Body>
@@ -560,6 +613,9 @@ class GeneralEditor extends Component {
                           }}
                         </Query>
                       </div>
+                      <div>
+                        <HelpModal content={StoriesCreatePermissionHelp} />
+                      </div>
                     </Box.Option>
                     <Box.Option>
                       <div>Use</div>
@@ -588,6 +644,9 @@ class GeneralEditor extends Component {
                           }}
                         </Query>
                       </div>
+                      <div>
+                        <HelpModal content={StoriesUsePermissionHelp} />
+                      </div>
                     </Box.Option>
 
                     <Box.Option>
@@ -597,6 +656,9 @@ class GeneralEditor extends Component {
                           query="guild.settings.settings.stories.storyDeletion"
                           mutate="storyDeletion"
                         />
+                      </div>
+                      <div>
+                        <HelpModal content={StoriesTriggerDeletionHelp} />
                       </div>
                     </Box.Option>
                   </Box.Body>
