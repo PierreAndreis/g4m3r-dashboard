@@ -8,9 +8,12 @@ import qGuildBasic from "../../../../graphql/queries/guild/guildBasic";
 import { extractChannel } from "../../../../util/transformers";
 import Validation from "./../../../../global/validation";
 import TabsManager from "../../../../components/Tabs";
-import MaxInactiveDaysAllowedHelp from "../../../../constants/help/features/vainglory/MaxInactiveDaysAllowedHelp";
 import HelpModal from "../../../../components/HelpModal";
-import ActivityReportsChannelHelp from "../../../../constants/help/features/vainglory/ActivityReportsChannelHelp";
+import {
+  MaxInactiveDaysAllowedHelp,
+  ActivityReportsChannelHelp,
+} from "../../../../constants/help/index";
+
 const boxesHeader = css`
   display: flex;
   flex-wrap: wrap;

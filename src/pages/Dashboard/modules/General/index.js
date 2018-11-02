@@ -13,35 +13,37 @@ import { extractChannel } from "../../../../util/transformers";
 import Validation from "./../../../../global/validation";
 import TabsManager from "../../../../components/Tabs";
 import HelpModal from "../../../../components/HelpModal";
-import PrefixHelp from "../../../../constants/help/general/basic/PrefixHelp";
-import TimezoneHelp from "../../../../constants/help/general/basic/TimezoneHelp";
-import MenuClosingTimeHelp from "../../../../constants/help/general/basic/MenuClosingTimeHelp";
-import DeleteNotificationsDelayHelp from "../../../../constants/help/general/basic/DeleteNotificationsDelayHelp";
-import BugChannelHelp from "../../../../constants/help/general/feedback/BugChannelHelp";
-import BugColorHelp from "../../../../constants/help/general/feedback/BugColorHelp";
-import BugStatusHelp from "../../../../constants/help/general/feedback/BugStatusHelp";
-import BugThumbsDownHelp from "../../../../constants/help/general/feedback/BugThumbsDownHelp";
-import BugThumbsUpHelp from "../../../../constants/help/general/feedback/BugThumbsUpHelp";
-import IdeasChannelHelp from "../../../../constants/help/general/feedback/IdeasChannelHelp";
-import IdeasColorHelp from "../../../../constants/help/general/feedback/IdeasColorHelp";
-import IdeasStatusHelp from "../../../../constants/help/general/feedback/IdeasStatusHelp";
-import IdeasThumbsDownHelp from "../../../../constants/help/general/feedback/IdeasThumbsDownHelp";
-import IdeasThumbsUpHelp from "../../../../constants/help/general/feedback/IdeasThumbsUpHelp";
-import UseEventDefaultsHelp from "../../../../constants/help/general/events/UseEventDefaultsHelp";
-import EventDurationHelp from "../../../../constants/help/general/events/EventDurationHelp";
-import MaxAttendeesAllowedHelp from "../../../../constants/help/general/events/MaxAttendeesAllowedHelp";
-import EventGameHelp from "../../../../constants/help/general/events/EventGameHelp";
-import EventReminderTimeHelp from "../../../../constants/help/general/events/EventReminderTimeHelp";
-import EventAutoAdvertiseHelp from "../../../../constants/help/general/events/EventAutoAdvertiseHelp";
-import EventAdvertiseChannelHelp from "../../../../constants/help/general/events/EventAdvertiseChannelHelp";
-import EventCreatePermissionHelp from "../../../../constants/help/general/events/EventCreatePermissionHelp";
-import EventAddMemberPermissionHelp from "../../../../constants/help/general/events/EventAddMemberPermissionHelp";
-import TagCreatePermissionHelp from "../../../../constants/help/general/tags-stories/TagCreatePermissionHelp";
-import TagUsePermissionHelp from "../../../../constants/help/general/tags-stories/TagUsePermissionHelp";
-import TagTriggerDeletionHelp from "../../../../constants/help/general/tags-stories/TagTriggerDeletionHelp";
-import StoriesCreatePermissionHelp from "../../../../constants/help/general/tags-stories/StoriesCreatePermissionHelp";
-import StoriesUsePermissionHelp from "../../../../constants/help/general/tags-stories/StoriesUsePermissionHelp";
-import StoriesTriggerDeletionHelp from "../../../../constants/help/general/tags-stories/StoriesTriggerDeletionHelp";
+import {
+  PrefixHelp,
+  TimezoneHelp,
+  MenuClosingTimeHelp,
+  DeleteNotificationsDelayHelp,
+  BugChannelHelp,
+  BugColorHelp,
+  BugStatusHelp,
+  BugThumbsDownHelp,
+  BugThumbsUpHelp,
+  IdeasChannelHelp,
+  IdeasColorHelp,
+  IdeasStatusHelp,
+  IdeasThumbsDownHelp,
+  IdeasThumbsUpHelp,
+  UseEventDefaultsHelp,
+  EventDurationHelp,
+  MaxAttendeesAllowedHelp,
+  EventGameHelp,
+  EventReminderTimeHelp,
+  EventAutoAdvertiseHelp,
+  EventAdvertiseChannelHelp,
+  EventCreatePermissionHelp,
+  EventAddMemberPermissionHelp,
+  TagCreatePermissionHelp,
+  TagUsePermissionHelp,
+  TagTriggerDeletionHelp,
+  StoriesCreatePermissionHelp,
+  StoriesTriggerDeletionHelp,
+  StoriesUsePermissionHelp,
+} from "../../../../constants/help/index";
 
 const boxesHeader = css`
   display: flex;

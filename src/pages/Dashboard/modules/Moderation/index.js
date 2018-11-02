@@ -16,20 +16,22 @@ import { extractChannel, extractRoles } from "../../../../util/transformers";
 import Validation from "./../../../../global/validation";
 import HelpModal from "../../../../components/HelpModal";
 import TabsManager from "../../../../components/Tabs";
-import TextMutedRoleHelp from "../../../../constants/help/moderation/muted/TextMutedRoleHelp";
-import VoiceMutedRoleHelp from "../../../../constants/help/moderation/muted/VoiceMutedRoleHelp";
-import ModMailStatusHelp from "../../../../constants/help/moderation/modmail/ModMailStatusHelp";
-import ModMailPermissionToReplyHelp from "../../../../constants/help/moderation/modmail/ModMailPermissionToReplyHelp";
-import ModMailPerGuildHelp from "../../../../constants/help/moderation/modmail/ModMailPerGuildHelp";
-import ModMailPerUserHelp from "../../../../constants/help/moderation/modmail/ModMailPerUserHelp";
-import AutoAssignRoleHelp from "../../../../constants/help/moderation/automod/AutoAssignRoleHelp";
-import AFKResponsePermissionHelp from "../../../../constants/help/moderation/automod/AFKResponsePermissionHelp";
-import CapitalSpamFilterStatusHelp from "../../../../constants/help/moderation/automod/CapitalSpamFilterStatusHelp";
-import CapitalSpamFilterMaxAllowedPercentage from "../../../../constants/help/moderation/automod/CapitalSpamFilterMaxAllowedPercentage";
-import BannedWordFilterStatusHelp from "../../../../constants/help/moderation/automod/BannedWordFilterStatusHelp";
-import VerificationSystemStatusHelp from "../../../../constants/help/moderation/verification/VerificationSystemStatusHelp";
-import VerificationCategoryHelp from "../../../../constants/help/moderation/verification/VerificationCategoryHelp";
-import VerificationRoleHelp from "../../../../constants/help/moderation/verification/VerificationRoleHelp";
+import {
+  TextMutedRoleHelp,
+  VoiceMutedRoleHelp,
+  ModMailPerGuildHelp,
+  ModMailPermissionToReplyHelp,
+  ModMailPerUserHelp,
+  ModMailStatusHelp,
+  AutoAssignRoleHelp,
+  AFKResponsePermissionHelp,
+  CapitalSpamFilterMaxAllowedPercentage,
+  CapitalSpamFilterStatusHelp,
+  BannedWordFilterStatusHelp,
+  VerificationCategoryHelp,
+  VerificationRoleHelp,
+  VerificationSystemStatusHelp,
+} from "../../../../constants/help/index";
 
 const boxesHeader = css`
   display: flex;
