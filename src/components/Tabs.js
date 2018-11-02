@@ -60,11 +60,12 @@ class TabsManager extends React.Component {
         <section>
           <Transition
             native
-            trail={100}
             items={selected}
-            from={{ position: "absolute", transform: "translateY(30px)", opacity: 0 }}
+            config={{ precision: 0.1 }}
+            from={{ position: "absolute", transform: "translateY(-10px)", opacity: 0 }}
             enter={{ transform: "translateY(0)", opacity: 1 }}
-            leave={{ transform: "translateY(-10px)", opacity: 0 }}
+            update={{ position: "relative" }}
+            leave={{ position: "absolute", transform: "translateY(30px)", opacity: 0 }}
           >
             {selected => props => (
               <animated.div style={props}>
