@@ -44,6 +44,7 @@ class SpecialFeatureEditor extends Component {
                       <div>Activity Reports Channel</div>
                       <div>
                         <Editor.Select
+                          autoComplete
                           values={extractChannel}
                           query="guild.settings.settings.vip.vainglory.guildNotificationChannel"
                           mutate="vaingloryGuildActivityChannel"
