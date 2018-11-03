@@ -20,12 +20,12 @@ export const mq = Object.keys(breakpoints).reduce((accumulator, label) => {
   return accumulator;
 }, {});
 
-export const mqmax = Object.keys(BREAKPOINTS).reduce((accumulator, label) => {
-  let prefix = typeof BREAKPOINTS[label] === "string" ? "" : "max-width:";
-  let suffix = typeof BREAKPOINTS[label] === "string" ? "" : "px";
+export const mqmax = Object.keys(breakpoints).reduce((accumulator, label) => {
+  let prefix = typeof breakpoints[label] === "string" ? "" : "max-width:";
+  let suffix = typeof breakpoints[label] === "string" ? "" : "px";
   accumulator[label] = cls =>
     css`
-        @media (${prefix + BREAKPOINTS[label] + suffix}) {
+        @media (${prefix + breakpoints[label] + suffix}) {
           ${cls};
         }
       `;
