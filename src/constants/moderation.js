@@ -1,33 +1,4 @@
-import ModLogsHelp from "./help/moderation/basic/ModLogsHelp";
-import ServerLogsHelp from "./help/moderation/basic/ServerLogsHelp";
-import PublicLogsHelp from "./help/moderation/basic/PublicLogsHelp";
-import WelcomeChannelStatusHelp from "./help/moderation/basic/WelcomeChannelStatusHelp";
-import WelcomeDMStatusHelp from "./help/moderation/basic/WelcomeDMStatusHelp";
-import GoodbyeChannelStatusHelp from "./help/moderation/basic/GoodbyeChannelStatusHelp";
-import GoodbyeDMStatusHelp from "./help/moderation/basic/GoodbyeDMStatusHelp";
-import RoleCreateLogHelp from "./help/moderation/serverlogs/RoleCreateLogHelp";
-import RoleDeleteLogHelp from "./help/moderation/serverlogs/RoleDeleteLogHelp";
-import RoleUpdateLogHelp from "./help/moderation/serverlogs/RoleUpdateLogHelp";
-import MemberAddLogHelp from "./help/moderation/serverlogs/MemberAddLogHelp";
-import MemberRemoveLogHelp from "./help/moderation/serverlogs/MemberRemoveLogHelp";
-import CommandRanLogHelp from "./help/moderation/serverlogs/CommandRanLogHelp";
-import StoryRanLogHelp from "./help/moderation/serverlogs/StoryRanLogHelp";
-import TagRanLogHelp from "./help/moderation/serverlogs/TagRanLogHelp";
-import MessageDeleteLogHelp from "./help/moderation/serverlogs/MessageDeleteLogHelp";
-import MessageEditLogHelp from "./help/moderation/serverlogs/MessageEditLogHelp";
-import EmojiCreateLogHelp from "./help/moderation/serverlogs/EmojiCreateLogHelp";
-import EmojiDeleteLogHelp from "./help/moderation/serverlogs/EmojiDeleteLogHelp";
-import EmojiUpdateLogHelp from "./help/moderation/serverlogs/EmojiUpdateLogHelp";
-import ChannelCreateLogHelp from "./help/moderation/serverlogs/ChannelCreateLogHelp";
-import ChannelDeleteLogHelp from "./help/moderation/serverlogs/ChannelDeleteLogHelp";
-import ChannelUpdateLogHelp from "./help/moderation/serverlogs/ChannelUpdateLogHelp";
-import ServerDeafLogHelp from "./help/moderation/serverlogs/ServerDeafLogHelp";
-import ServerMuteLogHelp from "./help/moderation/serverlogs/ServerMuteLogHelp";
-import NicknameChangeLogHelp from "./help/moderation/serverlogs/NicknameChangeLogHelp.js";
-import MemberPermsLogHelp from "./help/moderation/serverlogs/MemberPermsLogHelp";
-import MemberRolesLogHelp from "./help/moderation/serverlogs/MemberRolesLogHelp";
-import MemberBanLogHelp from "./help/moderation/serverlogs/MemberBanLogHelp";
-import MemberUnbanLogHelp from "./help/moderation/serverlogs/MemberUnbanLogHelp";
+import HelpText from "./help/index";
 
 export const mainLogs = [
   {
@@ -36,7 +7,7 @@ export const mainLogs = [
     mutate: "modlogChannel",
     checkboxMutate: "modlogStatus",
     checkboxQuery: "guild.settings.settings.moderation.status",
-    help: ModLogsHelp,
+    help: HelpText.ModLogsHelp,
   },
   {
     name: "Public Logs",
@@ -44,7 +15,7 @@ export const mainLogs = [
     mutate: "publiclogChannel",
     checkboxMutate: "publiclogStatus",
     checkboxQuery: "guild.settings.settings.moderation.publicModlogStatus",
-    help: PublicLogsHelp,
+    help: HelpText.PublicLogsHelp,
   },
   {
     name: "Server Logs",
@@ -52,7 +23,7 @@ export const mainLogs = [
     mutate: "serverlogChannel",
     checkboxMutate: "serverlogStatus",
     checkboxQuery: "guild.settings.settings.serverLogs.status",
-    help: ServerLogsHelp,
+    help: HelpText.ServerLogsHelp,
   },
 ];
 
@@ -61,139 +32,139 @@ export const serverLogs = [
     name: "Role Create",
     mutate: "roleCreate",
     query: "guild.settings.settings.serverLogs.roleCreate.channel",
-    help: RoleCreateLogHelp,
+    help: HelpText.RoleCreateLogHelp,
   },
   {
     name: "Role Delete",
     mutate: "roleDelete",
     query: "guild.settings.settings.serverLogs.roleDelete.channel",
-    help: RoleDeleteLogHelp,
+    help: HelpText.RoleDeleteLogHelp,
   },
   {
     name: "Role Update",
     mutate: "roleUpdate",
     query: "guild.settings.settings.serverLogs.roleUpdate.channel",
-    help: RoleUpdateLogHelp,
+    help: HelpText.RoleUpdateLogHelp,
   },
   {
     name: "Member Add",
     mutate: "memberAdd",
     query: "guild.settings.settings.serverLogs.memberAdd.channel",
-    help: MemberAddLogHelp,
+    help: HelpText.MemberAddLogHelp,
   },
   {
     name: "Member Remove",
     mutate: "memberRemove",
     query: "guild.settings.settings.serverLogs.memberRemove.channel",
-    help: MemberRemoveLogHelp,
+    help: HelpText.MemberRemoveLogHelp,
   },
   {
     name: "Command Ran",
     mutate: "cmdRan",
     query: "guild.settings.settings.serverLogs.cmdRan.channel",
-    help: CommandRanLogHelp,
+    help: HelpText.CommandRanLogHelp,
   },
   {
     name: "Tag Ran",
     mutate: "tagRan",
     query: "guild.settings.settings.serverLogs.tagRan.channel",
-    help: TagRanLogHelp,
+    help: HelpText.TagRanLogHelp,
   },
   {
     name: "Story Ran",
     mutate: "storyRan",
     query: "guild.settings.settings.serverLogs.storyRan.channel",
-    help: StoryRanLogHelp,
+    help: HelpText.StoryRanLogHelp,
   },
   {
     name: "Message Delete",
     mutate: "msgDeleted",
     query: "guild.settings.settings.serverLogs.msgDeleted.channel",
-    help: MessageDeleteLogHelp,
+    help: HelpText.MessageDeleteLogHelp,
   },
   {
     name: "Message Edit",
     mutate: "msgUpdate",
     query: "guild.settings.settings.serverLogs.msgUpdate.channel",
-    help: MessageEditLogHelp,
+    help: HelpText.MessageEditLogHelp,
   },
   {
     name: "Emoji Create",
     mutate: "emojiCreate",
     query: "guild.settings.settings.serverLogs.emojiCreate.channel",
-    help: EmojiCreateLogHelp,
+    help: HelpText.EmojiCreateLogHelp,
   },
   {
     name: "Emoji Delete",
     mutate: "emojiDelete",
     query: "guild.settings.settings.serverLogs.emojiDelete.channel",
-    help: EmojiDeleteLogHelp,
+    help: HelpText.EmojiDeleteLogHelp,
   },
   {
     name: "Emoji Update",
     mutate: "emojiUpdate",
     query: "guild.settings.settings.serverLogs.emojiUpdate.channel",
-    help: EmojiUpdateLogHelp,
+    help: HelpText.EmojiUpdateLogHelp,
   },
   {
     name: "Channel Create",
     mutate: "channelCreate",
     query: "guild.settings.settings.serverLogs.channelCreate.channel",
-    help: ChannelCreateLogHelp,
+    help: HelpText.ChannelCreateLogHelp,
   },
   {
     name: "Channel Delete",
     mutate: "channelDelete",
     query: "guild.settings.settings.serverLogs.channelDelete.channel",
-    help: ChannelDeleteLogHelp,
+    help: HelpText.ChannelDeleteLogHelp,
   },
   {
     name: "Channel Update",
     mutate: "channelUpdate",
     query: "guild.settings.settings.serverLogs.channelUpdate.channel",
-    help: ChannelUpdateLogHelp,
+    help: HelpText.ChannelUpdateLogHelp,
   },
   {
     name: "Server Deaf",
     mutate: "serverDeaf",
     query: "guild.settings.settings.serverLogs.serverDeaf.channel",
-    help: ServerDeafLogHelp,
+    help: HelpText.ServerDeafLogHelp,
   },
   {
     name: "Server Mute",
     mutate: "serverMute",
     query: "guild.settings.settings.serverLogs.serverMute.channel",
-    help: ServerMuteLogHelp,
+    help: HelpText.ServerMuteLogHelp,
   },
   {
     name: "Nickname Change",
     mutate: "nicknameChanged",
     query: "guild.settings.settings.serverLogs.nicknameChanged.channel",
-    help: NicknameChangeLogHelp,
+    help: HelpText.NicknameChangeLogHelp,
   },
   {
     name: "Member Perms",
     mutate: "memberRolePermissionsChanged",
     query: "guild.settings.settings.serverLogs.memberRolePermissionsChanged.channel",
-    help: MemberPermsLogHelp,
+    help: HelpText.MemberPermsLogHelp,
   },
   {
     name: "Member Roles",
     mutate: "memberRoleUpdated",
     query: "guild.settings.settings.serverLogs.memberRoleUpdated.channel",
-    help: MemberRolesLogHelp,
+    help: HelpText.MemberRolesLogHelp,
   },
   {
     name: "Member Ban",
     mutate: "guildBanAdd",
     query: "guild.settings.settings.serverLogs.guildBanAdd.channel",
-    help: MemberBanLogHelp,
+    help: HelpText.MemberBanLogHelp,
   },
   {
     name: "Member Unban",
     mutate: "guildBanRemove",
     query: "guild.settings.settings.serverLogs.guildBanRemove.channel",
-    help: MemberUnbanLogHelp,
+    help: HelpText.MemberUnbanLogHelp,
   },
 ];
 
@@ -202,24 +173,24 @@ export const modFeatureToggles = [
     query: "guild.settings.settings.hibye.welcome.channel",
     mutate: "welcomeChannelStatus",
     children: "Welcome Channel Status",
-    help: WelcomeChannelStatusHelp,
+    help: HelpText.WelcomeChannelStatusHelp,
   },
   {
     query: "guild.settings.settings.hibye.welcome.dm",
     mutate: "welcomeDmStatus",
     children: "Welcome DM Status",
-    help: WelcomeDMStatusHelp,
+    help: HelpText.WelcomeDMStatusHelp,
   },
   {
     query: "guild.settings.settings.hibye.goodbye.channel",
     mutate: "goodbyeChannelStatus",
     children: "Goodbye Channel Status",
-    help: GoodbyeChannelStatusHelp,
+    help: HelpText.GoodbyeChannelStatusHelp,
   },
   {
     query: "guild.settings.settings.hibye.goodbye.dm",
     mutate: "goodbyeDmStatus",
     children: "Goodbye DM Status",
-    help: GoodbyeDMStatusHelp,
+    help: HelpText.GoodbyeDMStatusHelp,
   },
 ];

@@ -8,9 +8,9 @@ import qGuildBasic from "../../../../graphql/queries/guild/guildBasic";
 import { extractChannel } from "../../../../util/transformers";
 import Validation from "./../../../../global/validation";
 import TabsManager from "../../../../components/Tabs";
-import MaxInactiveDaysAllowedHelp from "../../../../constants/help/features/vainglory/MaxInactiveDaysAllowedHelp";
 import HelpModal from "../../../../components/HelpModal";
-import ActivityReportsChannelHelp from "../../../../constants/help/features/vainglory/ActivityReportsChannelHelp";
+import HelpText from "../../../../constants/help/index";
+
 const boxesHeader = css`
   display: flex;
   flex-wrap: wrap;
@@ -50,7 +50,7 @@ class SpecialFeatureEditor extends Component {
                         />
                       </div>
                       <div>
-                        <HelpModal content={ActivityReportsChannelHelp} />
+                        <HelpModal content={HelpText.ActivityReportsChannelHelp} />
                       </div>
                     </Box.Option>
 
@@ -68,7 +68,7 @@ class SpecialFeatureEditor extends Component {
                         />
                       </div>
                       <div>
-                        <HelpModal content={MaxInactiveDaysAllowedHelp} />
+                        <HelpModal content={HelpText.MaxInactiveDaysAllowedHelp} />
                       </div>
                     </Box.Option>
                   </Box.Body>

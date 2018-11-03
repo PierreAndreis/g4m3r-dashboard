@@ -16,20 +16,7 @@ import { extractChannel, extractRoles } from "../../../../util/transformers";
 import Validation from "./../../../../global/validation";
 import HelpModal from "../../../../components/HelpModal";
 import TabsManager from "../../../../components/Tabs";
-import TextMutedRoleHelp from "../../../../constants/help/moderation/muted/TextMutedRoleHelp";
-import VoiceMutedRoleHelp from "../../../../constants/help/moderation/muted/VoiceMutedRoleHelp";
-import ModMailStatusHelp from "../../../../constants/help/moderation/modmail/ModMailStatusHelp";
-import ModMailPermissionToReplyHelp from "../../../../constants/help/moderation/modmail/ModMailPermissionToReplyHelp";
-import ModMailPerGuildHelp from "../../../../constants/help/moderation/modmail/ModMailPerGuildHelp";
-import ModMailPerUserHelp from "../../../../constants/help/moderation/modmail/ModMailPerUserHelp";
-import AutoAssignRoleHelp from "../../../../constants/help/moderation/automod/AutoAssignRoleHelp";
-import AFKResponsePermissionHelp from "../../../../constants/help/moderation/automod/AFKResponsePermissionHelp";
-import CapitalSpamFilterStatusHelp from "../../../../constants/help/moderation/automod/CapitalSpamFilterStatusHelp";
-import CapitalSpamFilterMaxAllowedPercentage from "../../../../constants/help/moderation/automod/CapitalSpamFilterMaxAllowedPercentage";
-import BannedWordFilterStatusHelp from "../../../../constants/help/moderation/automod/BannedWordFilterStatusHelp";
-import VerificationSystemStatusHelp from "../../../../constants/help/moderation/verification/VerificationSystemStatusHelp";
-import VerificationCategoryHelp from "../../../../constants/help/moderation/verification/VerificationCategoryHelp";
-import VerificationRoleHelp from "../../../../constants/help/moderation/verification/VerificationRoleHelp";
+import HelpText from "../../../../constants/help/index";
 
 const boxesHeader = css`
   display: flex;
@@ -208,7 +195,7 @@ class ModerationEditor extends Component {
                         />
                       </div>
                       <div>
-                        <HelpModal content={TextMutedRoleHelp} />
+                        <HelpModal content={HelpText.TextMutedRoleHelp} />
                       </div>
                     </Box.Option>
                     <Box.Option>
@@ -221,7 +208,7 @@ class ModerationEditor extends Component {
                         />
                       </div>
                       <div>
-                        <HelpModal content={VoiceMutedRoleHelp} />
+                        <HelpModal content={HelpText.VoiceMutedRoleHelp} />
                       </div>
                     </Box.Option>
                   </Box.Body>
@@ -236,7 +223,8 @@ class ModerationEditor extends Component {
                     <Editor.CheckboxCollapse
                       label={
                         <Box.Title>
-                          Mod Mails Status {<HelpModal content={ModMailStatusHelp} />}
+                          Mod Mails Status{" "}
+                          {<HelpModal content={HelpText.ModMailStatusHelp} />}
                         </Box.Title>
                       }
                       query="guild.settings.settings.mail.activated"
@@ -265,7 +253,7 @@ class ModerationEditor extends Component {
                           </Query>
                         </div>
                         <div>
-                          <HelpModal content={ModMailPermissionToReplyHelp} />
+                          <HelpModal content={HelpText.ModMailPermissionToReplyHelp} />
                         </div>
                       </Box.Option>
 
@@ -283,7 +271,7 @@ class ModerationEditor extends Component {
                           />
                         </div>{" "}
                         <div>
-                          <HelpModal content={ModMailPerGuildHelp} />
+                          <HelpModal content={HelpText.ModMailPerGuildHelp} />
                         </div>
                       </Box.Option>
 
@@ -301,7 +289,7 @@ class ModerationEditor extends Component {
                           />
                         </div>
                         <div>
-                          <HelpModal content={ModMailPerUserHelp} />
+                          <HelpModal content={HelpText.ModMailPerUserHelp} />
                         </div>
                       </Box.Option>
                     </Editor.CheckboxCollapse>
@@ -324,7 +312,7 @@ class ModerationEditor extends Component {
                         />
                       </div>
                       <div>
-                        <HelpModal content={AutoAssignRoleHelp} />
+                        <HelpModal content={HelpText.AutoAssignRoleHelp} />
                       </div>
                     </Box.Option>
 
@@ -352,7 +340,7 @@ class ModerationEditor extends Component {
                         </Query>
                       </div>
                       <div>
-                        <HelpModal content={AFKResponsePermissionHelp} />
+                        <HelpModal content={HelpText.AFKResponsePermissionHelp} />
                       </div>
                     </Box.Option>
                   </Box.Body>
@@ -364,7 +352,7 @@ class ModerationEditor extends Component {
                       label={
                         <Box.Title>
                           Capital Spam Filter Status
-                          {<HelpModal content={CapitalSpamFilterStatusHelp} />}
+                          {<HelpModal content={HelpText.CapitalSpamFilterStatusHelp} />}
                         </Box.Title>
                       }
                       query="guild.settings.settings.moderation.capitalPercentage.status"
@@ -384,7 +372,9 @@ class ModerationEditor extends Component {
                           />
                         </div>
                         <div>
-                          <HelpModal content={CapitalSpamFilterMaxAllowedPercentage} />
+                          <HelpModal
+                            content={HelpText.CapitalSpamFilterMaxAllowedPercentage}
+                          />
                         </div>
                       </Box.Option>
                     </Editor.CheckboxCollapse>
@@ -397,7 +387,7 @@ class ModerationEditor extends Component {
                       label={
                         <Box.Title>
                           Banned Word Filter Status
-                          {<HelpModal content={BannedWordFilterStatusHelp} />}
+                          {<HelpModal content={HelpText.BannedWordFilterStatusHelp} />}
                         </Box.Title>
                       }
                       query="guild.settings.settings.moderation.naughtyWords.status"
@@ -427,7 +417,7 @@ class ModerationEditor extends Component {
                       label={
                         <Box.Title>
                           Verification System Status
-                          {<HelpModal content={VerificationSystemStatusHelp} />}
+                          {<HelpModal content={HelpText.VerificationSystemStatusHelp} />}
                         </Box.Title>
                       }
                       query="guild.settings.settings.verify.status"
@@ -443,7 +433,7 @@ class ModerationEditor extends Component {
                           />
                         </div>
                         <div>
-                          <HelpModal content={VerificationCategoryHelp} />
+                          <HelpModal content={HelpText.VerificationCategoryHelp} />
                         </div>
                       </Box.Option>
 
@@ -468,7 +458,7 @@ class ModerationEditor extends Component {
                           />
                         </div>
                         <div>
-                          <HelpModal content={VerificationRoleHelp} />
+                          <HelpModal content={HelpText.VerificationRoleHelp} />
                         </div>
                       </Box.Option>
                     </Editor.CheckboxCollapse>
