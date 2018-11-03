@@ -1,5 +1,5 @@
 import { css } from "emotion";
-import mq from "../../../global/breakpoints";
+import mq, { mqmax } from "../../../global/breakpoints";
 
 export const container = css`
   position: relative;
@@ -22,7 +22,7 @@ export const container = css`
     left: 30px;
   }
 
-  ${mq.small(
+  ${mqmax.large(
     css`
       height: 100%;
       position: absolute;

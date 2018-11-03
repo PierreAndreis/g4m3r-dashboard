@@ -10,7 +10,7 @@ import AddCircleIcon from "mdi-react/PlusCircleOutlineIcon";
 import LogoutIcon from "mdi-react/LogoutIcon";
 import Swiper from "react-id-swiper";
 import meQuery from "../../graphql/queries/user/me";
-import { mq, breakpoints } from "./../../global/breakpoints";
+import mq, { breakpoints } from "./../../global/breakpoints";
 
 const container = css`
   width: 100%;
@@ -79,7 +79,8 @@ const serverSpace = css`
     & > * {
       height: 140px;
     }
-  `)} ${mq.xLarge(css`
+  `)} 
+  ${mq.xLarge(css`
     & > * {
       height: 160px;
     }
@@ -134,7 +135,8 @@ const serverContainer = css`
     & > b {
       font-size: 13px;
     }
-  `)} ${mq.xLarge(css`
+  `)} 
+  ${mq.xLarge(css`
     width: 140px;
     height: 140px;
     & > img {
@@ -162,7 +164,8 @@ const emptyDescription = css`
   color: rgba(255, 255, 255, 0.8);
   ${mq.large(css`
     font-size: 15px;
-  `)} ${mq.xLarge(css`
+  `)} 
+  ${mq.xLarge(css`
     font-size: 17px;
   `)};
 `;
