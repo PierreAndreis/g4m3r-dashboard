@@ -12,8 +12,14 @@ import qClientBasic from "../../../../graphql/queries/client/clientBasic";
 import { extractChannel } from "../../../../util/transformers";
 import Validation from "./../../../../global/validation";
 import TabsManager from "../../../../components/Tabs";
+import HelpContent from "../../../../components/HelpContent";
 import HelpModal from "../../../../components/HelpModal";
 import HelpText from "../../../../constants/help/index";
+
+const test = {
+  title: "What is a Prefix?",
+  description: 'The prefix is what tells the bot to listen to that message. If the prefix is set to "." the bot will only respond when starting your message with . as the first letter.'
+};
 
 const boxesHeader = css`
   display: flex;
@@ -76,7 +82,7 @@ class GeneralEditor extends Component {
                         />
                       </div>
                       <div>
-                        <HelpModal content={HelpText.PrefixHelp} />
+                        <HelpModal content={<HelpContent {...test} />} />
                       </div>
                     </Box.Option>
                     <Box.Option>
