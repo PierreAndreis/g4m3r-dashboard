@@ -8,7 +8,7 @@ export const breakpoints = {
   tallPhone: "(max-width: 360px) and (min-height: 740px)",
 };
 
-const mq = Object.keys(breakpoints).reduce((accumulator, label) => {
+export const mq = Object.keys(breakpoints).reduce((accumulator, label) => {
   let prefix = typeof breakpoints[label] === "string" ? "" : "max-width:";
   let suffix = typeof breakpoints[label] === "string" ? "" : "px";
   accumulator[label] = cls =>
@@ -19,5 +19,18 @@ const mq = Object.keys(breakpoints).reduce((accumulator, label) => {
     `;
   return accumulator;
 }, {});
+
+export const mqmax = Object.keys(BREAKPOINTS).reduce((accumulator, label) => {
+  let prefix = typeof BREAKPOINTS[label] === "string" ? "" : "max-width:";
+  let suffix = typeof BREAKPOINTS[label] === "string" ? "" : "px";
+  accumulator[label] = cls =>
+    css`
+        @media (${prefix + BREAKPOINTS[label] + suffix}) {
+          ${cls};
+        }
+      `;
+  return accumulator;
+}, {});
+
 
 export default mq;

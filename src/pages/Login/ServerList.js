@@ -10,7 +10,7 @@ import AddCircleIcon from "mdi-react/PlusCircleOutlineIcon";
 import LogoutIcon from "mdi-react/LogoutIcon";
 import Swiper from "react-id-swiper";
 import meQuery from "../../graphql/queries/user/me";
-import Util from "./../../global/Util";
+import { mq, breakpoints } from "./../../global/breakpoints";
 
 const container = css`
   width: 100%;
@@ -23,9 +23,10 @@ const container = css`
   }
   padding-top: 30px;
 
-  ${Util.mq.large(css`
+  ${mq.large(css`
     min-height: 250px;
-  `)} ${Util.mq.xLarge(css`
+  `)} 
+  ${mq.xLarge(css`
     min-height: 300px;
   `)};
 `;
@@ -74,11 +75,11 @@ const serverSpace = css`
     bottom: 0px;
   }
 
-  ${Util.mq.large(css`
+  ${mq.large(css`
     & > * {
       height: 140px;
     }
-  `)} ${Util.mq.xLarge(css`
+  `)} ${mq.xLarge(css`
     & > * {
       height: 160px;
     }
@@ -123,7 +124,7 @@ const serverContainer = css`
     white-space: nowrap;
     color: rgba(255, 255, 255, 0.8);
   }
-  ${Util.mq.large(css`
+  ${mq.large(css`
     width: 120px;
     height: 120px;
     & > img {
@@ -133,7 +134,7 @@ const serverContainer = css`
     & > b {
       font-size: 13px;
     }
-  `)} ${Util.mq.xLarge(css`
+  `)} ${mq.xLarge(css`
     width: 140px;
     height: 140px;
     & > img {
@@ -159,9 +160,9 @@ const emptyDescription = css`
   text-align: center;
   margin-top: auto;
   color: rgba(255, 255, 255, 0.8);
-  ${Util.mq.large(css`
+  ${mq.large(css`
     font-size: 15px;
-  `)} ${Util.mq.xLarge(css`
+  `)} ${mq.xLarge(css`
     font-size: 17px;
   `)};
 `;
@@ -178,17 +179,17 @@ const Server = ({ image, name, href }) => (
 let slidesAmount = 5,
   spaceBetween = 5,
   circleSize = "50px";
-if (window.innerWidth > Util.BREAKPOINTS.medium) {
+if (window.innerWidth > breakpoints.medium) {
   slidesAmount = 6;
   spaceBetween = 5;
   circleSize = "70px";
 }
-if (window.innerWidth > Util.BREAKPOINTS.large) {
+if (window.innerWidth > breakpoints.large) {
   slidesAmount = 7;
   spaceBetween = 5;
   circleSize = "80px";
 }
-if (window.innerWidth > Util.BREAKPOINTS.xLarge) {
+if (window.innerWidth > breakpoints.xLarge) {
   slidesAmount = 7;
   spaceBetween = 5;
   circleSize = "100px";

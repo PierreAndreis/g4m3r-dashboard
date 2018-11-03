@@ -6,7 +6,7 @@ import { Wave } from "./wave";
 import Login from "./Login";
 import ServerList from "./ServerList";
 import LogoWithEffects from "./LogoWithEffects";
-import Util from "./../../global/Util";
+import { mq } from "./../../global/breakpoints";
 
 const background = css`
   background-image: linear-gradient(90deg, #74ebd5 0%, #7aaeff 100%);
@@ -22,11 +22,11 @@ const background = css`
 const BoxLogin = css`
   max-width: 500px;
   min-height: 200px;
-  ${Util.mq.large(css`
+  ${mq.large(css`
     max-width: 800px;
     min-height: 250px;
   `)};
-  ${Util.mq.xLarge(css`
+  ${mq.xLarge(css`
     max-width: 1100px;
     min-height: 300px;
   `)};
