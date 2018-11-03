@@ -21,6 +21,7 @@ const layout = css`
 const content = css`
   background-color: #f8f8fd;
   overflow-x: auto;
+  overflow-y: auto;
   box-sizing: border-box;
   padding-top: 30px;
   & > section {
