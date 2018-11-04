@@ -97,7 +97,7 @@ class ModerationEditor extends Component {
             </TabsManager.Section>
             <TabsManager.Section name="Server Logs">
               <div className={boxesHeader}>
-                {serverLogs.map((opt, index) => {
+                {serverLogs.sort((a, b) => a.name > b.name ? 1 : -1).map((opt, index) => {
                   return (
                     <Box padding key={index}>
                       <Box.Body>
@@ -110,7 +110,7 @@ class ModerationEditor extends Component {
                           }
                           query={`guild.settings.settings.serverLogs.${
                             opt.mutate
-                          }.status`}
+                            }.status`}
                           mutate={`${opt.mutate}Status`}
                         >
                           <Box.Option>
@@ -119,7 +119,7 @@ class ModerationEditor extends Component {
                               <Editor.Checkbox
                                 query={`guild.settings.settings.serverLogs.${
                                   opt.mutate
-                                }.logPublically`}
+                                  }.logPublically`}
                                 mutate={`${opt.mutate}LogPublically`}
                               />
                             </div>
