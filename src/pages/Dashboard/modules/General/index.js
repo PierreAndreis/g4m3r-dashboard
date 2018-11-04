@@ -178,6 +178,7 @@ class GeneralEditor extends Component {
                         <div>Channel</div>
                         <div>
                           <Editor.Select
+                            autoComplete
                             values={extractChannel}
                             query="guild.settings.settings.feedback.idea.channel"
                             mutate="ideaChannel"
@@ -248,6 +249,7 @@ class GeneralEditor extends Component {
                         <div>Channel</div>
                         <div>
                           <Editor.Select
+                            autoComplete
                             values={extractChannel}
                             query="guild.settings.settings.feedback.bug.channel"
                             mutate="bugChannel"
@@ -397,6 +399,7 @@ class GeneralEditor extends Component {
                         <div>Advertise Channel</div>
                         <div>
                           <Editor.Select
+                            autoComplete
                             values={extractChannel}
                             mutate="advertiseChannel"
                             query="guild.settings.settings.events.advertiseChannel"
