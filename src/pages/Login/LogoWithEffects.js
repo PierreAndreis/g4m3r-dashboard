@@ -1,7 +1,7 @@
 import React from "react";
 import { css, keyframes } from "emotion";
 
-import Util from "./../../global/Util";
+import {mq} from "./../../global/breakpoints";
 
 const scaleIn = keyframes`
   to {
@@ -12,10 +12,10 @@ const scaleIn = keyframes`
 const container = css`
   width: 400px;
   height: 100px;
-  ${Util.mq.large(css`
+  ${mq.large(css`
     height: 120px;
   `)};
-  ${Util.mq.xLarge(css`
+  ${mq.xLarge(css`
     height: 150px;
   `)};
   position: relative;
@@ -34,12 +34,12 @@ export const logo = css`
   height: 100px;
   border-radius: 100%;
   align-self: center;
-  ${Util.mq.large(css`
+  ${mq.large(css`
     background-size: 80%;
     width: 120px;
     height: 120px;
   `)};
-  ${Util.mq.xLarge(css`
+  ${mq.xLarge(css`
     background-size: 80%;
     width: 150px;
     height: 150px;

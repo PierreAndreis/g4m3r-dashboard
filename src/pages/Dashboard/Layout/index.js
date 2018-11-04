@@ -4,7 +4,7 @@ import MobileHeader from "./MobileHeader/MobileHeader";
 import { css } from "emotion";
 
 import Media from "react-media";
-import mq, { breakpoints } from "../../../global/breakpoints";
+import mq, { mqmax, breakpoints } from "../../../global/breakpoints";
 import classNames from "classnames";
 
 const layout = css`
@@ -12,7 +12,7 @@ const layout = css`
   grid-template-columns: [sidebar] 250px [content] 1fr;
   height: 100%;
 
-  ${mq.small(css`
+  ${mqmax.large(css`
     grid-template-columns: [content] 1fr;
     grid-template-rows: [MobileHeader] 50px [content] 1fr;
   `)};
@@ -92,7 +92,7 @@ class Layout extends Component {
 }
 
 export default props => (
-  <Media query={`(max-width: ${breakpoints.small}px)`}>
+  <Media query={`(max-width: ${breakpoints.large}px)`}>
     {isMobile => <Layout isMobile={isMobile} {...props} />}
   </Media>
 );
