@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { css } from "emotion";
-import mq, { mqmax } from "../../../../global/breakpoints";
+import { mqmax } from "../../../../global/breakpoints";
 import HamburgerIcon from "./Hamburger";
 
 export const mobileHeader = css`

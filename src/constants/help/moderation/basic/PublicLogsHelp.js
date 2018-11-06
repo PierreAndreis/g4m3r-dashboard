@@ -12,7 +12,7 @@ export default (
         reading the reasons of other punishments. It can also be useful to help players
         see that your server is growing by making Member Add publiclly logged.
       </p>
-      <img src="https://i.imgur.com/E8h7XWO.png" width="90%" />
+      <img src="https://i.imgur.com/E8h7XWO.png" alt="public logs" width="90%" />
     </Box.Body>
   </div>
 );

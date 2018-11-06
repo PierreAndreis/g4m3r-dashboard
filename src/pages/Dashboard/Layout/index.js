@@ -4,7 +4,7 @@ import MobileHeader from "./MobileHeader/MobileHeader";
 import { css } from "emotion";
 
 import Media from "react-media";
-import mq, { mqmax, breakpoints } from "../../../global/breakpoints";
+import { mqmax, breakpoints } from "../../../global/breakpoints";
 import classNames from "classnames";
 
 const layout = css`

@@ -10,7 +10,7 @@ export default (
         logged. For example, when you warn, mute, kick, or ban someone the reasons and
         action can be logged.
       </p>
-      <img src="https://i.imgur.com/MCQjqmg.png" width="90%" />
+      <img src="https://i.imgur.com/MCQjqmg.png" alt="mod logs" width="90%" />
     </Box.Body>
   </div>
 );

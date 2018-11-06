@@ -111,7 +111,7 @@ class ModerationEditor extends Component {
                           }
                           query={`guild.settings.settings.serverLogs.${
                             opt.mutate
-                          }.status`}
+                            }.status`}
                           mutate={`${opt.mutate}Status`}
                         >
                           <Box.Option>
@@ -120,7 +120,7 @@ class ModerationEditor extends Component {
                               <Editor.Checkbox
                                 query={`guild.settings.settings.serverLogs.${
                                   opt.mutate
-                                }.logPublically`}
+                                  }.logPublically`}
                                 mutate={`${opt.mutate}LogPublically`}
                               />
                             </div>
@@ -244,7 +244,10 @@ class ModerationEditor extends Component {
                             {({ loading, error, data }) => {
                               if (loading) return "Loading";
                               if (error) return "Error";
-                              const values = data.client.settings.permissionLevels;
+                              const values = data.client.settings.permissionLevels.map(perm => ({
+                                key: perm.id,
+                                value: perm.value
+                              }));
 
                               return (
                                 <Editor.Select
@@ -331,7 +334,10 @@ class ModerationEditor extends Component {
                           {({ loading, error, data }) => {
                             if (loading) return "Loading";
                             if (error) return "Error";
-                            const values = data.client.settings.permissionLevels;
+                            const values = data.client.settings.permissionLevels.map(perm => ({
+                              key: perm.id,
+                              value: perm.value
+                            }));
                             console.log("perms levels", data);
                             return (
                               <Editor.Select
