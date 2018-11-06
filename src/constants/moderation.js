@@ -166,7 +166,7 @@ export const serverLogs = [
     query: "guild.settings.settings.serverLogs.tagRan.channel",
     help: HelpText.TagRanLogHelp,
   },
-];
+].sort((a, b) => a.name > b.name ? 1 : 1);
 
 export const modFeatureToggles = [
   {

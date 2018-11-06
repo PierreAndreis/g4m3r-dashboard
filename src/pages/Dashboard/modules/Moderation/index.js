@@ -97,7 +97,7 @@ class ModerationEditor extends Component {
             </TabsManager.Section>
             <TabsManager.Section name="Server Logs">
               <div className={boxesHeader}>
-                {serverLogs.sort((a, b) => a.name > b.name ? 1 : -1).map((opt, index) => {
+                {serverLogs.map((opt, index) => {
                   return (
                     <Box padding key={index}>
                       <Box.Body>
