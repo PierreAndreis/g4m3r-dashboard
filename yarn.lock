@@ -2156,10 +2156,10 @@ create-ecdh@^4.0.0:
     bn.js "^4.1.0"
     elliptic "^6.0.0"
 
-create-emotion-styled@^9.2.3:
-  version "9.2.3"
-  resolved "https://registry.yarnpkg.com/create-emotion-styled/-/create-emotion-styled-9.2.3.tgz#17fb13b3ae4c165ea6e5a11356ab8b9ca1dad9c5"
-  integrity sha1-F/sTs65MFl6m5aETVquLnKHa2cU=
+create-emotion-styled@^9.2.8:
+  version "9.2.8"
+  resolved "https://registry.yarnpkg.com/create-emotion-styled/-/create-emotion-styled-9.2.8.tgz#c0050e768ba439609bec108600467adf2de67cc3"
+  integrity sha512-2LrNM5MREWzI5hZK+LyiBHglwE18WE3AEbBQgpHQ1+zmyLSm/dJsUZBeFAwuIMb+TjNZP0KsMZlV776ufOtFdg==
   dependencies:
     "@emotion/is-prop-valid" "^0.6.1"
 
@@ -6836,13 +6836,13 @@ react-dom@^16.6.0:
     prop-types "^15.6.2"
     scheduler "^0.10.0"
 
-react-emotion@^9.2.4:
-  version "9.2.4"
-  resolved "https://registry.yarnpkg.com/react-emotion/-/react-emotion-9.2.4.tgz#98e00f70ce2ca4ee13923460123e763e492c013a"
-  integrity sha1-mOAPcM4spO4TkjRgEj52PkksATo=
+react-emotion@^9.2.12:
+  version "9.2.12"
+  resolved "https://registry.yarnpkg.com/react-emotion/-/react-emotion-9.2.12.tgz#74d1494f89e22d0b9442e92a33ca052461955c83"
+  integrity sha512-qt7XbxnEKX5sZ73rERJ92JMbEOoyOwG3BuCRFRkXrsJhEe+rFBRTljRw7yOLHZUCQC4GBObZhjXIduQ8S0ZpYw==
   dependencies:
-    babel-plugin-emotion "^9.2.4"
-    create-emotion-styled "^9.2.3"
+    babel-plugin-emotion "^9.2.11"
+    create-emotion-styled "^9.2.8"
 
 react-error-overlay@^4.0.1:
   version "4.0.1"
