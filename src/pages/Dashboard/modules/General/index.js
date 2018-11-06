@@ -426,7 +426,10 @@ class GeneralEditor extends Component {
                           {({ loading, error, data }) => {
                             if (loading) return "Loading";
                             if (error) return "Error";
-                            const values = data.client.settings.permissionLevels;
+                            const values = data.client.settings.permissionLevels.map(perm => ({
+                              key: perm.id,
+                              value: perm.value
+                            }));
                             console.log("perms levels", data);
                             return (
                               <Editor.Select
@@ -454,7 +457,11 @@ class GeneralEditor extends Component {
                           {({ loading, error, data }) => {
                             if (loading) return "Loading";
                             if (error) return "Error";
-                            const values = data.client.settings.permissionLevels;
+                            const values = data.client.settings.permissionLevels.map(
+                              perm => ({
+                                key: perm.id,
+                                value: perm.value,
+                              }));
 
                             return (
                               <Editor.Select
