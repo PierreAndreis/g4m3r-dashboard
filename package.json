@@ -30,7 +30,7 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "babel-plugin-emotion": "^9.2.4",
+    "babel-plugin-emotion": "^9.2.11",
     "react-app-rewire-emotion": "^4.0.0",
     "react-app-rewire-mobx": "^1.0.9",
     "react-app-rewired": "^1.6.2"
