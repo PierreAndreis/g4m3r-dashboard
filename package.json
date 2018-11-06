@@ -7,7 +7,7 @@
     "apollo-client": "^2.4.5",
     "classnames": "^2.2.6",
     "downshift": "^2.0.10",
-    "emotion": "^9.2.4",
+    "emotion": "^9.2.12",
     "graphql": "^14.0.2",
     "graphql-tag": "^2.10.0",
     "mdi-react": "^4.4.0",
