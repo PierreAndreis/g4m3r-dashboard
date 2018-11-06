@@ -1,5 +1,5 @@
 import { css } from "emotion";
-import mq, { mqmax } from "../../../global/breakpoints";
+import { mqmax } from "../../../global/breakpoints";
 
 export const container = css`
   position: relative;
