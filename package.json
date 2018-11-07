@@ -29,6 +29,7 @@
     "start": "set PORT=3001 && react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test --env=jsdom",
+    "test:coverage": "react-app-rewired test --env=jsdom --coverage --collectCoverageFrom=src/components/**/*.{js,jsx} --collectCoverageFrom=!src/components/Editor/*.{js,jsx}",
     "test:ci": "react-app-rewired test --ci --env=jsdom --reporters=default --reporters=jest-junit",
     "eject": "react-scripts eject"
   },
