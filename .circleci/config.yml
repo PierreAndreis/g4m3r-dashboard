@@ -24,7 +24,7 @@ jobs:
           path: test-results
       - run: yarn build
       - store_artifacts:
-          path: /build
+          path: build
           destination: build-results
 
 workflows:
