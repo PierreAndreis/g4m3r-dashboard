@@ -20,7 +20,10 @@ jobs:
         command: yarn test:ci
         environment:
           JEST_JUNIT_OUTPUT: "reports/junit/js-test-results.xml"
+    - store_test_results:
+        path: test-results
     - run: yarn build
+    
 workflows:
   version: 2
   workflow:
