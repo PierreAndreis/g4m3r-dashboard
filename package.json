@@ -10,6 +10,7 @@
     "emotion": "^9.2.12",
     "graphql": "^14.0.2",
     "graphql-tag": "^2.10.0",
+    "jest-dom": "^2.1.1",
     "mdi-react": "^4.4.0",
     "mobx": "4.3.1",
     "mobx-react": "^5.3.6",
@@ -27,12 +28,25 @@
   "scripts": {
     "start": "set PORT=3001 && react-app-rewired start",
     "build": "react-app-rewired build",
+    "test": "react-app-rewired test --env=jsdom",
     "eject": "react-scripts eject"
   },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
   "devDependencies": {
     "babel-plugin-emotion": "^9.2.11",
+    "jest-emotion": "^9.2.11",
     "react-app-rewire-emotion": "^4.0.0",
     "react-app-rewire-mobx": "^1.0.9",
-    "react-app-rewired": "^1.6.2"
+    "react-app-rewired": "^1.6.2",
+    "react-testing-library": "^5.2.3",
+    "snapshot-diff": "^0.4.0"
   }
 }
