@@ -1,0 +1,463 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`buttonActions - error 1`] = `
+.emotion-3 {
+  position: relative;
+  overflow: hidden;
+  background: #007aff;
+  border: 0;
+  color: white;
+  border-radius: 3px;
+  margin-right: 5px;
+  padding: 10px 16px;
+  font-size: 14px;
+  -webkit-transition: all 300ms;
+  transition: all 300ms;
+  outline: 0;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.emotion-3.disabled {
+  opacity: 0.5;
+  color: rgba(58,58,58,1);
+  background: rgb(169,169,169);
+  cursor: no-drop;
+}
+
+.emotion-3.active {
+  border-color: transparent;
+  color: white;
+  background-image: linear-gradient(90deg,#92d8e0 0%,#8cc7eb 100%);
+}
+
+.emotion-2:hover,
+.emotion-2:focus {
+  background-color: #87b9ff;
+  color: white;
+}
+
+.emotion-2:active:focus {
+  box-shadow: 0 0 0 0.2rem #74ebd5;
+}
+
+.emotion-0 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.emotion-1 {
+  background: #e45858;
+}
+
+<button
+  class="emotion-2 emotion-3"
+>
+  <div
+    class="emotion-0 emotion-1"
+  >
+    <svg
+      class="mdi-icon "
+      width="20"
+      height="20"
+      fill="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        d="M13,14H11V10H13M13,18H11V16H13M1,21H23L12,2L1,21Z"
+      />
+    </svg>
+  </div>
+</button>
+`;
+
+exports[`buttonActions - loading 1`] = `
+.emotion-3 {
+  position: relative;
+  overflow: hidden;
+  background: #007aff;
+  border: 0;
+  color: white;
+  border-radius: 3px;
+  margin-right: 5px;
+  padding: 10px 16px;
+  font-size: 14px;
+  -webkit-transition: all 300ms;
+  transition: all 300ms;
+  outline: 0;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.emotion-3.disabled {
+  opacity: 0.5;
+  color: rgba(58,58,58,1);
+  background: rgb(169,169,169);
+  cursor: no-drop;
+}
+
+.emotion-3.active {
+  border-color: transparent;
+  color: white;
+  background-image: linear-gradient(90deg,#92d8e0 0%,#8cc7eb 100%);
+}
+
+.emotion-2:hover,
+.emotion-2:focus {
+  background-color: #87b9ff;
+  color: white;
+}
+
+.emotion-2:active:focus {
+  box-shadow: 0 0 0 0.2rem #74ebd5;
+}
+
+.emotion-0 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.emotion-1 {
+  background: #7aaeff;
+  color: white !important;
+}
+
+.emotion-1 > * {
+  -webkit-animation: spinner 0.6s linear infinite;
+  animation: spinner 0.6s linear infinite;
+}
+
+<button
+  class="emotion-2 emotion-3"
+>
+  <div
+    class="emotion-0 emotion-1"
+  >
+    <svg
+      class="mdi-icon "
+      width="20"
+      height="20"
+      fill="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        d="M12,4V2C6.48,2 2,6.48 2,12H4C4,7.58 7.58,4 12,4Z"
+      />
+    </svg>
+  </div>
+</button>
+`;
+
+exports[`buttonActions - success 1`] = `
+.emotion-3 {
+  position: relative;
+  overflow: hidden;
+  background: #007aff;
+  border: 0;
+  color: white;
+  border-radius: 3px;
+  margin-right: 5px;
+  padding: 10px 16px;
+  font-size: 14px;
+  -webkit-transition: all 300ms;
+  transition: all 300ms;
+  outline: 0;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.emotion-3.disabled {
+  opacity: 0.5;
+  color: rgba(58,58,58,1);
+  background: rgb(169,169,169);
+  cursor: no-drop;
+}
+
+.emotion-3.active {
+  border-color: transparent;
+  color: white;
+  background-image: linear-gradient(90deg,#92d8e0 0%,#8cc7eb 100%);
+}
+
+.emotion-2:hover,
+.emotion-2:focus {
+  background-color: #87b9ff;
+  color: white;
+}
+
+.emotion-2:active:focus {
+  box-shadow: 0 0 0 0.2rem #74ebd5;
+}
+
+.emotion-0 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.emotion-1 {
+  background: green;
+}
+
+<button
+  class="emotion-2 emotion-3"
+>
+  <div
+    class="emotion-0 emotion-1"
+  >
+    <svg
+      class="mdi-icon "
+      width="20"
+      height="20"
+      fill="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"
+      />
+    </svg>
+  </div>
+</button>
+`;
+
+exports[`it mounts 1`] = `
+.emotion-0 {
+  position: relative;
+  overflow: hidden;
+  background: #007aff;
+  border: 0;
+  color: white;
+  border-radius: 3px;
+  margin-right: 5px;
+  padding: 10px 16px;
+  font-size: 14px;
+  -webkit-transition: all 300ms;
+  transition: all 300ms;
+  outline: 0;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.emotion-0.disabled {
+  opacity: 0.5;
+  color: rgba(58,58,58,1);
+  background: rgb(169,169,169);
+  cursor: no-drop;
+}
+
+.emotion-0.active {
+  border-color: transparent;
+  color: white;
+  background-image: linear-gradient(90deg,#92d8e0 0%,#8cc7eb 100%);
+}
+
+<button
+  class="emotion-0"
+>
+  This is a basic button
+</button>
+`;
+
+exports[`it mounts 2`] = `
+<button
+  class="css-g50vdn"
+>
+  This is a loading button
+  .emotion-0 {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+  }
+  
+  .emotion-1 {
+    background: #7aaeff;
+    color: white !important;
+  }
+  
+  .emotion-1 > * {
+    -webkit-animation: spinner 0.6s linear infinite;
+    animation: spinner 0.6s linear infinite;
+  }
+  
+  <div
+    class="emotion-0 emotion-1"
+  >
+    <svg
+      class="mdi-icon "
+      width="20"
+      height="20"
+      fill="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        d="M12,4V2C6.48,2 2,6.48 2,12H4C4,7.58 7.58,4 12,4Z"
+      />
+    </svg>
+  </div>
+</button>
+`;
+
+exports[`it mounts 3`] = `
+<button
+  class="css-g50vdn"
+>
+  This is a error button
+  .emotion-0 {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+  }
+  
+  .emotion-1 {
+    background: #e45858;
+  }
+  
+  <div
+    class="emotion-0 emotion-1"
+  >
+    <svg
+      class="mdi-icon "
+      width="20"
+      height="20"
+      fill="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        d="M13,14H11V10H13M13,18H11V16H13M1,21H23L12,2L1,21Z"
+      />
+    </svg>
+  </div>
+</button>
+`;
+
+exports[`it mounts 4`] = `
+<button
+  class="css-g50vdn"
+>
+  This is a success button
+  .emotion-0 {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+  }
+  
+  .emotion-1 {
+    background: green;
+  }
+  
+  <div
+    class="emotion-0 emotion-1"
+  >
+    <svg
+      class="mdi-icon "
+      width="20"
+      height="20"
+      fill="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"
+      />
+    </svg>
+  </div>
+</button>
+`;
+
+exports[`it mounts 5`] = `
+<button
+  class="disabled css-g50vdn"
+  disabled=""
+/>
+`;

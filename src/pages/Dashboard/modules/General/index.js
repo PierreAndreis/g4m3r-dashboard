@@ -13,10 +13,7 @@ import { extractChannel } from "../../../../util/transformers";
 import Validation from "./../../../../global/validation";
 import TabsManager from "../../../../components/Tabs";
 import HelpModal from "../../../../components/HelpModal";
-import PrefixHelp from "../../../../constants/help/general/basic/PrefixHelp";
-import TimezoneHelp from "../../../../constants/help/general/basic/TimezoneHelp";
-import MenuClosingTimeHelp from "../../../../constants/help/general/basic/MenuClosingTimeHelp";
-import DeleteNotificationsDelayHelp from "../../../../constants/help/general/basic/DeleteNotificationsDelayHelp";
+import HelpText from "../../../../constants/help/index";
 
 const boxesHeader = css`
   display: flex;
@@ -79,7 +76,7 @@ class GeneralEditor extends Component {
                         />
                       </div>
                       <div>
-                        <HelpModal content={PrefixHelp} />
+                        <HelpModal content={HelpText.PrefixHelp} />
                       </div>
                     </Box.Option>
                     <Box.Option>
@@ -103,7 +100,7 @@ class GeneralEditor extends Component {
                         </Query>
                       </div>
                       <div>
-                        <HelpModal content={TimezoneHelp} />
+                        <HelpModal content={HelpText.TimezoneHelp} />
                       </div>
                     </Box.Option>
                     <Box.Option>
@@ -120,7 +117,7 @@ class GeneralEditor extends Component {
                         />
                       </div>
                       <div>
-                        <HelpModal content={MenuClosingTimeHelp} />
+                        <HelpModal content={HelpText.MenuClosingTimeHelp} />
                       </div>
                     </Box.Option>
                     <Box.Option>
@@ -137,7 +134,7 @@ class GeneralEditor extends Component {
                         />
                       </div>
                       <div>
-                        <HelpModal content={DeleteNotificationsDelayHelp} />
+                        <HelpModal content={HelpText.DeleteNotificationsDelayHelp} />
                       </div>
                     </Box.Option>
                   </Box.Body>
@@ -168,7 +165,12 @@ class GeneralEditor extends Component {
                 <Box padding>
                   <Box.Body>
                     <Editor.CheckboxCollapse
-                      label={<Box.Title>Ideas Status</Box.Title>}
+                      label={
+                        <Box.Title>
+                          Ideas Status
+                          <HelpModal content={HelpText.IdeasStatusHelp} />
+                        </Box.Title>
+                      }
                       query="guild.settings.settings.feedback.idea.status"
                       mutate="ideaStatus"
                     >
@@ -176,10 +178,14 @@ class GeneralEditor extends Component {
                         <div>Channel</div>
                         <div>
                           <Editor.Select
+                            autoComplete
                             values={extractChannel}
                             query="guild.settings.settings.feedback.idea.channel"
                             mutate="ideaChannel"
                           />
+                        </div>
+                        <div>
+                          <HelpModal content={HelpText.IdeasChannelHelp} />
                         </div>
                       </Box.Option>
 
@@ -190,6 +196,9 @@ class GeneralEditor extends Component {
                             mutate="ideaColor"
                             query="guild.settings.settings.feedback.idea.color"
                           />
+                        </div>
+                        <div>
+                          <HelpModal content={HelpText.IdeasColorHelp} />
                         </div>
                       </Box.Option>
 
@@ -202,6 +211,9 @@ class GeneralEditor extends Component {
                             type="emoji"
                           />
                         </div>
+                        <div>
+                          <HelpModal content={HelpText.IdeasThumbsUpHelp} />
+                        </div>
                       </Box.Option>
 
                       <Box.Option>
@@ -213,6 +225,9 @@ class GeneralEditor extends Component {
                             type="emoji"
                           />
                         </div>
+                        <div>
+                          <HelpModal content={HelpText.IdeasThumbsDownHelp} />
+                        </div>
                       </Box.Option>
                     </Editor.CheckboxCollapse>
                   </Box.Body>
@@ -221,7 +236,12 @@ class GeneralEditor extends Component {
                 <Box padding>
                   <Box.Body>
                     <Editor.CheckboxCollapse
-                      label={<Box.Title>Bug Status</Box.Title>}
+                      label={
+                        <Box.Title>
+                          Bug Status
+                          <HelpModal content={HelpText.BugStatusHelp} />
+                        </Box.Title>
+                      }
                       query="guild.settings.settings.feedback.bug.status"
                       mutate="bugStatus"
                     >
@@ -229,10 +249,14 @@ class GeneralEditor extends Component {
                         <div>Channel</div>
                         <div>
                           <Editor.Select
+                            autoComplete
                             values={extractChannel}
                             query="guild.settings.settings.feedback.bug.channel"
                             mutate="bugChannel"
                           />
+                        </div>
+                        <div>
+                          <HelpModal content={HelpText.BugChannelHelp} />
                         </div>
                       </Box.Option>
 
@@ -243,6 +267,9 @@ class GeneralEditor extends Component {
                             mutate="bugColor"
                             query="guild.settings.settings.feedback.bug.color"
                           />
+                        </div>
+                        <div>
+                          <HelpModal content={HelpText.BugColorHelp} />
                         </div>
                       </Box.Option>
 
@@ -255,6 +282,9 @@ class GeneralEditor extends Component {
                             type="emoji"
                           />
                         </div>
+                        <div>
+                          <HelpModal content={HelpText.BugThumbsUpHelp} />
+                        </div>
                       </Box.Option>
 
                       <Box.Option>
@@ -265,6 +295,9 @@ class GeneralEditor extends Component {
                             query="guild.settings.settings.feedback.bug.thumbsDown"
                             type="emoji"
                           />
+                        </div>
+                        <div>
+                          <HelpModal content={HelpText.BugThumbsDownHelp} />
                         </div>
                       </Box.Option>
                     </Editor.CheckboxCollapse>
@@ -278,7 +311,12 @@ class GeneralEditor extends Component {
                 <Box padding>
                   <Box.Body>
                     <Editor.CheckboxCollapse
-                      label={<Box.Title>Use Event Defaults</Box.Title>}
+                      label={
+                        <Box.Title>
+                          Use Event Defaults
+                          <HelpModal content={HelpText.UseEventDefaultsHelp} />
+                        </Box.Title>
+                      }
                       query="guild.settings.settings.events.useDefault"
                       mutate="useDefault"
                     >
@@ -290,6 +328,9 @@ class GeneralEditor extends Component {
                             query="guild.settings.settings.events.duration"
                             validate={Validation.all(Validation.isNumber())}
                           />
+                        </div>
+                        <div>
+                          <HelpModal content={HelpText.EventDurationHelp} />
                         </div>
                       </Box.Option>
 
@@ -305,6 +346,9 @@ class GeneralEditor extends Component {
                             )}
                           />
                         </div>
+                        <div>
+                          <HelpModal content={HelpText.MaxAttendeesAllowedHelp} />
+                        </div>
                       </Box.Option>
 
                       <Box.Option>
@@ -319,6 +363,9 @@ class GeneralEditor extends Component {
                             )}
                           />
                         </div>
+                        <div>
+                          <HelpModal content={HelpText.EventGameHelp} />
+                        </div>
                       </Box.Option>
 
                       <Box.Option>
@@ -330,6 +377,9 @@ class GeneralEditor extends Component {
                             validate={Validation.all(Validation.isNumber())}
                           />
                         </div>
+                        <div>
+                          <HelpModal content={HelpText.EventReminderTimeHelp} />
+                        </div>
                       </Box.Option>
 
                       <Box.Option>
@@ -340,16 +390,23 @@ class GeneralEditor extends Component {
                             mutate="advertiseAllEvents"
                           />
                         </div>
+                        <div>
+                          <HelpModal content={HelpText.EventAutoAdvertiseHelp} />
+                        </div>
                       </Box.Option>
 
                       <Box.Option>
                         <div>Advertise Channel</div>
                         <div>
                           <Editor.Select
+                            autoComplete
                             values={extractChannel}
                             mutate="advertiseChannel"
                             query="guild.settings.settings.events.advertiseChannel"
                           />
+                        </div>
+                        <div>
+                          <HelpModal content={HelpText.EventAdvertiseChannelHelp} />
                         </div>
                       </Box.Option>
                     </Editor.CheckboxCollapse>
@@ -369,7 +426,10 @@ class GeneralEditor extends Component {
                           {({ loading, error, data }) => {
                             if (loading) return "Loading";
                             if (error) return "Error";
-                            const values = data.client.settings.permissionLevels;
+                            const values = data.client.settings.permissionLevels.map(perm => ({
+                              key: perm.id,
+                              value: perm.value
+                            }));
                             console.log("perms levels", data);
                             return (
                               <Editor.Select
@@ -383,6 +443,9 @@ class GeneralEditor extends Component {
                           }}
                         </Query>
                       </div>
+                      <div>
+                        <HelpModal content={HelpText.EventCreatePermissionHelp} />
+                      </div>
                     </Box.Option>
                     <Box.Option>
                       <div>Add Member</div>
@@ -394,7 +457,11 @@ class GeneralEditor extends Component {
                           {({ loading, error, data }) => {
                             if (loading) return "Loading";
                             if (error) return "Error";
-                            const values = data.client.settings.permissionLevels;
+                            const values = data.client.settings.permissionLevels.map(
+                              perm => ({
+                                key: perm.id,
+                                value: perm.value,
+                              }));
 
                             return (
                               <Editor.Select
@@ -405,6 +472,9 @@ class GeneralEditor extends Component {
                             );
                           }}
                         </Query>
+                      </div>
+                      <div>
+                        <HelpModal content={HelpText.EventAddMemberPermissionHelp} />
                       </div>
                     </Box.Option>
                   </Box.Body>
@@ -437,12 +507,15 @@ class GeneralEditor extends Component {
                             return (
                               <Editor.Select
                                 values={values}
-                                mutate={"tagsAllowCreation"}
-                                query={"guild.settings.settings.tags.allowCreation"}
+                                mutate="tagsAllowCreation"
+                                query="guild.settings.settings.tags.allowCreation"
                               />
                             );
                           }}
                         </Query>
+                      </div>
+                      <div>
+                        <HelpModal content={HelpText.TagCreatePermissionHelp} />
                       </div>
                     </Box.Option>
                     <Box.Option>
@@ -471,6 +544,9 @@ class GeneralEditor extends Component {
                           }}
                         </Query>
                       </div>
+                      <div>
+                        <HelpModal content={HelpText.TagUsePermissionHelp} />
+                      </div>
                     </Box.Option>
 
                     <Box.Option>
@@ -480,6 +556,9 @@ class GeneralEditor extends Component {
                           query="guild.settings.settings.tags.tagDeletion"
                           mutate="tagDeletion"
                         />
+                      </div>
+                      <div>
+                        <HelpModal content={HelpText.TagTriggerDeletionHelp} />
                       </div>
                     </Box.Option>
                   </Box.Body>
@@ -516,6 +595,9 @@ class GeneralEditor extends Component {
                           }}
                         </Query>
                       </div>
+                      <div>
+                        <HelpModal content={HelpText.StoriesCreatePermissionHelp} />
+                      </div>
                     </Box.Option>
                     <Box.Option>
                       <div>Use</div>
@@ -544,6 +626,9 @@ class GeneralEditor extends Component {
                           }}
                         </Query>
                       </div>
+                      <div>
+                        <HelpModal content={HelpText.StoriesUsePermissionHelp} />
+                      </div>
                     </Box.Option>
 
                     <Box.Option>
@@ -553,6 +638,9 @@ class GeneralEditor extends Component {
                           query="guild.settings.settings.stories.storyDeletion"
                           mutate="storyDeletion"
                         />
+                      </div>
+                      <div>
+                        <HelpModal content={HelpText.StoriesTriggerDeletionHelp} />
                       </div>
                     </Box.Option>
                   </Box.Body>

@@ -10,7 +10,7 @@ export default (
         example, you can get logs for when messages are deleted, new emojis added, removed
         edited, channels created, roles given or removed etc...
       </p>
-      <img src="https://i.imgur.com/T0DHiF6.png" width="90%" />
+      <img src="https://i.imgur.com/T0DHiF6.png" alt="server logs" width="90%" />
     </Box.Body>
   </div>
 );

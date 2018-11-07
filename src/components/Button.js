@@ -178,7 +178,12 @@ export default class Button extends Component {
     );
 
     return (
-      <button className={mixedClassName} onClick={this.onClick} {...propsToInject}>
+      <button
+        className={mixedClassName}
+        disabled={disabled}
+        onClick={this.onClick}
+        {...propsToInject}
+      >
         {children}
 
         {(loading || status === "loading") && (
