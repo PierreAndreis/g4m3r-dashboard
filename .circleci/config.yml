@@ -18,6 +18,8 @@ jobs:
     - run: yarn test:ci
     - store_test_results:
         path: junit.xml
+    - attach_workspace:
+        at: .
     - run: yarn build
     - persist_to_workspace:
         root: .
