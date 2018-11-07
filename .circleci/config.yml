@@ -16,15 +16,13 @@ jobs:
         - node_modules
         key: v1-dependencies-{{ checksum "package.json" }}
     - run: yarn test:ci
-    - store_test_results:
-        path: junit.xml
-    - attach_workspace:
-        at: .
+    - restore_cache:
+        keys: build-folder
     - run: yarn build
-    - persist_to_workspace:
-        root: .
+    - save_cache:
         paths:
-          - build
+        - build
+        key: build-folder
 workflows:
   version: 2
   workflow:
