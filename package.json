@@ -29,6 +29,7 @@
     "start": "set PORT=3001 && react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test --env=jsdom",
+    "test:ci": "react-app-rewired test --env=jsdom --reporters=default --reporters=jest-junit",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -37,6 +38,7 @@
   "devDependencies": {
     "babel-plugin-emotion": "^9.2.11",
     "jest-emotion": "^9.2.11",
+    "jest-junit": "^5.2.0",
     "react-app-rewire-emotion": "^4.0.0",
     "react-app-rewire-mobx": "^1.0.9",
     "react-app-rewired": "^1.6.2",
