@@ -16,17 +16,11 @@ jobs:
         - node_modules
         key: v1-dependencies-{{ checksum "package.json" }}
     - run:
-      name: Run tests with JUnit as reporter
-      command: jest --ci --reporters=default --reporters=jest-junit
-      environment:
-        JEST_JUNIT_OUTPUT: "reports/junit/js-test-results.xml"
-    - restore_cache:
-        keys: build-folder
+        name: Run tests with JUnit as reporter
+        command: jest --ci --reporters=default --reporters=jest-junit
+        environment:
+          JEST_JUNIT_OUTPUT: "reports/junit/js-test-results.xml"
     - run: yarn build
-    - save_cache:
-        paths:
-        - build
-        key: build-folder
 workflows:
   version: 2
   workflow:
