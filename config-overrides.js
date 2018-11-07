@@ -12,7 +12,6 @@ module.exports = function override(config, env) {
       inline: !isProd,
       autoLabel: isProd,
       hoist: isProd,
-      extractStatic: false,
     })
   );
 
