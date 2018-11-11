@@ -3,11 +3,14 @@ import React, { Component } from "react";
 import { AlertBoxIcon } from "mdi-react";
 import { css, cx } from "emotion";
 
+import Button from "./Button";
+
 const inputWrapper = css`
   width: 100%;
   height: 40px;
   position: relative;
   box-sizing: border-box;
+  display: flex;
 `;
 
 const iconIn = css`
@@ -17,6 +20,15 @@ const iconIn = css`
   top: 50%;
   margin-top: -13px;
   font-size: 25px;
+`;
+
+const labelIn = css`
+  position: relative;
+  height: 100%;
+  & > button {
+    cursor: normal !important;
+    border-radius: 0 5px 5px 0 !important;
+  }
 `;
 
 const input = css`
@@ -33,6 +45,10 @@ const input = css`
     border-color: #7aaeff;
     ${"" /* border-color: #83e0d7; */};
     box-shadow: 0 0 0 0.2rem rgba(122, 174, 255, 0.15);
+  }
+
+  ${labelIn} & {
+    border-radius: 5px 0 0 5px;
   }
 `;
 
@@ -69,6 +85,7 @@ class Input extends Component {
       buttonMode,
       disabled,
       onClick,
+      label,
       ...other
     } = this.props;
 
@@ -85,6 +102,16 @@ class Input extends Component {
       icons.push(
         <div key="right-icon" className={iconIn} style={{ right: 5 }}>
           <icon.right color="grey" size="25px" />
+        </div>
+      );
+    }
+
+    if (!errorMessage && label) {
+      icons.push(
+        <div key="right-label" className={labelIn}>
+          <Button disabled style={{ height: "100%", borderRadius: 0 }}>
+            {label}
+          </Button>
         </div>
       );
     }

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`it mounts 1`] = `
+exports[`Box it mounts 1`] = `
 .emotion-3 {
   background: white;
   min-width: 350px;

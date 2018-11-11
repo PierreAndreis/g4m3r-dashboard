@@ -97,7 +97,7 @@ const ButtonLoading = css`
     animation: spinner 0.6s linear infinite;
   }
   background: #7aaeff;
-  /* Color conflits with disabled */
+  /* Color conflicts with disabled */
   color: white !important;
 `;
 
