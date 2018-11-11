@@ -7,6 +7,7 @@ import Button from "./Button";
 
 const inputWrapper = css`
   width: 100%;
+  box-sizing: border-box;
   height: 40px;
   position: relative;
   box-sizing: border-box;
@@ -46,10 +47,6 @@ const input = css`
     ${"" /* border-color: #83e0d7; */};
     box-shadow: 0 0 0 0.2rem rgba(122, 174, 255, 0.15);
   }
-
-  ${labelIn} & {
-    border-radius: 5px 0 0 5px;
-  }
 `;
 
 const asButton = css`
@@ -63,6 +60,7 @@ const errorInput = css`
 
 const errorHighlight = css`
   position: absolute;
+  display: none;
   bottom: 1px;
   left: 10px;
   color: red;
@@ -106,26 +104,25 @@ class Input extends Component {
       );
     }
 
-    if (!errorMessage && label) {
-      icons.push(
-        <div key="right-label" className={labelIn}>
-          <Button disabled style={{ height: "100%", borderRadius: 0 }}>
-            {label}
-          </Button>
-        </div>
-      );
-    }
-
     return (
       <div className={inputWrapper} onClick={() => buttonMode && onClick()}>
-        <input
-          className={cx(input, { [errorInput]: errorMessage, [asButton]: buttonMode })}
-          value={value || ""}
-          onChange={this.onChange}
-          disabled={disabled || buttonMode}
-          {...other}
-        />
-        {icons}
+        <div style={{ position: "relative" }}>
+          <input
+            className={cx(input, { [errorInput]: errorMessage, [asButton]: buttonMode })}
+            value={value || ""}
+            onChange={this.onChange}
+            disabled={disabled || buttonMode}
+            {...other}
+          />
+          {icons}
+        </div>
+        {label && (
+          <div key="right-label" className={labelIn}>
+            <Button disabled style={{ height: "100%", borderRadius: 0 }}>
+              {label}
+            </Button>
+          </div>
+        )}
 
         {errorMessage ? <div className={errorHighlight}>{errorMessage}</div> : null}
       </div>
