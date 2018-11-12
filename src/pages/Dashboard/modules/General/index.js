@@ -14,6 +14,7 @@ import Validation from "./../../../../global/validation";
 import TabsManager from "../../../../components/Tabs";
 import HelpModal from "../../../../components/HelpModal";
 import HelpText from "../../../../constants/help/index";
+import { Masks } from "../../../../components/InputMask";
 
 const boxesHeader = css`
   display: flex;
@@ -123,7 +124,9 @@ class GeneralEditor extends Component {
                     <Box.Option>
                       <div>Delete Notifications Delay</div>
                       <div>
-                        <Editor.Input
+                        <Editor.InputMask
+                          mask={Masks.secondsToMs}
+                          label="seconds"
                           mutate="deleteNotificationTime"
                           query="guild.settings.settings.general.deleteNotificationTime"
                           validate={Validation.all(
@@ -426,10 +429,12 @@ class GeneralEditor extends Component {
                           {({ loading, error, data }) => {
                             if (loading) return "Loading";
                             if (error) return "Error";
-                            const values = data.client.settings.permissionLevels.map(perm => ({
-                              key: perm.id,
-                              value: perm.value
-                            }));
+                            const values = data.client.settings.permissionLevels.map(
+                              perm => ({
+                                key: perm.id,
+                                value: perm.value,
+                              })
+                            );
                             console.log("perms levels", data);
                             return (
                               <Editor.Select
@@ -461,7 +466,8 @@ class GeneralEditor extends Component {
                               perm => ({
                                 key: perm.id,
                                 value: perm.value,
-                              }));
+                              })
+                            );
 
                             return (
                               <Editor.Select

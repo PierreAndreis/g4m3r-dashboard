@@ -3,11 +3,15 @@ import React, { Component } from "react";
 import { AlertBoxIcon } from "mdi-react";
 import { css, cx } from "emotion";
 
+import Button from "./Button";
+
 const inputWrapper = css`
   width: 100%;
+  box-sizing: border-box;
   height: 40px;
   position: relative;
   box-sizing: border-box;
+  display: flex;
 `;
 
 const iconIn = css`
@@ -17,6 +21,15 @@ const iconIn = css`
   top: 50%;
   margin-top: -13px;
   font-size: 25px;
+`;
+
+const labelIn = css`
+  position: relative;
+  height: 100%;
+  & > button {
+    cursor: normal !important;
+    border-radius: 0 5px 5px 0 !important;
+  }
 `;
 
 const input = css`
@@ -47,6 +60,7 @@ const errorInput = css`
 
 const errorHighlight = css`
   position: absolute;
+  display: none;
   bottom: 1px;
   left: 10px;
   color: red;
@@ -69,6 +83,7 @@ class Input extends Component {
       buttonMode,
       disabled,
       onClick,
+      label,
       ...other
     } = this.props;
 
@@ -91,14 +106,23 @@ class Input extends Component {
 
     return (
       <div className={inputWrapper} onClick={() => buttonMode && onClick()}>
-        <input
-          className={cx(input, { [errorInput]: errorMessage, [asButton]: buttonMode })}
-          value={value || ""}
-          onChange={this.onChange}
-          disabled={disabled || buttonMode}
-          {...other}
-        />
-        {icons}
+        <div style={{ position: "relative" }}>
+          <input
+            className={cx(input, { [errorInput]: errorMessage, [asButton]: buttonMode })}
+            value={value || ""}
+            onChange={this.onChange}
+            disabled={disabled || buttonMode}
+            {...other}
+          />
+          {icons}
+        </div>
+        {label && (
+          <div key="right-label" className={labelIn}>
+            <Button disabled style={{ height: "100%", borderRadius: 0 }}>
+              {label}
+            </Button>
+          </div>
+        )}
 
         {errorMessage ? <div className={errorHighlight}>{errorMessage}</div> : null}
       </div>

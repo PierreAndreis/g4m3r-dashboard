@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`buttonActions - error 1`] = `
+exports[`Button buttonActions - error 1`] = `
 .emotion-3 {
   position: relative;
   overflow: hidden;
@@ -87,7 +87,7 @@ exports[`buttonActions - error 1`] = `
 </button>
 `;
 
-exports[`buttonActions - loading 1`] = `
+exports[`Button buttonActions - loading 1`] = `
 .emotion-3 {
   position: relative;
   overflow: hidden;
@@ -180,7 +180,7 @@ exports[`buttonActions - loading 1`] = `
 </button>
 `;
 
-exports[`buttonActions - success 1`] = `
+exports[`Button buttonActions - success 1`] = `
 .emotion-3 {
   position: relative;
   overflow: hidden;
@@ -267,7 +267,7 @@ exports[`buttonActions - success 1`] = `
 </button>
 `;
 
-exports[`it mounts 1`] = `
+exports[`Button it mounts 1`] = `
 .emotion-0 {
   position: relative;
   overflow: hidden;
@@ -305,7 +305,7 @@ exports[`it mounts 1`] = `
 </button>
 `;
 
-exports[`it mounts 2`] = `
+exports[`Button it mounts 2`] = `
 <button
   class="css-g50vdn"
 >
@@ -359,7 +359,7 @@ exports[`it mounts 2`] = `
 </button>
 `;
 
-exports[`it mounts 3`] = `
+exports[`Button it mounts 3`] = `
 <button
   class="css-g50vdn"
 >
@@ -407,7 +407,7 @@ exports[`it mounts 3`] = `
 </button>
 `;
 
-exports[`it mounts 4`] = `
+exports[`Button it mounts 4`] = `
 <button
   class="css-g50vdn"
 >
@@ -455,7 +455,7 @@ exports[`it mounts 4`] = `
 </button>
 `;
 
-exports[`it mounts 5`] = `
+exports[`Button it mounts 5`] = `
 <button
   class="disabled css-g50vdn"
   disabled=""
