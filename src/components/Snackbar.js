@@ -4,9 +4,10 @@ import { Transition, animated } from "react-spring";
 
 import { css } from "emotion";
 import classNames from "classnames";
-import { mqmax } from '../global/breakpoints';
+import { mq } from "../util/breakpoints";
 
 const snackbar = css`
+  width: 100%;
   position: fixed;
   padding: 12px 24px;
   margin: 0;
@@ -24,9 +25,8 @@ const snackbar = css`
 
   transform: translateX(-50%) translateY(100%);
 
-  ${mqmax.medium(css`
-     width: 100%;
-     left:  50%;
+  ${mq.medium(css`
+    width: auto;
   `)};
 `;
 
@@ -43,9 +43,7 @@ const buttonContainer = css`
     margin: 0 10px;
   }
 
-  ${mqmax.medium(css`
-     margin: auto;
-  `)};
+  margin: auto;
 `;
 
 class Snackbar extends React.Component {

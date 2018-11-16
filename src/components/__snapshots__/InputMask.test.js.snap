@@ -39,7 +39,7 @@ exports[`InputMask Mounts 1`] = `
     class="emotion-1"
   >
     <div
-      style="position: relative;"
+      style="position: relative; width: 100%;"
     >
       <input
         class="emotion-0"

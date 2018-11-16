@@ -4,7 +4,7 @@ import MobileHeader from "./MobileHeader/MobileHeader";
 import { css } from "emotion";
 
 import Media from "react-media";
-import { mqmax, breakpoints } from "../../../global/breakpoints";
+import { mq, breakpoints } from "../../../util/breakpoints";
 import classNames from "classnames";
 
 const layout = css`
@@ -12,10 +12,12 @@ const layout = css`
   grid-template-columns: [sidebar] 250px [content] 1fr;
   height: 100%;
 
-  ${mqmax.large(css`
-    grid-template-columns: [content] 1fr;
-    grid-template-rows: [MobileHeader] 50px [content] 1fr;
-  `)};
+  ${mq.large(
+    css`
+      grid-template-columns: [content] 1fr;
+      grid-template-rows: [MobileHeader] 50px [content] 1fr;
+    `
+  )}
 `;
 
 const content = css`
@@ -38,6 +40,7 @@ export const sidebarOverlay = css`
   opacity: 0;
   z-index: 1;
   pointer-events: none;
+  transition: all 300ms;
 `;
 
 export const sidebarOverlayOpen = css`
@@ -65,17 +68,20 @@ class Layout extends Component {
   render() {
     const isMobile = this.props.isMobile;
     const { isMenuOpen } = this.state;
+
+    const shouldMenuOpen = isMobile ? isMenuOpen : true;
+
     return (
       <div className={layout} style={this.props.style}>
         {isMobile && (
-          <MobileHeader isMenuOpen={isMenuOpen} toggleMenu={this.toggleMenu} />
+          <MobileHeader isMenuOpen={shouldMenuOpen} toggleMenu={this.toggleMenu} />
         )}
-        <Sidebar isMenuOpen={isMenuOpen} toggleMenu={this.toggleMenu} />
+        <Sidebar isMenuOpen={shouldMenuOpen} toggleMenu={this.toggleMenu} />
         <div
           className={classNames(content, {
-            [noScroll]: isMenuOpen,
+            [noScroll]: isMobile && isMenuOpen,
           })}
-          onClick={() => isMobile && isMenuOpen && this.toggleMenu}
+          onClick={() => shouldMenuOpen && this.toggleMenu}
         >
           {this.props.children}
         </div>

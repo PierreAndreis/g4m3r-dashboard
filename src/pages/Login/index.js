@@ -6,37 +6,29 @@ import { Wave } from "./wave";
 import Login from "./Login";
 import ServerList from "./ServerList";
 import LogoWithEffects from "./LogoWithEffects";
-import { mq } from "./../../global/breakpoints";
 
 const background = css`
   background-image: linear-gradient(90deg, #74ebd5 0%, #7aaeff 100%);
-  height: 100%;
+  box-sizing: border-box;
+  width: 100%;
+  height: auto;
+  min-height: 100%;
+  padding-top: 150px;
+
   display: flex;
-  position: relative;
-  z-index: 0;
   flex-direction: column;
+  position: absolute;
   align-items: center;
-  justify-content: center;
 `;
 
 const BoxLogin = css`
-  max-width: 500px;
-  min-height: 200px;
-  ${mq.large(css`
-    max-width: 800px;
-    min-height: 250px;
-  `)};
-  ${mq.xLarge(css`
-    max-width: 1100px;
-    min-height: 300px;
-  `)};
-
   width: 100%;
+  max-width: 500px;
+
   padding: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
 `;
 
 const waveTop = css`
@@ -48,15 +40,15 @@ const waveTop = css`
   background: white;
 `;
 
-const waveBottom = css`
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
-  height: 0px;
-  transform: rotate(180deg);
-  background: white;
-`;
+// const waveBottom = css`
+//   position: absolute;
+//   top: 100%;
+//   left: 0;
+//   width: 100%;
+//   height: 0px;
+//   transform: rotate(180deg);
+//   background: white;
+// `;
 @inject("authentication")
 @observer
 class HomeScreen extends React.Component {
@@ -76,9 +68,9 @@ class HomeScreen extends React.Component {
         <div className={BoxLogin}>
           {!this.props.authentication.isLoggedIn ? <Login /> : <ServerList />}
         </div>
-        <div className={waveBottom}>
+        {/* <div className={waveBottom}>
           <Wave />
-        </div>
+        </div> */}
       </div>
     );
   }

@@ -1,23 +1,10 @@
 import React from "react";
 import { css, keyframes } from "emotion";
 
-import {mq} from "./../../global/breakpoints";
-
-const scaleIn = keyframes`
-  to {
-    transform: scale(1);
-  }
-`;
-
 const container = css`
   width: 400px;
+  max-width: 100%;
   height: 100px;
-  ${mq.large(css`
-    height: 120px;
-  `)};
-  ${mq.xLarge(css`
-    height: 150px;
-  `)};
   position: relative;
   display: flex;
   align-items: center;
@@ -34,26 +21,21 @@ export const logo = css`
   height: 100px;
   border-radius: 100%;
   align-self: center;
-  ${mq.large(css`
-    background-size: 80%;
-    width: 120px;
-    height: 120px;
-  `)};
-  ${mq.xLarge(css`
-    background-size: 80%;
-    width: 150px;
-    height: 150px;
-  `)};
 `;
 
+const scaleIn = keyframes`
+  to {
+    transform: scale(1);
+  }
+`;
 const bg = css`
   position: absolute;
-  z-index: -1;
   transform: scale(0);
   animation-name: ${scaleIn};
   animation-duration: 600ms;
   animation-timing-function: cubic-bezier(1, 0.005, 0.535, 1.005);
   animation-fill-mode: both;
+  z-index: -1;
 `;
 
 export default class LogoWithEffects extends React.Component {

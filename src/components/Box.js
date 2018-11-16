@@ -5,7 +5,6 @@ import classNames from "classnames";
 export const BoxBase = css`
   background: white;
   ${"" /* border-radius: 15px; */};
-  min-width: 350px;
   width: 350px;
   height: auto;
   ${"" /* box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 30px; */};
@@ -81,16 +80,16 @@ export default class Box extends Component {
   );
 
   static Option = ({ children, className, ...otherProps }) => {
-
-    React.Children.forEach(children, (child) => {
-      if (child.type !== "div") throw new Error("Box.Option only accepts div as children!")
-    })
+    React.Children.forEach(children, child => {
+      if (child.type !== "div")
+        throw new Error("Box.Option only accepts div as children!");
+    });
 
     return (
       <div className={classNames(BoxOption, className)} {...otherProps}>
         {children}
       </div>
-      )
+    );
   };
 
   render() {
