@@ -1,19 +1,14 @@
 import React, { Component } from "react";
 import { css } from "emotion";
-import { mqmax } from "../../../../global/breakpoints";
 import HamburgerIcon from "./Hamburger";
 
 export const mobileHeader = css`
-  display: none;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  box-sizing: border-box;
+  justify-content: space-between;
   background-image: linear-gradient(90deg, #92d8e0 0%, #8cc7eb 100%);
-
-  ${mqmax.large(css`
-    display: flex;
-    align-items: center;
-    padding: 0 10px;
-    box-sizing: border-box;
-    justify-content: space-between;
-  `)};
 `;
 
 export const logo = css`

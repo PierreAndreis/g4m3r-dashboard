@@ -3,7 +3,6 @@
 exports[`Box it mounts 1`] = `
 .emotion-3 {
   background: white;
-  min-width: 350px;
   width: 350px;
   height: auto;
   box-shadow: 0 10px 40px 0 rgba(0,0,0,0.1);

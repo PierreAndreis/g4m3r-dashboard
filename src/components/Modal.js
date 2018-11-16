@@ -4,7 +4,7 @@ import { Transition, animated } from "react-spring";
 
 import { BoxBase, BoxPadding } from "./Box";
 import Portal from "./Portal";
-import { mqmax } from "../global/breakpoints";
+import { mq } from "../util/breakpoints";
 
 const modal = css`
   position: absolute;
@@ -30,14 +30,15 @@ const backdrop = css`
 
 const modalContent = css`
   ${BoxBase};
-  ${BoxPadding} width: auto;
+  ${BoxPadding};
+  width: auto;
   height: auto;
   max-height: 90%;
   max-width: 800px;
   padding-bottom: 20px;
   overflow-y: scroll;
 
-  ${mqmax.medium(css`
+  ${mq.medium(css`
     width: 100%;
     max-width: 100%;
     max-height: 80%;

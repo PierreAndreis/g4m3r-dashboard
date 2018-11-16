@@ -19,7 +19,7 @@ const iconIn = css`
   width: 25px;
   height: 25px;
   top: 50%;
-  margin-top: -13px;
+  margin-top: -12px;
   font-size: 25px;
 `;
 
@@ -47,6 +47,10 @@ const input = css`
     ${"" /* border-color: #83e0d7; */};
     box-shadow: 0 0 0 0.2rem rgba(122, 174, 255, 0.15);
   }
+`;
+
+const hasIconLeft = css`
+  padding-left: 30px;
 `;
 
 const asButton = css`
@@ -96,6 +100,14 @@ class Input extends Component {
       );
     }
 
+    if (!errorMessage && icon && icon.left) {
+      icons.push(
+        <div key="left-icon" className={iconIn} style={{ left: 5 }}>
+          <icon.left color="grey" size="25px" />
+        </div>
+      );
+    }
+
     if (!errorMessage && icon && icon.right) {
       icons.push(
         <div key="right-icon" className={iconIn} style={{ right: 5 }}>
@@ -106,9 +118,13 @@ class Input extends Component {
 
     return (
       <div className={inputWrapper} onClick={() => buttonMode && onClick()}>
-        <div style={{ position: "relative" }}>
+        <div style={{ position: "relative", width: "100%" }}>
           <input
-            className={cx(input, { [errorInput]: errorMessage, [asButton]: buttonMode })}
+            className={cx(input, {
+              [errorInput]: errorMessage,
+              [asButton]: buttonMode,
+              [hasIconLeft]: icon && icon.left,
+            })}
             value={value || ""}
             onChange={this.onChange}
             disabled={disabled || buttonMode}

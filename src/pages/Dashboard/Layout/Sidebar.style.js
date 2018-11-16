@@ -1,5 +1,5 @@
 import { css } from "emotion";
-import { mqmax } from "../../../global/breakpoints";
+import { mq } from "../../../util/breakpoints";
 
 export const container = css`
   position: relative;
@@ -9,7 +9,7 @@ export const container = css`
   overflow: hidden;
   width: 250px;
 
-  &:after {
+  &:before {
     content: "";
     display: block;
     position: absolute;
@@ -20,9 +20,10 @@ export const container = css`
     height: 350px;
     bottom: 0;
     left: 30px;
+    pointer-events: none;
   }
 
-  ${mqmax.large(
+  ${mq.large(
     css`
       height: 100%;
       position: absolute;
@@ -30,12 +31,16 @@ export const container = css`
       z-index: 2;
       transition: 0.4s;
       transition-timing-function: ease-in-out;
-      &:after {
+      &:before {
         width: 100%;
         left: 0px;
       }
     `
   )};
+
+  &.active {
+    transform: translateX(0%);
+  }
 `;
 
 export const logoContainer = css`
@@ -69,6 +74,8 @@ export const menu = css`
   justify-content: flex-start;
 
   & > a {
+    flex-grow: 0;
+    flex-shrink: 0;
     padding: 10px;
     width: 180px;
     height: 20px;
