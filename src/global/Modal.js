@@ -7,6 +7,7 @@ const modalContainer = css`
   height: 100vh;
   position: absolute;
   pointer-events: none;
+  z-index:100;
   top: 0;
   left: 0;
 `;
@@ -40,6 +41,7 @@ const modalContent = css`
   box-sizing: border-box;
   padding: 15px;
 `;
+
 const close = css`
   position: absolute;
   right: 10px;
