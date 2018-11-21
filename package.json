@@ -42,7 +42,7 @@
     "react-app-rewire-emotion": "^4.0.0",
     "react-app-rewire-mobx": "^1.0.9",
     "react-app-rewired": "^1.6.2",
-    "react-testing-library": "^5.2.3",
+    "react-testing-library": "^5.3.0",
     "snapshot-diff": "^0.4.0"
   }
 }
