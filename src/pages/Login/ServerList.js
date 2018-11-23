@@ -4,17 +4,18 @@ import { Link } from "react-router-dom";
 import { Trail, animated } from "react-spring";
 
 import { inject } from "mobx-react";
-import { Query } from "react-apollo";
+import { Query, Mutation } from "react-apollo";
 
 import { css } from "emotion";
 import AddCircleIcon from "mdi-react/PlusCircleOutlineIcon";
 import LogoutIcon from "mdi-react/LogoutIcon";
 import meQuery from "../../graphql/queries/user/me";
+import reloadServers from "../../graphql/queries/mutations/reloadServers";
 
 import Input from "./../../components/Input";
 
 import { BoxBase } from "./../../components/Box";
-import { SearchIcon } from "mdi-react";
+import { SearchIcon, ReloadIcon } from "mdi-react";
 
 const AnimatedLink = animated(Link);
 // import { mq } from "../../util/breakpoints";
@@ -139,6 +140,14 @@ class ServerList extends React.Component {
     });
   };
 
+  reloadServers = () => {
+    return (
+      <Mutation mutation={reloadServers}>
+        {reloadServers => reloadServers()}
+      </Mutation>
+    )
+  }
+
   render() {
     const { value } = this.state;
 
@@ -191,6 +200,17 @@ class ServerList extends React.Component {
                     className={logoutButton}
                     onClick={() => this.props.authentication.setToken(null)}
                   />
+                  <Mutation mutation={reloadServers}>
+                    {reloadServers => (
+                      <ReloadIcon
+                        size="21px"
+                        className={logoutButton}
+                        onClick={() => reloadServers()}
+                      />
+                    )
+                    }
+                  </Mutation>
+                  
                 </div>
               </div>
 
@@ -211,7 +231,7 @@ class ServerList extends React.Component {
                 <Trail
                   native
                   items={guilds}
-                  key={guild => guild.id}
+                  keys={guild => guild.id}
                   duration={300}
                   from={{ opacity: 0, transform: "translate3d(-40px,0,0)" }}
                   to={{ opacity: 1, transform: "translate3d(0px,0,0)" }}
