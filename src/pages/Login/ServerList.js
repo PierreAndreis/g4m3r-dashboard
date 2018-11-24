@@ -239,7 +239,7 @@ class ServerList extends React.Component {
                   {guild => style => (
                     <AnimatedLink to={`/g/${guild.id}`} style={style}>
                       <div className="table-media">
-                        <img src={guild.icon} alt={guild.name} />
+                        <img src={guild.icon || "https://cdn.g4m3r.xyz/img/backgrounds/discord.png"} alt={guild.name} />
                       </div>
                       <div className="table-body fill">
                         <h3>{guild.name}</h3>
