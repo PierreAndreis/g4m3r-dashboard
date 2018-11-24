@@ -140,14 +140,6 @@ class ServerList extends React.Component {
     });
   };
 
-  reloadServers = () => {
-    return (
-      <Mutation mutation={reloadServers}>
-        {reloadServers => reloadServers()}
-      </Mutation>
-    )
-  }
-
   render() {
     const { value } = this.state;
 
