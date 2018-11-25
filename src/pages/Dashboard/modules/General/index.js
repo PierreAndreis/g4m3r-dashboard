@@ -124,7 +124,7 @@ class GeneralEditor extends Component {
                         />
                       </div>
                       <div>
-                        <HelpModal content={HelpText.MenuClosingTimeHelp} />
+                        <HelpModal content={<HelpContent {...HelpText.basic.menuClosingTime} />} />
                       </div>
                     </Box.Option>
                     <Box.Option>
@@ -159,10 +159,10 @@ class GeneralEditor extends Component {
                             <Editor.Checkbox query={opt.query} mutate={opt.mutate} />
                           </div>
                           <div>
-                            <HelpModal content={opt.help} />
+                            <HelpModal content={<HelpContent {...opt.help} />} />
                           </div>
                         </Box.Option>
-                      );
+                      )
                     })}
                   </Box.Body>
                 </Box>
