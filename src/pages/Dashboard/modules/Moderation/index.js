@@ -64,6 +64,7 @@ class ModerationEditor extends Component {
                           <div>Channel</div>
                           <div>
                             <Editor.Select
+                              autoComplete
                               values={extractChannel}
                               query={log.query}
                               mutate={log.mutate}
@@ -129,6 +130,7 @@ class ModerationEditor extends Component {
                             <div>Channel</div>
                             <div>
                               <Editor.Select
+                                autoComplete
                                 values={extractChannel}
                                 mutate={`${opt.mutate}Channel`}
                                 query={opt.query}
@@ -189,6 +191,7 @@ class ModerationEditor extends Component {
                       <div>Text Muted Role</div>
                       <div>
                         <Editor.Select
+                          autoComplete
                           values={extractRoles}
                           mutate="muteRoleText"
                           query="guild.settings.settings.moderation.mutedRoles.text"
@@ -202,6 +205,7 @@ class ModerationEditor extends Component {
                       <div>Voice Muted Role</div>
                       <div>
                         <Editor.Select
+                          autoComplete
                           values={extractRoles}
                           mutate="muteRoleVoice"
                           query="guild.settings.settings.moderation.mutedRoles.voice"
@@ -240,7 +244,12 @@ class ModerationEditor extends Component {
                             {({ loading, error, data }) => {
                               if (loading) return "Loading";
                               if (error) return "Error";
-                              const values = data.client.settings.permissionLevels;
+                              const values = data.client.settings.permissionLevels.map(
+                                perm => ({
+                                  key: perm.id,
+                                  value: perm.value,
+                                })
+                              );
 
                               return (
                                 <Editor.Select
@@ -306,6 +315,7 @@ class ModerationEditor extends Component {
                       <div>Auto-Assign Role</div>
                       <div>
                         <Editor.Select
+                          autoComplete
                           values={extractRoles}
                           mutate="mainRole"
                           query="guild.settings.settings.autoAssignRoles.mainRole"
@@ -326,13 +336,17 @@ class ModerationEditor extends Component {
                           {({ loading, error, data }) => {
                             if (loading) return "Loading";
                             if (error) return "Error";
-                            const values = data.client.settings.permissionLevels;
+                            const values = data.client.settings.permissionLevels.map(
+                              perm => ({
+                                key: perm.id,
+                                value: perm.value,
+                              })
+                            );
                             console.log("perms levels", data);
                             return (
                               <Editor.Select
                                 values={values}
                                 mutate="allowAfkResponses"
-                                type="Permission"
                                 query="guild.settings.settings.allowAfkResponses"
                               />
                             );
@@ -427,6 +441,7 @@ class ModerationEditor extends Component {
                         <div>Category Channel</div>
                         <div>
                           <Editor.Select
+                            autoComplete
                             values={extractChannel}
                             mutate="verifyCategory"
                             query="guild.settings.settings.verify.category"
@@ -452,6 +467,7 @@ class ModerationEditor extends Component {
                         <div>Verification Role</div>
                         <div>
                           <Editor.Select
+                            autoComplete
                             values={extractRoles}
                             mutate="verifyRole"
                             query="guild.settings.settings.verify.role"

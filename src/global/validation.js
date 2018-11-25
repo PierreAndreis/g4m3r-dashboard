@@ -35,7 +35,7 @@ const Validation = {
   stringMin: min => value => {
     if (value.length < min) {
       return validationMessages.stringMin(min);
-    } 
+    }
   },
 
   stringMax: max => value => {

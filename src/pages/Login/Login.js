@@ -37,11 +37,9 @@ class Login extends React.Component {
 
   render() {
     return (
-      <React.Fragment>
-        <Button className={bButton} onClick={this.loginWindow} small rounded>
-          Login with Discord
-        </Button>
-      </React.Fragment>
+      <Button className={bButton} onClick={this.loginWindow} big simple>
+        Login with Discord
+      </Button>
     );
   }
 }

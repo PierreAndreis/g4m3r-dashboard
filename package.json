@@ -3,36 +3,46 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "apollo-boost": "^0.1.10",
-    "apollo-client": "^2.4.5",
+    "apollo-boost": "^0.1.22",
+    "apollo-client": "^2.4.7",
     "classnames": "^2.2.6",
     "downshift": "^2.0.10",
-    "emotion": "^9.2.4",
+    "emotion": "^9.2.12",
     "graphql": "^14.0.2",
     "graphql-tag": "^2.10.0",
+    "jest-dom": "^2.1.1",
     "mdi-react": "^4.4.0",
     "mobx": "4.3.1",
-    "mobx-react": "^5.2.3",
-    "react": "^16.6.0",
-    "react-apollo": "^2.1.8",
+    "mobx-react": "^5.4.2",
+    "react": "^16.6.3",
+    "react-apollo": "^2.3.1",
     "react-color": "^2.14.1",
-    "react-dom": "^16.6.0",
-    "react-emotion": "^9.2.4",
-    "react-id-swiper": "^1.6.6",
+    "react-dom": "^16.6.3",
+    "react-emotion": "^9.2.12",
     "react-media": "^1.8.0",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.5",
-    "react-spring": "^6.1.4"
+    "react-spring": "^6.1.9"
   },
   "scripts": {
     "start": "set PORT=3001 && react-app-rewired start",
     "build": "react-app-rewired build",
+    "test": "react-app-rewired test --env=jsdom",
+    "test:coverage": "react-app-rewired test --env=jsdom --coverage --collectCoverageFrom=src/components/**/*.{js,jsx} --collectCoverageFrom=!src/components/Editor/*.{js,jsx}",
+    "test:ci": "react-app-rewired test --ci --env=jsdom --reporters=default --reporters=jest-junit",
     "eject": "react-scripts eject"
   },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
   "devDependencies": {
-    "babel-plugin-emotion": "^9.2.4",
+    "babel-plugin-emotion": "^9.2.11",
+    "jest-emotion": "^9.2.11",
+    "jest-junit": "^5.2.0",
     "react-app-rewire-emotion": "^4.0.0",
     "react-app-rewire-mobx": "^1.0.9",
-    "react-app-rewired": "^1.6.2"
+    "react-app-rewired": "^1.6.2",
+    "react-testing-library": "^5.3.0",
+    "snapshot-diff": "^0.4.1"
   }
 }

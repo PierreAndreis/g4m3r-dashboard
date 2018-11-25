@@ -1,45 +1,115 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import { Trail, animated } from "react-spring";
+
 import { inject } from "mobx-react";
-import { Query } from "react-apollo";
+import { Query, Mutation } from "react-apollo";
 
 import { css } from "emotion";
-import classNames from "classnames";
 import AddCircleIcon from "mdi-react/PlusCircleOutlineIcon";
 import LogoutIcon from "mdi-react/LogoutIcon";
-import Swiper from "react-id-swiper";
 import meQuery from "../../graphql/queries/user/me";
-import Util from "./../../global/Util";
+import reloadServers from "../../graphql/queries/mutations/reloadServers";
+
+import Input from "./../../components/Input";
+
+import { BoxBase } from "./../../components/Box";
+import { SearchIcon, ReloadIcon } from "mdi-react";
+
+const AnimatedLink = animated(Link);
+// import { mq } from "../../util/breakpoints";
 
 const container = css`
+  ${BoxBase};
   width: 100%;
-  position: relative;
-  & h1 {
-    font-size: 16px;
-    margin: 0;
-    color: #363f54;
-    font-weight: 700;
-  }
-  padding-top: 30px;
+  height: auto;
 
-  ${Util.mq.large(css`
-    min-height: 250px;
-  `)} ${Util.mq.xLarge(css`
-    min-height: 300px;
-  `)};
+  align-self: flex-start;
+`;
+
+const header = css`
+  padding: 15px;
+  display: flex;
+  @media screen and (max-width: 500px) {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+`;
+
+// Make a table component!
+const table = css`
+  width: 100%;
+
+  padding: 15px;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+  overflow-y: auto;
+
+  & > * {
+    box-sizing: border-box;
+    position: relative;
+    display: flex;
+    width: 100%;
+    padding: 8px 0;
+    padding-right: 8px;
+
+    display: flex;
+    align-items: center;
+
+    animation: all 300ms;
+
+    & > .fill {
+      flex: 1;
+    }
+
+    &:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -15px;
+      right: -15px;
+      height: 100%;
+      pointer-events: none;
+    }
+    &:nth-child(even):before {
+      background-color: rgba(14, 30, 37, 0.06);
+    }
+    &:hover:before {
+      background-color: rgba(14, 30, 37, 0.1);
+    }
+  }
+
+  .table-media {
+    margin: 4px 24px 4px 0;
+    width: 48px;
+    height: 48px;
+    & > img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    @media screen and (max-height: 600px) {
+      width: 36px;
+      height: 36px;
+    }
+  }
+
+  h3 {
+    margin: 0;
+  }
+  .meta {
+    color: #5d5d5d;
+  }
 `;
 
 const userDetails = css`
-  position: absolute;
   color: #363f54;
-  top: 0;
-  right: 0;
-  height: 30px;
   display: flex;
   align-items: center;
+  padding-left: 15px;
 
-  font-size: 13px;
   & > img {
     margin: 0 5px;
     width: 25px;
@@ -49,7 +119,7 @@ const userDetails = css`
 `;
 
 const logoutButton = css`
-  fill: rgba(100, 100, 100, 0.3);
+  fill: rgba(100, 100, 100, 0.6);
   cursor: pointer;
   transition: 300ms all;
 
@@ -58,207 +128,130 @@ const logoutButton = css`
   }
 `;
 
-const serverSpace = css`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 5px;
-  width: 100%;
-  padding: 10px;
-  overflow: visible;
-  & > * {
-    width: 100%;
-    height: 110px;
-  }
-  & .swiper-scrollbar {
-    bottom: 0px;
-  }
-
-  ${Util.mq.large(css`
-    & > * {
-      height: 140px;
-    }
-  `)} ${Util.mq.xLarge(css`
-    & > * {
-      height: 160px;
-    }
-  `)};
-`;
-
-const serverContainer = css`
-  flex-shrink: 0;
-  flex-grow: 0;
-  border-radius: 4px;
-  width: 90px;
-  height: 90px;
-  box-sizing: border-box;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  transition: all 300ms;
-  cursor: pointer;
-
-  &:hover {
-    box-shadow: 0 5px 30px 0 rgba(0, 0, 0, 0.1);
-  }
-
-  border: 2px solid rgba(100, 100, 100, 0.1);
-  background: rgba(255, 255, 255, 0);
-
-  & > img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-  }
-  & > b {
-    font-size: 12px;
-    text-align: center;
-    margin-top: auto;
-    width: 100%;
-    display: block;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    color: rgba(255, 255, 255, 0.8);
-  }
-  ${Util.mq.large(css`
-    width: 120px;
-    height: 120px;
-    & > img {
-      width: 70px;
-      height: 70px;
-    }
-    & > b {
-      font-size: 13px;
-    }
-  `)} ${Util.mq.xLarge(css`
-    width: 140px;
-    height: 140px;
-    & > img {
-      width: 90px;
-      height: 90px;
-    }
-    & > b {
-      font-size: 14px;
-    }
-  `)};
-`;
-
-const emptyContainer = css`
-  background: transparent;
-  border: 2px dashed rgba(100, 100, 100, 0.1);
-  & svg {
-    fill: rgba(255, 255, 255, 0.6);
-  }
-`;
-
-const emptyDescription = css`
-  font-size: 13px;
-  text-align: center;
-  margin-top: auto;
-  color: rgba(255, 255, 255, 0.8);
-  ${Util.mq.large(css`
-    font-size: 15px;
-  `)} ${Util.mq.xLarge(css`
-    font-size: 17px;
-  `)};
-`;
-
-const Server = ({ image, name, href }) => (
-  <Link to={href}>
-    <div className={serverContainer}>
-      <img src={image} alt={name} />
-      <b>{name}</b>
-    </div>
-  </Link>
-);
-
-let slidesAmount = 5,
-  spaceBetween = 5,
-  circleSize = "50px";
-if (window.innerWidth > Util.BREAKPOINTS.medium) {
-  slidesAmount = 6;
-  spaceBetween = 5;
-  circleSize = "70px";
-}
-if (window.innerWidth > Util.BREAKPOINTS.large) {
-  slidesAmount = 7;
-  spaceBetween = 5;
-  circleSize = "80px";
-}
-if (window.innerWidth > Util.BREAKPOINTS.xLarge) {
-  slidesAmount = 7;
-  spaceBetween = 5;
-  circleSize = "100px";
-}
-
 @inject("authentication")
 class ServerList extends React.Component {
+  state = {
+    value: "",
+  };
+
+  onChange = e => {
+    this.setState({
+      value: e.target.value,
+    });
+  };
+
   render() {
-    const params = {
-      scrollbar: {
-        el: ".swiper-scrollbar",
-        hide: false,
-      },
-      slidesPerView: slidesAmount,
-      rebuildOnUpdate: true,
-      spaceBetween: spaceBetween,
-    };
+    const { value } = this.state;
 
     return (
       <Query query={meQuery}>
         {({ loading, error, data }) => {
-          if (loading) return <p>Loading...</p>;
           if (error) {
             this.props.authentication.setToken(null);
             return <p>Error! Please refresh the page. (temporary)</p>;
           }
 
+          if (loading) {
+            return (
+              <div className={container}>
+                <p>Loading...</p>
+              </div>
+            );
+          }
+
           let me = data.me;
-          let guilds = me.serverList;
+          let guilds = [
+            // First those servers that we are the owner
+            ...me.serverList.filter(g => g.ownerId === me.id),
+            // Then those that we are just administrator
+            ...me.serverList.filter(g => g.ownerId !== me.id),
+          ];
+
+          if (value)
+            guilds = guilds.filter(
+              g => g.name.toLowerCase().includes(value.toLowerCase()) || g.id === value
+            );
 
           return (
             <div className={container}>
-              <div className={userDetails}>
-                Hello, {me.tag}
-                <img src={me.displayAvatarURL} alt={me.tag} />
-                <LogoutIcon
-                  size="16px"
-                  className={logoutButton}
-                  onClick={() => this.props.authentication.setToken(null)}
-                />
+              <div className={header}>
+                <div style={{ flex: 1, width: "100%" }}>
+                  <Input
+                    style={{ width: "100%" }}
+                    placeholder="Search for a guild"
+                    value={this.state.value}
+                    onChange={this.onChange}
+                    icon={{ left: SearchIcon }}
+                  />
+                </div>
+                <div className={userDetails}>
+                  Hello, {me.tag}
+                  <img src={me.displayAvatarURL} alt={me.tag} />
+                  <LogoutIcon
+                    size="21px"
+                    className={logoutButton}
+                    onClick={() => this.props.authentication.setToken(null)}
+                  />
+                  <Mutation
+                    mutation={reloadServers}
+                    onCompleted={(data) => this.props.authentication.setToken(data.reload.token)}
+                  >
+                    {reloadServers => (
+                        <ReloadIcon
+                          size="21px"
+                          className={logoutButton}
+                          onClick={() => reloadServers()}
+                        />
+                    )}
+                  </Mutation>
+                </div>
               </div>
 
-              <div>
-                <h1>My Servers</h1>
-                <div className={serverSpace}>
-                  <Swiper {...params}>
-                    <a
-                      href="http://invite.g4m3r.xyz/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <div className={classNames(serverContainer, emptyContainer)}>
-                        <div>
-                          <AddCircleIcon size={circleSize} />
-                        </div>
-                        <div className={emptyDescription}>Add Server</div>
-                      </div>
-                    </a>
-
-                    {guilds.map(guild => (
-                      <div key={guild.id}>
-                        <Server
-                          name={guild.name}
-                          image={guild.icon || "/images/server_default.png"}
-                          href={`/g/${guild.id}`}
+              <div className={table}>
+                <a
+                  href="http://invite.g4m3r.xyz/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <div className="table-media">
+                    <AddCircleIcon size={"100%"} color="grey" />
+                  </div>
+                  <div className="table-body fill">
+                    <h3>Add an server</h3>
+                    <div className="meta">Click here to invite G4M3R to a server</div>
+                  </div>
+                </a>
+                <Trail
+                  native
+                  items={guilds}
+                  keys={guild => guild.id}
+                  duration={300}
+                  from={{ opacity: 0, transform: "translate3d(-40px,0,0)" }}
+                  to={{ opacity: 1, transform: "translate3d(0px,0,0)" }}
+                >
+                  {guild => style => (
+                    <AnimatedLink to={`/g/${guild.id}`} style={style}>
+                      <div className="table-media">
+                        <img
+                          src={
+                            guild.icon ||
+                            "https://cdn.g4m3r.xyz/img/backgrounds/discord.png"
+                          }
+                          alt={guild.name}
                         />
                       </div>
-                    ))}
-                  </Swiper>
-                </div>
+                      <div className="table-body fill">
+                        <h3>{guild.name}</h3>
+                        <div className="meta">{guild.memberCount} members </div>
+                      </div>
+                      <div className="table-body">
+                        {guild.ownerId === me.id && (
+                          <span style={{ color: "red" }}>Owner</span>
+                        )}
+                      </div>
+                    </AnimatedLink>
+                  )}
+                </Trail>
               </div>
             </div>
           );

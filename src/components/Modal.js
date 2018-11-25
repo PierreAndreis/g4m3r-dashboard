@@ -4,7 +4,7 @@ import { Transition, animated } from "react-spring";
 
 import { BoxBase, BoxPadding } from "./Box";
 import Portal from "./Portal";
-import Util from '../global/Util';
+import { mq } from "../util/breakpoints";
 
 const modal = css`
   position: absolute;
@@ -30,37 +30,37 @@ const backdrop = css`
 
 const modalContent = css`
   ${BoxBase};
-  ${BoxPadding} width: auto;
+  ${BoxPadding};
+  width: auto;
   height: auto;
   max-height: 90%;
   max-width: 800px;
   padding-bottom: 20px;
   overflow-y: scroll;
 
-  ${Util.mqmax.medium(css`
+  ${mq.medium(css`
     width: 100%;
     max-width: 100%;
     max-height: 80%;
     border-radius: 0;
-  `)}
+  `)};
 `;
 
 const modalClose = css`
-    
-    position: absolute;
-    top: 15px;
-    right: 35px;
-    color: #f1f1f1;
-    font-size: 40px;
-    font-weight: bold;
-    transition: 0.3s;
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
 
-    :hover,
-    :focus {
-      color: #bbb;
-      text-decoration: none;
-      cursor: pointer;
-    }
+  :hover,
+  :focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+  }
 `;
 
 class Modal extends React.Component {
@@ -84,16 +84,16 @@ class Modal extends React.Component {
           from={{
             backdropOpacity: 0,
             opacity: 0,
-            transform: "scale(0.95) translateY(-30px)",
+            transform: "translateY(30px)",
           }}
           enter={[
             { backdropOpacity: 0.8 },
-            { backdropOpacity: 1, opacity: 1, transform: "scale(1) translateY(0)" },
+            { backdropOpacity: 1, opacity: 1, transform: "translateY(0)" },
           ]}
           leave={[
             {
               opacity: 0,
-              transform: "scale(0.95) translateY(-30px)",
+              transform: "translateY(-30px)",
             },
             {
               backdropOpacity: 0,
@@ -107,16 +107,13 @@ class Modal extends React.Component {
           {open =>
             open &&
             (styles => (
-              <div className={modal}>
+              <animated.div className={modal}>
                 <animated.div
                   className={backdrop}
                   style={{ opacity: styles.backdropOpacity }}
                   onClick={this.onClose}
                 />
-                <span
-                  className={modalClose}
-                  onClick={this.onClose}
-                >
+                <span className={modalClose} onClick={this.onClose}>
                   &times;
                 </span>
                 <animated.div
@@ -126,7 +123,7 @@ class Modal extends React.Component {
                 >
                   {this.props.children}
                 </animated.div>
-              </div>
+              </animated.div>
             ))
           }
         </Transition>

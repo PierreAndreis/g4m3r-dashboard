@@ -97,7 +97,7 @@ const ButtonLoading = css`
     animation: spinner 0.6s linear infinite;
   }
   background: #7aaeff;
-  /* Color conflits with disabled */
+  /* Color conflicts with disabled */
   color: white !important;
 `;
 
@@ -178,7 +178,12 @@ export default class Button extends Component {
     );
 
     return (
-      <button className={mixedClassName} onClick={this.onClick} {...propsToInject}>
+      <button
+        className={mixedClassName}
+        disabled={disabled}
+        onClick={this.onClick}
+        {...propsToInject}
+      >
         {children}
 
         {(loading || status === "loading") && (

@@ -1,4 +1,3 @@
-/* eslint-disable no-cond-assign */
 import React from "react";
 import { Query, Mutation } from "react-apollo";
 import { withRouter } from "react-router-dom";
@@ -7,6 +6,7 @@ import Input from "../Input";
 import Checkbox from "../Checkbox";
 import Select from "../Select";
 import ColorPicker from "../ColorPicker";
+import InputMask from "../InputMask";
 
 import Stager, { StagerContext } from "./Stager";
 
@@ -77,7 +77,31 @@ class WrapperEditorForGraphQL extends React.Component {
             }}
             // todo, find how to create an error message
             errorMessage={errorMessage}
-            mutate={mutate}
+            {...otherProps}
+          />
+        );
+      }}
+    </StagerContext.Consumer>
+  );
+
+  static InputMask = ({ mutate, query, validate, ...otherProps }) => (
+    <StagerContext.Consumer>
+      {state => {
+        const errorMessage = state.validationErrors.get(mutate);
+
+        return (
+          <InputMask
+            value={getEditedValue({ mutate, query }, state)}
+            placeholder={getPlaceholder({ mutate, query }, state)}
+            onChange={value => {
+              state.onChange(mutate)(value);
+              if (typeof validate === "function") {
+                // Need stager to know if validation is up
+                state.resultValidation(mutate, validate(value));
+              }
+            }}
+            // todo, find how to create an error message
+            errorMessage={errorMessage}
             {...otherProps}
           />
         );
@@ -163,7 +187,7 @@ class WrapperEditorForGraphQL extends React.Component {
 
         if (!Array.isArray(arr)) throw new Error(`Path ${path} must be an array!`);
 
-        // This has some perfomance issues because it's a new object for every render
+        // This has some performance issues because it's a new object for every render
         const newContext = { ...state, payload: arr };
 
         return arr.map((value, index) => (
