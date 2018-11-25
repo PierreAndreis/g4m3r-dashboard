@@ -196,7 +196,7 @@ class ServerList extends React.Component {
                     mutation={reloadServers}
                     onCompleted={(data) => this.props.authentication.setToken(data.reload.token)}
                   >
-                    {(reloadServers, { error, data, onCompleted }) => (
+                    {reloadServers => (
                         <ReloadIcon
                           size="21px"
                           className={logoutButton}
