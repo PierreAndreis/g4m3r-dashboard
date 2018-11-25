@@ -14,7 +14,7 @@ import Validation from "./../../../../global/validation";
 import TabsManager from "../../../../components/Tabs";
 import HelpContent from "../../../../components/HelpContent";
 import HelpModal from "../../../../components/HelpModal";
-import HelpText from "../../../../constants/help/index";
+import HelpText from "../../../../constants/help/general";
 import { Masks } from "../../../../components/InputMask";
 
 const test = {
@@ -83,7 +83,7 @@ class GeneralEditor extends Component {
                         />
                       </div>
                       <div>
-                        <HelpModal content={<HelpContent {...test} />} />
+                        <HelpModal content={<HelpContent {...HelpText.basic.prefix} />} />
                       </div>
                     </Box.Option>
                     <Box.Option>
@@ -107,7 +107,7 @@ class GeneralEditor extends Component {
                         </Query>
                       </div>
                       <div>
-                        <HelpModal content={HelpText.TimezoneHelp} />
+                        <HelpModal content={<HelpContent {...HelpText.basic.timezone} />} />
                       </div>
                     </Box.Option>
                     <Box.Option>
@@ -143,7 +143,7 @@ class GeneralEditor extends Component {
                         />
                       </div>
                       <div>
-                        <HelpModal content={HelpText.DeleteNotificationsDelayHelp} />
+                        <HelpModal content={<HelpContent {...HelpText.basic.deleteAllNotificationsDelay} />} />
                       </div>
                     </Box.Option>
                   </Box.Body>
