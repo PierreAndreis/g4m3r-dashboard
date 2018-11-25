@@ -192,13 +192,16 @@ class ServerList extends React.Component {
                     className={logoutButton}
                     onClick={() => this.props.authentication.setToken(null)}
                   />
-                  <Mutation mutation={reloadServers}>
-                    {reloadServers => (
-                      <ReloadIcon
-                        size="21px"
-                        className={logoutButton}
-                        onClick={() => reloadServers()}
-                      />
+                  <Mutation
+                    mutation={reloadServers}
+                    onCompleted={(data) => this.props.authentication.setToken(data.reload.token)}
+                  >
+                    {(reloadServers, { error, data, onCompleted }) => (
+                        <ReloadIcon
+                          size="21px"
+                          className={logoutButton}
+                          onClick={() => reloadServers()}
+                        />
                     )}
                   </Mutation>
                 </div>
