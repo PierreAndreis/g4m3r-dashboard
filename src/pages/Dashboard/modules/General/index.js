@@ -17,11 +17,6 @@ import HelpModal from "../../../../components/HelpModal";
 import HelpText from "../../../../constants/help/general";
 import { Masks } from "../../../../components/InputMask";
 
-const test = {
-  title: "What is a Prefix?",
-  description: 'The prefix is what tells the bot to listen to that message. If the prefix is set to "." the bot will only respond when starting your message with . as the first letter.'
-};
-
 const boxesHeader = css`
   display: flex;
   flex-wrap: wrap;
