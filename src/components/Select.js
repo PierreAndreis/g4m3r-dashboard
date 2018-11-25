@@ -99,12 +99,11 @@ class Select extends React.Component {
               {isOpen ? (
                 <Box className={dropdownMenu}>
                   {values
-                    .filter(
-                      item =>
-                        autoComplete
-                          ? !inputValue ||
-                            item.value.toLowerCase().includes(inputValue.toLowerCase())
-                          : true
+                    .filter(item =>
+                      autoComplete
+                        ? !inputValue ||
+                          item.value.toLowerCase().includes(inputValue.toLowerCase())
+                        : true
                     )
                     .map((item, index) => (
                       <li

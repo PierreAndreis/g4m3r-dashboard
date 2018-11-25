@@ -5,7 +5,6 @@ class Util {
     while (obj && p < key.length) obj = obj[key[p++]];
     return obj === undefined || p < key.length ? def : obj;
   };
-
 }
 
 export default Util;
