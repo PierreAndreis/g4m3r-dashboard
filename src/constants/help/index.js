@@ -28,41 +28,6 @@ import MemberPermsLogHelp from "./moderation/serverlogs/MemberPermsLogHelp";
 import MemberRolesLogHelp from "./moderation/serverlogs/MemberRolesLogHelp";
 import MemberBanLogHelp from "./moderation/serverlogs/MemberBanLogHelp";
 import MemberUnbanLogHelp from "./moderation/serverlogs/MemberUnbanLogHelp";
-import MilitaryTimeFormatHelp from "./general/basic/24HourTimeFormatHelp";
-import DeleteAllNotificationsHelp from "./general/basic/DeleteAllNotificationsHelp";
-import EnableServerAnalyticsHelp from "./general/basic/EnableServerAnalyticsHelp";
-import InChannelGlobalLevelUpNotifications from "./general/basic/InChannelGlobalLevelUpNotifications";
-import InChannelServerLevelUpNotificationsHelp from "./general/basic/InChannelServerLevelUpNotificationsHelp";
-import InDMServerLevelUpNotificationsHelp from "./general/basic/InDMServerLevelUpNotificationsHelp";
-import PrefixHelp from "./general/basic/PrefixHelp";
-import TimezoneHelp from "./general/basic/TimezoneHelp";
-import MenuClosingTimeHelp from "./general/basic/MenuClosingTimeHelp";
-import DeleteNotificationsDelayHelp from "./general/basic/DeleteNotificationsDelayHelp";
-import BugChannelHelp from "./general/feedback/BugChannelHelp";
-import BugColorHelp from "./general/feedback/BugColorHelp";
-import BugStatusHelp from "./general/feedback/BugStatusHelp";
-import BugThumbsDownHelp from "./general/feedback/BugThumbsDownHelp";
-import BugThumbsUpHelp from "./general/feedback/BugThumbsUpHelp";
-import IdeasChannelHelp from "./general/feedback/IdeasChannelHelp";
-import IdeasColorHelp from "./general/feedback/IdeasColorHelp";
-import IdeasStatusHelp from "./general/feedback/IdeasStatusHelp";
-import IdeasThumbsDownHelp from "./general/feedback/IdeasThumbsDownHelp";
-import IdeasThumbsUpHelp from "./general/feedback/IdeasThumbsUpHelp";
-import UseEventDefaultsHelp from "./general/events/UseEventDefaultsHelp";
-import EventDurationHelp from "./general/events/EventDurationHelp";
-import MaxAttendeesAllowedHelp from "./general/events/MaxAttendeesAllowedHelp";
-import EventGameHelp from "./general/events/EventGameHelp";
-import EventReminderTimeHelp from "./general/events/EventReminderTimeHelp";
-import EventAutoAdvertiseHelp from "./general/events/EventAutoAdvertiseHelp";
-import EventAdvertiseChannelHelp from "./general/events/EventAdvertiseChannelHelp";
-import EventCreatePermissionHelp from "./general/events/EventCreatePermissionHelp";
-import EventAddMemberPermissionHelp from "./general/events/EventAddMemberPermissionHelp";
-import TagCreatePermissionHelp from "./general/tags-stories/TagCreatePermissionHelp";
-import TagUsePermissionHelp from "./general/tags-stories/TagUsePermissionHelp";
-import TagTriggerDeletionHelp from "./general/tags-stories/TagTriggerDeletionHelp";
-import StoriesCreatePermissionHelp from "./general/tags-stories/StoriesCreatePermissionHelp";
-import StoriesUsePermissionHelp from "./general/tags-stories/StoriesUsePermissionHelp";
-import StoriesTriggerDeletionHelp from "./general/tags-stories/StoriesTriggerDeletionHelp";
 import TextMutedRoleHelp from "./moderation/muted/TextMutedRoleHelp";
 import VoiceMutedRoleHelp from "./moderation/muted/VoiceMutedRoleHelp";
 import ModMailStatusHelp from "./moderation/modmail/ModMailStatusHelp";
@@ -111,41 +76,6 @@ export default {
   MemberRolesLogHelp,
   MemberBanLogHelp,
   MemberUnbanLogHelp,
-  MilitaryTimeFormatHelp,
-  DeleteAllNotificationsHelp,
-  EnableServerAnalyticsHelp,
-  InChannelGlobalLevelUpNotifications,
-  InChannelServerLevelUpNotificationsHelp,
-  InDMServerLevelUpNotificationsHelp,
-  PrefixHelp,
-  TimezoneHelp,
-  MenuClosingTimeHelp,
-  DeleteNotificationsDelayHelp,
-  BugChannelHelp,
-  BugColorHelp,
-  BugStatusHelp,
-  BugThumbsDownHelp,
-  BugThumbsUpHelp,
-  IdeasChannelHelp,
-  IdeasColorHelp,
-  IdeasStatusHelp,
-  IdeasThumbsDownHelp,
-  IdeasThumbsUpHelp,
-  UseEventDefaultsHelp,
-  EventDurationHelp,
-  MaxAttendeesAllowedHelp,
-  EventGameHelp,
-  EventReminderTimeHelp,
-  EventAutoAdvertiseHelp,
-  EventAdvertiseChannelHelp,
-  EventCreatePermissionHelp,
-  EventAddMemberPermissionHelp,
-  TagCreatePermissionHelp,
-  TagUsePermissionHelp,
-  TagTriggerDeletionHelp,
-  StoriesCreatePermissionHelp,
-  StoriesUsePermissionHelp,
-  StoriesTriggerDeletionHelp,
   TextMutedRoleHelp,
   VoiceMutedRoleHelp,
   ModMailStatusHelp,
