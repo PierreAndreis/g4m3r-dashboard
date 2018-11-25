@@ -41,4 +41,43 @@ export default {
       text: 'The timezone setting tells the bot what timezone to use on your server for its features like events and such.',
     },
   },
+  events: {
+    addMemberPermission: {
+      title: "What is a Add Permission?",
+      text: "The add permission allows you to choose which permission is required to forcibly add users to events on your server.",
+    },
+    advertiseChannel: {
+      title: "What is a Advertise Channel?",
+      text: "The advertise channel is the channel where all event advertisements will be posted by default.",
+    },
+    autoAdvertise: {
+      title: "What is a Auto-Advertise?",
+      text: "The auto-advertise option will enable or disable automatically advertising all events upon creation in the advertise channel.",
+    },
+    createPermission: {
+      title: "What is a Create Permission?",
+      text: "The create permission allows you to choose which permission is required in order to create events on your server.",
+    },
+    duration: {
+      title: "What is a Duration?",
+      text: "The duration is how long the events will be when creating an event on your server.",
+    },
+    game: {
+      title: "What is a Game?",
+      text: "The game setting allows you to automatically create a default game value for all events created on your server.",
+    },    
+    maxAttendeesAllowed: {
+      title: "What is a Max Attendees Allowed?",
+      text: "The max attendees allowed allows you to set the max amount of members that can join your events on your server.",
+    },
+    reminderTime: {
+      title: "What is a Reminder?",
+      text: "The reminder setting allows you to create the default reminder time to be sent when creating events on your server.",
+    },
+    useEventDefaults: {
+      title: "What is a Use Event Defaults?",
+      text: "The use event defaults setting enables using event defaults that you have created to serve as the event template when making events on your server.",
+    },
+
+  }
 };

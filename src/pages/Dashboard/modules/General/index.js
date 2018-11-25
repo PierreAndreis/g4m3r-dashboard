@@ -323,7 +323,7 @@ class GeneralEditor extends Component {
                       label={
                         <Box.Title>
                           Use Event Defaults
-                          <HelpModal content={HelpText.UseEventDefaultsHelp} />
+                          <HelpModal content={<HelpContent {...HelpText.events.useEventDefaults} />} />
                         </Box.Title>
                       }
                       query="guild.settings.settings.events.useDefault"
@@ -339,7 +339,7 @@ class GeneralEditor extends Component {
                           />
                         </div>
                         <div>
-                          <HelpModal content={HelpText.EventDurationHelp} />
+                        <HelpModal content={<HelpContent {...HelpText.events.duration} />} />
                         </div>
                       </Box.Option>
 
@@ -356,7 +356,7 @@ class GeneralEditor extends Component {
                           />
                         </div>
                         <div>
-                          <HelpModal content={HelpText.MaxAttendeesAllowedHelp} />
+                        <HelpModal content={<HelpContent {...HelpText.events.maxAttendeesAllowed} />} />
                         </div>
                       </Box.Option>
 
@@ -373,7 +373,7 @@ class GeneralEditor extends Component {
                           />
                         </div>
                         <div>
-                          <HelpModal content={HelpText.EventGameHelp} />
+                        <HelpModal content={<HelpContent {...HelpText.events.game} />} />
                         </div>
                       </Box.Option>
 
@@ -387,7 +387,7 @@ class GeneralEditor extends Component {
                           />
                         </div>
                         <div>
-                          <HelpModal content={HelpText.EventReminderTimeHelp} />
+                        <HelpModal content={<HelpContent {...HelpText.events.reminderTime} />} />
                         </div>
                       </Box.Option>
 
@@ -400,7 +400,7 @@ class GeneralEditor extends Component {
                           />
                         </div>
                         <div>
-                          <HelpModal content={HelpText.EventAutoAdvertiseHelp} />
+                        <HelpModal content={<HelpContent {...HelpText.events.autoAdvertise} />} />
                         </div>
                       </Box.Option>
 
@@ -415,7 +415,7 @@ class GeneralEditor extends Component {
                           />
                         </div>
                         <div>
-                          <HelpModal content={HelpText.EventAdvertiseChannelHelp} />
+                        <HelpModal content={<HelpContent {...HelpText.events.advertiseChannel} />} />
                         </div>
                       </Box.Option>
                     </Editor.CheckboxCollapse>
@@ -455,7 +455,7 @@ class GeneralEditor extends Component {
                         </Query>
                       </div>
                       <div>
-                        <HelpModal content={HelpText.EventCreatePermissionHelp} />
+                      <HelpModal content={<HelpContent {...HelpText.events.createPermission} />} />
                       </div>
                     </Box.Option>
                     <Box.Option>
@@ -486,7 +486,7 @@ class GeneralEditor extends Component {
                         </Query>
                       </div>
                       <div>
-                        <HelpModal content={HelpText.EventAddMemberPermissionHelp} />
+                      <HelpModal content={<HelpContent {...HelpText.events.addMemberPermission} />} />
                       </div>
                     </Box.Option>
                   </Box.Body>
