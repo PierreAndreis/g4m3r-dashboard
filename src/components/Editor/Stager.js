@@ -102,7 +102,7 @@ class Stager extends React.Component {
 
         <Snackbar open={modified || commiting}>
           <Snackbar.ButtonContainer>
-            <div>{isValid ? "Save Changes?" : "Invalid Input!"}</div>
+            <div>{isValid ? "Save Changes?" : "Your changes cannot be saved because something is wrong. Please double check your changes"}</div>
             <Button onClick={this.revert} simple disabled={commiting}>
               Revert
             </Button>
