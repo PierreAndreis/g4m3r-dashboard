@@ -3,6 +3,10 @@ export default {
     militaryTimeFormat: {
       title: "What is a 24 Hour Time Format?",
       text: "The 24 hour time format allows you to enable Military Time format for features that require time such as the events feature.",
+      footer: {
+        link: 'https://www.google.com',
+        text: 'Click here to get more information about the military time format'
+      }
     },
     deleteAllNotifications: {
       title: "What is a Delete All Notifications?",

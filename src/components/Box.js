@@ -48,6 +48,10 @@ const BoxBodyPadding = css`
   padding: 5px 15px;
 `;
 
+const BoxFooterDivider = css`
+  border-top: 1px solid black;
+`;
+
 const BoxOption = css`
   display: flex;
   justify-content: space-between;
@@ -73,6 +77,15 @@ export default class Box extends Component {
   static Body = ({ children, className, padding, ...otherProps }) => (
     <div
       className={classNames(BoxBody, { [BoxBodyPadding]: padding }, className)}
+      {...otherProps}
+    >
+      {children}
+    </div>
+  );
+
+  static Footer = ({ children, className, padding, ...otherProps }) => (
+    <div
+      className={classNames(BoxBody, BoxFooterDivider, { [BoxBodyPadding]: padding }, className)}
       {...otherProps}
     >
       {children}
