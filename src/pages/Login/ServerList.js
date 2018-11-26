@@ -128,10 +128,32 @@ const logoutButton = css`
   }
 `;
 
+const reloadButton = css`
+  background-color: rgba(100, 100, 100, 0);
+  padding: 0;
+  border: 0;
+  align-items: center;
+  cursor: pointer;
+`;
+
+const reloadIcon = css`
+  ${logoutButton}
+  padding-top: 2px;
+
+`;
+
+const reloadIconLoading = css`
+  ${logoutButton}
+  padding-top: 2px;
+  fill: rgba(255, 0, 0, 0.6);
+
+`;
+
 @inject("authentication")
 class ServerList extends React.Component {
   state = {
     value: "",
+    reloading: false
   };
 
   onChange = e => {
@@ -141,7 +163,7 @@ class ServerList extends React.Component {
   };
 
   render() {
-    const { value } = this.state;
+    const { value, reloading } = this.state;
 
     return (
       <Query query={meQuery}>
@@ -196,13 +218,19 @@ class ServerList extends React.Component {
                     mutation={reloadServers}
                     onCompleted={(data) => this.props.authentication.setToken(data.reload.token)}
                   >
-                    {reloadServers => (
-                        <ReloadIcon
+                    {(reloadServers, { loading }) => (
+                      <button 
+                      className={reloadButton}
+                      disabled={loading}
+                      onClick={() => reloadServers()}
+                      >
+                          <ReloadIcon
                           size="21px"
-                          className={logoutButton}
-                          onClick={() => reloadServers()}
+                          className={loading ? reloadIconLoading : reloadIcon}
                         />
-                    )}
+                      </button>
+                      )
+                    }
                   </Mutation>
                 </div>
               </div>
