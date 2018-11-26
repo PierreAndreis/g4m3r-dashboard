@@ -4,17 +4,18 @@ import { Link } from "react-router-dom";
 import { Trail, animated } from "react-spring";
 
 import { inject } from "mobx-react";
-import { Query } from "react-apollo";
+import { Query, Mutation } from "react-apollo";
 
 import { css } from "emotion";
 import AddCircleIcon from "mdi-react/PlusCircleOutlineIcon";
 import LogoutIcon from "mdi-react/LogoutIcon";
 import meQuery from "../../graphql/queries/user/me";
+import reloadServers from "../../graphql/queries/mutations/reloadServers";
 
 import Input from "./../../components/Input";
 
 import { BoxBase } from "./../../components/Box";
-import { SearchIcon } from "mdi-react";
+import { SearchIcon, ReloadIcon } from "mdi-react";
 
 const AnimatedLink = animated(Link);
 // import { mq } from "../../util/breakpoints";
@@ -191,6 +192,18 @@ class ServerList extends React.Component {
                     className={logoutButton}
                     onClick={() => this.props.authentication.setToken(null)}
                   />
+                  <Mutation
+                    mutation={reloadServers}
+                    onCompleted={(data) => this.props.authentication.setToken(data.reload.token)}
+                  >
+                    {reloadServers => (
+                        <ReloadIcon
+                          size="21px"
+                          className={logoutButton}
+                          onClick={() => reloadServers()}
+                        />
+                    )}
+                  </Mutation>
                 </div>
               </div>
 
@@ -211,7 +224,7 @@ class ServerList extends React.Component {
                 <Trail
                   native
                   items={guilds}
-                  key={guild => guild.id}
+                  keys={guild => guild.id}
                   duration={300}
                   from={{ opacity: 0, transform: "translate3d(-40px,0,0)" }}
                   to={{ opacity: 1, transform: "translate3d(0px,0,0)" }}
@@ -219,7 +232,13 @@ class ServerList extends React.Component {
                   {guild => style => (
                     <AnimatedLink to={`/g/${guild.id}`} style={style}>
                       <div className="table-media">
-                        <img src={guild.icon} alt={guild.name} />
+                        <img
+                          src={
+                            guild.icon ||
+                            "https://cdn.g4m3r.xyz/img/backgrounds/discord.png"
+                          }
+                          alt={guild.name}
+                        />
                       </div>
                       <div className="table-body fill">
                         <h3>{guild.name}</h3>

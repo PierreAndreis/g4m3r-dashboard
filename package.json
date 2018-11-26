@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "apollo-boost": "^0.1.20",
-    "apollo-client": "^2.4.5",
+    "apollo-boost": "^0.1.22",
+    "apollo-client": "^2.4.7",
     "classnames": "^2.2.6",
     "downshift": "^2.0.10",
     "emotion": "^9.2.12",
@@ -13,7 +13,7 @@
     "jest-dom": "^2.1.1",
     "mdi-react": "^4.4.0",
     "mobx": "4.3.1",
-    "mobx-react": "^5.3.6",
+    "mobx-react": "^5.4.2",
     "react": "^16.6.3",
     "react-apollo": "^2.3.1",
     "react-color": "^2.14.1",
@@ -22,7 +22,7 @@
     "react-media": "^1.8.0",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.5",
-    "react-spring": "^6.1.8"
+    "react-spring": "^6.1.9"
   },
   "scripts": {
     "start": "set PORT=3001 && react-app-rewired start",
@@ -42,7 +42,7 @@
     "react-app-rewire-emotion": "^4.0.0",
     "react-app-rewire-mobx": "^1.0.9",
     "react-app-rewired": "^1.6.2",
-    "react-testing-library": "^5.2.3",
-    "snapshot-diff": "^0.4.0"
+    "react-testing-library": "^5.3.0",
+    "snapshot-diff": "^0.4.1"
   }
 }
