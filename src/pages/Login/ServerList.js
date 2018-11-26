@@ -139,21 +139,18 @@ const reloadButton = css`
 const reloadIcon = css`
   ${logoutButton}
   padding-top: 2px;
-
 `;
 
 const reloadIconLoading = css`
   ${logoutButton}
   padding-top: 2px;
   fill: rgba(255, 0, 0, 0.6);
-
 `;
 
 @inject("authentication")
 class ServerList extends React.Component {
   state = {
-    value: "",
-    reloading: false
+    value: ""
   };
 
   onChange = e => {
@@ -163,7 +160,7 @@ class ServerList extends React.Component {
   };
 
   render() {
-    const { value, reloading } = this.state;
+    const { value } = this.state;
 
     return (
       <Query query={meQuery}>
