@@ -36,7 +36,7 @@ const modalContent = css`
   max-height: 90%;
   max-width: 800px;
   padding-bottom: 20px;
-  overflow-y: scroll;
+  overflow-y: auto;
 
   ${mq.medium(css`
     width: 100%;
