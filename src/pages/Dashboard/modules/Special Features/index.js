@@ -9,7 +9,8 @@ import { extractChannel } from "../../../../util/transformers";
 import Validation from "./../../../../global/validation";
 import TabsManager from "../../../../components/Tabs";
 import HelpModal from "../../../../components/HelpModal";
-import HelpText from "../../../../constants/help/index";
+import HelpContent from "../../../../components/HelpContent";
+import HelpText from "../../../../constants/help/features";
 
 const boxesHeader = css`
   display: flex;
@@ -51,7 +52,7 @@ class SpecialFeatureEditor extends Component {
                         />
                       </div>
                       <div>
-                        <HelpModal content={HelpText.ActivityReportsChannelHelp} />
+                      <HelpModal content={<HelpContent {...HelpText.vainglory.activityReportsChannel} />} />
                       </div>
                     </Box.Option>
 
@@ -69,7 +70,7 @@ class SpecialFeatureEditor extends Component {
                         />
                       </div>
                       <div>
-                        <HelpModal content={HelpText.MaxInactiveDaysAllowedHelp} />
+                        <HelpModal content={<HelpContent {...HelpText.vainglory.maxInactiveDays} />} />
                       </div>
                     </Box.Option>
                   </Box.Body>
