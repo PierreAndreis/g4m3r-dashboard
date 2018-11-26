@@ -279,7 +279,7 @@ class ModerationEditor extends Component {
                               Validation.numberMax(50)
                             )}
                           />
-                        </div>{" "}
+                        </div>
                         <div>
                           <HelpModal content={<HelpContent {...HelpText.modmail.maxPerGuild} />} />
                         </div>
