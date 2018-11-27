@@ -111,6 +111,7 @@ class GeneralEditor extends Component {
                         <Editor.Input
                           mutate="menuTime"
                           query="guild.settings.settings.menuTime"
+                          type="number"
                           validate={Validation.all(
                             Validation.isNumber(),
                             Validation.numberMin(10),
@@ -129,6 +130,7 @@ class GeneralEditor extends Component {
                           mask={Masks.secondsToMs}
                           label="seconds"
                           mutate="deleteNotificationTime"
+                          type="number"
                           query="guild.settings.settings.general.deleteNotificationTime"
                           validate={Validation.all(
                             Validation.isNumber(),
@@ -189,7 +191,7 @@ class GeneralEditor extends Component {
                           />
                         </div>
                         <div>
-                        <HelpModal content={<HelpContent {...HelpText.feedback.ideaChannel} />} />
+                          <HelpModal content={<HelpContent {...HelpText.feedback.ideaChannel} />} />
                         </div>
                       </Box.Option>
 
@@ -202,7 +204,7 @@ class GeneralEditor extends Component {
                           />
                         </div>
                         <div>
-                        <HelpModal content={<HelpContent {...HelpText.feedback.ideaColor} />} />
+                          <HelpModal content={<HelpContent {...HelpText.feedback.ideaColor} />} />
                         </div>
                       </Box.Option>
 
@@ -216,7 +218,7 @@ class GeneralEditor extends Component {
                           />
                         </div>
                         <div>
-                        <HelpModal content={<HelpContent {...HelpText.feedback.ideaThumbUp} />} />
+                          <HelpModal content={<HelpContent {...HelpText.feedback.ideaThumbUp} />} />
                         </div>
                       </Box.Option>
 
@@ -230,7 +232,7 @@ class GeneralEditor extends Component {
                           />
                         </div>
                         <div>
-                        <HelpModal content={<HelpContent {...HelpText.feedback.ideaThumbDown} />} />
+                          <HelpModal content={<HelpContent {...HelpText.feedback.ideaThumbDown} />} />
                         </div>
                       </Box.Option>
                     </Editor.CheckboxCollapse>
@@ -260,7 +262,7 @@ class GeneralEditor extends Component {
                           />
                         </div>
                         <div>
-                        <HelpModal content={<HelpContent {...HelpText.feedback.bugChannel} />} />
+                          <HelpModal content={<HelpContent {...HelpText.feedback.bugChannel} />} />
                         </div>
                       </Box.Option>
 
@@ -273,7 +275,7 @@ class GeneralEditor extends Component {
                           />
                         </div>
                         <div>
-                        <HelpModal content={<HelpContent {...HelpText.feedback.bugColor} />} />
+                          <HelpModal content={<HelpContent {...HelpText.feedback.bugColor} />} />
                         </div>
                       </Box.Option>
 
@@ -287,7 +289,7 @@ class GeneralEditor extends Component {
                           />
                         </div>
                         <div>
-                        <HelpModal content={<HelpContent {...HelpText.feedback.bugThumbUp} />} />
+                          <HelpModal content={<HelpContent {...HelpText.feedback.bugThumbUp} />} />
                         </div>
                       </Box.Option>
 
@@ -301,7 +303,7 @@ class GeneralEditor extends Component {
                           />
                         </div>
                         <div>
-                        <HelpModal content={<HelpContent {...HelpText.feedback.bugThumbDown} />} />
+                          <HelpModal content={<HelpContent {...HelpText.feedback.bugThumbDown} />} />
                         </div>
                       </Box.Option>
                     </Editor.CheckboxCollapse>
@@ -327,14 +329,20 @@ class GeneralEditor extends Component {
                       <Box.Option>
                         <div>Duration</div>
                         <div>
-                          <Editor.Input
+                          <Editor.InputMask
+                            mask={Masks.hoursToMs}
+                            label="hours"
                             mutate="eventDuration"
+                            type="number"
                             query="guild.settings.settings.events.duration"
-                            validate={Validation.all(Validation.isNumber())}
+                            validate={Validation.all(
+                              Validation.isNumber(),
+                              Validation.numberMin(3600000),
+                            )}
                           />
                         </div>
                         <div>
-                        <HelpModal content={<HelpContent {...HelpText.events.duration} />} />
+                          <HelpModal content={<HelpContent {...HelpText.events.duration} />} />
                         </div>
                       </Box.Option>
 
@@ -344,6 +352,7 @@ class GeneralEditor extends Component {
                           <Editor.Input
                             mutate="maxAttendees"
                             query="guild.settings.settings.events.maxAttendees"
+                            type="number"
                             validate={Validation.all(
                               Validation.isNumber(),
                               Validation.numberMax(99999)
@@ -351,7 +360,7 @@ class GeneralEditor extends Component {
                           />
                         </div>
                         <div>
-                        <HelpModal content={<HelpContent {...HelpText.events.maxAttendeesAllowed} />} />
+                          <HelpModal content={<HelpContent {...HelpText.events.maxAttendeesAllowed} />} />
                         </div>
                       </Box.Option>
 
@@ -368,21 +377,27 @@ class GeneralEditor extends Component {
                           />
                         </div>
                         <div>
-                        <HelpModal content={<HelpContent {...HelpText.events.game} />} />
+                          <HelpModal content={<HelpContent {...HelpText.events.game} />} />
                         </div>
                       </Box.Option>
 
                       <Box.Option>
                         <div>Reminder Time</div>
                         <div>
-                          <Editor.Input
+                          <Editor.InputMask
+                            mask={Masks.minutesToMs}
+                            label="minutes"
                             mutate="defaultReminder"
+                            type="number"
                             query="guild.settings.settings.events.defaultReminder"
-                            validate={Validation.all(Validation.isNumber())}
+                            validate={Validation.all(
+                              Validation.isNumber(),
+                              Validation.numberMin(60000),
+                            )}
                           />
                         </div>
                         <div>
-                        <HelpModal content={<HelpContent {...HelpText.events.reminderTime} />} />
+                          <HelpModal content={<HelpContent {...HelpText.events.reminderTime} />} />
                         </div>
                       </Box.Option>
 
@@ -395,7 +410,7 @@ class GeneralEditor extends Component {
                           />
                         </div>
                         <div>
-                        <HelpModal content={<HelpContent {...HelpText.events.autoAdvertise} />} />
+                          <HelpModal content={<HelpContent {...HelpText.events.autoAdvertise} />} />
                         </div>
                       </Box.Option>
 
@@ -410,7 +425,7 @@ class GeneralEditor extends Component {
                           />
                         </div>
                         <div>
-                        <HelpModal content={<HelpContent {...HelpText.events.advertiseChannel} />} />
+                          <HelpModal content={<HelpContent {...HelpText.events.advertiseChannel} />} />
                         </div>
                       </Box.Option>
                     </Editor.CheckboxCollapse>
@@ -449,7 +464,7 @@ class GeneralEditor extends Component {
                         </Query>
                       </div>
                       <div>
-                      <HelpModal content={<HelpContent {...HelpText.events.createPermission} />} />
+                        <HelpModal content={<HelpContent {...HelpText.events.createPermission} />} />
                       </div>
                     </Box.Option>
                     <Box.Option>
@@ -480,7 +495,7 @@ class GeneralEditor extends Component {
                         </Query>
                       </div>
                       <div>
-                      <HelpModal content={<HelpContent {...HelpText.events.addMemberPermission} />} />
+                        <HelpModal content={<HelpContent {...HelpText.events.addMemberPermission} />} />
                       </div>
                     </Box.Option>
                   </Box.Body>

@@ -112,7 +112,7 @@ class ModerationEditor extends Component {
                           }
                           query={`guild.settings.settings.serverLogs.${
                             opt.mutate
-                          }.status`}
+                            }.status`}
                           mutate={`${opt.mutate}Status`}
                         >
                           <Box.Option>
@@ -121,7 +121,7 @@ class ModerationEditor extends Component {
                               <Editor.Checkbox
                                 query={`guild.settings.settings.serverLogs.${
                                   opt.mutate
-                                }.logPublically`}
+                                  }.logPublically`}
                                 mutate={`${opt.mutate}LogPublically`}
                               />
                             </div>
@@ -273,6 +273,7 @@ class ModerationEditor extends Component {
                           <Editor.Input
                             query="guild.settings.settings.mail.maxMailsTotal"
                             mutate="maxMailsTotal"
+                            type="number"
                             validate={Validation.all(
                               Validation.isNumber(),
                               Validation.numberMin(10),
@@ -291,6 +292,7 @@ class ModerationEditor extends Component {
                           <Editor.Input
                             query="guild.settings.settings.mail.maxMailPerUser"
                             mutate="maxMailPerUser"
+                            type="number"
                             validate={Validation.all(
                               Validation.isNumber(),
                               Validation.numberMin(1),
@@ -379,6 +381,7 @@ class ModerationEditor extends Component {
                           <Editor.Input
                             query="guild.settings.settings.moderation.capitalPercentage.amount"
                             mutate="capitalPercentageAmount"
+                            type="number"
                             validate={Validation.all(
                               Validation.isNumber(),
                               Validation.numberMin(60),

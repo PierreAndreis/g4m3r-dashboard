@@ -14,6 +14,26 @@ export const Masks = {
       return value * 1000;
     },
   },
+  minutesToMs: {
+    in: value => {
+      if (isNaN(Number(value))) return 0;
+      return value / 60000;
+    },
+    out: value => {
+      if (isNaN(Number(value))) return 0;
+      return value * 60000;
+    }
+  },
+  hoursToMs: {
+    in: value => {
+      if (isNaN(Number(value))) return 0;
+      return value / 36000000;
+    },
+    out: value => {
+      if (isNaN(Number(value))) return 0;
+      return value * 36000000;
+    }
+  }
 };
 
 class InputMask extends React.Component {
