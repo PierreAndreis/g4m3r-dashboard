@@ -12,7 +12,10 @@ ID = "g4m3r-dashboard"
 # Production context: All deploys from the Production branch set in your site's deploy settings will inherit these settings.
 [context.production]
   environment = { REACT_APP_API_URL = "https://api.g4m3r.xyz", REACT_APP_CLIENT_ID = "270010330782892032", NODE_ENV = "10.13.0" }
-
+  
+# Beta context
+[context.beta]
+  environment = { REACT_APP_API_URL = "https://beta-api.g4m3r.xyz", REACT_APP_CLIENT_ID = "270010504938913793", NODE_ENV = "10.13.0" }
 
 # The following redirect is intended for use with most SPA's that handles routing internally.
 [[redirects]]
