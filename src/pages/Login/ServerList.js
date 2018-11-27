@@ -144,7 +144,8 @@ const reloadIcon = css`
 const reloadIconLoading = css`
   ${logoutButton}
   padding-top: 2px;
-  fill: rgba(255, 0, 0, 0.6);
+  animation: spin 2s linear infinite;
+  @keyframes spin { 100% { transform:rotate(360deg); } }
 `;
 
 @inject("authentication")
