@@ -181,9 +181,9 @@ class ServerList extends React.Component {
           let me = data.me;
           let guilds = [
             // First those servers that we are the owner
-            ...me.serverList.filter(g => g.ownerId === me.id),
+            ...me.serverList.filter(g => g && g.ownerId === me.id),
             // Then those that we are just administrator
-            ...me.serverList.filter(g => g.ownerId !== me.id),
+            ...me.serverList.filter(g => g && g.ownerId !== me.id),
           ];
 
           if (value)
