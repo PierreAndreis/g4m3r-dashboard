@@ -1,5 +1,5 @@
 [Settings]
-ID = "g4m3r-dashboard-beta"
+ID = "g4m3r-dashboard"
 
 # Settings in the [build] context are global and are applied to all contexts unless otherwise overridden by more specific contexts.  
 
@@ -7,12 +7,15 @@ ID = "g4m3r-dashboard-beta"
   publish = "build/"
   # This will be your default build command
   command = "yarn build"
-  environment = { REACT_APP_API_URL = "https://api.g4m3r.xyz", NODE_ENV = "10.0.0" }
+  environment = { REACT_APP_API_URL = "https://api.g4m3r.xyz", REACT_APP_CLIENT_ID = "270010330782892032", NODE_ENV = "10.13.0" }
 
 # Production context: All deploys from the Production branch set in your site's deploy settings will inherit these settings.
 [context.production]
-  environment = { REACT_APP_API_URL = "https://api.g4m3r.xyz", NODE_ENV = "10.0.0" }
-
+  environment = { REACT_APP_API_URL = "https://api.g4m3r.xyz", REACT_APP_CLIENT_ID = "270010330782892032", NODE_ENV = "10.13.0" }
+  
+# Beta context
+[context.beta]
+  environment = { REACT_APP_API_URL = "https://beta-api.g4m3r.xyz", REACT_APP_CLIENT_ID = "270010504938913793", NODE_ENV = "10.13.0" }
 
 # The following redirect is intended for use with most SPA's that handles routing internally.
 [[redirects]]

@@ -144,7 +144,8 @@ const reloadIcon = css`
 const reloadIconLoading = css`
   ${logoutButton}
   padding-top: 2px;
-  fill: rgba(255, 0, 0, 0.6);
+  animation: spin 2s linear infinite;
+  @keyframes spin { 100% { transform:rotate(360deg); } }
 `;
 
 @inject("authentication")
@@ -181,9 +182,9 @@ class ServerList extends React.Component {
           let me = data.me;
           let guilds = [
             // First those servers that we are the owner
-            ...me.serverList.filter(g => g.ownerId === me.id),
+            ...me.serverList.filter(g => g && g.ownerId === me.id),
             // Then those that we are just administrator
-            ...me.serverList.filter(g => g.ownerId !== me.id),
+            ...me.serverList.filter(g => g && g.ownerId !== me.id),
           ];
 
           if (value)
