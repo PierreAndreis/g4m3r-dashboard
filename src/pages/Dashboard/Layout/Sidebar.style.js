@@ -1,5 +1,5 @@
 import { css } from "emotion";
-import mq from "../../../global/breakpoints";
+import { mq } from "../../../util/breakpoints";
 
 export const container = css`
   position: relative;
@@ -9,7 +9,7 @@ export const container = css`
   overflow: hidden;
   width: 250px;
 
-  &:after {
+  &:before {
     content: "";
     display: block;
     position: absolute;
@@ -20,9 +20,10 @@ export const container = css`
     height: 350px;
     bottom: 0;
     left: 30px;
+    pointer-events: none;
   }
 
-  ${mq.small(
+  ${mq.large(
     css`
       height: 100%;
       position: absolute;
@@ -30,12 +31,16 @@ export const container = css`
       z-index: 2;
       transition: 0.4s;
       transition-timing-function: ease-in-out;
-      &:after {
+      &:before {
         width: 100%;
         left: 0px;
       }
     `
   )};
+
+  &.active {
+    transform: translateX(0%);
+  }
 `;
 
 export const logoContainer = css`
@@ -67,9 +72,10 @@ export const menu = css`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  z-index: 3;
 
   & > a {
+    flex-grow: 0;
+    flex-shrink: 0;
     padding: 10px;
     width: 180px;
     height: 20px;

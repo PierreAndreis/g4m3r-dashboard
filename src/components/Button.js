@@ -10,8 +10,9 @@ const ButtonBase = css`
   border: 0;
   color: white;
   border-radius: 3px;
-  /* box-shadow: 0 0 6px rgba(50, 50, 93, 0.11);*/
 
+  margin-right: 5px;
+  /* box-shadow: 0 0 6px rgba(50, 50, 93, 0.11);*/
   padding: 10px 16px;
   font-size: 14px;
   transition: all 300ms;
@@ -25,14 +26,27 @@ const ButtonBase = css`
     background: rgb(169, 169, 169);
     cursor: no-drop;
   }
+  &.active {
+    border-color: transparent;
+    color: white;
+    background-image: linear-gradient(90deg, #92d8e0 0%, #8cc7eb 100%);
+  }
 `;
 
 const ButtonSimple = css`
   background: transparent;
   border: 1px solid rgba(0, 0, 0, 0.4);
   color: #9b9b9b;
-  &:hover {
+  &:hover:not(.active) {
     background: rgba(0, 0, 0, 0.1);
+  }
+
+  &.active:hover {
+    opacity: 0.6;
+  }
+
+  &:focus:not(.active) {
+    background: rgba(0, 0, 0, 0.05);
   }
 
   &.disabled {
@@ -51,10 +65,12 @@ const ButtonSmall = css`
 `;
 
 const ButtonHover = css`
-  &:hover {
+  &:hover,
+  &:focus {
     background-color: #87b9ff;
     color: white;
   }
+
   &:active:focus {
     box-shadow: 0 0 0 0.2rem #74ebd5;
   }
@@ -62,14 +78,6 @@ const ButtonHover = css`
 
 const ButtonRound = css`
   border-radius: 17px;
-`;
-
-const ButtonActive = css`
-  border-color: transparent;
-  border-width: 0;
-  color: white;
-  background-image: linear-gradient(90deg, #92d8e0 0%, #8cc7eb 100%);
-  box-shadow: 0 0px 30px #8cc7eb;
 `;
 
 const ButtonOverlay = css`
@@ -89,7 +97,7 @@ const ButtonLoading = css`
     animation: spinner 0.6s linear infinite;
   }
   background: #7aaeff;
-  /* Color conflits with disabled */
+  /* Color conflicts with disabled */
   color: white !important;
 `;
 
@@ -117,9 +125,15 @@ export default class Button extends Component {
     }
   };
 
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.status === "success" && prevState.status !== "success") {
-      this.timeout = setTimeout(() => this.setState({ status: "normal" }), 1000);
+  componentDidUpdate(_, prevState) {
+    if (
+      (this.state.status === "success" && prevState.status !== "success") ||
+      (this.state.status === "error" && prevState.status !== "error")
+    ) {
+      this.timeout = setTimeout(
+        () => this.setState({ status: "normal" }),
+        this.state.status === "error" ? 4000 : 2000
+      );
     }
   }
 
@@ -154,9 +168,9 @@ export default class Button extends Component {
         [ButtonBig]: big,
         [ButtonSmall]: small,
         [ButtonHover]: !!onClick && !simple && !disabled,
-        [ButtonActive]: !!active,
         [ButtonRound]: rounded,
         [ButtonSimple]: simple,
+        active: !!active,
         disabled: disabled,
         [this.props.className]: !!this.props.className,
       },
@@ -164,7 +178,12 @@ export default class Button extends Component {
     );
 
     return (
-      <button className={mixedClassName} onClick={this.onClick} {...propsToInject}>
+      <button
+        className={mixedClassName}
+        disabled={disabled}
+        onClick={this.onClick}
+        {...propsToInject}
+      >
         {children}
 
         {(loading || status === "loading") && (

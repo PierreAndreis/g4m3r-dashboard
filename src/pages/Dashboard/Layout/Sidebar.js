@@ -19,7 +19,7 @@ class Sidebar extends Component {
   render() {
     const { isMenuOpen, toggleMenu } = this.props;
     return (
-      <div className={classNames(style.container, { [style.showSideBar]: isMenuOpen })}>
+      <div className={classNames(style.container, { active: isMenuOpen })}>
         <div className={style.logoContainer}>
           <div className={style.logo} />
           <h3>G4M3R</h3>
@@ -29,7 +29,7 @@ class Sidebar extends Component {
             <GenerateLink key={route.name} route={route} match={this.props.match} />
           ))}
         </div>
-        <div className={style.guildSelector}>lol</div>
+        <div className={style.guildSelector} />
       </div>
     );
   }

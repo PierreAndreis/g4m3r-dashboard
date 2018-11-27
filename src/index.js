@@ -1,3 +1,5 @@
+// import 'typename-monkey-patch';
+
 import React from "react";
 import ReactDOM from "react-dom";
 

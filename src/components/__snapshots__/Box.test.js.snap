@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Box it mounts 1`] = `
+.emotion-3 {
+  background: white;
+  width: 350px;
+  height: auto;
+  box-shadow: 0 10px 40px 0 rgba(0,0,0,0.1);
+  border-radius: 3px;
+  box-sizing: border-box;
+  margin: 5px;
+  position: relative;
+}
+
+.emotion-0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 18px;
+  color: #4a4a4a;
+  margin: 0 10px 10px;
+}
+
+.emotion-1 {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.css-nejrqv .emotion-1 > div {
+  padding: 5px 15px;
+}
+
+.emotion-2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.emotion-2 > div:nth-child(1) {
+  -webkit-flex: 1.3;
+  -ms-flex: 1.3;
+  flex: 1.3;
+  padding-right: 10px;
+}
+
+.emotion-2:nth-child(even) {
+  background: rgba(0,0,0,0.03);
+}
+
+<div
+  class="emotion-3"
+>
+  <h2
+    class="emotion-0"
+  >
+    Title!
+  </h2>
+  <div
+    class="emotion-1"
+  >
+    Body!
+  </div>
+  <div
+    class="emotion-2"
+  >
+    <div>
+      Label
+    </div>
+    <div>
+      Select
+    </div>
+  </div>
+</div>
+`;

@@ -1,14 +1,9 @@
 import React from "react";
 import { css, keyframes } from "emotion";
 
-const scaleIn = keyframes`
-  to {
-    transform: scale(1);
-  }
-`;
-
 const container = css`
   width: 400px;
+  max-width: 100%;
   height: 100px;
   position: relative;
   display: flex;
@@ -16,7 +11,7 @@ const container = css`
   justify-content: center;
 `;
 
-const Logo = css`
+export const logo = css`
   background-image: url("/images/logo.svg");
   background-size: 70%;
   background-position: center center;
@@ -28,14 +23,19 @@ const Logo = css`
   align-self: center;
 `;
 
+const scaleIn = keyframes`
+  to {
+    transform: scale(1);
+  }
+`;
 const bg = css`
   position: absolute;
-  z-index: -1;
   transform: scale(0);
   animation-name: ${scaleIn};
   animation-duration: 600ms;
   animation-timing-function: cubic-bezier(1, 0.005, 0.535, 1.005);
   animation-fill-mode: both;
+  z-index: -1;
 `;
 
 export default class LogoWithEffects extends React.Component {
@@ -483,7 +483,7 @@ export default class LogoWithEffects extends React.Component {
             <ellipse cx="139.526905" cy="96.6789333" fill="#4386FB" rx="1" ry="1" />
           </g>
         </svg>
-        <div className={Logo} />
+        <div className={logo} />
       </div>
     );
   }
