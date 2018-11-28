@@ -411,10 +411,6 @@ class GeneralEditor extends Component {
                           <Editor.Input
                             mutate="bugSolvedMessage"
                             query="guild.settings.settings.feedback.bug.solvedMessage"
-                            validate={Validation.all(
-                              Validation.isNumber(),
-                              Validation.numberMin(0)
-                            )}
                           />
                         </div>
                         <div>
@@ -428,10 +424,6 @@ class GeneralEditor extends Component {
                           <Editor.Input
                             mutate="bugDeniedMessage"
                             query="guild.settings.settings.feedback.bug.deniedMessage"
-                            validate={Validation.all(
-                              Validation.isNumber(),
-                              Validation.numberMin(0)
-                            )}
                           />
                         </div>
                         <div>
