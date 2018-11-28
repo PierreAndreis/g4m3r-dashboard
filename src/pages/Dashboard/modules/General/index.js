@@ -273,10 +273,6 @@ class GeneralEditor extends Component {
                               Validation.isNumber(),
                               Validation.numberMin(0)
                             )}
-                            validate={Validation.all(
-                              Validation.isNumber(),
-                              Validation.numberMin(0)
-                            )}
                           />
                         </div>
                         <div>
