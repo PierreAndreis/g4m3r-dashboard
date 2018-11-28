@@ -43,11 +43,9 @@ class SpecialFeatureEditor extends Component {
                   This page shows VIP features that are available to VIP servers. To become a VIP and unlock all these amazing features please become a patron.
                 </SubHeader>
               </section>
-              <br />
-              <br />
-              <br />
+
               <section>
-                <a href="https://patreon.com/g4m3r" target="_blank" rel="noopener noreferrer"><Button>Become A Patreon</Button></a>
+                <a href="https://patreon.com/g4m3r" target="_blank" rel="noopener noreferrer"><Button big>Become A Patreon</Button></a>
               </section>
             </React.Fragment>
           )
