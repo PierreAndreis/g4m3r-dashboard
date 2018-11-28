@@ -89,7 +89,9 @@ class SpecialFeatureEditor extends Component {
                 </TabsManager>
               </Editor>
             </React.Fragment>)
-        } else return (
+        }
+
+        return (
           <React.Fragment>
             <section>
               <Heading>Special Features (VIP ONLY)</Heading>
@@ -101,7 +103,7 @@ class SpecialFeatureEditor extends Component {
             <br />
             <br />
             <section>
-              <Button>Become A Patreon</Button>
+              <Button><a href="https://patreon.com/g4m3r"> Become A Patreon</a></Button>
             </section>
           </React.Fragment>
         )
