@@ -34,79 +34,79 @@ class SpecialFeatureEditor extends Component {
         if (loading) return "Loading";
         if (error) return "Error";
 
-        if (data.guild.settings.settings.vip.isVIP) {
+        if (!data.guild.settings.settings.vip.isVIP) {
           return (
             <React.Fragment>
               <section>
-                <Heading>Special Features (VIP ONLY)</Heading>
+                <Heading>Special Features</Heading>
                 <SubHeader>
-                  Thank you for supporting G4M3R. As a VIP, you have unlocked all of the following features for your server.
-                    </SubHeader>
+                  This page shows VIP features that are available to VIP servers. To become a VIP and unlock all these amazing features please become a patron.
+                </SubHeader>
               </section>
-              <Editor query={qGuildBasic} mutation={mutationQuery}>
-                <TabsManager>
-                  <TabsManager.Section name="Vainglory">
-                    <Heading2>Vainglory Guild Features</Heading2>
-                    <div className={boxesHeader}>
-                      <Box padding>
-                        <Box.Body>
-                          <Box.Option>
-                            <div>Activity Reports Channel</div>
-                            <div>
-                              <Editor.Select
-                                autoComplete
-                                values={extractChannel}
-                                query="guild.settings.settings.vip.vainglory.guildNotificationChannel"
-                                mutate="vaingloryGuildActivityChannel"
-                              />
-                            </div>
-                            <div>
-                              <HelpModal content={<HelpContent {...HelpText.vainglory.activityReportsChannel} />} />
-                            </div>
-                          </Box.Option>
-
-                          <Box.Option>
-                            <div>Max Inactive Days Allowed</div>
-                            <div>
-                              <Editor.Input
-                                mutate="vaingloryGuildMaxInactiveTime"
-                                query="guild.settings.settings.vip.vainglory.maxInactiveTime"
-                                type="number"
-                                validate={Validation.all(
-                                  Validation.isNumber(),
-                                  Validation.numberMin(1)
-                                )}
-                              />
-                            </div>
-                            <div>
-                              <HelpModal content={<HelpContent {...HelpText.vainglory.maxInactiveDays} />} />
-                            </div>
-                          </Box.Option>
-                        </Box.Body>
-                      </Box>
-                    </div>
-                  </TabsManager.Section>
-                </TabsManager>
-              </Editor>
-            </React.Fragment>)
+              <br />
+              <br />
+              <br />
+              <section>
+                <a href="https://patreon.com/g4m3r" target="_blank" rel="noopener noreferrer"><Button>Become A Patreon</Button></a>
+              </section>
+            </React.Fragment>
+          )
         }
 
         return (
           <React.Fragment>
             <section>
-              <Heading>Special Features (VIP ONLY)</Heading>
+              <Heading>Special Features</Heading>
               <SubHeader>
-                This page shows VIP features that are available to VIP servers. To become a VIP and unlock all these amazing features please become a patron.
-              </SubHeader>
+                Thank you for supporting G4M3R. As a VIP, you have unlocked all of the following features for your server.
+                  </SubHeader>
             </section>
-            <br />
-            <br />
-            <br />
-            <section>
-              <a href="https://patreon.com/g4m3r" target="_blank" rel="noopener noreferrer"><Button>Become A Patreon</Button></a>
-            </section>
-          </React.Fragment>
-        )
+            <Editor query={qGuildBasic} mutation={mutationQuery}>
+              <TabsManager>
+                <TabsManager.Section name="Vainglory">
+                  <Heading2>Vainglory Guild Features</Heading2>
+                  <div className={boxesHeader}>
+                    <Box padding>
+                      <Box.Body>
+                        <Box.Option>
+                          <div>Activity Reports Channel</div>
+                          <div>
+                            <Editor.Select
+                              autoComplete
+                              values={extractChannel}
+                              query="guild.settings.settings.vip.vainglory.guildNotificationChannel"
+                              mutate="vaingloryGuildActivityChannel"
+                            />
+                          </div>
+                          <div>
+                            <HelpModal content={<HelpContent {...HelpText.vainglory.activityReportsChannel} />} />
+                          </div>
+                        </Box.Option>
+
+                        <Box.Option>
+                          <div>Max Inactive Days Allowed</div>
+                          <div>
+                            <Editor.Input
+                              mutate="vaingloryGuildMaxInactiveTime"
+                              query="guild.settings.settings.vip.vainglory.maxInactiveTime"
+                              type="number"
+                              validate={Validation.all(
+                                Validation.isNumber(),
+                                Validation.numberMin(1)
+                              )}
+                            />
+                          </div>
+                          <div>
+                            <HelpModal content={<HelpContent {...HelpText.vainglory.maxInactiveDays} />} />
+                          </div>
+                        </Box.Option>
+                      </Box.Body>
+                    </Box>
+                  </div>
+                </TabsManager.Section>
+              </TabsManager>
+            </Editor>
+          </React.Fragment>)
       }}
     </Query>)
   }
