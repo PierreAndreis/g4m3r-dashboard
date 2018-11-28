@@ -269,6 +269,14 @@ class GeneralEditor extends Component {
                             mutate="ideaXpUp"
                             query="guild.settings.settings.feedback.idea.xpUp"
                             type="number"
+                            validate={Validation.all(
+                              Validation.isNumber(),
+                              Validation.numberMin(0)
+                            )}
+                            validate={Validation.all(
+                              Validation.isNumber(),
+                              Validation.numberMin(0)
+                            )}
                           />
                         </div>
                         <div>
@@ -283,6 +291,10 @@ class GeneralEditor extends Component {
                             mutate="ideaXpDown"
                             query="guild.settings.settings.feedback.idea.xpDown"
                             type="number"
+                            validate={Validation.all(
+                              Validation.isNumber(),
+                              Validation.numberMin(0)
+                            )}
                           />
                         </div>
                         <div>
@@ -297,6 +309,10 @@ class GeneralEditor extends Component {
                             mutate="ideaXpSolved"
                             query="guild.settings.settings.feedback.idea.xpSolved"
                             type="number"
+                            validate={Validation.all(
+                              Validation.isNumber(),
+                              Validation.numberMin(0)
+                            )}
                           />
                         </div>
                         <div>
@@ -311,6 +327,10 @@ class GeneralEditor extends Component {
                             mutate="ideaXpDenied"
                             query="guild.settings.settings.feedback.idea.xpDenied"
                             type="number"
+                            validate={Validation.all(
+                              Validation.isNumber(),
+                              Validation.numberMin(0)
+                            )}
                           />
                         </div>
                         <div>
@@ -395,6 +415,10 @@ class GeneralEditor extends Component {
                           <Editor.Input
                             mutate="bugSolvedMessage"
                             query="guild.settings.settings.feedback.bug.solvedMessage"
+                            validate={Validation.all(
+                              Validation.isNumber(),
+                              Validation.numberMin(0)
+                            )}
                           />
                         </div>
                         <div>
@@ -408,6 +432,10 @@ class GeneralEditor extends Component {
                           <Editor.Input
                             mutate="bugDeniedMessage"
                             query="guild.settings.settings.feedback.bug.deniedMessage"
+                            validate={Validation.all(
+                              Validation.isNumber(),
+                              Validation.numberMin(0)
+                            )}
                           />
                         </div>
                         <div>
@@ -422,6 +450,10 @@ class GeneralEditor extends Component {
                             mutate="bugXpUp"
                             query="guild.settings.settings.feedback.bug.xpUp"
                             type="number"
+                            validate={Validation.all(
+                              Validation.isNumber(),
+                              Validation.numberMin(0)
+                            )}
                           />
                         </div>
                         <div>
@@ -436,6 +468,10 @@ class GeneralEditor extends Component {
                             mutate="bugXpDown"
                             query="guild.settings.settings.feedback.bug.xpDown"
                             type="number"
+                            validate={Validation.all(
+                              Validation.isNumber(),
+                              Validation.numberMin(0)
+                            )}
                           />
                         </div>
                         <div>
@@ -450,6 +486,10 @@ class GeneralEditor extends Component {
                             mutate="bugXpSolved"
                             query="guild.settings.settings.feedback.bug.xpSolved"
                             type="number"
+                            validate={Validation.all(
+                              Validation.isNumber(),
+                              Validation.numberMin(0)
+                            )}
                           />
                         </div>
                         <div>
@@ -464,6 +504,10 @@ class GeneralEditor extends Component {
                             mutate="bugXpDenied"
                             query="guild.settings.settings.feedback.bug.xpDenied"
                             type="number"
+                            validate={Validation.all(
+                              Validation.isNumber(),
+                              Validation.numberMin(0)
+                            )}
                           />
                         </div>
                         <div>
