@@ -100,7 +100,9 @@ class SpecialFeatureEditor extends Component {
             <br />
             <br />
             <br />
-            <Button>Become A Patreon</Button>
+            <section>
+              <Button>Become A Patreon</Button>
+            </section>
           </React.Fragment>
         )
       }}
