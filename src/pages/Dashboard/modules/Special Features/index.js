@@ -103,7 +103,7 @@ class SpecialFeatureEditor extends Component {
             <br />
             <br />
             <section>
-              <Button><a href="https://patreon.com/g4m3r"> Become A Patreon</a></Button>
+              <Button><a href="https://patreon.com/g4m3r" target="_blank" rel="noopener noreferrer"> Become A Patreon</a></Button>
             </section>
           </React.Fragment>
         )
