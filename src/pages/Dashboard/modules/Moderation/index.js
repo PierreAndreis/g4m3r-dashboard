@@ -73,9 +73,6 @@ class ModerationEditor extends Component {
                             mutate="modlogChannel"
                           />
                         </div>
-                        <div>
-                          <HelpModal content={<HelpContent {...HelpText.basic.modLogChannel} />} />
-                        </div>
                       </Box.Option>
 
                       {modLogColors.map(log => (
@@ -86,9 +83,6 @@ class ModerationEditor extends Component {
                               mutate={log}
                               query={`guild.settings.settings.moderation.${log}`}
                             />
-                          </div>
-                          <div>
-                            <HelpModal content={<HelpContent {...HelpText.basic[log]} />} />
                           </div>
                         </Box.Option>))}
                     </Editor.CheckboxCollapse>
