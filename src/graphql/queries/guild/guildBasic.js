@@ -105,6 +105,12 @@ export default gql`
               status
               amount
             }
+            colorBan
+            colorKick
+            colorUnban
+            colorMute
+            colorUnmute
+            colorWarn
             naughtyWords {
               status
               words
