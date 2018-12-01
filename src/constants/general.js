@@ -19,22 +19,25 @@ export const generalPageToggles = [
     title: "Delete All Notifications",
     help: HelpText.basic.deleteAllNotifications,
   },
+];
+
+export const levelingToggles = [
   {
     query: "guild.settings.settings.xp.notification.server.channel",
     mutate: "xpNotificationServerChannel",
-    title: "In Channel Server Level Up Notifications",
+    title: "In Channel Server Level Up",
     help: HelpText.basic.inChannelServerLevelUpNotifications,
   },
   {
     query: "guild.settings.settings.xp.notification.server.dm",
     mutate: "xpNotificationServerDM",
-    title: "In DM Server Level Up Notifications",
+    title: "In DM Server Level Up",
     help: HelpText.basic.inDMServerLevelUpNotifications,
   },
   {
     query: "guild.settings.settings.xp.notification.global.channel",
     mutate: "xpNotificationGlobalChannel",
-    title: "In Channel Global Level Up Notifications",
+    title: "In Channel Global Level Up",
     help: HelpText.basic.inChannelGlobalLevelUpNotifications,
-  },
+  }
 ];

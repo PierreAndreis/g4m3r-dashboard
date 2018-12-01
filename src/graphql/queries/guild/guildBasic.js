@@ -278,6 +278,34 @@ export default gql`
             }
           }
         }
+        xp {
+          pointsPerMessage
+          spamFilterTime
+          commandPoints {
+            help
+            info
+            invite
+            server
+            usersettings
+            verify
+            accounts
+            background
+            events
+            games
+            kitten
+            meme
+            puppy
+            urban
+            vg
+            register
+            embed
+            feedback
+            imgur
+            role
+            giveaway
+            profile
+          }
+        }
       }
     }
   }

@@ -7,7 +7,7 @@ import { Query } from "react-apollo";
 import Editor from "../../../../components/Editor";
 import qGuildBasic from "../../../../graphql/queries/guild/guildBasic";
 import qTimezone from "../../../../graphql/queries/utils/timezone";
-import { generalPageToggles } from "../../../../constants/general";
+import { generalPageToggles, levelingToggles } from "../../../../constants/general";
 import qClientBasic from "../../../../graphql/queries/client/clientBasic";
 import { extractChannel } from "../../../../util/transformers";
 import Validation from "./../../../../global/validation";
@@ -16,6 +16,8 @@ import HelpContent from "../../../../components/HelpContent";
 import HelpModal from "../../../../components/HelpModal";
 import HelpText from "../../../../constants/help/general";
 import { Masks } from "../../../../components/InputMask";
+
+const xpCommandsForPoints = ['help', 'info', 'invite', 'server', 'usersettings', 'verify', 'accounts', 'background', 'events', 'games', 'kitten', 'meme', 'puppy', 'urban', 'vg', 'register', 'embed', 'feedback', 'imgur', 'role', 'giveaway', 'profile'];
 
 const boxesHeader = css`
   display: flex;
@@ -860,6 +862,91 @@ class GeneralEditor extends Component {
                         <HelpModal content={<HelpContent {...HelpText.stories.triggerDeletion} />} />
                       </div>
                     </Box.Option>
+                  </Box.Body>
+                </Box>
+              </div>
+            </TabsManager.Section>
+
+            <TabsManager.Section name="Leveling">
+              <div className={boxesHeader}>
+                <Box padding>
+                  <Box.Title>XP Gains</Box.Title>
+                  <Box.Body>
+                    <Box.Option>
+                      <div>Per Message</div>
+                      <div>
+                      <Editor.Input
+                          mutate="xpGainPerMessage"
+                          query="guild.settings.xp.pointsPerMessage"
+                          type="number"
+                          validate={Validation.all(
+                            Validation.isNumber(),
+                            Validation.numberMin(0)
+                          )}
+                        />
+                      </div>
+                      <div>
+                        <HelpModal content={<HelpContent {...HelpText.leveling.xpGainPerMessage} />} />
+                      </div>
+                    </Box.Option>
+                    <Box.Option>
+                      <div>Spam Filter Time</div>
+                      <div>
+                      <Editor.InputMask
+                          mask={Masks.minutesToSeconds}
+                          label="minutes"
+                          mutate="xpSpamFilterTime"
+                          type="number"
+                          query="guild.settings.xp.spamFilterTime"
+                          validate={Validation.all(
+                            Validation.isNumber(),
+                            Validation.numberMin(.1),
+                            // 24 hours
+                            Validation.numberMax(1440)
+                          )}
+                        />
+                      </div>
+                      <div>
+                        <HelpModal content={<HelpContent {...HelpText.leveling.xpSpamFilterTime} />} />
+                      </div>
+                    </Box.Option>
+                      {xpCommandsForPoints.map((command, index) => {
+                        return (
+                          <Box.Option key={index}>
+                            <div>Per {command}</div>
+                            <div>
+                            <Editor.Input
+                                mutate={`xpGainPer${command}`}
+                                query="guild.settings.xp.pointsPerMessage"
+                                type="number"
+                                validate={Validation.all(
+                                  Validation.isNumber(),
+                                  Validation.numberMin(0)
+                                )}
+                              />
+                            </div>
+                          </Box.Option>
+                        );
+                      })}
+                  </Box.Body>
+                </Box>
+
+                <Box padding>
+                <Box.Title>Level Up Notifications</Box.Title>
+                  <Box.Body>
+                    {levelingToggles.map(opt => {
+                      return (
+                        <Box.Option key={opt.title}>
+                          <div>{opt.title}</div>
+                          <div>
+                            <Editor.Checkbox query={opt.query} mutate={opt.mutate} />
+                          </div>
+                          <div>
+                            <HelpModal content={<HelpContent {...opt.help} />} />
+                          </div>
+                        </Box.Option>
+                      )
+                    })}
                   </Box.Body>
                 </Box>
               </div>

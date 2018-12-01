@@ -121,6 +121,12 @@ export default {
       text: "The idea thumbs up is the emoji that will be used for the vote supporting reaction whenever a idea/suggestion is sent with the feedback command.",
     }
   },
+  leveling: {
+		xpGainPerMessage: {
+			title: 'What is Max Mails Per Guild?',
+			text: 'Max mails per guild will set the maximum amount of mails allowed to be received at any given time on your server. Once reached, no new mails can be sent until one of them are closed.',
+		},
+	},
   tags: {
     createPermission: {
       title: "What is a Tags Create Permission?",

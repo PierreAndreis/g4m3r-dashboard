@@ -24,6 +24,16 @@ export const Masks = {
       return value * 60000;
     }
   },
+  minutesToSeconds: {
+    in: value => {
+      if (isNaN(Number(value))) return 0;
+      return value / 60;
+    },
+    out: value => {
+      if (isNaN(Number(value))) return 0;
+      return value * 60;
+    }
+  },
   hoursToMs: {
     in: value => {
       if (isNaN(Number(value))) return 0;
