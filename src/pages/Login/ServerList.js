@@ -217,17 +217,17 @@ class ServerList extends React.Component {
                     onCompleted={(data) => this.props.authentication.setToken(data.reload.token)}
                   >
                     {(reloadServers, { loading }) => (
-                      <button 
-                      className={reloadButton}
-                      disabled={loading}
-                      onClick={() => reloadServers()}
+                      <button
+                        className={reloadButton}
+                        disabled={loading}
+                        onClick={() => reloadServers()}
                       >
-                          <ReloadIcon
+                        <ReloadIcon
                           size="21px"
                           className={loading ? reloadIconLoading : reloadIcon}
                         />
                       </button>
-                      )
+                    )
                     }
                   </Mutation>
                 </div>
@@ -243,7 +243,7 @@ class ServerList extends React.Component {
                     <AddCircleIcon size={"100%"} color="grey" />
                   </div>
                   <div className="table-body fill">
-                    <h3>Add an server</h3>
+                    <h3>Add a server</h3>
                     <div className="meta">Click here to invite G4M3R to a server</div>
                   </div>
                 </a>

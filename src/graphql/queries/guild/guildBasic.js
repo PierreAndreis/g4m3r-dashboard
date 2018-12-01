@@ -50,6 +50,12 @@ export default gql`
               status
               thumbsDown
               thumbsUp
+              solvedMessage
+              deniedMessage
+              xpUp
+              xpDown
+              xpSolved
+              xpDenied
             }
             bug {
               channel
@@ -57,6 +63,12 @@ export default gql`
               status
               thumbsDown
               thumbsUp
+              solvedMessage
+              deniedMessage
+              xpUp
+              xpDown
+              xpSolved
+              xpDenied
             }
           }
           commands {

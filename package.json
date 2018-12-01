@@ -15,14 +15,14 @@
     "mobx": "4.3.1",
     "mobx-react": "^5.4.2",
     "react": "^16.6.3",
-    "react-apollo": "^2.3.1",
+    "react-apollo": "^2.3.2",
     "react-color": "^2.14.1",
     "react-dom": "^16.6.3",
     "react-emotion": "^9.2.12",
     "react-media": "^1.8.0",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.5",
-    "react-spring": "^6.1.9"
+    "react-spring": "^6.1.10"
   },
   "scripts": {
     "start": "set PORT=3001 && react-app-rewired start",
@@ -42,7 +42,7 @@
     "react-app-rewire-emotion": "^4.0.0",
     "react-app-rewire-mobx": "^1.0.9",
     "react-app-rewired": "^1.6.2",
-    "react-testing-library": "^5.3.0",
+    "react-testing-library": "^5.3.1",
     "snapshot-diff": "^0.4.1"
   }
 }

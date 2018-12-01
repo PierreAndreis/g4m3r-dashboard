@@ -235,6 +235,104 @@ class GeneralEditor extends Component {
                           <HelpModal content={<HelpContent {...HelpText.feedback.ideaThumbDown} />} />
                         </div>
                       </Box.Option>
+
+                      <Box.Option>
+                        <div>Solved Message</div>
+                        <div>
+                          <Editor.Input
+                            mutate="ideaSolvedMessage"
+                            query="guild.settings.settings.feedback.idea.solvedMessage"
+                          />
+                        </div>
+                        <div>
+                          <HelpModal content={<HelpContent {...HelpText.feedback.ideaSolvedMessage} />} />
+                        </div>
+                      </Box.Option>
+
+                      <Box.Option>
+                        <div>Denied Message</div>
+                        <div>
+                          <Editor.Input
+                            mutate="ideaDeniedMessage"
+                            query="guild.settings.settings.feedback.idea.deniedMessage"
+                          />
+                        </div>
+                        <div>
+                          <HelpModal content={<HelpContent {...HelpText.feedback.ideaDeniedMessage} />} />
+                        </div>
+                      </Box.Option>
+
+                      <Box.Option>
+                        <div>Thumbs Up XP</div>
+                        <div>
+                          <Editor.Input
+                            mutate="ideaXpUp"
+                            query="guild.settings.settings.feedback.idea.xpUp"
+                            type="number"
+                            validate={Validation.all(
+                              Validation.isNumber(),
+                              Validation.numberMin(0)
+                            )}
+                          />
+                        </div>
+                        <div>
+                          <HelpModal content={<HelpContent {...HelpText.feedback.ideaXpUp} />} />
+                        </div>
+                      </Box.Option>
+
+                      <Box.Option>
+                        <div>Thumbs Down XP</div>
+                        <div>
+                          <Editor.Input
+                            mutate="ideaXpDown"
+                            query="guild.settings.settings.feedback.idea.xpDown"
+                            type="number"
+                            validate={Validation.all(
+                              Validation.isNumber(),
+                              Validation.numberMin(0)
+                            )}
+                          />
+                        </div>
+                        <div>
+                          <HelpModal content={<HelpContent {...HelpText.feedback.ideaXpDown} />} />
+                        </div>
+                      </Box.Option>
+
+                      <Box.Option>
+                        <div>Solved XP</div>
+                        <div>
+                          <Editor.Input
+                            mutate="ideaXpSolved"
+                            query="guild.settings.settings.feedback.idea.xpSolved"
+                            type="number"
+                            validate={Validation.all(
+                              Validation.isNumber(),
+                              Validation.numberMin(0)
+                            )}
+                          />
+                        </div>
+                        <div>
+                          <HelpModal content={<HelpContent {...HelpText.feedback.ideaXpSolved} />} />
+                        </div>
+                      </Box.Option>
+
+                      <Box.Option>
+                        <div>Denied XP</div>
+                        <div>
+                          <Editor.Input
+                            mutate="ideaXpDenied"
+                            query="guild.settings.settings.feedback.idea.xpDenied"
+                            type="number"
+                            validate={Validation.all(
+                              Validation.isNumber(),
+                              Validation.numberMin(0)
+                            )}
+                          />
+                        </div>
+                        <div>
+                          <HelpModal content={<HelpContent {...HelpText.feedback.ideaXpDenied} />} />
+                        </div>
+                      </Box.Option>
                     </Editor.CheckboxCollapse>
                   </Box.Body>
                 </Box>
@@ -304,6 +402,104 @@ class GeneralEditor extends Component {
                         </div>
                         <div>
                           <HelpModal content={<HelpContent {...HelpText.feedback.bugThumbDown} />} />
+                        </div>
+                      </Box.Option>
+
+                      <Box.Option>
+                        <div>Solved Message</div>
+                        <div>
+                          <Editor.Input
+                            mutate="bugSolvedMessage"
+                            query="guild.settings.settings.feedback.bug.solvedMessage"
+                          />
+                        </div>
+                        <div>
+                          <HelpModal content={<HelpContent {...HelpText.feedback.bugSolvedMessage} />} />
+                        </div>
+                      </Box.Option>
+
+                      <Box.Option>
+                        <div>Denied Message</div>
+                        <div>
+                          <Editor.Input
+                            mutate="bugDeniedMessage"
+                            query="guild.settings.settings.feedback.bug.deniedMessage"
+                          />
+                        </div>
+                        <div>
+                          <HelpModal content={<HelpContent {...HelpText.feedback.bugDeniedMessage} />} />
+                        </div>
+                      </Box.Option>
+
+                      <Box.Option>
+                        <div>Thumbs Up XP</div>
+                        <div>
+                          <Editor.Input
+                            mutate="bugXpUp"
+                            query="guild.settings.settings.feedback.bug.xpUp"
+                            type="number"
+                            validate={Validation.all(
+                              Validation.isNumber(),
+                              Validation.numberMin(0)
+                            )}
+                          />
+                        </div>
+                        <div>
+                          <HelpModal content={<HelpContent {...HelpText.feedback.bugXpUp} />} />
+                        </div>
+                      </Box.Option>
+
+                      <Box.Option>
+                        <div>Thumbs Down XP</div>
+                        <div>
+                          <Editor.Input
+                            mutate="bugXpDown"
+                            query="guild.settings.settings.feedback.bug.xpDown"
+                            type="number"
+                            validate={Validation.all(
+                              Validation.isNumber(),
+                              Validation.numberMin(0)
+                            )}
+                          />
+                        </div>
+                        <div>
+                          <HelpModal content={<HelpContent {...HelpText.feedback.bugXpDown} />} />
+                        </div>
+                      </Box.Option>
+
+                      <Box.Option>
+                        <div>Solved XP</div>
+                        <div>
+                          <Editor.Input
+                            mutate="bugXpSolved"
+                            query="guild.settings.settings.feedback.bug.xpSolved"
+                            type="number"
+                            validate={Validation.all(
+                              Validation.isNumber(),
+                              Validation.numberMin(0)
+                            )}
+                          />
+                        </div>
+                        <div>
+                          <HelpModal content={<HelpContent {...HelpText.feedback.bugXpSolved} />} />
+                        </div>
+                      </Box.Option>
+
+                      <Box.Option>
+                        <div>Denied XP</div>
+                        <div>
+                          <Editor.Input
+                            mutate="bugXpDenied"
+                            query="guild.settings.settings.feedback.bug.xpDenied"
+                            type="number"
+                            validate={Validation.all(
+                              Validation.isNumber(),
+                              Validation.numberMin(0)
+                            )}
+                          />
+                        </div>
+                        <div>
+                          <HelpModal content={<HelpContent {...HelpText.feedback.bugXpDenied} />} />
                         </div>
                       </Box.Option>
                     </Editor.CheckboxCollapse>
