@@ -7,7 +7,7 @@
     "apollo-client": "^2.4.7",
     "classnames": "^2.2.6",
     "downshift": "^2.0.10",
-    "emotion": "^9.2.12",
+    "emotion": "^10.0.2",
     "graphql": "^14.0.2",
     "graphql-tag": "^2.10.0",
     "jest-dom": "^2.1.1",
