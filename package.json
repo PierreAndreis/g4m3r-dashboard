@@ -36,7 +36,7 @@
     "extends": "react-app"
   },
   "devDependencies": {
-    "babel-plugin-emotion": "^10.0.2",
+    "babel-plugin-emotion": "^10.0.4",
     "jest-emotion": "^9.2.11",
     "jest-junit": "^5.2.0",
     "react-app-rewire-emotion": "^4.0.0",
