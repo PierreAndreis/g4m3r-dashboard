@@ -1,7 +1,8 @@
 import React from "react";
 import SettingsIcon from "mdi-react/SettingsIcon";
 // import AppleKeyboardCommandIcon from "mdi-react/AppleKeyboardCommandIcon";
-import { StarIcon, FlashIcon } from "mdi-react";
+import FlashIcon from "mdi-react/FlashIcon";
+import StarIcon from "mdi-react/StarIcon";
 import { Route, Switch } from "react-router-dom";
 import General from "./modules/General";
 // import Commands from "./modules/Commands";

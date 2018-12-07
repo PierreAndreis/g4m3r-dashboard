@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { css } from "emotion";
 import classNames from "classnames";
-import { LoadingIcon, AlertIcon, CheckIcon } from "mdi-react";
+import AlertIcon from "mdi-react/AlertIcon";
+import LoadingIcon from "mdi-react/LoadingIcon";
+import CheckIcon from "mdi-react/CheckIcon";
 
 const ButtonBase = css`
   position: relative;
