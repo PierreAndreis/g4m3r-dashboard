@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { AlertBoxIcon } from "mdi-react";
+import AlertBoxIcon from "mdi-react/AlertBoxIcon";
 import { css, cx } from "emotion";
 
 import Button from "./Button";
