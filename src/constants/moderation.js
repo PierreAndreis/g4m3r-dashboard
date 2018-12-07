@@ -2,14 +2,6 @@ import HelpText from "./help/moderation";
 
 export const mainLogs = [
   {
-    name: "Mod Logs",
-    query: "guild.settings.settings.moderation.channel",
-    mutate: "modlogChannel",
-    checkboxMutate: "modlogStatus",
-    checkboxQuery: "guild.settings.settings.moderation.status",
-    help: HelpText.basic.modLogs,
-  },
-  {
     name: "Public Logs",
     query: "guild.settings.settings.moderation.publicModlogChannel",
     mutate: "publiclogChannel",

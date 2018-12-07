@@ -19,6 +19,9 @@ import HelpContent from "../../../../components/HelpContent";
 import TabsManager from "../../../../components/Tabs";
 import HelpText from "../../../../constants/help/moderation";
 
+
+const modLogColors = ["colorBan", "colorKick", "colorUnban", "colorWarn", "colorMute", "colorUnmute"];
+
 const boxesHeader = css`
   display: flex;
   flex-wrap: wrap;
@@ -48,6 +51,43 @@ class ModerationEditor extends Component {
           <TabsManager>
             <TabsManager.Section name="Basic">
               <div className={boxesHeader}>
+                <Box padding>
+                  <Box.Body>
+                    <Editor.CheckboxCollapse
+                      label={
+                        <Box.Title>
+                          Moderation Logs
+                          {HelpText.basic.modLogs && <HelpModal content={<HelpContent {...HelpText.basic.modLogs} />} />}
+                        </Box.Title>
+                      }
+                      query="guild.settings.settings.moderation.status"
+                      mutate="modlogStatus"
+                    >
+                      <Box.Option>
+                        <div>Channel</div>
+                        <div>
+                          <Editor.Select
+                            autoComplete
+                            values={extractChannel}
+                            query="guild.settings.settings.moderation.channel"
+                            mutate="modlogChannel"
+                          />
+                        </div>
+                      </Box.Option>
+
+                      {modLogColors.map(log => (
+                        <Box.Option>
+                          <div>{log.substring(5)} Color</div>
+                          <div>
+                            <Editor.ColorPicker
+                              mutate={log}
+                              query={`guild.settings.settings.moderation.${log}`}
+                            />
+                          </div>
+                        </Box.Option>))}
+                    </Editor.CheckboxCollapse>
+                  </Box.Body>
+                </Box>
                 {mainLogs.map(log => (
                   <Box padding key={log.name}>
                     <Box.Body>
