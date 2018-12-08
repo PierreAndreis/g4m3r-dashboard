@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { css } from "emotion";
 import { Heading, SubHeader } from "../../../../components/Typography";
 import mutationQuery from "../../../../graphql/queries/mutations/moderation";
