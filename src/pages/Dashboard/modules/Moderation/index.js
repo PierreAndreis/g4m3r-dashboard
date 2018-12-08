@@ -1,26 +1,17 @@
 import React, { Component } from "react";
 import { css } from "emotion";
 import { Heading, SubHeader } from "../../../../components/Typography";
-import Box from "../../../../components/Box";
 import mutationQuery from "../../../../graphql/queries/mutations/moderation";
-import { Query } from "react-apollo";
 import Editor from "../../../../components/Editor";
 import qGuildBasic from "../../../../graphql/queries/guild/guildBasic";
-import qClientBasic from "../../../../graphql/queries/client/clientBasic";
-import {
-  mainLogs,
-  serverLogs,
-  modFeatureToggles,
-} from "../../../../constants/moderation";
-import { extractChannel, extractRoles } from "../../../../util/transformers";
-import Validation from "./../../../../global/validation";
-import HelpModal from "../../../../components/HelpModal";
-import HelpContent from "../../../../components/HelpContent";
 import TabsManager from "../../../../components/Tabs";
-import HelpText from "../../../../constants/help/moderation";
 
-
-const modLogColors = ["colorBan", "colorKick", "colorUnban", "colorWarn", "colorMute", "colorUnmute"];
+import ModerationBasic from "./Basic";
+import ModerationServerLogs from "./ServerLogs";
+import ModerationMute from "./Mute";
+import ModerationMails from "./Mails";
+import ModerationAutoMod from "./AutoMod";
+import ModerationVerify from "./Verify";
 
 const boxesHeader = css`
   display: flex;
@@ -51,477 +42,36 @@ class ModerationEditor extends Component {
           <TabsManager>
             <TabsManager.Section name="Basic">
               <div className={boxesHeader}>
-                <Box padding>
-                  <Box.Body>
-                    <Editor.CheckboxCollapse
-                      label={
-                        <Box.Title>
-                          Moderation Logs
-                          {HelpText.basic.modLogs && <HelpModal content={<HelpContent {...HelpText.basic.modLogs} />} />}
-                        </Box.Title>
-                      }
-                      query="guild.settings.settings.moderation.status"
-                      mutate="modlogStatus"
-                    >
-                      <Box.Option>
-                        <div>Channel</div>
-                        <div>
-                          <Editor.Select
-                            autoComplete
-                            values={extractChannel}
-                            query="guild.settings.settings.moderation.channel"
-                            mutate="modlogChannel"
-                          />
-                        </div>
-                      </Box.Option>
-
-                      {modLogColors.map(log => (
-                        <Box.Option>
-                          <div>{log.substring(5)} Color</div>
-                          <div>
-                            <Editor.ColorPicker
-                              mutate={log}
-                              query={`guild.settings.settings.moderation.${log}`}
-                            />
-                          </div>
-                        </Box.Option>))}
-                    </Editor.CheckboxCollapse>
-                  </Box.Body>
-                </Box>
-                {mainLogs.map(log => (
-                  <Box padding key={log.name}>
-                    <Box.Body>
-                      <Editor.CheckboxCollapse
-                        label={
-                          <Box.Title>
-                            {log.name}
-                            {log.help && <HelpModal content={<HelpContent {...log.help} />} />}
-                          </Box.Title>
-                        }
-                        query={log.checkboxQuery}
-                        mutate={log.checkboxMutate}
-                      >
-                        <Box.Option>
-                          <div>Channel</div>
-                          <div>
-                            <Editor.Select
-                              autoComplete
-                              values={extractChannel}
-                              query={log.query}
-                              mutate={log.mutate}
-                            />
-                          </div>
-                        </Box.Option>
-                      </Editor.CheckboxCollapse>
-                    </Box.Body>
-                  </Box>
-                ))}
-
-                <Box padding>
-                  <Box.Title>Moderation Feature Toggles</Box.Title>
-                  <Box.Body>
-                    {modFeatureToggles.map(({ children, help, ...opt }, index) => {
-                      return (
-                        <Box.Option key={index}>
-                          <div>{children}</div>
-                          <div>
-                            <Editor.Checkbox {...opt} />
-                          </div>
-                          <div>
-                            <HelpModal content={<HelpContent {...help} />} />
-                          </div>
-                        </Box.Option>
-                      );
-                    })}
-                  </Box.Body>
-                </Box>
+                <ModerationBasic />
               </div>
             </TabsManager.Section>
             <TabsManager.Section name="Server Logs">
               <div className={boxesHeader}>
-                {serverLogs.map((opt, index) => {
-                  return (
-                    <Box padding key={index}>
-                      <Box.Body>
-                        <Editor.CheckboxCollapse
-                          label={
-                            <Box.Title>
-                              {opt.name}
-                              {opt.help && <HelpModal content={<HelpContent {...opt.help} />} />}
-                            </Box.Title>
-                          }
-                          query={`guild.settings.settings.serverLogs.${
-                            opt.mutate
-                            }.status`}
-                          mutate={`${opt.mutate}Status`}
-                        >
-                          <Box.Option>
-                            <div>Log Publically</div>
-                            <div>
-                              <Editor.Checkbox
-                                query={`guild.settings.settings.serverLogs.${
-                                  opt.mutate
-                                  }.logPublically`}
-                                mutate={`${opt.mutate}LogPublically`}
-                              />
-                            </div>
-                          </Box.Option>
-
-                          <Box.Option>
-                            <div>Channel</div>
-                            <div>
-                              <Editor.Select
-                                autoComplete
-                                values={extractChannel}
-                                mutate={`${opt.mutate}Channel`}
-                                query={opt.query}
-                              />
-                            </div>
-                          </Box.Option>
-                        </Editor.CheckboxCollapse>
-                      </Box.Body>
-                    </Box>
-                  );
-                })}
+                <ModerationServerLogs />
               </div>
             </TabsManager.Section>
-            {/*
-            <TabsManager.Section name="Mod Values">
-              <Heading2>Moderation Values</Heading2>
-              <div className={boxesHeader}>
-                <Box padding>
-                  {makeInputSettings({
-                    title: "Max Warnings",
-                    query: "guild.settings.settings.moderation.maxNoWarnings",
-                    mutate: "maxNoWarnings",
-                    type: "number",
-                  })}
-
-                  {channelOrRoleSelector({
-                    isChannel: false,
-                    type: "Max Warnings",
-                    mutateString: "defaultMaxWarningsRole",
-                    query: "guild.settings.settings.moderation.defaultMaxWarningsRole",
-                    guildId,
-                  })}
-                </Box>
-
-                <Box padding>
-                  {makeInputSettings({
-                    title: "Max Inactive Time",
-                    query: "guild.settings.settings.moderation.maxInactivityTime",
-                    mutate: "maxInactivityTime",
-                    type: "number",
-                  })}
-
-                  {channelOrRoleSelector({
-                    isChannel: false,
-                    type: "Inactive",
-                    mutateString: "defaultInactivityRole",
-                    query: "guild.settings.settings.moderation.defaultInactivityRole",
-                    guildId,
-                  })}
-                </Box>
-              </div>
-                </TabsManager.Section>*/}
+            
             <TabsManager.Section name="Mute Module">
               <div className={boxesHeader}>
-                <Box padding>
-                  <Box.Body>
-                    <Box.Option>
-                      <div>Text Muted Role</div>
-                      <div>
-                        <Editor.Select
-                          autoComplete
-                          values={extractRoles}
-                          mutate="muteRoleText"
-                          query="guild.settings.settings.moderation.mutedRoles.text"
-                        />
-                      </div>
-                      <div>
-                        <HelpModal content={<HelpContent {...HelpText.muted.textMutedRole} />} />
-                      </div>
-                    </Box.Option>
-                    <Box.Option>
-                      <div>Voice Muted Role</div>
-                      <div>
-                        <Editor.Select
-                          autoComplete
-                          values={extractRoles}
-                          mutate="muteRoleVoice"
-                          query="guild.settings.settings.moderation.mutedRoles.voice"
-                        />
-                      </div>
-                      <div>
-                        <HelpModal content={<HelpContent {...HelpText.muted.voiceMutedRole} />} />
-                      </div>
-                    </Box.Option>
-                  </Box.Body>
-                </Box>
+                <ModerationMute />
               </div>
             </TabsManager.Section>
 
             <TabsManager.Section name="Mod Mails">
               <div className={boxesHeader}>
-                <Box padding>
-                  <Box.Body>
-                    <Editor.CheckboxCollapse
-                      label={
-                        <Box.Title>
-                          Mod Mails Status{" "}
-                          {<HelpModal content={<HelpContent {...HelpText.modmail.status} />} />}
-                        </Box.Title>
-                      }
-                      query="guild.settings.settings.mail.activated"
-                      mutate="modMailStatus"
-                    >
-                      <Box.Option>
-                        <div>Permission To Reply</div>
-                        <div>
-                          <Query
-                            query={qClientBasic}
-                            variables={{ clientId: process.env.REACT_APP_CLIENT_ID }}
-                          >
-                            {({ loading, error, data }) => {
-                              if (loading) return "Loading";
-                              if (error) return "Error";
-                              const values = data.client.settings.permissionLevels.map(
-                                perm => ({
-                                  key: perm.id,
-                                  value: perm.value,
-                                })
-                              );
-
-                              return (
-                                <Editor.Select
-                                  values={values}
-                                  mutate="permissionToReply"
-                                  query="guild.settings.settings.mail.permissionToReply"
-                                />
-                              );
-                            }}
-                          </Query>
-                        </div>
-                        <div>
-                          <HelpModal content={<HelpContent {...HelpText.modmail.permissionToReply} />} />
-                        </div>
-                      </Box.Option>
-
-                      <Box.Option>
-                        <div>Max Mails Per Guild</div>
-                        <div>
-                          <Editor.Input
-                            query="guild.settings.settings.mail.maxMailsTotal"
-                            mutate="maxMailsTotal"
-                            type="number"
-                            validate={Validation.all(
-                              Validation.isNumber(),
-                              Validation.numberMin(10),
-                              Validation.numberMax(50)
-                            )}
-                          />
-                        </div>
-                        <div>
-                          <HelpModal content={<HelpContent {...HelpText.modmail.maxPerGuild} />} />
-                        </div>
-                      </Box.Option>
-
-                      <Box.Option>
-                        <div>Max Mails Per User</div>
-                        <div>
-                          <Editor.Input
-                            query="guild.settings.settings.mail.maxMailPerUser"
-                            mutate="maxMailPerUser"
-                            type="number"
-                            validate={Validation.all(
-                              Validation.isNumber(),
-                              Validation.numberMin(1),
-                              Validation.numberMax(5)
-                            )}
-                          />
-                        </div>
-                        <div>
-                          <HelpModal content={<HelpContent {...HelpText.modmail.maxPerUser} />} />
-                        </div>
-                      </Box.Option>
-                    </Editor.CheckboxCollapse>
-                  </Box.Body>
-                </Box>
+                <ModerationMails />
               </div>
             </TabsManager.Section>
 
             <TabsManager.Section name="Auto-Mod">
               <div className={boxesHeader}>
-                <Box padding>
-                  <Box.Body>
-                    <Box.Option>
-                      <div>Auto-Assign Role</div>
-                      <div>
-                        <Editor.Select
-                          autoComplete
-                          values={extractRoles}
-                          mutate="mainRole"
-                          query="guild.settings.settings.autoAssignRoles.mainRole"
-                        />
-                      </div>
-                      <div>
-                        <HelpModal content={<HelpContent {...HelpText.automod.autoAssignRole} />} />
-                      </div>
-                    </Box.Option>
-
-                    <Box.Option>
-                      <div>AFK Responses Permission</div>
-                      <div>
-                        <Query
-                          query={qClientBasic}
-                          variables={{ clientId: process.env.REACT_APP_CLIENT_ID }}
-                        >
-                          {({ loading, error, data }) => {
-                            if (loading) return "Loading";
-                            if (error) return "Error";
-                            const values = data.client.settings.permissionLevels.map(
-                              perm => ({
-                                key: perm.id,
-                                value: perm.value,
-                              })
-                            );
-                            console.log("perms levels", data);
-                            return (
-                              <Editor.Select
-                                values={values}
-                                mutate="allowAfkResponses"
-                                query="guild.settings.settings.allowAfkResponses"
-                              />
-                            );
-                          }}
-                        </Query>
-                      </div>
-                      <div>
-                        <HelpModal content={<HelpContent {...HelpText.automod.afkResponsePermission} />} />
-                      </div>
-                    </Box.Option>
-                  </Box.Body>
-                </Box>
-
-                <Box padding>
-                  <Box.Body>
-                    <Editor.CheckboxCollapse
-                      label={
-                        <Box.Title>
-                          Capital Spam Filter Status
-                          {<HelpModal content={<HelpContent {...HelpText.automod.capitalSpamFilterStatus} />} />}
-                        </Box.Title>
-                      }
-                      query="guild.settings.settings.moderation.capitalPercentage.status"
-                      mutate="capitalPercentageStatus"
-                    >
-                      <Box.Option>
-                        <div>Max Allowed Percentage</div>
-                        <div>
-                          <Editor.Input
-                            query="guild.settings.settings.moderation.capitalPercentage.amount"
-                            mutate="capitalPercentageAmount"
-                            type="number"
-                            validate={Validation.all(
-                              Validation.isNumber(),
-                              Validation.numberMin(60),
-                              Validation.numberMax(100)
-                            )}
-                          />
-                        </div>
-                        <div>
-                          <HelpModal content={<HelpContent {...HelpText.automod.capitalSpamFilterMaxAllowedPercentage} />} />
-                        </div>
-                      </Box.Option>
-                    </Editor.CheckboxCollapse>
-                  </Box.Body>
-                </Box>
-
-                <Box padding>
-                  <Box.Body>
-                    <Editor.CheckboxCollapse
-                      label={
-                        <Box.Title>
-                          Banned Word Filter Status
-                          {<HelpModal content={<HelpContent {...HelpText.automod.bannedWordFilterSTatus} />} />}
-                        </Box.Title>
-                      }
-                      query="guild.settings.settings.moderation.naughtyWords.status"
-                      mutate="naughtyWordStatus"
-                    >
-                      {/*<Box.Option>
-                        <div>Naughty Words</div>
-                        <div>
-                          <Editor.Input
-                            query="guild.settings.settings.moderation.naughtyWords.words"
-                            mutate="naughtyWordWords"
-                            type="string"
-                          />
-                        </div>
-                      </Box.Option>*/}
-                    </Editor.CheckboxCollapse>
-                  </Box.Body>
-                </Box>
+                <ModerationAutoMod />
               </div>
             </TabsManager.Section>
 
             <TabsManager.Section name="Verification">
               <div className={boxesHeader}>
-                <Box padding>
-                  <Box.Body>
-                    <Editor.CheckboxCollapse
-                      label={
-                        <Box.Title>
-                          Verification System Status
-                          {<HelpModal content={<HelpContent {...HelpText.verification.systemStatus} />} />}
-                        </Box.Title>
-                      }
-                      query="guild.settings.settings.verify.status"
-                      mutate="verifyStatus"
-                    >
-                      <Box.Option>
-                        <div>Category Channel</div>
-                        <div>
-                          <Editor.Select
-                            autoComplete
-                            values={extractChannel}
-                            mutate="verifyCategory"
-                            query="guild.settings.settings.verify.category"
-                          />
-                        </div>
-                        <div>
-                          <HelpModal content={<HelpContent {...HelpText.verification.category} />} />
-                        </div>
-                      </Box.Option>
-
-                      {/*<Box.Option>
-                        <div>First Message</div>
-                        <div>
-                          <Editor.Input
-                            mutate="verifyFirst"
-                            query="guild.settings.settings.verify.first"
-                            type="string"
-                          />
-                        </div>
-                      </Box.Option>*/}
-
-                      <Box.Option>
-                        <div>Verification Role</div>
-                        <div>
-                          <Editor.Select
-                            autoComplete
-                            values={extractRoles}
-                            mutate="verifyRole"
-                            query="guild.settings.settings.verify.role"
-                          />
-                        </div>
-                        <div>
-                          <HelpModal content={<HelpContent {...HelpText.verification.role} />} />
-                        </div>
-                      </Box.Option>
-                    </Editor.CheckboxCollapse>
-                  </Box.Body>
-                </Box>
+                <ModerationVerify />
               </div>
             </TabsManager.Section>
           </TabsManager>
