@@ -5,6 +5,7 @@ import { Transition, animated } from "react-spring";
 import { BoxBase, BoxPadding } from "./Box";
 import Portal from "./Portal";
 import { mq } from "../util/breakpoints";
+import classNames from "classnames";
 
 const modal = css`
   position: absolute;
@@ -29,14 +30,11 @@ const backdrop = css`
 `;
 
 const modalContent = css`
-  ${BoxBase};
-  ${BoxPadding};
   width: auto;
   height: auto;
   max-height: 90%;
   max-width: 800px;
   padding-bottom: 20px;
-  overflow-y: auto;
 
   ${mq.medium(css`
     width: 100%;
@@ -44,6 +42,11 @@ const modalContent = css`
     max-height: 80%;
     border-radius: 0;
   `)};
+
+  &.boxed {
+    ${BoxBase}
+    ${BoxPadding}
+  }
 `;
 
 const modalClose = css`
@@ -117,7 +120,7 @@ class Modal extends React.Component {
                   &times;
                 </span>
                 <animated.div
-                  className={modalContent}
+                  className={classNames(modalContent, { boxed: !this.props.noBox })}
                   style={styles}
                   onClick={this.onBodyClick}
                 >

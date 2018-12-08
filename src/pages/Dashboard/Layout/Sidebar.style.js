@@ -27,7 +27,7 @@ export const container = css`
     css`
       height: 100%;
       position: absolute;
-      z-index: 2;
+      top: 0;
       &:before {
         width: 100%;
         left: 0px;
@@ -38,6 +38,10 @@ export const container = css`
 
 export const logoContainer = css`
   margin: 80px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   align-self: center;
 
   & > h3 {
@@ -54,8 +58,8 @@ export const logo = css`
   background-position: center center;
   background-repeat: no-repeat;
   background-color: white;
-  width: 100px;
-  height: 100px;
+  width: 68px;
+  height: 68px;
   border-radius: 100%;
 `;
 
@@ -98,11 +102,8 @@ export const menu = css`
 
 export const guildSelector = css`
   width: 100%;
-  height: 80px;
   margin-bottom: 15px;
   position: relative;
-  z-index: 2;
-  display: flex;
 `;
 
 export const showSideBar = css`

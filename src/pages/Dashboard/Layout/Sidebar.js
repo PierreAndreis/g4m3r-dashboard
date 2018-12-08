@@ -4,6 +4,7 @@ import { router } from "../router";
 
 import * as style from "./Sidebar.style";
 import { animated, Keyframes, Transition } from "react-spring";
+import GuildSelector from "./GuildSelector";
 
 const GenerateLink = ({ match, route }) => (
   <NavLink
@@ -38,6 +39,9 @@ class Sidebar extends Component {
                   <div className={style.logoContainer}>
                     <div className={style.logo} />
                     <h3>G4M3R</h3>
+                    <div className={style.guildSelector}>
+                      <GuildSelector />
+                    </div>
                   </div>
                   <div className={style.menu} onClick={toggleMenu}>
                     <MenuAnimation
@@ -59,7 +63,6 @@ class Sidebar extends Component {
                       )}
                     </MenuAnimation>
                   </div>
-                  <div className={style.guildSelector} />
                 </animated.div>
               )
             : null

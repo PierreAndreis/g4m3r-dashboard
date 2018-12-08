@@ -25,6 +25,7 @@ const AnimatedLink = animated(Link);
 const container = css`
   ${BoxBase};
   width: 100%;
+  margin: 0;
   height: auto;
 
   align-self: flex-start;
@@ -179,6 +180,12 @@ class ServerList extends React.Component {
     });
   };
 
+  onClickLink = () => {
+    if (typeof this.props.onSelect === "function") {
+      this.props.onSelect();
+    }
+  };
+
   render() {
     const { value } = this.state;
 
@@ -276,7 +283,11 @@ class ServerList extends React.Component {
                   to={{ opacity: 1, transform: "translate3d(0px,0,0)" }}
                 >
                   {guild => style => (
-                    <AnimatedLink to={`/g/${guild.id}`} style={style}>
+                    <AnimatedLink
+                      to={`/g/${guild.id}`}
+                      style={style}
+                      onClick={this.onClickLink}
+                    >
                       <div className="table-media">
                         <img
                           src={
