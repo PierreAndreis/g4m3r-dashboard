@@ -51,6 +51,7 @@ class InputMask extends React.Component {
         // The order here matters. value and onChange can't be overwritten
         value={this.props.mask.in(this.props.value)}
         onChange={this.onChange}
+        placeholder={this.props.mask.in(this.props.placeholder)}
       />
     );
   }

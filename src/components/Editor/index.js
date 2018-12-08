@@ -84,7 +84,7 @@ class WrapperEditorForGraphQL extends React.Component {
     </StagerContext.Consumer>
   );
 
-  static InputMask = ({ mutate, query, validate, mask, ...otherProps }) => (
+  static InputMask = ({ mutate, query, validate, ...otherProps }) => (
     <StagerContext.Consumer>
       {state => {
         const errorMessage = state.validationErrors.get(mutate);
@@ -92,7 +92,7 @@ class WrapperEditorForGraphQL extends React.Component {
         return (
           <InputMask
             value={getEditedValue({ mutate, query }, state)}
-            placeholder={mask.in(getPlaceholder({ mutate, query }, state))}
+            placeholder={getPlaceholder({ mutate, query }, state)}
             onChange={value => {
               state.onChange(mutate)(value);
               if (typeof validate === "function") {
@@ -102,7 +102,6 @@ class WrapperEditorForGraphQL extends React.Component {
             }}
             // todo, find how to create an error message
             errorMessage={errorMessage}
-            mask={mask}
             {...otherProps}
           />
         );
