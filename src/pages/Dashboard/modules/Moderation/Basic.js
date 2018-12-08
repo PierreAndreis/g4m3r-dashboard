@@ -7,9 +7,16 @@ import HelpModal from "../../../../components/HelpModal";
 import HelpContent from "../../../../components/HelpContent";
 import HelpText from "../../../../constants/help/moderation";
 
-const modLogColors = ["colorBan", "colorKick", "colorUnban", "colorWarn", "colorMute", "colorUnmute"];
+const modLogColors = [
+  "colorBan",
+  "colorKick",
+  "colorUnban",
+  "colorWarn",
+  "colorMute",
+  "colorUnmute",
+];
 
-export default () => (
+export default React.memo(() => (
   <React.Fragment>
     <Box padding>
       <Box.Body>
@@ -17,7 +24,9 @@ export default () => (
           label={
             <Box.Title>
               Moderation Logs
-                          {HelpText.basic.modLogs && <HelpModal content={<HelpContent {...HelpText.basic.modLogs} />} />}
+              {HelpText.basic.modLogs && (
+                <HelpModal content={<HelpContent {...HelpText.basic.modLogs} />} />
+              )}
             </Box.Title>
           }
           query="guild.settings.settings.moderation.status"
@@ -44,40 +53,39 @@ export default () => (
                   query={`guild.settings.settings.moderation.${log}`}
                 />
               </div>
-            </Box.Option>))}
+            </Box.Option>
+          ))}
         </Editor.CheckboxCollapse>
       </Box.Body>
     </Box>
-    {
-      mainLogs.map(log => (
-        <Box padding key={log.name}>
-          <Box.Body>
-            <Editor.CheckboxCollapse
-              label={
-                <Box.Title>
-                  {log.name}
-                  {log.help && <HelpModal content={<HelpContent {...log.help} />} />}
-                </Box.Title>
-              }
-              query={log.checkboxQuery}
-              mutate={log.checkboxMutate}
-            >
-              <Box.Option>
-                <div>Channel</div>
-                <div>
-                  <Editor.Select
-                    autoComplete
-                    values={extractChannel}
-                    query={log.query}
-                    mutate={log.mutate}
-                  />
-                </div>
-              </Box.Option>
-            </Editor.CheckboxCollapse>
-          </Box.Body>
-        </Box>
-      ))
-    }
+    {mainLogs.map(log => (
+      <Box padding key={log.name}>
+        <Box.Body>
+          <Editor.CheckboxCollapse
+            label={
+              <Box.Title>
+                {log.name}
+                {log.help && <HelpModal content={<HelpContent {...log.help} />} />}
+              </Box.Title>
+            }
+            query={log.checkboxQuery}
+            mutate={log.checkboxMutate}
+          >
+            <Box.Option>
+              <div>Channel</div>
+              <div>
+                <Editor.Select
+                  autoComplete
+                  values={extractChannel}
+                  query={log.query}
+                  mutate={log.mutate}
+                />
+              </div>
+            </Box.Option>
+          </Editor.CheckboxCollapse>
+        </Box.Body>
+      </Box>
+    ))}
 
     <Box padding>
       <Box.Title>Moderation Feature Toggles</Box.Title>
@@ -98,4 +106,4 @@ export default () => (
       </Box.Body>
     </Box>
   </React.Fragment>
-);
+));

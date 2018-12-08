@@ -23,62 +23,58 @@ const boxesHeader = css`
   }
 `;
 
-class ModerationEditor extends Component {
-  render() {
-    return (
-      <React.Fragment>
-        <section>
-          <Heading>Moderation</Heading>
-          <SubHeader>
-            Our bots moderation tools help run Official gaming servers for servers like
-            Arena of Valor Official Discord Server.
-            <br />
-            Learning to master the moderation tools on G4M3R, can make your server just as
-            amazing!
-          </SubHeader>
-        </section>
+export default () => {
+  return (
+    <React.Fragment>
+      <section>
+        <Heading>Moderation</Heading>
+        <SubHeader>
+          Our bots moderation tools help run Official gaming servers for servers like
+          Arena of Valor Official Discord Server.
+          <br />
+          Learning to master the moderation tools on G4M3R, can make your server just as
+          amazing!
+        </SubHeader>
+      </section>
 
-        <Editor query={qGuildBasic} mutation={mutationQuery}>
-          <TabsManager>
-            <TabsManager.Section name="Basic">
-              <div className={boxesHeader}>
-                <ModerationBasic />
-              </div>
-            </TabsManager.Section>
-            <TabsManager.Section name="Server Logs">
-              <div className={boxesHeader}>
-                <ModerationServerLogs />
-              </div>
-            </TabsManager.Section>
-            
-            <TabsManager.Section name="Mute Module">
-              <div className={boxesHeader}>
-                <ModerationMute />
-              </div>
-            </TabsManager.Section>
+      <Editor query={qGuildBasic} mutation={mutationQuery}>
+        <TabsManager>
+          <TabsManager.Section name="Basic">
+            <div className={boxesHeader}>
+              <ModerationBasic />
+            </div>
+          </TabsManager.Section>
+          <TabsManager.Section name="Server Logs">
+            <div className={boxesHeader}>
+              <ModerationServerLogs />
+            </div>
+          </TabsManager.Section>
 
-            <TabsManager.Section name="Mod Mails">
-              <div className={boxesHeader}>
-                <ModerationMails />
-              </div>
-            </TabsManager.Section>
+          <TabsManager.Section name="Mute Module">
+            <div className={boxesHeader}>
+              <ModerationMute />
+            </div>
+          </TabsManager.Section>
 
-            <TabsManager.Section name="Auto-Mod">
-              <div className={boxesHeader}>
-                <ModerationAutoMod />
-              </div>
-            </TabsManager.Section>
+          <TabsManager.Section name="Mod Mails">
+            <div className={boxesHeader}>
+              <ModerationMails />
+            </div>
+          </TabsManager.Section>
 
-            <TabsManager.Section name="Verification">
-              <div className={boxesHeader}>
-                <ModerationVerify />
-              </div>
-            </TabsManager.Section>
-          </TabsManager>
-        </Editor>
-      </React.Fragment>
-    );
-  }
-}
+          <TabsManager.Section name="Auto-Mod">
+            <div className={boxesHeader}>
+              <ModerationAutoMod />
+            </div>
+          </TabsManager.Section>
 
-export default ModerationEditor;
+          <TabsManager.Section name="Verification">
+            <div className={boxesHeader}>
+              <ModerationVerify />
+            </div>
+          </TabsManager.Section>
+        </TabsManager>
+      </Editor>
+    </React.Fragment>
+  );
+};

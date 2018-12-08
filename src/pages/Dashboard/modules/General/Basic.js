@@ -18,7 +18,7 @@ const cleanUpTimezone = timezones =>
     value: timezone,
   }));
 
-export default () => (
+export default React.memo(() => (
   <React.Fragment>
     <Box padding>
       <Box.Title>Server Configuration</Box.Title>
@@ -132,4 +132,4 @@ export default () => (
       </Box.Body>
     </Box>
   </React.Fragment>
-);
+));

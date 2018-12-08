@@ -7,7 +7,7 @@ import HelpText from "../../../../constants/help/general";
 import Validation from "../../../../global/validation";
 import { extractChannel } from "../../../../util/transformers";
 
-export default () => (
+export default React.memo(() => (
   <React.Fragment>
     <Box padding>
       <Box.Body>
@@ -15,9 +15,7 @@ export default () => (
           label={
             <Box.Title>
               Ideas Status
-                        <HelpModal
-                content={<HelpContent {...HelpText.feedback.ideaStatus} />}
-              />
+              <HelpModal content={<HelpContent {...HelpText.feedback.ideaStatus} />} />
             </Box.Title>
           }
           query="guild.settings.settings.feedback.idea.status"
@@ -34,9 +32,7 @@ export default () => (
               />
             </div>
             <div>
-              <HelpModal
-                content={<HelpContent {...HelpText.feedback.ideaChannel} />}
-              />
+              <HelpModal content={<HelpContent {...HelpText.feedback.ideaChannel} />} />
             </div>
           </Box.Option>
 
@@ -49,9 +45,7 @@ export default () => (
               />
             </div>
             <div>
-              <HelpModal
-                content={<HelpContent {...HelpText.feedback.ideaColor} />}
-              />
+              <HelpModal content={<HelpContent {...HelpText.feedback.ideaColor} />} />
             </div>
           </Box.Option>
 
@@ -65,9 +59,7 @@ export default () => (
               />
             </div>
             <div>
-              <HelpModal
-                content={<HelpContent {...HelpText.feedback.ideaThumbUp} />}
-              />
+              <HelpModal content={<HelpContent {...HelpText.feedback.ideaThumbUp} />} />
             </div>
           </Box.Option>
 
@@ -81,9 +73,7 @@ export default () => (
               />
             </div>
             <div>
-              <HelpModal
-                content={<HelpContent {...HelpText.feedback.ideaThumbDown} />}
-              />
+              <HelpModal content={<HelpContent {...HelpText.feedback.ideaThumbDown} />} />
             </div>
           </Box.Option>
 
@@ -97,9 +87,7 @@ export default () => (
             </div>
             <div>
               <HelpModal
-                content={
-                  <HelpContent {...HelpText.feedback.ideaSolvedMessage} />
-                }
+                content={<HelpContent {...HelpText.feedback.ideaSolvedMessage} />}
               />
             </div>
           </Box.Option>
@@ -114,9 +102,7 @@ export default () => (
             </div>
             <div>
               <HelpModal
-                content={
-                  <HelpContent {...HelpText.feedback.ideaDeniedMessage} />
-                }
+                content={<HelpContent {...HelpText.feedback.ideaDeniedMessage} />}
               />
             </div>
           </Box.Option>
@@ -128,16 +114,11 @@ export default () => (
                 mutate="ideaXpUp"
                 query="guild.settings.settings.feedback.idea.xpUp"
                 type="number"
-                validate={Validation.all(
-                  Validation.isNumber(),
-                  Validation.numberMin(0)
-                )}
+                validate={Validation.all(Validation.isNumber(), Validation.numberMin(0))}
               />
             </div>
             <div>
-              <HelpModal
-                content={<HelpContent {...HelpText.feedback.ideaXpUp} />}
-              />
+              <HelpModal content={<HelpContent {...HelpText.feedback.ideaXpUp} />} />
             </div>
           </Box.Option>
 
@@ -148,16 +129,11 @@ export default () => (
                 mutate="ideaXpDown"
                 query="guild.settings.settings.feedback.idea.xpDown"
                 type="number"
-                validate={Validation.all(
-                  Validation.isNumber(),
-                  Validation.numberMin(0)
-                )}
+                validate={Validation.all(Validation.isNumber(), Validation.numberMin(0))}
               />
             </div>
             <div>
-              <HelpModal
-                content={<HelpContent {...HelpText.feedback.ideaXpDown} />}
-              />
+              <HelpModal content={<HelpContent {...HelpText.feedback.ideaXpDown} />} />
             </div>
           </Box.Option>
 
@@ -168,16 +144,11 @@ export default () => (
                 mutate="ideaXpSolved"
                 query="guild.settings.settings.feedback.idea.xpSolved"
                 type="number"
-                validate={Validation.all(
-                  Validation.isNumber(),
-                  Validation.numberMin(0)
-                )}
+                validate={Validation.all(Validation.isNumber(), Validation.numberMin(0))}
               />
             </div>
             <div>
-              <HelpModal
-                content={<HelpContent {...HelpText.feedback.ideaXpSolved} />}
-              />
+              <HelpModal content={<HelpContent {...HelpText.feedback.ideaXpSolved} />} />
             </div>
           </Box.Option>
 
@@ -188,16 +159,11 @@ export default () => (
                 mutate="ideaXpDenied"
                 query="guild.settings.settings.feedback.idea.xpDenied"
                 type="number"
-                validate={Validation.all(
-                  Validation.isNumber(),
-                  Validation.numberMin(0)
-                )}
+                validate={Validation.all(Validation.isNumber(), Validation.numberMin(0))}
               />
             </div>
             <div>
-              <HelpModal
-                content={<HelpContent {...HelpText.feedback.ideaXpDenied} />}
-              />
+              <HelpModal content={<HelpContent {...HelpText.feedback.ideaXpDenied} />} />
             </div>
           </Box.Option>
         </Editor.CheckboxCollapse>
@@ -210,9 +176,7 @@ export default () => (
           label={
             <Box.Title>
               Bug Status
-                        <HelpModal
-                content={<HelpContent {...HelpText.feedback.bugStatus} />}
-              />
+              <HelpModal content={<HelpContent {...HelpText.feedback.bugStatus} />} />
             </Box.Title>
           }
           query="guild.settings.settings.feedback.bug.status"
@@ -229,9 +193,7 @@ export default () => (
               />
             </div>
             <div>
-              <HelpModal
-                content={<HelpContent {...HelpText.feedback.bugChannel} />}
-              />
+              <HelpModal content={<HelpContent {...HelpText.feedback.bugChannel} />} />
             </div>
           </Box.Option>
 
@@ -244,9 +206,7 @@ export default () => (
               />
             </div>
             <div>
-              <HelpModal
-                content={<HelpContent {...HelpText.feedback.bugColor} />}
-              />
+              <HelpModal content={<HelpContent {...HelpText.feedback.bugColor} />} />
             </div>
           </Box.Option>
 
@@ -260,9 +220,7 @@ export default () => (
               />
             </div>
             <div>
-              <HelpModal
-                content={<HelpContent {...HelpText.feedback.bugThumbUp} />}
-              />
+              <HelpModal content={<HelpContent {...HelpText.feedback.bugThumbUp} />} />
             </div>
           </Box.Option>
 
@@ -276,9 +234,7 @@ export default () => (
               />
             </div>
             <div>
-              <HelpModal
-                content={<HelpContent {...HelpText.feedback.bugThumbDown} />}
-              />
+              <HelpModal content={<HelpContent {...HelpText.feedback.bugThumbDown} />} />
             </div>
           </Box.Option>
 
@@ -292,9 +248,7 @@ export default () => (
             </div>
             <div>
               <HelpModal
-                content={
-                  <HelpContent {...HelpText.feedback.bugSolvedMessage} />
-                }
+                content={<HelpContent {...HelpText.feedback.bugSolvedMessage} />}
               />
             </div>
           </Box.Option>
@@ -309,9 +263,7 @@ export default () => (
             </div>
             <div>
               <HelpModal
-                content={
-                  <HelpContent {...HelpText.feedback.bugDeniedMessage} />
-                }
+                content={<HelpContent {...HelpText.feedback.bugDeniedMessage} />}
               />
             </div>
           </Box.Option>
@@ -323,16 +275,11 @@ export default () => (
                 mutate="bugXpUp"
                 query="guild.settings.settings.feedback.bug.xpUp"
                 type="number"
-                validate={Validation.all(
-                  Validation.isNumber(),
-                  Validation.numberMin(0)
-                )}
+                validate={Validation.all(Validation.isNumber(), Validation.numberMin(0))}
               />
             </div>
             <div>
-              <HelpModal
-                content={<HelpContent {...HelpText.feedback.bugXpUp} />}
-              />
+              <HelpModal content={<HelpContent {...HelpText.feedback.bugXpUp} />} />
             </div>
           </Box.Option>
 
@@ -343,16 +290,11 @@ export default () => (
                 mutate="bugXpDown"
                 query="guild.settings.settings.feedback.bug.xpDown"
                 type="number"
-                validate={Validation.all(
-                  Validation.isNumber(),
-                  Validation.numberMin(0)
-                )}
+                validate={Validation.all(Validation.isNumber(), Validation.numberMin(0))}
               />
             </div>
             <div>
-              <HelpModal
-                content={<HelpContent {...HelpText.feedback.bugXpDown} />}
-              />
+              <HelpModal content={<HelpContent {...HelpText.feedback.bugXpDown} />} />
             </div>
           </Box.Option>
 
@@ -363,16 +305,11 @@ export default () => (
                 mutate="bugXpSolved"
                 query="guild.settings.settings.feedback.bug.xpSolved"
                 type="number"
-                validate={Validation.all(
-                  Validation.isNumber(),
-                  Validation.numberMin(0)
-                )}
+                validate={Validation.all(Validation.isNumber(), Validation.numberMin(0))}
               />
             </div>
             <div>
-              <HelpModal
-                content={<HelpContent {...HelpText.feedback.bugXpSolved} />}
-              />
+              <HelpModal content={<HelpContent {...HelpText.feedback.bugXpSolved} />} />
             </div>
           </Box.Option>
 
@@ -383,20 +320,15 @@ export default () => (
                 mutate="bugXpDenied"
                 query="guild.settings.settings.feedback.bug.xpDenied"
                 type="number"
-                validate={Validation.all(
-                  Validation.isNumber(),
-                  Validation.numberMin(0)
-                )}
+                validate={Validation.all(Validation.isNumber(), Validation.numberMin(0))}
               />
             </div>
             <div>
-              <HelpModal
-                content={<HelpContent {...HelpText.feedback.bugXpDenied} />}
-              />
+              <HelpModal content={<HelpContent {...HelpText.feedback.bugXpDenied} />} />
             </div>
           </Box.Option>
         </Editor.CheckboxCollapse>
       </Box.Body>
     </Box>
   </React.Fragment>
-);
+));

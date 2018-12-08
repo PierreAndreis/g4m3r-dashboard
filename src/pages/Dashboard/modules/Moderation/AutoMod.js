@@ -9,7 +9,7 @@ import HelpModal from "../../../../components/HelpModal";
 import HelpContent from "../../../../components/HelpContent";
 import HelpText from "../../../../constants/help/moderation";
 
-export default () => (
+export default React.memo(() => (
   <React.Fragment>
     <Box padding>
       <Box.Body>
@@ -38,12 +38,10 @@ export default () => (
               {({ loading, error, data }) => {
                 if (loading) return "Loading";
                 if (error) return "Error";
-                const values = data.client.settings.permissionLevels.map(
-                  perm => ({
-                    key: perm.id,
-                    value: perm.value,
-                  })
-                );
+                const values = data.client.settings.permissionLevels.map(perm => ({
+                  key: perm.id,
+                  value: perm.value,
+                }));
                 console.log("perms levels", data);
                 return (
                   <Editor.Select
@@ -56,7 +54,9 @@ export default () => (
             </Query>
           </div>
           <div>
-            <HelpModal content={<HelpContent {...HelpText.automod.afkResponsePermission} />} />
+            <HelpModal
+              content={<HelpContent {...HelpText.automod.afkResponsePermission} />}
+            />
           </div>
         </Box.Option>
       </Box.Body>
@@ -68,7 +68,11 @@ export default () => (
           label={
             <Box.Title>
               Capital Spam Filter Status
-                          {<HelpModal content={<HelpContent {...HelpText.automod.capitalSpamFilterStatus} />} />}
+              {
+                <HelpModal
+                  content={<HelpContent {...HelpText.automod.capitalSpamFilterStatus} />}
+                />
+              }
             </Box.Title>
           }
           query="guild.settings.settings.moderation.capitalPercentage.status"
@@ -89,7 +93,13 @@ export default () => (
               />
             </div>
             <div>
-              <HelpModal content={<HelpContent {...HelpText.automod.capitalSpamFilterMaxAllowedPercentage} />} />
+              <HelpModal
+                content={
+                  <HelpContent
+                    {...HelpText.automod.capitalSpamFilterMaxAllowedPercentage}
+                  />
+                }
+              />
             </div>
           </Box.Option>
         </Editor.CheckboxCollapse>
@@ -102,7 +112,11 @@ export default () => (
           label={
             <Box.Title>
               Banned Word Filter Status
-                          {<HelpModal content={<HelpContent {...HelpText.automod.bannedWordFilterSTatus} />} />}
+              {
+                <HelpModal
+                  content={<HelpContent {...HelpText.automod.bannedWordFilterSTatus} />}
+                />
+              }
             </Box.Title>
           }
           query="guild.settings.settings.moderation.naughtyWords.status"
@@ -122,4 +136,4 @@ export default () => (
       </Box.Body>
     </Box>
   </React.Fragment>
-);
+));

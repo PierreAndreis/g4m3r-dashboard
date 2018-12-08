@@ -6,7 +6,7 @@ import HelpModal from "../../../../components/HelpModal";
 import HelpContent from "../../../../components/HelpContent";
 import HelpText from "../../../../constants/help/moderation";
 
-export default () => (
+export default React.memo(() => (
   <React.Fragment>
     <Box padding>
       <Box.Body>
@@ -14,7 +14,11 @@ export default () => (
           label={
             <Box.Title>
               Verification System Status
-              {<HelpModal content={<HelpContent {...HelpText.verification.systemStatus} />} />}
+              {
+                <HelpModal
+                  content={<HelpContent {...HelpText.verification.systemStatus} />}
+                />
+              }
             </Box.Title>
           }
           query="guild.settings.settings.verify.status"
@@ -64,4 +68,4 @@ export default () => (
       </Box.Body>
     </Box>
   </React.Fragment>
-);
+));

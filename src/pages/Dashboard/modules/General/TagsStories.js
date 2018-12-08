@@ -7,7 +7,7 @@ import HelpContent from "../../../../components/HelpContent";
 import HelpText from "../../../../constants/help/general";
 import qClientBasic from "../../../../graphql/queries/client/clientBasic";
 
-export default () => (
+export default React.memo(() => (
   <React.Fragment>
     <Box padding>
       <Box.Title>Tag Permissions</Box.Title>
@@ -22,12 +22,10 @@ export default () => (
               {({ loading, error, data }) => {
                 if (loading) return "Loading";
                 if (error) return "Error";
-                const values = data.client.settings.permissionLevels.map(
-                  perm => ({
-                    key: perm.id,
-                    value: perm.value,
-                  })
-                );
+                const values = data.client.settings.permissionLevels.map(perm => ({
+                  key: perm.id,
+                  value: perm.value,
+                }));
 
                 return (
                   <Editor.Select
@@ -40,9 +38,7 @@ export default () => (
             </Query>
           </div>
           <div>
-            <HelpModal
-              content={<HelpContent {...HelpText.tags.createPermission} />}
-            />
+            <HelpModal content={<HelpContent {...HelpText.tags.createPermission} />} />
           </div>
         </Box.Option>
         <Box.Option>
@@ -55,12 +51,10 @@ export default () => (
               {({ loading, error, data }) => {
                 if (loading) return "Loading";
                 if (error) return "Error";
-                const values = data.client.settings.permissionLevels.map(
-                  perm => ({
-                    key: perm.id,
-                    value: perm.value,
-                  })
-                );
+                const values = data.client.settings.permissionLevels.map(perm => ({
+                  key: perm.id,
+                  value: perm.value,
+                }));
                 return (
                   <Editor.Select
                     values={values}
@@ -72,9 +66,7 @@ export default () => (
             </Query>
           </div>
           <div>
-            <HelpModal
-              content={<HelpContent {...HelpText.tags.usePermission} />}
-            />
+            <HelpModal content={<HelpContent {...HelpText.tags.usePermission} />} />
           </div>
         </Box.Option>
 
@@ -87,9 +79,7 @@ export default () => (
             />
           </div>
           <div>
-            <HelpModal
-              content={<HelpContent {...HelpText.tags.triggerDeletion} />}
-            />
+            <HelpModal content={<HelpContent {...HelpText.tags.triggerDeletion} />} />
           </div>
         </Box.Option>
       </Box.Body>
@@ -108,12 +98,10 @@ export default () => (
               {({ loading, error, data }) => {
                 if (loading) return "Loading";
                 if (error) return "Error";
-                const values = data.client.settings.permissionLevels.map(
-                  perm => ({
-                    key: perm.id,
-                    value: perm.value,
-                  })
-                );
+                const values = data.client.settings.permissionLevels.map(perm => ({
+                  key: perm.id,
+                  value: perm.value,
+                }));
 
                 return (
                   <Editor.Select
@@ -127,9 +115,7 @@ export default () => (
             </Query>
           </div>
           <div>
-            <HelpModal
-              content={<HelpContent {...HelpText.stories.createPermission} />}
-            />
+            <HelpModal content={<HelpContent {...HelpText.stories.createPermission} />} />
           </div>
         </Box.Option>
         <Box.Option>
@@ -142,12 +128,10 @@ export default () => (
               {({ loading, error, data }) => {
                 if (loading) return "Loading";
                 if (error) return "Error";
-                const values = data.client.settings.permissionLevels.map(
-                  perm => ({
-                    key: perm.id,
-                    value: perm.value,
-                  })
-                );
+                const values = data.client.settings.permissionLevels.map(perm => ({
+                  key: perm.id,
+                  value: perm.value,
+                }));
                 return (
                   <Editor.Select
                     values={values}
@@ -160,9 +144,7 @@ export default () => (
             </Query>
           </div>
           <div>
-            <HelpModal
-              content={<HelpContent {...HelpText.stories.usePermission} />}
-            />
+            <HelpModal content={<HelpContent {...HelpText.stories.usePermission} />} />
           </div>
         </Box.Option>
 
@@ -175,12 +157,10 @@ export default () => (
             />
           </div>
           <div>
-            <HelpModal
-              content={<HelpContent {...HelpText.stories.triggerDeletion} />}
-            />
+            <HelpModal content={<HelpContent {...HelpText.stories.triggerDeletion} />} />
           </div>
         </Box.Option>
       </Box.Body>
     </Box>
   </React.Fragment>
-);
+));

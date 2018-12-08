@@ -8,7 +8,7 @@ import HelpModal from "../../../../components/HelpModal";
 import HelpContent from "../../../../components/HelpContent";
 import HelpText from "../../../../constants/help/moderation";
 
-export default () => (
+export default React.memo(() => (
   <React.Fragment>
     <Box padding>
       <Box.Body>
@@ -32,12 +32,10 @@ export default () => (
                 {({ loading, error, data }) => {
                   if (loading) return "Loading";
                   if (error) return "Error";
-                  const values = data.client.settings.permissionLevels.map(
-                    perm => ({
-                      key: perm.id,
-                      value: perm.value,
-                    })
-                  );
+                  const values = data.client.settings.permissionLevels.map(perm => ({
+                    key: perm.id,
+                    value: perm.value,
+                  }));
 
                   return (
                     <Editor.Select
@@ -50,7 +48,9 @@ export default () => (
               </Query>
             </div>
             <div>
-              <HelpModal content={<HelpContent {...HelpText.modmail.permissionToReply} />} />
+              <HelpModal
+                content={<HelpContent {...HelpText.modmail.permissionToReply} />}
+              />
             </div>
           </Box.Option>
 
@@ -95,4 +95,4 @@ export default () => (
       </Box.Body>
     </Box>
   </React.Fragment>
-);
+));

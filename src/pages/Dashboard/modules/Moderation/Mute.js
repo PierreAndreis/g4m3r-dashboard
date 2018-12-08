@@ -6,7 +6,7 @@ import HelpModal from "../../../../components/HelpModal";
 import HelpContent from "../../../../components/HelpContent";
 import HelpText from "../../../../constants/help/moderation";
 
-export default () => (
+export default React.memo(() => (
   <React.Fragment>
     <Box padding>
       <Box.Body>
@@ -41,4 +41,4 @@ export default () => (
       </Box.Body>
     </Box>
   </React.Fragment>
-);
+));

@@ -6,7 +6,7 @@ import { extractChannel } from "../../../../util/transformers";
 import HelpModal from "../../../../components/HelpModal";
 import HelpContent from "../../../../components/HelpContent";
 
-export default () => (
+export default React.memo(() => (
   <React.Fragment>
     {serverLogs.map((opt, index) => {
       return (
@@ -19,9 +19,7 @@ export default () => (
                   {opt.help && <HelpModal content={<HelpContent {...opt.help} />} />}
                 </Box.Title>
               }
-              query={`guild.settings.settings.serverLogs.${
-                opt.mutate
-                }.status`}
+              query={`guild.settings.settings.serverLogs.${opt.mutate}.status`}
               mutate={`${opt.mutate}Status`}
             >
               <Box.Option>
@@ -30,7 +28,7 @@ export default () => (
                   <Editor.Checkbox
                     query={`guild.settings.settings.serverLogs.${
                       opt.mutate
-                      }.logPublically`}
+                    }.logPublically`}
                     mutate={`${opt.mutate}LogPublically`}
                   />
                 </div>
@@ -53,4 +51,4 @@ export default () => (
       );
     })}
   </React.Fragment>
-);
+));

@@ -10,7 +10,7 @@ import HelpText from "../../../../constants/help/general";
 import Validation from "../../../../global/validation";
 import { Masks } from "../../../../components/InputMask";
 
-export default () => (
+export default React.memo(() => (
   <React.Fragment>
     <Box padding>
       <Box.Body>
@@ -18,7 +18,7 @@ export default () => (
           label={
             <Box.Title>
               Use Event Defaults
-                        <HelpModal
+              <HelpModal
                 content={<HelpContent {...HelpText.events.useEventDefaults} />}
               />
             </Box.Title>
@@ -42,9 +42,7 @@ export default () => (
               />
             </div>
             <div>
-              <HelpModal
-                content={<HelpContent {...HelpText.events.duration} />}
-              />
+              <HelpModal content={<HelpContent {...HelpText.events.duration} />} />
             </div>
           </Box.Option>
 
@@ -63,9 +61,7 @@ export default () => (
             </div>
             <div>
               <HelpModal
-                content={
-                  <HelpContent {...HelpText.events.maxAttendeesAllowed} />
-                }
+                content={<HelpContent {...HelpText.events.maxAttendeesAllowed} />}
               />
             </div>
           </Box.Option>
@@ -103,9 +99,7 @@ export default () => (
               />
             </div>
             <div>
-              <HelpModal
-                content={<HelpContent {...HelpText.events.reminderTime} />}
-              />
+              <HelpModal content={<HelpContent {...HelpText.events.reminderTime} />} />
             </div>
           </Box.Option>
 
@@ -118,9 +112,7 @@ export default () => (
               />
             </div>
             <div>
-              <HelpModal
-                content={<HelpContent {...HelpText.events.autoAdvertise} />}
-              />
+              <HelpModal content={<HelpContent {...HelpText.events.autoAdvertise} />} />
             </div>
           </Box.Option>
 
@@ -157,12 +149,10 @@ export default () => (
               {({ loading, error, data }) => {
                 if (loading) return "Loading";
                 if (error) return "Error";
-                const values = data.client.settings.permissionLevels.map(
-                  perm => ({
-                    key: perm.id,
-                    value: perm.value,
-                  })
-                );
+                const values = data.client.settings.permissionLevels.map(perm => ({
+                  key: perm.id,
+                  value: perm.value,
+                }));
                 return (
                   <Editor.Select
                     values={values}
@@ -174,9 +164,7 @@ export default () => (
             </Query>
           </div>
           <div>
-            <HelpModal
-              content={<HelpContent {...HelpText.events.createPermission} />}
-            />
+            <HelpModal content={<HelpContent {...HelpText.events.createPermission} />} />
           </div>
         </Box.Option>
         <Box.Option>
@@ -189,12 +177,10 @@ export default () => (
               {({ loading, error, data }) => {
                 if (loading) return "Loading";
                 if (error) return "Error";
-                const values = data.client.settings.permissionLevels.map(
-                  perm => ({
-                    key: perm.id,
-                    value: perm.value,
-                  })
-                );
+                const values = data.client.settings.permissionLevels.map(perm => ({
+                  key: perm.id,
+                  value: perm.value,
+                }));
 
                 return (
                   <Editor.Select
@@ -215,4 +201,4 @@ export default () => (
       </Box.Body>
     </Box>
   </React.Fragment>
-);
+));
