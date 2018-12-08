@@ -17,6 +17,7 @@ import reloadServers from "../../graphql/queries/mutations/reloadServers";
 import Input from "./../../components/Input";
 
 import { BoxBase } from "./../../components/Box";
+import Loading from "../../components/Loading";
 
 const AnimatedLink = animated(Link);
 // import { mq } from "../../util/breakpoints";
@@ -27,6 +28,19 @@ const container = css`
   height: auto;
 
   align-self: flex-start;
+
+  animation: slideUp 600ms;
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0px);
+    }
+  }
 `;
 
 const header = css`
@@ -179,7 +193,7 @@ class ServerList extends React.Component {
           if (loading) {
             return (
               <div className={container}>
-                <p>Loading...</p>
+                <Loading />
               </div>
             );
           }
