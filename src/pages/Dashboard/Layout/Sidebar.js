@@ -23,8 +23,6 @@ const MenuAnimation = Keyframes.Trail({
 class Sidebar extends Component {
   render() {
     const { isMenuOpen, toggleMenu } = this.props;
-
-    console.log("xd=", isMenuOpen);
     return (
       <Transition
         items={isMenuOpen}
