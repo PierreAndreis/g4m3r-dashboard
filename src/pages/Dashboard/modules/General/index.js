@@ -11,12 +11,6 @@ import GeneralFeedback from "./Feedback";
 import GeneralEvents from "./Events";
 import GeneralTagsStories from "./TagsStories";
 
-const GeneralPageTabs = [
-  { name: "Basic", component: <GeneralBasic /> },
-  { name: "Feedback", component: <GeneralFeedback /> },
-  { name: "Events", component: <GeneralEvents /> },
-  { name: "Tags/Stories", component: <GeneralTagsStories /> },
-];
 const boxesHeader = css`
   display: flex;
   flex-wrap: wrap;
@@ -44,15 +38,29 @@ export default React.memo(() => {
 
       <Editor query={qGuildBasic} mutation={mutationQuery}>
         <TabsManager>
-          {GeneralPageTabs.map((tab, index) => {
-            return (
-              <TabsManager.Section name={tab.name} key={index}>
-                <div className={boxesHeader}>
-                  {tab.component}
-                </div>
-              </TabsManager.Section>
-            )
-          })}
+          <TabsManager.Section name="Basic">
+            <div className={boxesHeader}>
+              <GeneralBasic />
+            </div>
+          </TabsManager.Section>
+
+          <TabsManager.Section name="Feedback">
+            <div className={boxesHeader}>
+              <GeneralFeedback />
+            </div>
+          </TabsManager.Section>
+
+          <TabsManager.Section name="Events">
+            <div className={boxesHeader}>
+              <GeneralEvents />
+            </div>
+          </TabsManager.Section>
+
+          <TabsManager.Section name="Tags/Stories">
+            <div className={boxesHeader}>
+              <GeneralTagsStories />
+            </div>
+          </TabsManager.Section>
         </TabsManager>
       </Editor>
     </React.Fragment>
