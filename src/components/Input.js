@@ -58,6 +58,10 @@ const asButton = css`
   color: black;
 `;
 
+const hasLabel = css`
+  border-radius: 5px 0 0 5px;
+`;
+
 const errorInput = css`
   border: 2px solid red;
 `;
@@ -124,6 +128,7 @@ class Input extends Component {
               [errorInput]: errorMessage,
               [asButton]: buttonMode,
               [hasIconLeft]: icon && icon.left,
+              [hasLabel]: label,
             })}
             value={value || ""}
             onChange={this.onChange}
