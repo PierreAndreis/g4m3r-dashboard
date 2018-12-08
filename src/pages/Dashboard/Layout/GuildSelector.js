@@ -35,13 +35,16 @@ const guildSelector = css`
   }
 
   h3 {
-    font-size: 21px;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 16px;
     color: white;
     margin: 15px;
   }
 
   div {
-    margin-left: 15px;
+    margin-left: auto;
     color: white;
     font-size: 15px;
   }
