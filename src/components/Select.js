@@ -2,7 +2,7 @@ import React from "react";
 import { css } from "emotion";
 import Downshift from "downshift";
 import Input from "./Input";
-import { ChevronDownIcon } from "mdi-react";
+import ChevronDownIcon from "mdi-react/ChevronDownIcon";
 import Box from "./Box";
 
 const wrapper = css`

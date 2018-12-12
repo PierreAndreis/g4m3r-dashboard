@@ -13,6 +13,9 @@ export const generalPageToggles = [
     title: "Enable Server Analytics",
     help: HelpText.basic.enableServerAnalytics,
   },
+];
+
+export const notifications = [
   {
     query: "guild.settings.settings.general.deleteNotification",
     mutate: "deleteNotification",

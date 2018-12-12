@@ -27,20 +27,13 @@ export const container = css`
     css`
       height: 100%;
       position: absolute;
-      transform: translateX(-100%);
       z-index: 2;
-      transition: 0.4s;
-      transition-timing-function: ease-in-out;
       &:before {
         width: 100%;
         left: 0px;
       }
     `
   )};
-
-  &.active {
-    transform: translateX(0%);
-  }
 `;
 
 export const logoContainer = css`
@@ -73,7 +66,7 @@ export const menu = css`
   align-items: center;
   justify-content: flex-start;
 
-  & > a {
+  & a {
     flex-grow: 0;
     flex-shrink: 0;
     padding: 10px;

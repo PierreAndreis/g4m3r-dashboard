@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { AlertBoxIcon } from "mdi-react";
+import AlertBoxIcon from "mdi-react/AlertBoxIcon";
 import { css, cx } from "emotion";
 
 import Button from "./Button";
@@ -56,6 +56,10 @@ const hasIconLeft = css`
 const asButton = css`
   cursor: pointer;
   color: black;
+`;
+
+const hasLabel = css`
+  border-radius: 5px 0 0 5px;
 `;
 
 const errorInput = css`
@@ -124,6 +128,7 @@ class Input extends Component {
               [errorInput]: errorMessage,
               [asButton]: buttonMode,
               [hasIconLeft]: icon && icon.left,
+              [hasLabel]: label,
             })}
             value={value || ""}
             onChange={this.onChange}

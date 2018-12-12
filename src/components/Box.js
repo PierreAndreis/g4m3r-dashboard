@@ -4,11 +4,8 @@ import classNames from "classnames";
 
 export const BoxBase = css`
   background: white;
-  ${"" /* border-radius: 15px; */};
   width: 350px;
   height: auto;
-  ${"" /* box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 30px; */};
-  ${"" /* box-shadow: 0 4px 9px -3px rgba(102, 136, 153, 0.15); */};
   box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.1);
   border-radius: 3px;
   box-sizing: border-box;
@@ -50,12 +47,14 @@ const BoxBodyPadding = css`
 
 const BoxOption = css`
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   box-sizing: border-box;
+  padding: 20px;
   & > div:nth-child(1) {
     flex: 1.3;
-    padding-right: 10px;
+    margin: 10px 0;
   }
 
   &:nth-child(even) {

@@ -1,6 +1,6 @@
 import React from "react";
 import Modal from "./Modal";
-import { InfoOutlineIcon } from "mdi-react";
+import InfoOutlineIcon from "mdi-react/InfoOutlineIcon";
 
 class HelpModal extends React.Component {
   state = {

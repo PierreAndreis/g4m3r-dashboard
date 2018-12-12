@@ -9,13 +9,15 @@ import { Query, Mutation } from "react-apollo";
 import { css } from "emotion";
 import AddCircleIcon from "mdi-react/PlusCircleOutlineIcon";
 import LogoutIcon from "mdi-react/LogoutIcon";
+import SearchIcon from "mdi-react/SearchIcon";
+import ReloadIcon from "mdi-react/ReloadIcon";
 import meQuery from "../../graphql/queries/user/me";
 import reloadServers from "../../graphql/queries/mutations/reloadServers";
 
 import Input from "./../../components/Input";
 
 import { BoxBase } from "./../../components/Box";
-import { SearchIcon, ReloadIcon } from "mdi-react";
+import Loading from "../../components/Loading";
 
 const AnimatedLink = animated(Link);
 // import { mq } from "../../util/breakpoints";
@@ -26,6 +28,19 @@ const container = css`
   height: auto;
 
   align-self: flex-start;
+
+  animation: slideUp 600ms;
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0px);
+    }
+  }
 `;
 
 const header = css`
@@ -145,13 +160,17 @@ const reloadIconLoading = css`
   ${logoutButton}
   padding-top: 2px;
   animation: spin 2s linear infinite;
-  @keyframes spin { 100% { transform:rotate(360deg); } }
+  @keyframes spin {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
 `;
 
 @inject("authentication")
 class ServerList extends React.Component {
   state = {
-    value: ""
+    value: "",
   };
 
   onChange = e => {
@@ -174,7 +193,7 @@ class ServerList extends React.Component {
           if (loading) {
             return (
               <div className={container}>
-                <p>Loading...</p>
+                <Loading />
               </div>
             );
           }
@@ -214,7 +233,9 @@ class ServerList extends React.Component {
                   />
                   <Mutation
                     mutation={reloadServers}
-                    onCompleted={(data) => this.props.authentication.setToken(data.reload.token)}
+                    onCompleted={data =>
+                      this.props.authentication.setToken(data.reload.token)
+                    }
                   >
                     {(reloadServers, { loading }) => (
                       <button
@@ -227,8 +248,7 @@ class ServerList extends React.Component {
                           className={loading ? reloadIconLoading : reloadIcon}
                         />
                       </button>
-                    )
-                    }
+                    )}
                   </Mutation>
                 </div>
               </div>
