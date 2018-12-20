@@ -187,6 +187,7 @@ class WrapperEditorForGraphQL extends React.Component {
         <RemoveableList
           items={getEditedValue({ mutate, query }, state)}
           value={getEditedValue({ mutate, query }, state)}
+          onChange={state.onChange(mutate)}
           {...otherProps}
         />
       )}

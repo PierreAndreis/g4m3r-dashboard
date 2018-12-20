@@ -125,7 +125,7 @@ export default React.memo(() => (
       </Box.Body>
     </Box>
     <Box padding>
-      <Box.Title>Naughty Words</Box.Title>
+      <Box.Title>Banned Words</Box.Title>
       <Box.Body>
         <Editor.RemoveableList
           query="guild.settings.settings.moderation.naughtyWords.words"
