@@ -44,6 +44,27 @@ describe("InputMask", () => {
     expect(onChange).toHaveBeenCalled();
     expect(onChange).toHaveBeenCalledWith(exampleMask.out(event.target.value));
   });
+
+  it("masks the placeholder", () => {
+    const { getByLabelText } = render(
+      <InputMask mask={exampleMask} placeholder={10} aria-label="input-test" />
+    );
+
+    const input = getByLabelText("input-test");
+
+    // @fix: why string here? because "value" on the dom is always a string
+    expect(input.placeholder).toBe(String(exampleMask.in("10")));
+  });
+
+  it("works without placeholder", () => {
+    const { getByLabelText } = render(
+      <InputMask mask={exampleMask} aria-label="input-test" />
+    );
+
+    const input = getByLabelText("input-test");
+
+    expect(input.placeholder).toBe("");
+  });
 });
 
 describe("Input Masks Helpers", () => {
