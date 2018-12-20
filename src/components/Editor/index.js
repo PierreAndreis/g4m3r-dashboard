@@ -7,6 +7,7 @@ import Checkbox from "../Checkbox";
 import Select from "../Select";
 import ColorPicker from "../ColorPicker";
 import InputMask from "../InputMask";
+import RemoveableList from "../RemoveableList";
 
 import Stager, { StagerContext } from "./Stager";
 
@@ -177,6 +178,18 @@ class WrapperEditorForGraphQL extends React.Component {
           />
         );
       }}
+    </StagerContext.Consumer>
+  );
+
+  static RemoveableList = ({ mutate, query, items, ...otherProps }) => (
+    <StagerContext.Consumer>
+      {state => (
+        <RemoveableList
+          items={getEditedValue({ mutate, query }, state)}
+          value={getEditedValue({ mutate, query }, state)}
+          {...otherProps}
+        />
+      )}
     </StagerContext.Consumer>
   );
 

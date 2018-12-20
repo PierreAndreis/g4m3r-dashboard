@@ -121,18 +121,17 @@ export default React.memo(() => (
           }
           query="guild.settings.settings.moderation.naughtyWords.status"
           mutate="naughtyWordStatus"
-        >
-          {/*<Box.Option>
-                        <div>Naughty Words</div>
-                        <div>
-                          <Editor.Input
-                            query="guild.settings.settings.moderation.naughtyWords.words"
-                            mutate="naughtyWordWords"
-                            type="string"
-                          />
-                        </div>
-                      </Box.Option>*/}
-        </Editor.CheckboxCollapse>
+        />
+      </Box.Body>
+    </Box>
+    <Box padding>
+      <Box.Title>Naughty Words</Box.Title>
+      <Box.Body>
+        <Editor.RemoveableList
+          query="guild.settings.settings.moderation.naughtyWords.words"
+          mutate="naughtyWordWords"
+          type="string"
+        />
       </Box.Body>
     </Box>
   </React.Fragment>
