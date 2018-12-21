@@ -5,7 +5,11 @@ export const container = css`
   position: relative;
   display: flex;
   flex-direction: column;
-  background-image: linear-gradient(0deg, #7aaeff 0%, #74e1eb 100%);
+  background-image: linear-gradient(
+    0deg,
+    hsl(217, 100%, 74%) 0%,
+    hsl(205, 100%, 74%) 100%
+  );
   overflow: hidden;
   width: 250px;
 

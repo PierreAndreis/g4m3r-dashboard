@@ -36,6 +36,7 @@ const guildSelector = css`
 
   h3 {
     display: block;
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     font-size: 16px;
@@ -71,7 +72,9 @@ class GuildSelector extends React.Component {
             return (
               <div className={guildSelector} onClick={this.toggleModal}>
                 <img src={guild.icon} alt={guild.name} />
-                <h3>{guild.name}</h3>
+                <h3>
+                  {guild.name} {guild.name} {guild.name} {guild.name} {guild.name}
+                </h3>
                 <div>
                   <SwapIcon />
                 </div>

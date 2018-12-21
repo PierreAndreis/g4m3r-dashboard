@@ -20,7 +20,6 @@ import { BoxBase } from "./../../components/Box";
 import Loading from "../../components/Loading";
 
 const AnimatedLink = animated(Link);
-// import { mq } from "../../util/breakpoints";
 
 const container = css`
   ${BoxBase};
