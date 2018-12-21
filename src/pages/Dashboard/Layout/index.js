@@ -7,6 +7,8 @@ import Media from "react-media";
 import { mq, breakpoints } from "../../../util/breakpoints";
 import classNames from "classnames";
 
+import Portal from "./../../../components/Portal";
+
 const layout = css`
   display: grid;
   grid-template-columns: [sidebar] 250px [content] 1fr;
@@ -33,18 +35,21 @@ const content = css`
 `;
 
 export const sidebarOverlay = css`
-  width: 100%;
-  height: 100%;
   position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background: #111;
   opacity: 0;
-  z-index: 1;
-  pointer-events: none;
   transition: all 300ms;
+  pointer-events: none;
 `;
 
 export const sidebarOverlayOpen = css`
   opacity: 0.4;
+
+  pointer-events: initial;
 `;
 
 export const noScroll = css`
@@ -76,7 +81,21 @@ class Layout extends Component {
         {isMobile && (
           <MobileHeader isMenuOpen={shouldMenuOpen} toggleMenu={this.toggleMenu} />
         )}
-        <Sidebar isMenuOpen={shouldMenuOpen} toggleMenu={this.toggleMenu} />
+
+        {isMobile ? (
+          <Portal>
+            <div
+              className={classNames(sidebarOverlay, {
+                [sidebarOverlayOpen]: isMenuOpen,
+              })}
+              onClick={this.toggleMenu}
+            />
+            <Sidebar isMenuOpen={shouldMenuOpen} toggleMenu={this.toggleMenu} />
+          </Portal>
+        ) : (
+          <Sidebar isMenuOpen={shouldMenuOpen} toggleMenu={this.toggleMenu} />
+        )}
+
         <div
           className={classNames(content, {
             [noScroll]: isMobile && isMenuOpen,
@@ -85,13 +104,6 @@ class Layout extends Component {
         >
           {this.props.children}
         </div>
-        {isMobile && (
-          <div
-            className={classNames(sidebarOverlay, {
-              [sidebarOverlayOpen]: isMenuOpen,
-            })}
-          />
-        )}
       </div>
     );
   }

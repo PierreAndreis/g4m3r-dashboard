@@ -22,7 +22,7 @@ const dashboardLoading = css`
 
 export default class DashboardRouter extends React.Component {
   render() {
-    let guildId = this.props.match.params.guildId;
+    const guildId = this.props.match.params.guildId;
     return (
       <Query query={guildBasic} variables={{ guildId: guildId }}>
         {({ loading, error }) => {
