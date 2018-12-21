@@ -6,7 +6,7 @@
     "apollo-boost": "^0.1.23",
     "apollo-client": "^2.4.8",
     "classnames": "^2.2.6",
-    "downshift": "^2.0.10",
+    "downshift": "^3.1.7",
     "emotion": "^9.2.12",
     "graphql": "^14.0.2",
     "graphql-tag": "^2.10.0",
