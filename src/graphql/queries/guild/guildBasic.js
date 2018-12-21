@@ -5,6 +5,7 @@ export default gql`
     guild(id: $guildId) {
       id
       name
+      icon
       channels {
         id
         name
@@ -105,6 +106,12 @@ export default gql`
               status
               amount
             }
+            colorBan
+            colorKick
+            colorUnban
+            colorMute
+            colorUnmute
+            colorWarn
             naughtyWords {
               status
               words

@@ -37,6 +37,10 @@ export default {
 			text: 'Moderation logs are where you every action taken by a moderator with G4M3R is logged. For example, when you warn, mute, kick, or ban someone the reasons and action can be logged.',
 			image: 'https://i.imgur.com/MCQjqmg.png'
 		},
+		modLogChannel: {
+			title: 'What is Mod Log Channel?',
+			text: 'This is the private channel where all moderation logs will be sent with all the details.',
+		},
 		publicLogs: {
 			title: 'What are Public Logs?',
 			text: 'Public logs are logged actions that you enable to be shown to the public. It will not include information like which moderator is doing the action to prevent witchhunt but helps other players learn how not to behave and avoid punishments by reading the reasons of other punishments. It can also be useful to help players see that your server is growing by making Member Add publiclly logged.',
@@ -81,7 +85,7 @@ export default {
 			title: 'What is Text Muted Role?',
 			text: 'This is the role that is assigned to users to prevent them from having permissions to interact with the server when they are muted.',
 		},
-	  voiceMutedRole: {
+		voiceMutedRole: {
 			title: 'What is Voice Muted Role?',
 			text: 'This is the role that is assigned to users to prevent them from having permissions to voice in the server when they are muted.',
 		},

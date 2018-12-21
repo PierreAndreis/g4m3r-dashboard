@@ -3,26 +3,26 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "apollo-boost": "^0.1.22",
-    "apollo-client": "^2.4.7",
+    "apollo-boost": "^0.1.23",
+    "apollo-client": "^2.4.8",
     "classnames": "^2.2.6",
     "downshift": "^2.0.10",
     "emotion": "^9.2.12",
     "graphql": "^14.0.2",
     "graphql-tag": "^2.10.0",
-    "jest-dom": "^2.1.1",
-    "mdi-react": "^4.4.0",
+    "jest-dom": "^3.0.0",
+    "mdi-react": "^5.1.0",
     "mobx": "4.3.1",
-    "mobx-react": "^5.4.2",
-    "react": "^16.6.3",
-    "react-apollo": "^2.3.2",
+    "mobx-react": "^5.4.3",
+    "react": "^16.7.0",
+    "react-apollo": "^2.3.3",
     "react-color": "^2.14.1",
-    "react-dom": "^16.6.3",
+    "react-dom": "^16.7.0",
     "react-emotion": "^9.2.12",
-    "react-media": "^1.8.0",
+    "react-media": "^1.9.2",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.5",
-    "react-spring": "^6.1.10"
+    "react-spring": "^7.2.2"
   },
   "scripts": {
     "start": "set PORT=3001 && react-app-rewired start",
@@ -35,14 +35,28 @@
   "eslintConfig": {
     "extends": "react-app"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,json,css,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
   "devDependencies": {
     "babel-plugin-emotion": "^9.2.11",
+    "husky": "^1.3.0",
     "jest-emotion": "^9.2.11",
     "jest-junit": "^5.2.0",
+    "lint-staged": "^8.1.0",
+    "prettier": "1.15.3",
     "react-app-rewire-emotion": "^4.0.0",
     "react-app-rewire-mobx": "^1.0.9",
     "react-app-rewired": "^1.6.2",
-    "react-testing-library": "^5.3.1",
+    "react-testing-library": "^5.4.2",
     "snapshot-diff": "^0.4.1"
   }
 }
