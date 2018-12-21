@@ -5,6 +5,7 @@ export default gql`
     guild(id: $guildId) {
       id
       name
+      icon
       channels {
         id
         name

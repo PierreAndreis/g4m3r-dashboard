@@ -22,7 +22,7 @@ export const Masks = {
     out: value => {
       if (isNaN(Number(value))) return 0;
       return value * 60000;
-    }
+    },
   },
   minutesToSeconds: {
     in: value => {
@@ -42,8 +42,8 @@ export const Masks = {
     out: value => {
       if (isNaN(Number(value))) return 0;
       return value * 36000000;
-    }
-  }
+    },
+  },
 };
 
 class InputMask extends React.Component {
@@ -61,6 +61,7 @@ class InputMask extends React.Component {
         // The order here matters. value and onChange can't be overwritten
         value={this.props.mask.in(this.props.value)}
         onChange={this.onChange}
+        placeholder={this.props.placeholder && this.props.mask.in(this.props.placeholder)}
       />
     );
   }
