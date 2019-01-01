@@ -45,7 +45,7 @@ export default React.memo(() => (
           </Box.Option>
 
           {modLogColors.map(log => (
-            <Box.Option>
+            <Box.Option key={log}>
               <div>{log.substring(5)} Color</div>
               <div>
                 <Editor.ColorPicker
