@@ -14,11 +14,13 @@ const background = css`
   height: auto;
   min-height: 100%;
   padding-top: 150px;
-
   display: flex;
   flex-direction: column;
   position: absolute;
   align-items: center;
+  @media screen and (max-width: 500px) {
+    padding-top: 60px;
+  }
 `;
 
 const BoxLogin = css`
