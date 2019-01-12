@@ -1,1 +1,11 @@
-[![CircleCI](https://circleci.com/gh/PierreAndreis/g4m3r-dashboard.svg?style=svg&circle-token=3a0b2b75580acac63135fd2463dc22a54d533fbb)](https://circleci.com/gh/PierreAndreis/g4m3r-dashboard)
+Issue : Help Modal is too repetitive,
+  Pages
+     Dashboard
+        modules
+            basic
+            
+ Basic.js import HelpModalProvier witch is declare in 
+      Components
+        HelpModalContext
+        
+issue: when wrapping basic component with helpModalConsumer the content of basic dissepears
