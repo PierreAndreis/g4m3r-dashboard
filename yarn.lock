@@ -7581,10 +7581,10 @@ react-scripts@1.1.5:
   optionalDependencies:
     fsevents "^1.1.3"
 
-react-spring@^7.2.10:
-  version "7.2.10"
-  resolved "https://registry.yarnpkg.com/react-spring/-/react-spring-7.2.10.tgz#eacbf429327bea058677c3a01af87b9c387f4aa6"
-  integrity sha512-bsbgQh1DzTqjwuD1tDZ7Nu04G5JhNNXdezkcJ5xXNboedN/MPe0K+X/MtypUxXBUCLYT0r5oKT3zj4STqVpnPA==
+react-spring@^8.0.3:
+  version "8.0.3"
+  resolved "https://registry.yarnpkg.com/react-spring/-/react-spring-8.0.3.tgz#013d68fd6963e238430f1e27d6ff8142f127dac0"
+  integrity sha512-gbAugmQuObXiB+lFFpoBLT784VnYTKJMBDIHtNrhTEigLvPk9jJeSYuEXvI0/lfejuMtvRwNfLdwwvSe1pr6xw==
   dependencies:
     "@babel/runtime" "^7.0.0"
 
