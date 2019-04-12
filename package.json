@@ -52,7 +52,7 @@
     "jest-emotion": "^9.2.11",
     "jest-junit": "^6.3.0",
     "lint-staged": "^8.1.5",
-    "prettier": "1.16.4",
+    "prettier": "1.17.0",
     "react-app-rewire-emotion": "^4.0.0",
     "react-app-rewire-mobx": "^1.0.9",
     "react-app-rewired": "^1.6.2",
