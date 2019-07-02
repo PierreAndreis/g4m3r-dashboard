@@ -51,7 +51,7 @@
     "husky": "^2.1.0",
     "jest-emotion": "^9.2.11",
     "jest-junit": "^6.3.0",
-    "lint-staged": "^8.1.5",
+    "lint-staged": "^9.0.0",
     "prettier": "1.18.2",
     "react-app-rewire-emotion": "^4.0.0",
     "react-app-rewire-mobx": "^1.0.9",
