@@ -54,117 +54,117 @@ export default gql`
             roleDelete {
               status
               channel
-              logPublically
+              logPublicly
             }
             roleUpdate {
               status
               channel
-              logPublically
+              logPublicly
             }
             memberAdd {
               status
               channel
-              logPublically
+              logPublicly
             }
             roleCreate {
               status
               channel
-              logPublically
+              logPublicly
             }
             memberRemove {
               status
               channel
-              logPublically
+              logPublicly
             }
             cmdRan {
               status
               channel
-              logPublically
+              logPublicly
             }
             tagRan {
               status
               channel
-              logPublically
+              logPublicly
             }
             storyRan {
               status
               channel
-              logPublically
+              logPublicly
             }
             msgDeleted {
               status
               channel
-              logPublically
+              logPublicly
             }
             msgUpdate {
               status
               channel
-              logPublically
+              logPublicly
             }
             emojiCreate {
               status
               channel
-              logPublically
+              logPublicly
             }
             emojiDelete {
               status
               channel
-              logPublically
+              logPublicly
             }
             emojiUpdate {
               status
               channel
-              logPublically
+              logPublicly
             }
             channelCreate {
               status
               channel
-              logPublically
+              logPublicly
             }
             channelDelete {
               status
               channel
-              logPublically
+              logPublicly
             }
             channelUpdate {
               status
               channel
-              logPublically
+              logPublicly
             }
             serverDeaf {
               status
               channel
-              logPublically
+              logPublicly
             }
             serverMute {
               status
               channel
-              logPublically
+              logPublicly
             }
             nicknameChanged {
               status
               channel
-              logPublically
+              logPublicly
             }
             memberRolePermissionsChanged {
               status
               channel
-              logPublically
+              logPublicly
             }
             memberRoleUpdated {
               status
               channel
-              logPublically
+              logPublicly
             }
             guildBanAdd {
               status
               channel
-              logPublically
+              logPublicly
             }
             guildBanRemove {
               status
               channel
-              logPublically
+              logPublicly
             }
           }
           verify {
